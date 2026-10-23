@@ -1,0 +1,44 @@
+{
+  "version_tag": "v062",
+  "archive": "solution_v062.zip",
+  "base": "solution_v061.zip",
+  "sha256": "ac809b21b631980e5233ae917839b8174a6e6ff10ebf8e07befd8dd078cadc51",
+  "bytes": 95022296,
+  "flat_member_count": 225,
+  "packer_verification": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v062_zip_verification.json",
+    "exit_code": 0,
+    "python_version": "3.12.3",
+    "source_match_checked": true,
+    "zip_and_syntax_valid": true,
+    "flat_layout_checked": true,
+    "requirements_match_checked": true,
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "archive_size_limit_bytes": 100000000,
+    "dependency_policy_checked_by_packer": false,
+    "embedded_payload_checked_by_packer": false,
+    "runtime_interface_checked_by_packer": false
+  },
+  "targeted_tests": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v062_test_results.json",
+    "passed": 42,
+    "failed": 0
+  },
+  "exact_archive_offline_mock": {
+    "status": "not_run",
+    "reason": "Docker client could not access the local OrbStack socket (permission denied).",
+    "v061_mock_results_carried_forward": false,
+    "organizer_api_calls": 0
+  },
+  "independent_review": {
+    "status": "GO",
+    "scope": "Budget/mode-aware training deduplication; status remains part of identity; ensemble composition budget remains excluded."
+  },
+  "live_qwen_run": false,
+  "public_or_private_quality_measured": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "additional_paid_calls_allowed": false,
+  "paid_calls_this_cycle": 0,
+  "latest_pointer_changed": false
+}
