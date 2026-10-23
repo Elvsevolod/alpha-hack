@@ -1,0 +1,40 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "random oversampling; исходные веса",
+  "applicability_rules": [],
+  "conditions": [
+    "Классы несбалансированы, API поддерживает выбранный способ взвешивания."
+  ],
+  "constraints": "Нельзя передавать sample_weight в неподдерживаемую сигнатуру; не считать веса универсальным улучшением.",
+  "contraindications": [
+    "Нельзя передавать sample_weight в неподдерживаемую сигнатуру; не считать веса универсальным улучшением."
+  ],
+  "cost": "Низкая добавочная стоимость.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверить class_weight как отдельное изменение",
+  "id": "weights",
+  "method_id": "weights",
+  "minimum_experiment": "Один fit с class_weight='balanced', затем обычная оценка по фиксированной метрике.",
+  "missing_references": [],
+  "observations": "Macro F1 страдает на редких классах",
+  "references": [
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_linear_model_LogisticRegression",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "дисбаланс",
+    "/",
+    "class",
+    "weights"
+  ],
+  "title": "Дисбаланс / class weights",
+  "version": 2
+}

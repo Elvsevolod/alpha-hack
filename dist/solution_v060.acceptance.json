@@ -1,0 +1,42 @@
+{
+  "version_tag": "v060",
+  "archive": "solution_v060.zip",
+  "base": "solution_v059.zip",
+  "sha256": "066b276466de6942b34a31b6100fa28f6c9141f060e8d9d09d8ba8c6127110da",
+  "bytes": 95022043,
+  "flat_member_count": 225,
+  "packer_verification": {
+    "exit_code": 0,
+    "source_match_checked": true,
+    "zip_and_syntax_valid": true,
+    "flat_layout_checked": true,
+    "requirements_match_checked": true,
+    "archive_size_limit_bytes": 100000000,
+    "dependency_policy_checked_by_packer": false,
+    "embedded_payload_checked_by_packer": false,
+    "runtime_interface_checked_by_packer": false
+  },
+  "exact_archive_offline_mock": {
+    "report": "../outputs/agent_quality_reaudit_20261023/qwen_flat_v060_retry/REPORT.json",
+    "passed": true,
+    "cases_passed": 4,
+    "cases": ["unset", "empty", "whitespace", "json_fallback"],
+    "control_and_refit_completed_in_every_case": true,
+    "csv_valid_in_every_case": true,
+    "organizer_api_calls": 0,
+    "embedded_bundle_materialization_exercised": true
+  },
+  "targeted_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_c1_time_budget.py tests/test_v011_pilot_budget.py",
+    "passed": 11,
+    "failed": 0
+  },
+  "py_compile_passed": true,
+  "independent_review_findings_open": false,
+  "live_qwen_run": false,
+  "public_or_private_quality_measured": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "additional_paid_calls_allowed": false,
+  "latest_pointer_changed": false
+}

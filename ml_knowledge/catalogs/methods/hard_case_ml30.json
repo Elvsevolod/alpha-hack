@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml30",
+  "method_id": "hard_case_ml30",
+  "version": 1,
+  "title": "В тесте может встретиться неизвестный класс",
+  "observations": "task допускает новые типы событий или отказ от классификации; закрытый список классов не соответствует реальному процессу.",
+  "hypothesis": "только при явном контракте моделировать неизвестные классы на fit с отдельным правилом отказа; иначе сохранять заданный closed-set выход.",
+  "diagnostic": "установить, есть ли в задании open-set/reject-класс, формат отказа и соответствующая метрика. Низкая уверенность сама по себе не доказывает новый класс.",
+  "minimum_experiment": "только при явном контракте моделировать неизвестные классы на fit с отдельным правилом отказа; иначе сохранять заданный closed-set выход.",
+  "acceptance": "выход строго соответствует разрешённым меткам; open-set качество не заявлено без отдельной проверяемой постановки.",
+  "constraints": "нельзя добавлять `Unknown` в CSV или объявлять новый тип атаки по неразмеченному test, если схема содержит десять классов.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "task допускает новые типы событий или отказ от классификации; закрытый список классов не соответствует реальному процессу."
+  ],
+  "contraindications": [
+    "нельзя добавлять `Unknown` в CSV или объявлять новый тип атаки по неразмеченному test, если схема содержит десять классов."
+  ],
+  "cost": "низкая для постановки",
+  "implementation_path": "protocol",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_f1_score"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "unknown_class"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/multiclass.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "unknown_class",
+  "routing_priority": 0
+}

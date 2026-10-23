@@ -1,0 +1,42 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "модельное заполнение того же бустинга",
+  "applicability_rules": [],
+  "conditions": [
+    "Выбранный точный API поддерживает NaN для соответствующего типа признака."
+  ],
+  "constraints": "Поддержка числового NaN не означает поддержку NaN в категориальном представлении.",
+  "contraindications": [
+    "Поддержка числового NaN не означает поддержку NaN в категориальном представлении."
+  ],
+  "cost": "Низкая добавочная стоимость; обучение бустинга.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверить необходимость явной импутации",
+  "id": "native_nan",
+  "method_id": "native_nan",
+  "minimum_experiment": "Выполнить fit и predict с числовыми NaN и явно подготовленными категориями.",
+  "missing_references": [],
+  "observations": "Бустинг умеет обрабатывать NaN",
+  "references": [
+    "api_lightgbm_LGBMRegressor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_lightgbm_LGBMRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "нативные",
+    "пропуски",
+    "/",
+    "native",
+    "missing",
+    "values"
+  ],
+  "title": "Нативные пропуски / native missing values",
+  "version": 2
+}

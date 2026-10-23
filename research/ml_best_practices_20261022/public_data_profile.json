@@ -1,0 +1,125 @@
+{
+  "scope": "Research-only full public training aggregates; never insert into runtime fit-only context; no test targets accessed",
+  "datasets": {
+    "Регрессия": {
+      "train_shape": [
+        53308,
+        64
+      ],
+      "test_shape": [
+        22449,
+        63
+      ],
+      "missing_train": {
+        "year_built": 0.032397,
+        "energy_star_rating": 0.416861,
+        "direction_max_wind_speed": 0.493528,
+        "direction_peak_wind_speed": 0.507203,
+        "max_wind_speed": 0.493528,
+        "days_with_fog": 0.617693
+      },
+      "missing_test": {
+        "year_built": 0.0049,
+        "energy_star_rating": 0.199875,
+        "direction_max_wind_speed": 0.658069,
+        "direction_peak_wind_speed": 0.658069,
+        "max_wind_speed": 0.658069,
+        "days_with_fog": 0.57321
+      },
+      "train_duplicate_feature_rows": 327,
+      "test_duplicate_feature_rows": 37,
+      "feature_overlap_test_rows": 0,
+      "id_unique": true,
+      "id_intersection": 0,
+      "categories": {
+        "State_Factor": {
+          "train_unique": 7,
+          "test_unseen_rows": 0
+        },
+        "building_class": {
+          "train_unique": 2,
+          "test_unseen_rows": 0
+        },
+        "facility_type": {
+          "train_unique": 60,
+          "test_unseen_rows": 0
+        }
+      },
+      "target_quantiles": {
+        "0.0": 1.001169302,
+        "0.01": 6.088717756,
+        "0.5": 76.78808258500001,
+        "0.9": 129.24438565000005,
+        "0.95": 162.78323070499997,
+        "0.99": 306.366136637,
+        "0.999": 700.3192815,
+        "1.0": 993.4282595
+      },
+      "target_mean": 83.96157549617598,
+      "target_nonpositive": 0,
+      "year_train": {
+        "1": 2117,
+        "2": 9058,
+        "3": 10879,
+        "4": 12946,
+        "5": 18308
+      },
+      "year_test": {
+        "6": 22449
+      },
+      "year_built_zero": 5,
+      "top_target_0.99_share_squared_error_median": 0.5002531246049614,
+      "top_target_0.999_share_squared_error_median": 0.16525188525703804
+    },
+    "Многоклассовая классификация": {
+      "train_shape": [
+        87670,
+        44
+      ],
+      "test_shape": [
+        41166,
+        43
+      ],
+      "missing_train": {},
+      "missing_test": {},
+      "train_duplicate_feature_rows": 33442,
+      "test_duplicate_feature_rows": 11943,
+      "feature_overlap_test_rows": 3556,
+      "id_unique": true,
+      "id_intersection": 41166,
+      "categories": {
+        "proto": {
+          "train_unique": 133,
+          "test_unseen_rows": 0
+        },
+        "service": {
+          "train_unique": 13,
+          "test_unseen_rows": 0
+        },
+        "state": {
+          "train_unique": 9,
+          "test_unseen_rows": 3
+        }
+      },
+      "class_counts": {
+        "Normal": 28000,
+        "Generic": 20000,
+        "Exploits": 16696,
+        "Fuzzers": 9092,
+        "DoS": 6132,
+        "Reconnaissance": 5245,
+        "Analysis": 1000,
+        "Backdoor": 873,
+        "Shellcode": 567,
+        "Worms": 65
+      },
+      "max_min_class_ratio": 430.7692307692308,
+      "duplicate_feature_groups_conflicting_labels": 1458,
+      "exact_conflicting_feature_groups": 1458,
+      "exact_feature_overlap_test_rows": 3556,
+      "train_duplicate_feature_fraction": 0.38145317668529716,
+      "overlapping_test_feature_fraction": 0.08638196569984939
+    }
+  },
+  "verification": "Duplicate/overlap counts confirmed by exact feature grouping/merge; feature hashes used only in initial scan"
+}

@@ -1,0 +1,173 @@
+{
+  "version_tag": "v059",
+  "status": "intermediate_offline_candidate_live_quality_unverified",
+  "archive": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/dist/solution_v059.zip",
+  "archive_sha256": "2a749f0daf9c0e58d102bafbfe1f67aa7becc31183624d3ce48bbde56c1981ea",
+  "archive_bytes": 95020938,
+  "base": "solution_v058.zip",
+  "technical_archive_checks": {
+    "python_version": "3.12.3",
+    "member_count": 225,
+    "flat_layout_checked": true,
+    "zip_and_syntax_valid": true,
+    "source_match_checked": true,
+    "requirements_match_checked": true,
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "size_limit_bytes": 100000000,
+    "static_forbidden_artifacts_found": 0,
+    "common_secret_patterns_found": 0
+  },
+  "runtime_environment": {
+    "docker_image": "qwen-ml-agent:exact",
+    "image_id_prefix": "6f44ba0f950d",
+    "python": "3.12",
+    "organizer_dependency_versions_match": true,
+    "network": "none",
+    "organizer_requests": 0,
+    "execution_command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ]
+  },
+  "clean_exact_zip_mock": {
+    "passed": true,
+    "cases": [
+      {
+        "case": "unset",
+        "passed": true,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "publication_scope": "full_train_refit",
+        "publication_experiment_id": "exp_6af7a819f63349f4",
+        "csv_sha256": "619691a98d0ebdc1c023ef78a90b2a73df686f78790d71cf5043361a4f1b84d8",
+        "csv_valid": true,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "model_calls_to_mock": 3
+      },
+      {
+        "case": "empty",
+        "passed": true,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "publication_scope": "full_train_refit",
+        "publication_experiment_id": "exp_6af7a819f63349f4",
+        "csv_sha256": "619691a98d0ebdc1c023ef78a90b2a73df686f78790d71cf5043361a4f1b84d8",
+        "csv_valid": true,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "model_calls_to_mock": 3
+      },
+      {
+        "case": "whitespace",
+        "passed": true,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "publication_scope": "full_train_refit",
+        "publication_experiment_id": "exp_6af7a819f63349f4",
+        "csv_sha256": "619691a98d0ebdc1c023ef78a90b2a73df686f78790d71cf5043361a4f1b84d8",
+        "csv_valid": true,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "model_calls_to_mock": 3
+      },
+      {
+        "case": "json_fallback",
+        "passed": true,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "publication_scope": "full_train_refit",
+        "publication_experiment_id": "exp_6af7a819f63349f4",
+        "csv_sha256": "619691a98d0ebdc1c023ef78a90b2a73df686f78790d71cf5043361a4f1b84d8",
+        "csv_valid": true,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "model_calls_to_mock": 4
+      }
+    ],
+    "all_control_completed": true,
+    "all_refit_completed": true,
+    "all_full_train_refit_csv": true
+  },
+  "pytest": {
+    "targeted": {
+      "passed": 46,
+      "warnings": 13
+    },
+    "full_suite": {
+      "passed": 702,
+      "failed": 15,
+      "failures": {
+        "loopback_bind_permission_error": 14,
+        "timing_threshold": 1
+      },
+      "timing_observed_seconds": 5.4929,
+      "timing_assertion": "5.5 < seconds < 6",
+      "test_source_changed": false
+    }
+  },
+  "independent_reviews": {
+    "validation_review": "No blocker; conditional explicit time/group precedence risk recorded in v059_REPORT.md",
+    "supporting_material_review": "No blocker; external untrusted cited material only; semantic relevance remains unverified"
+  },
+  "quality": {
+    "real_qwen_tested": false,
+    "public_or_private_quality_measured": false,
+    "quality_advantage_established": false,
+    "three_hour_real_run_completed": false
+  },
+  "api": {
+    "organizer_calls": 0,
+    "paid_calls": 0,
+    "spend": 0,
+    "limit_snapshots_required": false
+  },
+  "submitted_to_platform": false,
+  "latest_pointer_changed": false,
+  "documentation": "../outputs/agent_quality_reaudit_20261023/v059_REPORT.md",
+  "v058_mock_failure_review": {
+    "case_logs": 4,
+    "worker_error": "ModuleNotFoundError: No module named cloudpickle",
+    "missing_package_in_organizer_requirements": false,
+    "organizer_requirement": "cloudpickle==3.1.1",
+    "v059_exact_image_worker_probe": "completed",
+    "interpretation": "prior clean-mock control/refit skip was caused by incomplete local runtime dependencies; the exact prior harness interpreter was not recorded, so no code-level causal claim is made"
+  }
+}

@@ -1,0 +1,716 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="TabularPredictor.refit_full" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://auto.gluon.ai/api/autogluon.tabular.TabularPredictor.refit_full.html" />
+<meta property="og:site_name" content="AutoGluon" />
+<meta property="og:image" content="https://auto.gluon.ai/dev/_static/autogluon-logo.jpg" />
+<meta property="og:image:alt" content="AutoGluon Logo" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@autogluon">
+<meta property="og:title" content="AutoGluon: Fast and Accurate ML in 3 Lines of Code">
+<meta property="og:description" content="With just a few lines of code, you can train and deploy high-accuracy machine learning and deep learning models on image, text, time series, and tabular data.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XDS99SP0C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-6XDS99SP0C');
+    </script>
+    <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="TabularPredictor.save" href="autogluon.tabular.TabularPredictor.save.html" /><link rel="prev" title="TabularPredictor.predict_proba_oof" href="autogluon.tabular.TabularPredictor.predict_proba_oof.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>TabularPredictor.refit_full - AutoGluon 1.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a34711e1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">AutoGluon 1.3.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/autogluon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/autogluon-w.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tabular/tabular-quick-start.html">Tabular Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal-quick-start.html">Multimodal Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/timeseries/forecasting-quick-start.html">Time Series Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/tabular/index.html">Tabular</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tabular</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-essentials.html">Essentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-indepth.html">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/how-it-works.html">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-feature-engineering.html">Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-multimodal.html">Tabular + Text + Images</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/tabular/advanced/index.html">Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-multilabel.html">Multilabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-kaggle.html">Kaggle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-gpu.html">GPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-metric.html">Custom Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-model.html">Custom Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-model-advanced.html">Custom Models Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-deployment.html">Deployment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/multimodal/index.html">Multimodal</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Multimodal</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/index.html">Multimodal Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Multimodal Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/beginner_multimodal.html">AutoMM for Image + Text + Tabular - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal_ner.html">AutoMM for Entity Extraction with Text and Image - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal_text_tabular.html">AutoMM for Text + Tabular - Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/index.html">Object Detection</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Object Detection</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/quick_start/index.html">Object Detection Quick Start</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Object Detection Quick Start</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/quick_start/quick_start_coco.html">AutoMM Detection - Quick Start on a Tiny COCO Format Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/advanced/index.html">Object Detection Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Object Detection Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/advanced/finetune_coco.html">AutoMM Detection - Finetune on COCO Format Dataset with Customized Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/index.html">Object Detection Data Preparation</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Object Detection Data Preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/convert_data_to_coco_format.html">Convert Data to COCO Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_pothole.html">AutoMM Detection - Prepare Pothole Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_watercolor.html">AutoMM Detection - Prepare Watercolor Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_coco17.html">AutoMM Detection - Prepare COCO2017 Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_voc.html">AutoMM Detection - Prepare Pascal VOC Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/voc_to_coco.html">AutoMM Detection - Convert VOC Format Dataset to COCO Format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/image_prediction/index.html">Image Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Image Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_prediction/beginner_image_cls.html">AutoMM for Image Classification - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_prediction/clip_zeroshot.html">Zero-Shot Image Classification with CLIP</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/image_segmentation/index.html">Image Segmentation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Image Segmentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_segmentation/beginner_semantic_seg.html">AutoMM for Semantic Segmentation - Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/text_prediction/index.html">Text Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Text Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/beginner_text.html">AutoMM for Text - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/ner.html">AutoMM for Named Entity Recognition - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/chinese_ner.html">AutoMM for Named Entity Recognition in Chinese - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/multilingual_text.html">AutoMM for Text - Multilingual Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/document_prediction/index.html">Document Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Document Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/document_prediction/document_classification.html">AutoMM for Scanned Document Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/document_prediction/pdf_classification.html">Classifying PDF Documents with AutoMM</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/index.html">Semantic Matching</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Semantic Matching</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/image2image_matching.html">Image-to-Image Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/image_text_matching.html">Image-Text Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/text2text_matching.html">Text-to-Text Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/text_semantic_search.html">Text Semantic Search with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/zero_shot_img_txt_matching.html">Image-Text Semantic Matching with AutoMM - Zero-Shot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/index.html">Advanced Topics</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Advanced Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/problem_types_and_metrics.html">AutoMM Problem Types And Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/hyperparameter_optimization.html">Hyperparameter Optimization in AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/continuous_training.html">Continuous Training with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/customization.html">Customize AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/model_distillation.html">Knowledge Distillation in AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/efficient_finetuning_basic.html">Single GPU Billion-scale Model Training via Parameter-Efficient Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/few_shot_learning.html">Few Shot Learning with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/focal_loss.html">Handling Class Imbalance with AutoMM - Focal Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/presets.html">AutoMM Presets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/tensorrt.html">Faster Prediction with TensorRT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/timeseries/index.html">Time Series</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of Time Series</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-quick-start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-indepth.html">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-chronos.html">Forecasting with Chronos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-model-zoo.html">Model Zoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-metrics.html">Metrics</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/timeseries/advanced/index.html">Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/timeseries/advanced/forecasting-custom-model.html">Custom Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/cloud_fit_deploy/index.html">Cloud Training and Deployment</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of Cloud Training and Deployment</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/autogluon-cloud.html">AutoGluon Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/autopilot-autogluon.html">AutoGluon Tabular on SageMaker AutoPilot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/cloud-aws-lambda-deployment.html">Deploy AutoGluon Models on Serverless Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/cloud-aws-sagemaker-train-deploy.html">Cloud Training and Deployment with Amazon SageMaker</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cheatsheet.html">Cheat Sheets</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://auto.gluon.ai/stable/versions.html">Versions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../whats_new/index.html">What's New</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of What's New</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.3.1.html">Version 1.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.3.0.html">Version 1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.2.0.html">Version 1.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.1.1.html">Version 1.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.1.0.html">Version 1.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.0.0.html">Version 1.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.3.html">Version 0.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.2.html">Version 0.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.1.html">Version 0.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.0.html">Version 0.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.7.0.html">Version 0.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.2.html">Version 0.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.1.html">Version 0.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.0.html">Version 0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.5.2.html">Version 0.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.5.1.html">Version 0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.3.html">Version 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.2.html">Version 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.1.html">Version 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.0.html">Version 0.4.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/autogluon/autogluon">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tabular/tabular-faq.html">Tabular FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/multimodal/multimodal-faq.html">Multimodal FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/timeseries/forecasting-faq.html">Time Series FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="autogluon.tabular.TabularPredictor.html">TabularPredictor</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of TabularPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.calibrate_decision_threshold.html">TabularPredictor.calibrate_decision_threshold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.clone.html">TabularPredictor.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.clone_for_deployment.html">TabularPredictor.clone_for_deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.compile.html">TabularPredictor.compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.delete_models.html">TabularPredictor.delete_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.disk_usage.html">TabularPredictor.disk_usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.disk_usage_per_file.html">TabularPredictor.disk_usage_per_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.distill.html">TabularPredictor.distill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.evaluate.html">TabularPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.evaluate_predictions.html">TabularPredictor.evaluate_predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.feature_importance.html">TabularPredictor.feature_importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.features.html">TabularPredictor.features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit.html">TabularPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_extra.html">TabularPredictor.fit_extra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_pseudolabel.html">TabularPredictor.fit_pseudolabel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_summary.html">TabularPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_weighted_ensemble.html">TabularPredictor.fit_weighted_ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.info.html">TabularPredictor.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.leaderboard.html">TabularPredictor.leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.learning_curves.html">TabularPredictor.learning_curves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load.html">TabularPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load_data_internal.html">TabularPredictor.load_data_internal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load_log.html">TabularPredictor.load_log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_failures.html">TabularPredictor.model_failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_hyperparameters.html">TabularPredictor.model_hyperparameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_info.html">TabularPredictor.model_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_names.html">TabularPredictor.model_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_refit_map.html">TabularPredictor.model_refit_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.persist.html">TabularPredictor.persist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.plot_ensemble_model.html">TabularPredictor.plot_ensemble_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict.html">TabularPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_from_proba.html">TabularPredictor.predict_from_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_multi.html">TabularPredictor.predict_multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_oof.html">TabularPredictor.predict_oof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba.html">TabularPredictor.predict_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba_multi.html">TabularPredictor.predict_proba_multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba_oof.html">TabularPredictor.predict_proba_oof</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">TabularPredictor.refit_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.save.html">TabularPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.save_space.html">TabularPredictor.save_space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.set_decision_threshold.html">TabularPredictor.set_decision_threshold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.set_model_best.html">TabularPredictor.set_model_best</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.simulation_artifact.html">TabularPredictor.simulation_artifact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.transform_features.html">TabularPredictor.transform_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.transform_labels.html">TabularPredictor.transform_labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.unpersist.html">TabularPredictor.unpersist</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.core.TabularDataset.html">TabularDataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.tabular.models.html">Tabular Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.html">MultiModalPredictor</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of MultiModalPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.dump_model.html">MultiModalPredictor.dump_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.evaluate.html">MultiModalPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.export_onnx.html">MultiModalPredictor.export_onnx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.extract_embedding.html">MultiModalPredictor.extract_embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.fit.html">MultiModalPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.fit_summary.html">MultiModalPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.get_num_gpus.html">MultiModalPredictor.get_num_gpus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.list_supported_models.html">MultiModalPredictor.list_supported_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.load.html">MultiModalPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.optimize_for_inference.html">MultiModalPredictor.optimize_for_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.predict.html">MultiModalPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.predict_proba.html">MultiModalPredictor.predict_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.save.html">MultiModalPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.set_num_gpus.html">MultiModalPredictor.set_num_gpus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.set_verbosity.html">MultiModalPredictor.set_verbosity</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.html">TimeSeriesPredictor</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of TimeSeriesPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.evaluate.html">TimeSeriesPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.feature_importance.html">TimeSeriesPredictor.feature_importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.fit.html">TimeSeriesPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.fit_summary.html">TimeSeriesPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.info.html">TimeSeriesPredictor.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.leaderboard.html">TimeSeriesPredictor.leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.load.html">TimeSeriesPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.make_future_data_frame.html">TimeSeriesPredictor.make_future_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.model_names.html">TimeSeriesPredictor.model_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.persist.html">TimeSeriesPredictor.persist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.plot.html">TimeSeriesPredictor.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.predict.html">TimeSeriesPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.refit_full.html">TimeSeriesPredictor.refit_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.save.html">TimeSeriesPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.unpersist.html">TimeSeriesPredictor.unpersist</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.html">TimeSeriesDataFrame</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of TimeSeriesDataFrame</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.assign.html">TimeSeriesDataFrame.assign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.convert_frequency.html">TimeSeriesDataFrame.convert_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.copy.html">TimeSeriesDataFrame.copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.dropna.html">TimeSeriesDataFrame.dropna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.fill_missing_values.html">TimeSeriesDataFrame.fill_missing_values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_data_frame.html">TimeSeriesDataFrame.from_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_iterable_dataset.html">TimeSeriesDataFrame.from_iterable_dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_path.html">TimeSeriesDataFrame.from_path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_pickle.html">TimeSeriesDataFrame.from_pickle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.get_model_inputs_for_scoring.html">TimeSeriesDataFrame.get_model_inputs_for_scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.infer_frequency.html">TimeSeriesDataFrame.infer_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.num_timesteps_per_item.html">TimeSeriesDataFrame.num_timesteps_per_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.slice_by_time.html">TimeSeriesDataFrame.slice_by_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.slice_by_timestep.html">TimeSeriesDataFrame.slice_by_timestep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.sort_index.html">TimeSeriesDataFrame.sort_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.split_by_time.html">TimeSeriesDataFrame.split_by_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.to_data_frame.html">TimeSeriesDataFrame.to_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.train_test_split.html">TimeSeriesDataFrame.train_test_split</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.features.html">Feature Generators</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.html">FeatureMetadata</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of FeatureMetadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.add_special_types.html">FeatureMetadata.add_special_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.from_df.html">FeatureMetadata.from_df</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_feature_type_raw.html">FeatureMetadata.get_feature_type_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_feature_types_special.html">FeatureMetadata.get_feature_types_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_features.html">FeatureMetadata.get_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_group_map_raw.html">FeatureMetadata.get_type_group_map_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_group_map_special_from_type_map_special.html">FeatureMetadata.get_type_group_map_special_from_type_map_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_map_special.html">FeatureMetadata.get_type_map_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.join_metadata.html">FeatureMetadata.join_metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.join_metadatas.html">FeatureMetadata.join_metadatas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.keep_features.html">FeatureMetadata.keep_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.print_feature_metadata_full.html">FeatureMetadata.print_feature_metadata_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.remove_features.html">FeatureMetadata.remove_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.rename_features.html">FeatureMetadata.rename_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.to_dict.html">FeatureMetadata.to_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data.html">FeatureMetadata.verify_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data_subset.html">FeatureMetadata.verify_data_subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data_superset.html">FeatureMetadata.verify_data_superset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.common.space.html">Search Spaces</a></li>
+</ul>
+
+</div></div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/api/autogluon.tabular.TabularPredictor.refit_full.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="tabularpredictor-refit-full">
+<h1>TabularPredictor.refit_full<a class="headerlink" href="#tabularpredictor-refit-full" title="Link to this heading">¶</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="autogluon.tabular.TabularPredictor.refit_full">
+<span class="sig-prename descclassname"><span class="pre">TabularPredictor.</span></span><span class="sig-name descname"><span class="pre">refit_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_best_to_refit_full</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_data_extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'sequential'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'parallel'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/autogluon/tabular/predictor/predictor.html#TabularPredictor.refit_full"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autogluon.tabular.TabularPredictor.refit_full" title="Link to this definition">¶</a></dt>
+<dd><p>Retrain model on all of the data (training + validation).
+For bagged models:</p>
+<blockquote>
+<div><p>Optimizes a model’s inference time by collapsing bagged ensembles into a single model fit on all of the training data.
+This process will typically result in a slight accuracy reduction and a large inference speedup.
+The inference speedup will generally be between 10-200x faster than the original bagged ensemble model.</p>
+<blockquote>
+<div><p>The inference speedup factor is equivalent to (k * n), where k is the number of folds (<cite>num_bag_folds</cite>) and n is the number of finished repeats (<cite>num_bag_sets</cite>) in the bagged ensemble.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>The runtime is generally 10% or less of the original fit runtime.</dt><dd><p>The runtime can be roughly estimated as 1 / (k * n) of the original fit runtime, with k and n defined above.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>For non-bagged models:</dt><dd><p>Optimizes a model’s accuracy by retraining on 100% of the data without using a validation set.
+Will typically result in a slight accuracy increase and no change to inference time.
+The runtime will be approximately equal to the original fit runtime.</p>
+</dd>
+</dl>
+<p>This process does not alter the original models, but instead adds additional models.
+If stacker models are refit by this process, they will use the refit_full versions of the ancestor models during inference.
+Models produced by this process will not have validation scores, as they use all of the data for training.</p>
+<blockquote>
+<div><p>Therefore, it is up to the user to determine if the models are of sufficient quality by including test data in <cite>predictor.leaderboard(test_data)</cite>.
+If the user does not have additional test data, they should reference the original model’s score for an estimate of the performance of the refit_full model.</p>
+<blockquote>
+<div><p>Warning: Be aware that utilizing refit_full models without separately verifying on test data means that the model is untested, and has no guarantee of being consistent with the original model.</p>
+</div></blockquote>
+</div></blockquote>
+<p><cite>cache_data</cite> must have been set to <cite>True</cite> during the original training to enable this functionality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>str</em><em> | </em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>default = 'all'</em>) – <dl class="simple">
+<dt>Model name of model(s) to refit.</dt><dd><p>If ‘all’ then all models are refitted.
+If ‘best’ then the model with the highest validation score is refit.</p>
+</dd>
+</dl>
+<p>All ancestor models will also be refit in the case that the selected model is a weighted or stacker ensemble.
+Valid models are listed in this <cite>predictor</cite> by calling <cite>predictor.model_names()</cite>.</p>
+</p></li>
+<li><p><strong>set_best_to_refit_full</strong> (<em>bool</em><em> | </em><em>str</em><em>, </em><em>default = True</em>) – If True, sets best model to the refit_full version of the prior best model.
+This means the model used when <cite>predictor.predict(data)</cite> is called will be the refit_full version instead of the original version of the model.
+Ignored if <cite>model</cite> is not the best model.
+If str, interprets as a model name and sets best model to the refit_full version of the model <cite>set_best_to_refit_full</cite>.</p></li>
+<li><p><strong>train_data_extra</strong> (<em>pd.DataFrame</em><em>, </em><em>default = None</em>) – If specified, will be used as additional rows of training data when refitting models.
+Requires label column. Will only be used for L1 models.</p></li>
+<li><p><strong>num_cpus</strong> (<em>int</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – The total amount of cpus you want AutoGluon predictor to use.
+Auto means AutoGluon will make the decision based on the total number of cpus available and the model requirement for best performance.
+Users generally don’t need to set this value</p></li>
+<li><p><strong>num_gpus</strong> (<em>int</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – The total amount of gpus you want AutoGluon predictor to use.
+Auto means AutoGluon will make the decision based on the total number of gpus available and the model requirement for best performance.
+Users generally don’t need to set this value</p></li>
+<li><p><strong>fit_strategy</strong> (<em>Literal</em><em>[</em><em>&quot;auto&quot;</em><em>, </em><em>&quot;sequential&quot;</em><em>, </em><em>&quot;parallel&quot;</em><em>]</em><em>, </em><em>default = &quot;auto&quot;</em>) – <p>The strategy used to fit models.
+If “auto”, uses the same fit_strategy as used in the original <a class="reference internal" href="autogluon.tabular.TabularPredictor.fit.html#autogluon.tabular.TabularPredictor.fit" title="autogluon.tabular.TabularPredictor.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TabularPredictor.fit()</span></code></a> call.
+If “sequential”, models will be fit sequentially. This is the most stable option with the most readable logging.
+If “parallel”, models will be fit in parallel with ray, splitting available compute between them.</p>
+<blockquote>
+<div><p>Note: “parallel” is experimental and may run into issues. It was first added in version 1.2.0.</p>
+</div></blockquote>
+<p>For machines with 16 or more CPU cores, it is likely that “parallel” will be faster than “sequential”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.2.0.</span></p>
+</div>
+</p></li>
+<li><p><strong>**kwargs</strong> – [Advanced] Developer debugging arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of original model names -&gt; refit_full model names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="autogluon.tabular.TabularPredictor.save.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">TabularPredictor.save</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="autogluon.tabular.TabularPredictor.predict_proba_oof.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">TabularPredictor.predict_proba_oof</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, All authors. Licensed under Apache 2.0.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">TabularPredictor.refit_full</a><ul>
+<li><a class="reference internal" href="#autogluon.tabular.TabularPredictor.refit_full"><code class="docutils literal notranslate"><span class="pre">TabularPredictor.refit_full()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=bb516dca"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/custom.js?v=2c80e45e"></script>
+    </body>
+</html>

@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "version_tag": "v011",
+  "status": "finalized_by_user_request_with_partial_plan_acceptance",
+  "finalized_at": "2026-10-21T14:05:43.797745+00:00",
+  "archive": "dist/solution_v011.zip",
+  "archive_bytes": 1860727,
+  "archive_sha256": "f77d41bbf26c6b85d9e7a27281c55a5d7a0386084379f187b5c71f3a355716b7",
+  "runtime_code_sha256": "fbb3bf431dace51557ebe84bd49c496da91faf6b444beccc7e6628da8506f914",
+  "archive_modified_during_finalization": false,
+  "static_manifest": {
+    "path": "dist/solution_v011.manifest.json",
+    "sha256": "da55691a5008b57e2264ebd3e5be00512ceab44377790c5b37d545ae120ec4d8"
+  },
+  "finalization_scope": {
+    "user_requested_stop_of_all_remaining_checks": true,
+    "user_instruction": "может быть прекратим все проверки и на основе тех, что уже есть сделаем итоговое решение, предусмотренное этим планом",
+    "delivered_existing_tested_candidate": true,
+    "original_plan_fully_accepted": false,
+    "new_test_runs_after_stop_request": 0,
+    "new_model_calls_after_stop_request": 0
+  },
+  "implementation": {
+    "F01": {
+      "status": "implemented_targeted_tests_passed",
+      "changes": [
+        "automl_agent/controller.py",
+        "automl_agent/protocol_revision.py"
+      ]
+    },
+    "protocol_recovery": {
+      "status": "commit_publication_and_mid_operation_crashes_confirmed_work_not_repeated_unknown_outcome_aborted",
+      "changes": [
+        "automl_agent/protocol_revision.py",
+        "automl_agent/publication.py",
+        "automl_agent/journal.py"
+      ]
+    },
+    "F02": {
+      "status": "implemented_targeted_tests_passed",
+      "changes": [
+        "automl_agent/data.py"
+      ]
+    },
+    "F03": {
+      "status": "implemented_targeted_tests_passed",
+      "changes": [
+        "automl_agent/compatibility.py",
+        "automl_agent/preprocessing.py"
+      ]
+    },
+    "F04": {
+      "status": "implemented_targeted_tests_passed",
+      "changes": [
+        "automl_agent/validation.py"
+      ]
+    },
+    "F05": {
+      "status": "shared_gate_and_catalog_build_hook_implemented_existing_catalog_integrity_and_recipes_verified",
+      "changes": [
+        "automl_agent/compatibility.py",
+        "automl_agent/references.py",
+        "tools/build_knowledge.py"
+      ]
+    },
+    "training_schema": {
+      "status": "implemented_feature_names_and_sequence_persistence_tested",
+      "changes": [
+        "automl_agent/preprocessing.py",
+        "automl_agent/contracts.py",
+        "automl_agent/worker.py"
+      ]
+    },
+    "F06": {
+      "status": "implemented_300_records_both_transports_restart_tests_passed_live_repeats_pending",
+      "changes": [
+        "automl_agent/controller.py",
+        "automl_agent/qwen.py",
+        "automl_agent/capabilities.py"
+      ]
+    },
+    "F07": {
+      "status": "shared_graph_and_actual_inner_training_rows_for_selected_automl_model_verified",
+      "changes": [
+        "automl_agent/completion.py",
+        "automl_agent/controller.py",
+        "automl_agent/budget.py"
+      ]
+    },
+    "D01": {
+      "status": "fragment_level_dedup_and_error_memory_regressions_passed",
+      "changes": [
+        "automl_agent/progress.py",
+        "automl_agent/controller.py"
+      ]
+    },
+    "cleanup_publication": {
+      "status": "implemented_interruption_dependency_protection_and_publication_recovery_targeted_tests_passed",
+      "changes": [
+        "automl_agent/cleanup.py",
+        "automl_agent/publication.py"
+      ]
+    },
+    "automl_full_budget": {
+      "status": "classification_completed_full_declared_space_and_control_refit_regression_full_time_search_running",
+      "changes": [
+        "automl_agent/contracts.py",
+        "automl_agent/budget.py",
+        "automl_agent/controller.py",
+        "automl_agent/executor.py",
+        "automl_agent/search.py",
+        "tools/benchmark.py"
+      ]
+    }
+  },
+  "completed_checks": {
+    "extracted_archive_linux_tests": {
+      "passed": 239,
+      "warnings": 23,
+      "log": "outputs/v010_implementation/zip_full23.log"
+    },
+    "source_linux_tests": {
+      "passed": 239,
+      "warnings": 23,
+      "log": "outputs/v010_implementation/linux_full22.log"
+    },
+    "extracted_archive_offline_scenarios": {
+      "passed": 12,
+      "total": 12,
+      "control_and_refit_completed": true,
+      "report": "outputs/v010_implementation/extracted_verification23/offline_zip23/REPORT.json"
+    },
+    "recipes": {
+      "passed": 20,
+      "total": 20,
+      "scope": "One declared synthetic mode per recipe; other combinations remain unverified",
+      "report": "outputs/v010_implementation/recipes_exact22/REPORT.json"
+    },
+    "stock_flat_entrypoint": {
+      "command": [
+        "python",
+        "solution.py",
+        "task.md"
+      ],
+      "network": "none",
+      "real_qwen": false,
+      "control": "completed",
+      "refit": "completed",
+      "log": "outputs/v010_implementation/flat_v011_cleanroom.log"
+    },
+    "embedded_source": {
+      "files": 407,
+      "matches_snapshot22": true,
+      "known_api_key_absent": true,
+      "relay_and_host_tools_absent": true,
+      "report": "outputs/v010_implementation/candidate_v011_source_check.json"
+    },
+    "archive_format": {
+      "root_files": [
+        "agent_bundle.py",
+        "requirements.txt",
+        "solution.py"
+      ],
+      "original_requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+      "size_limit_bytes": 100000000
+    }
+  },
+  "comparison02": {
+    "planned": 38,
+    "completed": 3,
+    "cancelled": 35,
+    "failed": 0,
+    "live_agent_runs_started": 0,
+    "outer_labels_opened": false,
+    "quality_advantage_established": false,
+    "stopped_by_user": true,
+    "registry": "outputs/v010_implementation/comparison02/REGISTRY.json",
+    "status_report": "outputs/v010_implementation/comparison02/SERIES_STATUS.json"
+  },
+  "not_completed_at_user_request": [
+    "Full paired RMSE/Macro F1 comparison against v008 and strong fixed methods",
+    "33 live Qwen acceptance cases bound to final v011",
+    "Parallel full public-task rehearsal from final ZIP",
+    "Reference availability and controlled-content studies",
+    "Frozen unseen-task transfer evaluation"
+  ],
+  "generation_scope": {
+    "stock_archive_overrides": {},
+    "development_override_keys": [
+      "reasoning",
+      "temperature"
+    ],
+    "equivalence_confirmed": false,
+    "interpretation": "Do not transfer development Qwen outcomes to the default archive configuration automatically; no final quality or live acceptance is claimed"
+  },
+  "operational_cleanup": {
+    "comparison_supervisor_stopped": true,
+    "owned_running_test_stopped": true,
+    "private_relay_stopped_and_removed": true,
+    "periodic_monitor_id": "qwen",
+    "periodic_monitor_status": "PAUSED"
+  },
+  "quality_advantage_established": false,
+  "transferability_established": false,
+  "official_platform_image_used": false,
+  "official_quality_thresholds": "unknown",
+  "official_baseline_exceeded": "unknown",
+  "organizer_confirmed_v008_zero_reason": "Prediction metrics did not exceed the official baseline",
+  "submitted_to_platform": false,
+  "platform_submission_authorized": false,
+  "previous_archives_preserved": true
+}

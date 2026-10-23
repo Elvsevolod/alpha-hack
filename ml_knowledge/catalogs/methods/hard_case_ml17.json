@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml17",
+  "method_id": "hard_case_ml17",
+  "version": 1,
+  "title": "Есть обычные числовые пропуски",
+  "observations": "неполные числовые поля; нет подтверждённой причины немедленно выбирать сложный восстановитель.",
+  "hypothesis": "одна и та же модель с native NaN либо медианой; затем индикаторы; модельный импьютер — отдельная ограниченная гипотеза при наличии предсказуемых зависимостей.",
+  "diagnostic": "доли и совместные шаблоны NaN на fit, поддержка NaN моделью и ограничения категорий; проверить полностью пустые столбцы.",
+  "minimum_experiment": "одна и та же модель с native NaN либо медианой; затем индикаторы; модельный импьютер — отдельная ограниченная гипотеза при наличии предсказуемых зависимостей.",
+  "acceptance": "полезность измерена на целевой задаче, схема неизменна, фактические итерации/вспомогательные fit и полная стоимость зафиксированы.",
+  "constraints": "восстановление не должно читать таргеты внешней оценки; точность восстановления искусственно скрытых ячеек не гарантирует роста конечной метрики.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "неполные числовые поля; нет подтверждённой причины немедленно выбирать сложный восстановитель."
+  ],
+  "contraindications": [
+    "восстановление не должно читать таргеты внешней оценки; точность восстановления искусственно скрытых ячеек не гарантирует роста конечной метрики."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_impute_SimpleImputer"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "missing"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/impute.html",
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "missing",
+  "routing_priority": 0
+}

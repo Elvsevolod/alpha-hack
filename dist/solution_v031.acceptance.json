@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "candidate": "dist/solution_v031.zip",
+  "archive_sha256": "eab82e3fee102f5b135de98a5b1b50b1dcfb23211865c1693f1e3e9bbfd848b2",
+  "checks": {
+    "flat_archive": true,
+    "embedded_sources": true,
+    "standard_entrypoint": true,
+    "diagnostic_history": true,
+    "exact_pair": true,
+    "pair_finalization": true,
+    "three_finalists_exercised": true,
+    "host_source_binding": true,
+    "exact_offline_routes": true,
+    "base_regression_tests": true,
+    "post_freeze_role_and_protocol_tests": true,
+    "final_temporal_ensemble_tests": true,
+    "concurrent_sqlite_replay": true,
+    "supervisor_fault_suite_pre_deadline_delta": true,
+    "four_reviewable_blocks": true
+  },
+  "evidence": {
+    "standard_entrypoint": "flat_v031/REPORT.json",
+    "diagnostic_history": [
+      "logging_v031/REPORT.json",
+      "logging_v031_worker_retry/REPORT.json"
+    ],
+    "exact_pair": "B_exact_v031_acceptance/REPORT.json"
+  },
+  "short_offline_accepted": true,
+  "scope": "Reduced local acceptance explicitly requested by user; original three-hour/live gates remain unfulfilled",
+  "original_long_rehearsal_passed": false,
+  "long_rehearsal_repeat_waived_by_user": true,
+  "B_before_live_A_authorized_by_user": true,
+  "A_live_accepted": false,
+  "B_live_accepted": false,
+  "quality_advantage_established": false,
+  "independent_full_plan_audit_complete": false,
+  "platform_submitted": false,
+  "full_plan_acceptance": false,
+  "goal_complete": false,
+  "limitations": [
+    "Base 322-test suite preceded final role/ensemble deltas; targeted 31/38 suites cover those deltas; counts overlap",
+    "Nine-case supervisor suite preceded total-deadline tightening; final guest replay and exact pair bind current host sources",
+    "All model responses are synthetic; no real-Qwen interpretation or independent hidden quality measurement",
+    "Original long rehearsal failed and was not repeated; limited windows are excluded from full-vector comparisons"
+  ],
+  "next_step": "Separate explicit API budget(s), fresh alpha-api-limits snapshots, then a short real public pilot; no automatic paid retries"
+}

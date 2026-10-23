@@ -1,0 +1,18 @@
+{
+  "archive": "solution_v015.zip",
+  "archive_sha256": "857be4a63c90eff1991f3fc06cf353a695c0423bb93b36e0c36104f70bdc9edb",
+  "status": "superseded_after_short_live_review",
+  "report": "../outputs/context_savings_v015/LIVE_REPORT.json",
+  "findings": [
+    "Most recent experiment was not explicitly identified in protected core; Qwen named an older experiment",
+    "Native tool schema display titles reduced token savings"
+  ],
+  "tests": {
+    "targeted_passed": 90,
+    "targeted_skipped": 1,
+    "exact_passed": 66,
+    "clean_launches": 3
+  },
+  "submitted_to_platform": false,
+  "full_plan_acceptance": false
+}

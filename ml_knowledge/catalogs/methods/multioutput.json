@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "алгоритм с собственной поддержкой multioutput",
+  "applicability_rules": [],
+  "conditions": [
+    "Контракт требует несколько целей и явную агрегацию метрик."
+  ],
+  "constraints": "Не смешивать пространства классов разных целей; учитывать стоимость всех fit.",
+  "contraindications": [
+    "Не смешивать пространства классов разных целей; учитывать стоимость всех fit."
+  ],
+  "cost": "При независимых моделях примерно сумма по целям.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Независимые модели и явная агрегация",
+  "id": "multioutput",
+  "method_id": "multioutput",
+  "minimum_experiment": "Две цели на небольшой задаче; проверить форму, порядок и отдельные классы.",
+  "missing_references": [],
+  "observations": "Схема требует несколько выходов",
+  "references": [
+    "guide_scikit-learn_multioutput_multilabel"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "guide_scikit-learn_multioutput_multilabel",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "несколько",
+    "целей",
+    "/",
+    "multioutput",
+    "multilabel"
+  ],
+  "title": "Несколько целей / multioutput multilabel",
+  "version": 2
+}

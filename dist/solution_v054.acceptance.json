@@ -1,0 +1,29 @@
+{
+  "archive": "solution_v054.zip",
+  "sha256": "f8676c9600773fe95e7435e3a0a488394128aad1c9eedddcebc9813a71bfb2f8",
+  "bytes": 95019202,
+  "base": "solution_v053.zip",
+  "runtime_changed": [
+    "automl_agent/pipelines.py"
+  ],
+  "status": "technical_checks_passed_fresh_autonomous_live_pending",
+  "change": "Normalize observed LightGBM bagging_fraction/bagging_freq/lambda_l2 only to existing sklearn whitelist names, primary precedence preserved",
+  "exact_affected_tests_passed": 51,
+  "independent_pure_tests_passed": 5,
+  "independent_review": "outputs/quality_goal_20261023/REVIEW_LIGHTGBM_OBSERVED_ALIASES.md",
+  "recorded_unchanged_configurations_old_rejected_new_constructed": 2,
+  "recorded_replay": "outputs/quality_goal_20261023/LIGHTGBM_OBSERVED_ALIASES_REPLAY_01.json",
+  "clean_exact_archive_entry_cases_passed": 4,
+  "default_seconds": 10800,
+  "default_cpu": 7,
+  "default_memory_mb": 28000,
+  "global_debug_candidate_call_llm_time_caps": null,
+  "new_paid_requests_for_change": 0,
+  "archive_checks": "outputs/quality_goal_20261023/V054_ARCHIVE_CHECKS.json",
+  "exact_entry": "outputs/quality_goal_20261023/v054_exact_entry/REPORT.json",
+  "full_same_archive_autonomous_pair_accepted": false,
+  "quality_advantage_established": false,
+  "promoted": false,
+  "uploaded": false,
+  "utc": "2026-10-22T22:25:48.743891+00:00"
+}

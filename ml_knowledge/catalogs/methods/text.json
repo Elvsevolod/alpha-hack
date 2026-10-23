@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "HashingVectorizer; смешанная табличная ветвь",
+  "applicability_rules": [],
+  "conditions": [
+    "Текстовые признаки подтверждены в контракте."
+  ],
+  "constraints": "Не использовать внешние корпуса, pretrained и словарь, обученный на тесте.",
+  "contraindications": [
+    "Не использовать внешние корпуса, pretrained и словарь, обученный на тесте."
+  ],
+  "cost": "Контролировать vocabulary, ngram и размер sparse-матрицы.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Словные/символьные TF-IDF плюс линейная модель",
+  "id": "text",
+  "method_id": "text",
+  "minimum_experiment": "TF-IDF на fit плюс линейная модель; transform на новых текстах.",
+  "missing_references": [],
+  "observations": "Объявлены текстовые признаки",
+  "references": [
+    "api_sklearn_feature_extraction_text_TfidfVectorizer"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_feature_extraction_text_TfidfVectorizer",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "текст",
+    "/",
+    "tf-idf",
+    "sparse",
+    "representation"
+  ],
+  "title": "Текст / TF-IDF sparse representation",
+  "version": 2
+}

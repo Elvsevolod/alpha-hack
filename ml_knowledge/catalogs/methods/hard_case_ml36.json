@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml36",
+  "method_id": "hard_case_ml36",
+  "version": 1,
+  "title": "Таргет состоит из массы нулей и положительной части",
+  "observations": "отсутствие спроса/затрат и положительные величины образуют разные режимы; обычная регрессия плохо описывает границу.",
+  "hypothesis": "одна обычная модель как опора, затем двухчастная модель `P(y>0|x) * E[y|y>0,x]` для цели условного среднего, если это соответствует loss.",
+  "diagnostic": "нули должны быть реальными, а не пропусками; внутри fit исследовать частоту нулей по времени и support положительных значений.",
+  "minimum_experiment": "одна обычная модель как опора, затем двухчастная модель `P(y>0|x) * E[y|y>0,x]` для цели условного среднего, если это соответствует loss.",
+  "acceptance": "полный прогноз оценён на всех внутренних наблюдениях, обе части обучены без leakage и помещаются в финальный бюджет.",
+  "constraints": "hard gate по порогу может ухудшить RMSE; оценка положительной части только на истинно положительных объектах не оценивает весь pipeline. Экспозиция и censoring требуют отдельного смысла.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "отсутствие спроса/затрат и положительные величины образуют разные режимы; обычная регрессия плохо описывает границу."
+  ],
+  "contraindications": [
+    "hard gate по порогу может ухудшить RMSE; оценка положительной части только на истинно положительных объектах не оценивает весь pipeline. Экспозиция и censoring требуют отдельного смысла."
+  ],
+  "cost": "средняя/высокая",
+  "implementation_path": "custom",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_linear_model_Ridge",
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "zero_inflation"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/model_evaluation.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "zero_inflation",
+  "routing_priority": 0
+}

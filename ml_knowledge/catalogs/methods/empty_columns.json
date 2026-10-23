@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "исключение как отдельная гипотеза",
+  "applicability_rules": [],
+  "conditions": [
+    "Есть полностью пустая колонка на fit."
+  ],
+  "constraints": "Восстановитель не может обучиться без наблюдаемых значений; не менять число/порядок колонок на predict.",
+  "contraindications": [
+    "Восстановитель не может обучиться без наблюдаемых значений; не менять число/порядок колонок на predict."
+  ],
+  "cost": "Низкая: константа и при необходимости индикатор.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сохранить столбец, индикатор и фиксированную константу",
+  "id": "empty_columns",
+  "method_id": "empty_columns",
+  "minimum_experiment": "Добавить пустую колонку, затем непустое значение на predict; проверить фиксированную схему.",
+  "missing_references": [],
+  "observations": "На fit столбец полностью отсутствует",
+  "references": [
+    "api_sklearn_impute_MissingIndicator"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_impute_MissingIndicator",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "пустые",
+    "столбцы",
+    "/",
+    "empty",
+    "features"
+  ],
+  "title": "Пустые столбцы / empty features",
+  "version": 2
+}

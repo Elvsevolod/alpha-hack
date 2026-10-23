@@ -1,0 +1,52 @@
+{
+  "revision": 2,
+  "status": "Documentation-only critical review complete; no agent efficacy claim",
+  "ideas": 46,
+  "dispositions": {
+    "часть блока": 5,
+    "отложить": 22,
+    "проверить первой": 3,
+    "существующий владелец": 15,
+    "служебное предусловие": 1
+  },
+  "links_valid": true,
+  "all_cards_have_disposition_checks_and_benefit_test": true,
+  "budget_arithmetic_valid": true,
+  "short_cycle_hours_cap": 3.5,
+  "conditional_long_slot_hours_cap": 6,
+  "total_hours_cap": 9.5,
+  "protected_files_checked": 312,
+  "changed_protected_files": [],
+  "new_training_runs": 0,
+  "qwen_calls": 0,
+  "runtime_edits_by_this_task": 0,
+  "qa_plan_edited": false,
+  "ml_report_edited": false,
+  "documents": [
+    {
+      "path": "План_повышения_качества_агента.md",
+      "bytes": 120090,
+      "sha256": "26293e8285fed6a31a3f83514ebee667a5b87b98ea66ff53cd58c07597fa161f"
+    },
+    {
+      "path": "Исследование_качества_агентных_систем.md",
+      "bytes": 47843,
+      "sha256": "7b7190223b6aa20569c4792bef2cceea10256938a438811a30b0966635665d3a"
+    },
+    {
+      "path": "research/agent_quality_20261022/EXPERIMENTS.md",
+      "bytes": 23799,
+      "sha256": "67b7c7866a211efc43176cc7264b70395ca4f7c309d0a79173800cb7c5c8a6f4"
+    },
+    {
+      "path": "research/agent_quality_20261022/CRITICAL_REVIEW.md",
+      "bytes": 18155,
+      "sha256": "b0b0c8f5a43cd37d21608aea1bf93fac13016edcd876c4a6c0462bf8485c825b"
+    },
+    {
+      "path": "research/agent_quality_20261022/SOURCES.md",
+      "bytes": 41298,
+      "sha256": "d367baa07d709e121825f548d5a28571eca97027d72d7dda351bdb43b148be25"
+    }
+  ]
+}

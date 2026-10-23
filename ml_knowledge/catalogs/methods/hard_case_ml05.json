@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml05",
+  "method_id": "hard_case_ml05",
+  "version": 1,
+  "title": "Много точных или близких дублей",
+  "observations": "высокая точность на случайной внутренней оценке, одинаковые признаки в разных частях, низкое число уникальных feature-векторов.",
+  "hypothesis": "сравнить обычную и групповую стресс-проверку внутри fit; при необходимости проверить перевзвешивание повторов. Для near-duplicate задать обоснованную метрику расстояния и ограничить стоимость.",
+  "diagnostic": "считать дубли без ID и таргета; отдельно частоты групп, конфликты меток и пересечения частей. Хеш использовать как ускоритель с точным подтверждением совпадений.",
+  "minimum_experiment": "сравнить обычную и групповую стресс-проверку внутри fit; при необходимости проверить перевзвешивание повторов. Для near-duplicate задать обоснованную метрику расстояния и ограничить стоимость.",
+  "acceptance": "вывод разделяет перенос на виденные/новые наборы признаков и не утверждает тождество событий по совпавшему вектору.",
+  "constraints": "дубли не обязательно ошибка; удаление меняет целевое распределение. Для реального теста с повторными объектами полностью grouped-проверка может быть слишком пессимистичной.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "высокая точность на случайной внутренней оценке, одинаковые признаки в разных частях, низкое число уникальных feature-векторов."
+  ],
+  "contraindications": [
+    "дубли не обязательно ошибка; удаление меняет целевое распределение. Для реального теста с повторными объектами полностью grouped-проверка может быть слишком пессимистичной."
+  ],
+  "cost": "низкая для точных, потенциально высокая для близких",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_mean_squared_error"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "duplicate_features"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/common_pitfalls.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "duplicate_features",
+  "routing_priority": 0
+}

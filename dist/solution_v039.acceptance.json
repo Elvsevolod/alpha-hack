@@ -1,0 +1,68 @@
+{
+  "candidate": "dist/solution_v039.zip",
+  "archive_sha256": "f37735576f6aaf6e66fb4818a7c859715369cd2b33f6125b98e0479b469a5322",
+  "bytes": 94718022,
+  "base_archive": "dist/solution_v038.zip",
+  "status": "C1_offline_technical_verification_passed",
+  "implemented_blocks": [
+    "C1"
+  ],
+  "c2_c3_changed": false,
+  "changed_embedded_sources": [
+    "automl_agent/completion.py",
+    "automl_agent/controller.py",
+    "automl_agent/search.py"
+  ],
+  "checks": {
+    "targeted": {
+      "passed": 22,
+      "log": "outputs/c1_time_v039/targeted_final.log"
+    },
+    "recovery": {
+      "passed": 15,
+      "log": "outputs/c1_time_v039/recovery_final.log"
+    },
+    "adjacent_regressions": {
+      "passed": 88,
+      "log": "outputs/c1_time_v039/c1_regression.log"
+    },
+    "optuna_adapters_pilot": {
+      "passed": 20,
+      "log": "outputs/c1_time_v039/optuna_final.log"
+    },
+    "exact_archive_entry": {
+      "passed": 4,
+      "report": "outputs/c1_time_v039/exact_entry/REPORT.json"
+    },
+    "dependency_versions": {
+      "matched": 37,
+      "report": "outputs/c1_time_v039/dependency_environment.json"
+    },
+    "packaging": {
+      "passed": true,
+      "manifest": "dist/solution_v039.manifest.json"
+    },
+    "embedded_equality": {
+      "passed": true,
+      "files": 52,
+      "report": "outputs/c1_time_v039/embedded_verification.json"
+    },
+    "release_test_residue_audit": {
+      "passed": true,
+      "report": "outputs/c1_time_v039/release_audit/REPORT.json"
+    },
+    "subagent_review": {
+      "confirmed_unresolved_findings": 0,
+      "report": "outputs/c1_time_v039/SUBAGENT_REVIEW.json"
+    }
+  },
+  "test_groups_overlap": true,
+  "default_seconds": 10800,
+  "paid_requests": 0,
+  "live_Qwen_tested": false,
+  "three_hour_rehearsal_run": false,
+  "quality_advantage_established": false,
+  "full_plan_acceptance": false,
+  "platform_submitted": false,
+  "documentation": "outputs/c1_time_v039/REPORT.md"
+}

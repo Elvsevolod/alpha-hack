@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml33",
+  "method_id": "hard_case_ml33",
+  "version": 1,
+  "title": "RMSE определяется редкими большими ошибками",
+  "observations": "высокий разброс таргета, крупная доля SSE у хвоста; хорошие средние/медианные ошибки при слабой RMSE.",
+  "hypothesis": "ограниченно сравнить обучение в исходной шкале, другую регуляризацию и согласованное представление; log-target — самостоятельная ветка, не обязательный старт.",
+  "diagnostic": "внутри fit анализировать сумму квадратов ошибок по заранее выбранным диапазонам и допустимым признакам; отделять хвост таргета от хвоста остатков.",
+  "minimum_experiment": "ограниченно сравнить обучение в исходной шкале, другую регуляризацию и согласованное представление; log-target — самостоятельная ветка, не обязательный старт.",
+  "acceptance": "общий RMSE улучшен в исходных единицах; дополнительная диагностика не заменяет основной критерий и не читает закрытые срезы.",
+  "constraints": "верхний 1% таргета не всегда даёт самые большие ошибки обученной модели; удаление дорогих объектов искусственно облегчает задачу.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "высокий разброс таргета, крупная доля SSE у хвоста; хорошие средние/медианные ошибки при слабой RMSE."
+  ],
+  "contraindications": [
+    "верхний 1% таргета не всегда даёт самые большие ошибки обученной модели; удаление дорогих объектов искусственно облегчает задачу."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_compose_TransformedTargetRegressor"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "heavy_tail"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.root_mean_squared_error.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "heavy_tail",
+  "routing_priority": 0
+}

@@ -1,0 +1,13 @@
+{
+  "version_tag": "v009",
+  "status": "candidate_local_checks_passed_public_qwen_pending",
+  "archive": "solution_v009.zip",
+  "bytes": 1842540,
+  "sha256": "b3dd73aa6c07a9451cc84c07a11c83091f66011abedf756dcd03d349c0e5037c",
+  "manifest": "solution_v009.manifest.json",
+  "acceptance": "solution_v009.acceptance.json",
+  "acceptance_sha256": "431581acc7742f6176a92859f057fa66247209a519dd713ffeabf3ce876e1718",
+  "ready_for_platform_upload": false,
+  "full_public_qwen_validation_completed": false,
+  "submitted_to_platform": false
+}

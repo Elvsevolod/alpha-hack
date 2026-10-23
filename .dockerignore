@@ -1,0 +1,17 @@
+**
+!Dockerfile
+!Dockerfile.full
+!requirements-core.txt
+!solution.py
+!automl_agent/
+!automl_agent/**
+!tests/
+!tests/**
+!tools/
+!tools/**
+!knowledge_runtime/
+!knowledge_runtime/**
+!data_for_participants/
+!data_for_participants/requirements.txt
+**/__pycache__
+**/*.pyc

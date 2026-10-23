@@ -1,0 +1,192 @@
+{
+  "archive": "dist/solution_v051.zip",
+  "sha256": "7379723f22ce0508cbcc51933cd964602c6e2fcdf25b5f5c15127de6e2e40377",
+  "bytes": 95018333,
+  "flat_files": 224,
+  "runtime_entries": 53,
+  "changed_runtime": [
+    "automl_agent/knowledge_tools.py"
+  ],
+  "changed_outer_files": [
+    "agent_bundle.py"
+  ],
+  "all_python_sources_compile": true,
+  "requirements_identical": true,
+  "archive_size_passed": true,
+  "test_tools_in_archive": false,
+  "workspace_matches_archive": true,
+  "status": "focused_offline_and_exact_entry_passed_fresh_live_pending",
+  "base": "solution_v050.zip",
+  "API_credential_literal_absent": true,
+  "offline_exact_tests": {
+    "passed": 22,
+    "failed": 0,
+    "scope": "APIv2+full-envelope budget reproducer, final100-ID code",
+    "log": "../outputs/quality_goal_20261023/discovery_budget_exact_01.log"
+  },
+  "offline_host_tests": {
+    "final_boundary_passed": 1,
+    "earlier_96_ID_revision_v2_tests_passed": 22,
+    "final_boundary_log": "../outputs/quality_goal_20261023/discovery_budget_boundary_02.log"
+  },
+  "independent_review": {
+    "blockers": 0,
+    "search_and_catalog_exact_4000_boundary": true,
+    "operation_id_sizes_checked": [
+      1,
+      96,
+      100
+    ],
+    "fields_and_continuations_preserved": true,
+    "pure_no_fits_no_API": true,
+    "document": "../outputs/quality_goal_20261023/REVIEW_DISCOVERY_BUDGET.md"
+  },
+  "reproducer_before_fix": {
+    "requested_max_chars": 3500,
+    "actual_envelope_chars": 3824,
+    "log": "../outputs/quality_goal_20261023/discovery_budget_reproducer_01.log"
+  },
+  "exact_entry": {
+    "archive_sha256": "7379723f22ce0508cbcc51933cd964602c6e2fcdf25b5f5c15127de6e2e40377",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "inherited_alias_fix_acceptance": "solution_v050.acceptance.json",
+  "inherited_cost_fix_acceptance": "solution_v049.acceptance.json",
+  "stock_default_seconds": 10800,
+  "test_caps_in_archive": false,
+  "fresh_autonomous_live_tested": false,
+  "same_archive_full_pair_acceptance": false,
+  "quality_advantage_established": false,
+  "candidate_promoted": false,
+  "uploaded": false
+}

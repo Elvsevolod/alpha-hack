@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml43",
+  "method_id": "hard_case_ml43",
+  "version": 1,
+  "title": "Много коррелированных, повторных или константных признаков",
+  "observations": "погодные столбцы сильно связаны, матрица плохо обусловлена, вычислительная стоимость высока, важности нестабильны.",
+  "hypothesis": "сначала регуляризация/удаление технических дублей; затем ограниченная ablation-группа или компактный базис. Список колонок фиксировать после fit.",
+  "diagnostic": "константы, точные дубли столбцов и корреляции изучать на fit; отделять избыточность для линейной модели от полезных альтернативных разбиений дерева.",
+  "minimum_experiment": "сначала регуляризация/удаление технических дублей; затем ограниченная ablation-группа или компактный базис. Список колонок фиксировать после fit.",
+  "acceptance": "сокращение сохраняет/улучшает основной критерий и снижает стоимость; преобразование воспроизводится на test без повторного отбора.",
+  "constraints": "высокая попарная корреляция не доказывает отсутствие дополнительного сигнала. Отбор по всем обучающим данным до внутреннего CV создаёт утечку оценивания.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "погодные столбцы сильно связаны, матрица плохо обусловлена, вычислительная стоимость высока, важности нестабильны."
+  ],
+  "contraindications": [
+    "высокая попарная корреляция не доказывает отсутствие дополнительного сигнала. Отбор по всем обучающим данным до внутреннего CV создаёт утечку оценивания."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_feature_engine_selection_DropCorrelatedFeatures"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "correlation"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/common_pitfalls.html",
+    "https://scikit-learn.org/1.5/modules/preprocessing.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "correlation",
+  "routing_priority": 0
+}

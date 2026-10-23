@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml01",
+  "method_id": "hard_case_ml01",
+  "version": 1,
+  "title": "Неясно, что представляет собой независимое наблюдение",
+  "observations": "несколько строк могут относиться к одному клиенту, зданию, сессии или запросу; название ID этого не устанавливает.",
+  "hypothesis": "обосновать случайную, групповую или временную опору; если есть сомнение, провести дополнительный стресс-тест внутри fit и оформить предложение контроллеру.",
+  "diagnostic": "сопоставить task/dictionary, кратности подтверждённых entity-полей и момент использования модели. Отделить повторное измерение объекта от случайно одинаковых признаков.",
+  "minimum_experiment": "обосновать случайную, групповую или временную опору; если есть сомнение, провести дополнительный стресс-тест внутри fit и оформить предложение контроллеру.",
+  "acceptance": "сформулирован конкретный вопрос переноса и причина схемы; совпадение split с будущим применением подтверждается доступной информацией, а не качеством модели.",
+  "constraints": "не придумывать entity-ID из удобной комбинации полей и не менять внешний split ради лучшего score. При недостатке сведений сохранить неопределённость явно.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "несколько строк могут относиться к одному клиенту, зданию, сессии или запросу; название ID этого не устанавливает."
+  ],
+  "contraindications": [
+    "не придумывать entity-ID из удобной комбинации полей и не менять внешний split ради лучшего score. При недостатке сведений сохранить неопределённость явно."
+  ],
+  "cost": "низкая",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_f1_score"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "task_contract"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/cross_validation.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "task_contract",
+  "routing_priority": 0
+}

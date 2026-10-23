@@ -1,0 +1,40 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "одна дешёвая модель; внутренний stacking",
+  "applicability_rules": [],
+  "conditions": [
+    "Есть совместимые прогнозы с одинаковыми ключами строк и классами."
+  ],
+  "constraints": "Не усреднять метки; учесть полный граф refit и порядок классов.",
+  "contraindications": [
+    "Не усреднять метки; учесть полный граф refit и порядок классов."
+  ],
+  "cost": "Сумма стоимости компонентов на fit и predict.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Равновесное среднее значений/вероятностей",
+  "id": "ensemble",
+  "method_id": "ensemble",
+  "minimum_experiment": "Равновесное среднее двух согласованных прогнозов; проверить ключи и конечность.",
+  "missing_references": [],
+  "observations": "Есть совместимые модели с разными ошибками",
+  "references": [
+    "api_sklearn_ensemble_RandomForestClassifier"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_ensemble_RandomForestClassifier",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "ансамбль",
+    "/",
+    "aligned",
+    "averaging"
+  ],
+  "title": "Ансамбль / aligned averaging",
+  "version": 2
+}

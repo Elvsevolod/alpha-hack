@@ -1,0 +1,40 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "сохранённый пригодный результат победителя контроля",
+  "applicability_rules": [],
+  "conditions": [
+    "Поиск закончен, финалисты и конфигурации заморожены."
+  ],
+  "constraints": "Новый HPO запрещён; прежний пригодный результат сохраняется при сбое refit.",
+  "contraindications": [
+    "Новый HPO запрещён; прежний пригодный результат сохраняется при сбое refit."
+  ],
+  "cost": "Стоимость полного замороженного графа на разрешённых строках.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сохранить конфигурацию, полный граф и допустимые строки",
+  "id": "refit",
+  "method_id": "refit",
+  "minimum_experiment": "Один frozen refit; сверить конфигурацию, строки и формат конечного ответа.",
+  "missing_references": [],
+  "observations": "Поиск завершён и финалисты заморожены",
+  "references": [
+    "api_autogluon_tabular_TabularPredictor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_autogluon_tabular_TabularPredictor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "переобучение",
+    "/",
+    "frozen",
+    "refit"
+  ],
+  "title": "Переобучение / frozen refit",
+  "version": 2
+}

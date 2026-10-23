@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "version_tag": "v008",
+  "status": "validated_local_release",
+  "checked_at": "2026-10-20T19:17:17.593770+00:00",
+  "archive": "dist/solution_v008.zip",
+  "archive_bytes": 1839912,
+  "archive_sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+  "embedded_bundle_sha256": "25740cffe59ad93ec52d8804116c26dff93a80f120eeab7c1b4b21406e814826",
+  "static_manifest": {
+    "path": "dist/solution_v008.manifest.json",
+    "sha256": "3926e4585aa935d517f5dcdbe663894029a81fb2832cf4d26351b1a7645c817f"
+  },
+  "plan": {
+    "path": "План_архитектуры_агента_на_согласование.md",
+    "sha256": "ba88f536fdea08ec6dafacb4f45b2cf1604980fa65f34b444a5b2e84f2a10ecf"
+  },
+  "plan_implemented": true,
+  "local_acceptance_completed": true,
+  "runtime_interface_checked": true,
+  "mandatory_local_acceptance_gates_completed": [
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08"
+  ],
+  "entry_command": [
+    "python3",
+    "solution.py",
+    "task.md"
+  ],
+  "connection": {
+    "required_environment": [
+      "OPENAI_API_KEY",
+      "OPENAI_BASE_URL"
+    ],
+    "default_model": "qwen/qwen3.8-27b",
+    "context_tokens": 262144,
+    "credential_in_archive": false
+  },
+  "checks": {
+    "package": {
+      "archive": "dist/solution_v008.zip",
+      "bytes": 1839912,
+      "sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+      "flat_members": 3,
+      "embedded_files": 402,
+      "embedded_bundle_sha256": "25740cffe59ad93ec52d8804116c26dff93a80f120eeab7c1b4b21406e814826",
+      "all_embedded_sources_match_current": true,
+      "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+      "original_baseline_sha256": "ecf66e8d7c054624eeca710c13e2b82c1ac22a03314db8a45ff1778fa16e372d"
+    },
+    "knowledge": {
+      "bundle_version": "f3eb0e9d4823b44a921db38f7c196971bd3c567212dc81d94917b6fde8675a5c",
+      "files_verified": 375,
+      "queries": 40,
+      "recall_at_5": 0.925,
+      "critical_checks_passed": true,
+      "identical_offline_rebuilds": 2
+    },
+    "offline": {
+      "report": "outputs/flat_runtime_acceptance_v008/REPORT.json",
+      "passed": 12,
+      "total": 12,
+      "exact_pins": 37,
+      "control_completed": 12,
+      "refit_completed": 12,
+      "scope": "Declared end-to-end fixture modes"
+    },
+    "recipes": {
+      "report": "outputs/recipe_acceptance_release/REPORT.json",
+      "passed": 20,
+      "total": 20,
+      "exact_pins": 37,
+      "control_completed": 20,
+      "refit_completed": 20,
+      "scope": "One declared synthetic mode per recipe; other combinations remain unverified"
+    },
+    "live": {
+      "passed": 27,
+      "total": 27,
+      "scenarios": {
+        "ambiguous_contract": 3,
+        "suppressed_diagnostics": 3,
+        "custom_error": 3,
+        "resource_timeout": 3,
+        "resource_memory": 3,
+        "unsupported_reference": 3,
+        "stagnation": 3,
+        "repeated_reference": 3,
+        "api_failure": 3
+      },
+      "protocol_version": 5,
+      "code_fingerprint": "0c7329ba3547da1c8b331de6d3863141af0fc9f8b579cb94cba89e60bf93f5b0",
+      "successful_real_requests": 137,
+      "trained_csv": 27
+    },
+    "paired_comparison": {
+      "fresh_runs": 18,
+      "trained_csv": 18,
+      "seconds_per_run": 300,
+      "cpu_per_run": 4,
+      "training_seeds": [
+        17,
+        42,
+        73
+      ],
+      "implementation_hash": "52467d46b207b9d8eb864dbf247d349ef4d05fd80f3f8d15104682e31296b2bb",
+      "control_statuses": {
+        "completed": 16,
+        "control_skipped_budget": 1,
+        "control_preparation_failed": 1
+      },
+      "refit_statuses": {
+        "completed": 14,
+        "refit_skipped_budget": 2,
+        "not_started": 2
+      },
+      "hidden_test_validated": false
+    },
+    "knowledge_ablation": {
+      "runs": 6,
+      "trained_csv": 6,
+      "control_completed": 6,
+      "refit_completed": 6,
+      "extended_reference_requests": 0,
+      "interpretation": "Availability comparison does not establish a causal corpus quality benefit; no extended-reference calls were made."
+    },
+    "knowledge_integration": {
+      "actual_qwen_choices": 4,
+      "actual_read_ids": [
+        "api_sklearn_linear_model_Ridge",
+        "linear",
+        "iterative_imputation",
+        "smooth"
+      ],
+      "completed_experiments": 1,
+      "quality_improvement_observed": false,
+      "control_completed": true,
+      "refit_completed": true
+    },
+    "cold_platform_rehearsal": {
+      "exit_code": 0,
+      "elapsed_seconds": 1098.4299981594086,
+      "first_csv_seconds": 1.005033016204834,
+      "only_required_connection_variables": true,
+      "source_directory_mounted": false,
+      "actual_qwen_decisions": 11,
+      "runtime_root": "/task/.agent_runtime/25740cffe59ad93ec52d",
+      "csv_rows": 25,
+      "csv_sha256": "115cea41c8c8949c6631d211be5bb9afb9acae5179154a723ff165acff13e8fd",
+      "control": "completed",
+      "refit": "completed"
+    },
+    "host_tests": {
+      "passed": 150,
+      "warnings": 23,
+      "environment": "Development host; exact 37-pin execution checked separately"
+    },
+    "dependencies": {
+      "allowed_distributions": 37,
+      "direct_imports": 61,
+      "violations": 0
+    },
+    "hygiene": {
+      "credentials_found": 0,
+      "personal_paths_found": 0,
+      "temporary_provider_references_in_python": 0,
+      "env_permissions": "0600"
+    }
+  },
+  "evidence_sha256": {
+    "outputs/verification/release_v008.json": "a9e14246c18dc1aeb20ad06069d99baef12e531b498242e949c20457f1a84f27",
+    "outputs/verification/host_full_v008.log": "5314585ae9e713a9bee566e8986a7bf8eb24f9a3ab68b4f875fb4ce0e17f9e8b",
+    "outputs/verification/v8_sources/EXECUTION_METADATA.json": "a1c7ced5a3537b18876190057bff514b30a762248641ee42357ae819fc247022",
+    "outputs/flat_submission_organizer_v008_sources.json": "c31defa821ca20c1f5fb34980b643c1ba3bac17cb52354a35c2f7a38ccbc49b2",
+    "outputs/flat_runtime_acceptance_v008/REPORT.json": "09b4d688b5bb4a4c4995bbe8804412a0af02022e1cb7e6c133cd688a961d634c",
+    "outputs/flat_runtime_acceptance_v008/runtime_origins.json": "f3437f9865fa800b103618c1feb7e5ea23130d44a1685e901d7bef90ca893850",
+    "outputs/recipe_acceptance_release/REPORT.json": "6cf26a94340bd6778683f90e59ef50c608b3f6a52e22d9b7d713d373fed2264e",
+    "outputs/live_acceptance/organizer_release_v8_protocol5/REPORT.json": "13e684d94c381ae2dc68d284994984e448321feb5f06cd1e95783645ae929c13",
+    "outputs/benchmark_release_v8/REPORT.json": "a3e8bf7f4c7bb77e924a60bd437fa712e9f81f48c64b2c019553a2fbb5fa1393",
+    "outputs/benchmark_release_v8/classification/REPORT.json": "ee543ff42340bb4b0d4acc35816081b79a1f34e51c3b66072d4ebb2e105cc7c6",
+    "outputs/benchmark_release_v8/regression/REPORT.json": "d21198d9982b61dee30edb7cbbc59753a2726c610fb928b8a12d502a91dd15b6",
+    "outputs/knowledge_ablation_release_v8/REPORT.json": "dd50888f70f19d3b156379f817d7e8221452f4e47d33f02e0cf621d603468225",
+    "outputs/verification/knowledge_integration_v8.json": "a0d5853f1d2fe2c4997743c77a595c43ee33ec314a646c826102fcc11ea46cba",
+    "outputs/knowledge_search_acceptance.json": "3fffb81981f851bef547b89a0cc9daca1b2eb2c7a9ded390a7709d638a6d3b3d",
+    "outputs/knowledge_rebuild_acceptance_final.json": "a76c65417ad37811548c99d16ac27eca956253259866153e50324564dfbfd13e",
+    "outputs/platform_live_organizer_v008/REHEARSAL.json": "3d120e291942372abda73b0eaceda50f4641a41028c60fc810113023aff69597",
+    "outputs/platform_live_organizer_v008/.agent_work/f8b7f0373574bd23/run_report.json": "7b973d618f8baf46f757e3e30b5e012a4a7d5589e11dedd20ddf676b01a51204",
+    "outputs/platform_live_organizer_v008/submission.csv": "115cea41c8c8949c6631d211be5bb9afb9acae5179154a723ff165acff13e8fd",
+    "outputs/dependency_audit.json": "8118f5afda6131c85790eeca22ab960f810d54308d4ee6956e258da106df971d",
+    "outputs/release_hygiene_v008.json": "3b079d4d5389554585533b02adab458dd64bd5d3e25bc5875372bac96b143105"
+  },
+  "documentation_sha256": {
+    "README.md": "88b75db91198cdec93da731c4d1aecd1e431d5969be795bc7763f7a479a86859",
+    "IMPLEMENTATION_STATUS.md": "e7f3b7f0cb25ab81674aa787d4bf5ec90d53b0bab6cc18238513d0310297fa4f",
+    "ACCEPTANCE_AUDIT.md": "bc6fa8ae80c369f7f32bb9c383f4852fb7c7fe7727a335614d8886b010186ee7"
+  },
+  "limitations": [
+    "No official platform submission or private-score verification.",
+    "Recipe acceptance covers one declared synthetic mode per active recipe.",
+    "Short 300-second comparisons include incomplete agent controls/refits; missing metrics are excluded and statuses retained.",
+    "Corpus availability comparison made no extended-reference calls and does not establish a causal quality benefit.",
+    "Focused real-Qwen knowledge integration completed without an observed quality improvement.",
+    "Custom Python has limited trust; hostile native-code isolation is not guaranteed.",
+    "LightAutoML remains disabled pending separate compatibility verification."
+  ]
+}

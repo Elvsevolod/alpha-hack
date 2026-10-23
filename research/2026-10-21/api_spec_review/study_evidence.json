@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-10-21T16:31:15.882003+07:00",
+  "api_generations_performed": 0,
+  "application_source_and_settings_changed": false,
+  "api_title": "LiteLLM API",
+  "api_version": "1.105.1",
+  "latest_validated_pointer": "v008",
+  "latest_candidate": "v009",
+  "archive_comparison": {
+    "v008": {
+      "archive_sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+      "flat_members": [
+        "agent_bundle.py",
+        "requirements.txt",
+        "solution.py"
+      ],
+      "project_python_files": 25,
+      "files_matching_checkout": 18,
+      "different_files": [
+        "solution.py",
+        "automl_agent/budget.py",
+        "automl_agent/controller.py",
+        "automl_agent/pipelines.py",
+        "automl_agent/publication.py",
+        "automl_agent/qwen.py",
+        "automl_agent/util.py"
+      ]
+    },
+    "v009": {
+      "archive_sha256": "b3dd73aa6c07a9451cc84c07a11c83091f66011abedf756dcd03d349c0e5037c",
+      "flat_members": [
+        "agent_bundle.py",
+        "requirements.txt",
+        "solution.py"
+      ],
+      "project_python_files": 25,
+      "files_matching_checkout": 25,
+      "different_files": []
+    }
+  },
+  "focused_transport_checks": {
+    "passed": 8,
+    "deselected": 7,
+    "duration_seconds": 1.98,
+    "real_api_used": false,
+    "test_file": "tests/test_v009_research_recovery.py"
+  },
+  "local_dotenv_nonsecret_configuration": {
+    "OPENAI_BASE_URL": "https://changellenge.up.railway.app/v1",
+    "OPENAI_MODEL": "qwen/qwen3.8-27b",
+    "AGENT_CONTEXT_TOKENS": 262144,
+    "AGENT_OUTPUT_TOKENS": 8192,
+    "OPENAI_EXTRA_BODY": {
+      "temperature": 0.2,
+      "reasoning": {
+        "enabled": false
+      }
+    }
+  },
+  "platform_defaults_if_optional_environment_not_set": {
+    "OPENAI_MODEL": "qwen/qwen3.8-27b",
+    "AGENT_CONTEXT_TOKENS": 262144,
+    "AGENT_OUTPUT_TOKENS": 8192,
+    "OPENAI_EXTRA_BODY": {}
+  },
+  "platform_connection_source": {
+    "api_key": "organizer-provided OPENAI_API_KEY environment variable",
+    "api_base": "organizer-provided OPENAI_BASE_URL environment variable",
+    "optional_dotenv_overrides_external_environment": false,
+    "dotenv_included_in_archive": false
+  },
+  "metadata_scope": "Proxy metadata was read using the current local development key. Its quotas and model access are not proven to apply to organizer-provided evaluation keys or endpoints."
+}

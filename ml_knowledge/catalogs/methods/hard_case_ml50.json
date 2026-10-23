@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml50",
+  "method_id": "hard_case_ml50",
+  "version": 1,
+  "title": "Прогноз многошаговый, а оценка сделана на один шаг",
+  "observations": "на test надо сразу выдать несколько будущих периодов; рекурсивный pipeline использует значения, которых при реальном прогнозе нет.",
+  "hypothesis": "seasonal/last-value naive, затем один поддерживаемый временной метод или лаговая модель на таком же горизонте; несколько исторических origins внутри fit при достаточной истории.",
+  "diagnostic": "горизонт, частоту, шаги, известность лагов и способ обновления истории. Проверить полный путь предсказания без подставления истинных будущих таргетов.",
+  "minimum_experiment": "seasonal/last-value naive, затем один поддерживаемый временной метод или лаговая модель на таком же горизонте; несколько исторических origins внутри fit при достаточной истории.",
+  "acceptance": "каждый тестовый шаг построен из действительно доступной информации; метрика соответствует полному горизонту и заданному агрегированию.",
+  "constraints": "one-step teacher forcing не оценивает рекурсивный multi-step. Нерегулярные интервалы нельзя считать регулярными только после сортировки.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "на test надо сразу выдать несколько будущих периодов; рекурсивный pipeline использует значения, которых при реальном прогнозе нет."
+  ],
+  "contraindications": [
+    "one-step teacher forcing не оценивает рекурсивный multi-step. Нерегулярные интервалы нельзя считать регулярными только после сортировки."
+  ],
+  "cost": "средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_statsmodels_tsa_statespace_sarimax_SARIMAX"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "forecasting"
+  ],
+  "research_sources": [
+    "https://otexts.com/fpp3/toolbox.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "forecasting",
+  "routing_priority": 0
+}

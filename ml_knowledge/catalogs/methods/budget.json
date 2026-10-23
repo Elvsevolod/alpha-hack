@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "более дешёвое семейство; finish",
+  "applicability_rules": [],
+  "conditions": [
+    "Оценены все этапы графа и оставшийся абсолютный дедлайн."
+  ],
+  "constraints": "Таймаут не доказывает низкое качество; резерв контроля/refit нельзя тратить на поиск.",
+  "contraindications": [
+    "Таймаут не доказывает низкое качество; резерв контроля/refit нельзя тратить на поиск."
+  ],
+  "cost": "Измеряется пилотом; включает auxiliary fits, HPO, prediction и восстановление базы.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Пилот, внешний таймаут и резерв всех финалистов",
+  "id": "budget",
+  "method_id": "budget",
+  "minimum_experiment": "Измерить один короткий fit; экстраполировать полный граф и сохранить резерв.",
+  "missing_references": [],
+  "observations": "Дорогие преобразования и модели",
+  "references": [
+    "resource_contract"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "resource_contract",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "ресурсы",
+    "/",
+    "complete",
+    "graph",
+    "budget"
+  ],
+  "title": "Ресурсы / complete graph budget",
+  "version": 2
+}

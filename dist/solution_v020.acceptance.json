@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-10-21T17:46:32.329495+00:00",
+  "technical_tests_passed": true,
+  "full_plan_acceptance": false,
+  "formal_search_acceptance": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "dependency_audit": "../outputs/tool_api_v2_20261021/dependency_audit.json",
+  "documentation": "../outputs/tool_api_v2_20261021/REPORT.md",
+  "archive": "solution_v020.zip",
+  "sha256": "accc937c93b424d3f1b82976ded0fa5f459feaaed7afcab3535b7eb14be80247",
+  "version_tag": "v020",
+  "status": "live_trial_completed_with_accounting_defect",
+  "technical_tests": {
+    "passed": 349,
+    "skipped": 1
+  },
+  "clean_zip_cases": 3,
+  "live": {
+    "archive_sha256": "accc937c93b424d3f1b82976ded0fa5f459feaaed7afcab3535b7eb14be80247",
+    "exit_code": 0,
+    "watchdog_triggered": false,
+    "elapsed_seconds": 102.69729900360107,
+    "after_check_exit_code": 0,
+    "state": "completed",
+    "control_status": "completed",
+    "refit_status": "completed",
+    "model_calls": 12,
+    "research_candidates": 4,
+    "failure": null,
+    "passed": true
+  },
+  "known_issue": "Ordinary model-call limit recorded as qwen_failure; fixed in v021 without another real API run."
+}

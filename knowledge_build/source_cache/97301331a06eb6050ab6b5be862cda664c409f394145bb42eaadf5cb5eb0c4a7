@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" />
+  <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Topics &mdash; LightGBM 4.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=cc8a4273"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/js/script.js?v=7274805f"></script>
+    <script src="_static/js/theme.js"></script>
+    <script src="_static/js/versions.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LightGBM FAQ" href="FAQ.html" />
+    <link rel="prev" title="LightGBM GPU Tutorial" href="GPU-Tutorial.html" /> 
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="lightgbm" /><meta name="readthedocs-version-slug" content="v4.6.0" /><meta name="readthedocs-resolver-filename" content="/Advanced-Topics.html" /><meta name="readthedocs-http-status" content="200" /></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/LightGBM_logo_grey_text.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="switch-menus">
+                <div class="version-switch"></div>
+                <div class="language-switch"></div>
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation-Guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick-Start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python-Intro.html">Python Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Experiments.html">Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parameters-Tuning.html">Parameters Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C-API.html">C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python-API.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightgbm.readthedocs.io/en/v4.6.0/R/reference/">R API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Parallel-Learning-Guide.html">Distributed Learning Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GPU-Tutorial.html">GPU Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#missing-value-handle">Missing Value Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#categorical-feature-support">Categorical Feature Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lambdarank">LambdaRank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cost-efficient-gradient-boosting">Cost Efficient Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters-tuning">Parameters Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distributed-learning">Distributed Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpu-support">GPU Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-for-position-bias-treatment">Support for Position Bias Treatment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development-Guide.html">Development Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LightGBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Advanced Topics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Advanced-Topics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced-topics">
+<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading"></a></h1>
+<section id="missing-value-handle">
+<h2>Missing Value Handle<a class="headerlink" href="#missing-value-handle" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>LightGBM enables the missing value handle by default. Disable it by setting <code class="docutils literal notranslate"><span class="pre">use_missing=false</span></code>.</p></li>
+<li><p>LightGBM uses NA (NaN) to represent missing values by default. Change it to use zero by setting <code class="docutils literal notranslate"><span class="pre">zero_as_missing=true</span></code>.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">zero_as_missing=false</span></code> (default), the unrecorded values in sparse matrices (and LightSVM) are treated as zeros.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">zero_as_missing=true</span></code>, NA and zeros (including unrecorded values in sparse matrices (and LightSVM)) are treated as missing.</p></li>
+</ul>
+</section>
+<section id="categorical-feature-support">
+<h2>Categorical Feature Support<a class="headerlink" href="#categorical-feature-support" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>LightGBM offers good accuracy with integer-encoded categorical features. LightGBM applies
+<a class="reference external" href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1958.10501479">Fisher (1958)</a>
+to find the optimal split over categories as
+<a class="reference external" href="./Features.html#optimal-split-for-categorical-features">described here</a>. This often performs better than one-hot encoding.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">categorical_feature</span></code> to specify the categorical features.
+Refer to the parameter <code class="docutils literal notranslate"><span class="pre">categorical_feature</span></code> in <a class="reference external" href="./Parameters.html#categorical_feature">Parameters</a>.</p></li>
+<li><p>Categorical features will be cast to <code class="docutils literal notranslate"><span class="pre">int32</span></code> (integer codes will be extracted from pandas categoricals in the Python-package) so they must be encoded as non-negative integers (negative values will be treated as missing)
+less than <code class="docutils literal notranslate"><span class="pre">Int32.MaxValue</span></code> (2147483647).
+It is best to use a contiguous range of integers started from zero.
+Floating point numbers in categorical features will be rounded towards 0.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">min_data_per_group</span></code>, <code class="docutils literal notranslate"><span class="pre">cat_smooth</span></code> to deal with over-fitting (when <code class="docutils literal notranslate"><span class="pre">#data</span></code> is small or <code class="docutils literal notranslate"><span class="pre">#category</span></code> is large).</p></li>
+<li><p>For a categorical feature with high cardinality (<code class="docutils literal notranslate"><span class="pre">#category</span></code> is large), it often works best to
+treat the feature as numeric, either by simply ignoring the categorical interpretation of the integers or
+by embedding the categories in a low-dimensional numeric space.</p></li>
+</ul>
+</section>
+<section id="lambdarank">
+<h2>LambdaRank<a class="headerlink" href="#lambdarank" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The label should be of type <code class="docutils literal notranslate"><span class="pre">int</span></code>, such that larger numbers correspond to higher relevance (e.g. 0:bad, 1:fair, 2:good, 3:perfect).</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">label_gain</span></code> to set the gain(weight) of <code class="docutils literal notranslate"><span class="pre">int</span></code> label.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">lambdarank_truncation_level</span></code> to truncate the max DCG.</p></li>
+</ul>
+</section>
+<section id="cost-efficient-gradient-boosting">
+<h2>Cost Efficient Gradient Boosting<a class="headerlink" href="#cost-efficient-gradient-boosting" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://papers.nips.cc/paper/6753-cost-efficient-gradient-boosting.pdf">Cost Efficient Gradient Boosting</a> (CEGB)  makes it possible to penalise boosting based on the cost of obtaining feature values.
+CEGB penalises learning in the following ways:</p>
+<ul class="simple">
+<li><p>Each time a tree is split, a penalty of <code class="docutils literal notranslate"><span class="pre">cegb_penalty_split</span></code> is applied.</p></li>
+<li><p>When a feature is used for the first time, <code class="docutils literal notranslate"><span class="pre">cegb_penalty_feature_coupled</span></code> is applied. This penalty can be different for each feature and should be specified as one <code class="docutils literal notranslate"><span class="pre">double</span></code> per feature.</p></li>
+<li><p>When a feature is used for the first time for a data row, <code class="docutils literal notranslate"><span class="pre">cegb_penalty_feature_lazy</span></code> is applied. Like <code class="docutils literal notranslate"><span class="pre">cegb_penalty_feature_coupled</span></code>, this penalty is specified as one <code class="docutils literal notranslate"><span class="pre">double</span></code> per feature.</p></li>
+</ul>
+<p>Each of the penalties above is scaled by <code class="docutils literal notranslate"><span class="pre">cegb_tradeoff</span></code>.
+Using this parameter, it is possible to change the overall strength of the CEGB penalties by changing only one parameter.</p>
+</section>
+<section id="parameters-tuning">
+<h2>Parameters Tuning<a class="headerlink" href="#parameters-tuning" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Refer to <a class="reference external" href="./Parameters-Tuning.html">Parameters Tuning</a>.</p></li>
+</ul>
+</section>
+<section id="distributed-learning">
+<span id="parallel-learning"></span><h2>Distributed Learning<a class="headerlink" href="#distributed-learning" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Refer to <a class="reference external" href="./Parallel-Learning-Guide.html">Distributed Learning Guide</a>.</p></li>
+</ul>
+</section>
+<section id="gpu-support">
+<h2>GPU Support<a class="headerlink" href="#gpu-support" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Refer to <a class="reference external" href="./GPU-Tutorial.html">GPU Tutorial</a> and <a class="reference external" href="./GPU-Targets.html">GPU Targets</a>.</p></li>
+</ul>
+</section>
+<section id="support-for-position-bias-treatment">
+<h2>Support for Position Bias Treatment<a class="headerlink" href="#support-for-position-bias-treatment" title="Link to this heading"></a></h2>
+<p>Often the relevance labels provided in Learning-to-Rank tasks might be derived from implicit user feedback (e.g., clicks) and therefore might be biased due to their position/location on the screen when having been presented to a user.
+LightGBM can make use of positional data.</p>
+<p>For example, consider the case where you expect that the first 3 results from a search engine will be visible in users’ browsers without scrolling, and all other results for a query would require scrolling.</p>
+<p>LightGBM could be told to account for the position bias from results being “above the fold” by providing a <code class="docutils literal notranslate"><span class="pre">positions</span></code> array encoded as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">1</span>
+<span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">=</span> <span class="pre">&quot;above</span> <span class="pre">the</span> <span class="pre">fold&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">=</span> <span class="pre">&quot;requires</span> <span class="pre">scrolling&quot;</span></code>.
+The specific values are not important, as long as they are consistent across all observations in the training data.
+An encoding like <code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">=</span> <span class="pre">&quot;above</span> <span class="pre">the</span> <span class="pre">fold&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">17</span> <span class="pre">=</span> <span class="pre">&quot;requires</span> <span class="pre">scrolling&quot;</span></code> would result in exactly the same trained model.</p>
+<p>In that way, <code class="docutils literal notranslate"><span class="pre">positions</span></code> in LightGBM’s API are similar to a categorical feature.
+Just as with non-ordinal categorical features, an integer representation is just used for memory and computational efficiency… LightGBM does not care about the absolute or relative magnitude of the values.</p>
+<p>Unlike a categorical feature, however, <code class="docutils literal notranslate"><span class="pre">positions</span></code> are used to adjust the target to reduce the bias in predictions made by the trained model.</p>
+<p>The position file corresponds with training data file line by line, and has one position per line. And if the name of training data file is <code class="docutils literal notranslate"><span class="pre">train.txt</span></code>, the position file should be named as <code class="docutils literal notranslate"><span class="pre">train.txt.position</span></code> and placed in the same folder as the data file.
+In this case, LightGBM will load the position file automatically if it exists. The positions can also be specified through the <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> constructor when using Python API. If the positions are specified in both approaches, the <code class="docutils literal notranslate"><span class="pre">.position</span></code> file will be ignored.</p>
+<p>Currently, implemented is an approach to model position bias by using an idea of Generalized Additive Models (<a class="reference external" href="https://en.wikipedia.org/wiki/Generalized_additive_model">GAM</a>) to linearly decompose the document score <code class="docutils literal notranslate"><span class="pre">s</span></code> into the sum of a relevance component <code class="docutils literal notranslate"><span class="pre">f</span></code> and a positional component <code class="docutils literal notranslate"><span class="pre">g</span></code>:  <code class="docutils literal notranslate"><span class="pre">s(x,</span> <span class="pre">pos)</span> <span class="pre">=</span> <span class="pre">f(x)</span> <span class="pre">+</span> <span class="pre">g(pos)</span></code> where the former component depends on the original query-document features and the latter depends on the position of an item.
+During the training, the compound scoring function <code class="docutils literal notranslate"><span class="pre">s(x,</span> <span class="pre">pos)</span></code> is fit with a standard ranking algorithm (e.g., LambdaMART) which boils down to jointly learning the relevance component <code class="docutils literal notranslate"><span class="pre">f(x)</span></code> (it is later returned as an unbiased model) and the position factors <code class="docutils literal notranslate"><span class="pre">g(pos)</span></code> that help better explain the observed (biased) labels.
+Similar score decomposition ideas have previously been applied for classification &amp; pointwise ranking tasks with assumptions of binary labels and binary relevance (a.k.a. “two-tower” models, refer to the papers: <a class="reference external" href="https://arxiv.org/abs/2212.13937">Towards Disentangling Relevance and Bias in Unbiased Learning to Rank</a>, <a class="reference external" href="https://dl.acm.org/doi/10.1145/3298689.3347033">PAL: a position-bias aware learning framework for CTR prediction in live recommender systems</a>, <a class="reference external" href="https://arxiv.org/abs/2112.02767">A General Framework for Debiasing in CTR Prediction</a>).
+In LightGBM, we adapt this idea to general pairwise Lerarning-to-Rank with arbitrary ordinal relevance labels.
+Besides, GAMs have been used in the context of explainable ML (<a class="reference external" href="https://www.cs.cornell.edu/~yinlou/papers/lou-kdd13.pdf">Accurate Intelligible Models with Pairwise Interactions</a>) to linearly decompose the contribution of each feature (and possibly their pairwise interactions) to the overall score, for subsequent analysis and interpretation of their effects in the trained models.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GPU-Tutorial.html" class="btn btn-neutral float-left" title="LightGBM GPU Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FAQ.html" class="btn btn-neutral float-right" title="LightGBM FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Microsoft Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

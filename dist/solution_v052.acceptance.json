@@ -1,0 +1,182 @@
+{
+  "archive": "dist/solution_v052.zip",
+  "sha256": "46c57ba531f450abc33c92bb47c07af9d85ce27d95137a4fa5074434f411d23a",
+  "bytes": 95018907,
+  "root_entries": 224,
+  "runtime_entries": 53,
+  "runtime_changed_from_v051": [
+    "automl_agent/qwen.py",
+    "automl_agent/qwen_stream.py"
+  ],
+  "requirements_identical": true,
+  "all_embedded_python_compile": true,
+  "actual_api_secret_literal_absent": true,
+  "new_test_or_gateway_files_packaged": false,
+  "fresh_autonomous_full_pair": false,
+  "base": "solution_v051.zip",
+  "changed_outer_files": [
+    "agent_bundle.py"
+  ],
+  "status": "focused_offline_and_exact_entry_passed_fresh_live_pair_running",
+  "workspace_matches_archive": true,
+  "policy": "Explicit framed provider error never becomes action; only temporary failures retry, stops after3 consecutive explicit failures; unknown streams remain latched",
+  "focused_tests": {
+    "exact_final_affected_suites_passed": 53,
+    "scope": "test_provider_stream_failure + test_qwen_stream + test_goal_gateway_stream",
+    "earlier_exact_full_series_passed": 58,
+    "earlier_series_included_unknown_transport_controller_recovery": true,
+    "final_period_guard_host_passed": 8
+  },
+  "independent_review": {
+    "blockers": 0,
+    "final_pure_mocked_and_period_tests_passed": 57,
+    "controller_test_deselected": 1,
+    "report": "../outputs/quality_goal_20261023/REVIEW_PROVIDER_STREAM_FAILURE.md"
+  },
+  "real_recorded_failure_streams_replayed": 2,
+  "real_recorded_failure_replay": "../outputs/quality_goal_20261023/PROVIDER_FAILURE_REPLAY_01.json",
+  "exact_entry": {
+    "archive_sha256": "46c57ba531f450abc33c92bb47c07af9d85ce27d95137a4fa5074434f411d23a",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "stock_default_seconds": 10800,
+  "test_caps_in_archive": false,
+  "fresh_autonomous_live_pair": "../outputs/quality_goal_20261023/recovery_v052_pair_3h",
+  "same_archive_full_pair_acceptance": false,
+  "quality_advantage_established": false,
+  "candidate_promoted": false,
+  "uploaded": false,
+  "external_development_guard_not_packaged": "No admission/response after declared APIreset minus600s; new period generation refused pending strict shared400 accounting; no bounded provider billing lag claim",
+  "inherited_acceptance": "solution_v051.acceptance.json",
+  "updated_utc": "2026-10-22T21:42:27.334848+00:00"
+}

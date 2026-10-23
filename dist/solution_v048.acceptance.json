@@ -1,0 +1,87 @@
+{
+  "version_tag": "v048",
+  "archive": "solution_v048.zip",
+  "sha256": "3e70837a883bea5e3ea24d6dbca554319719c18cb1a55b6606f01d7da6be6e26",
+  "bytes": 95017825,
+  "base": "solution_v047.zip",
+  "status": "offline_and_bounded_live_contract_gates_passed_full_regression_running",
+  "changes": [
+    "Strict lossless native pipeline/hypothesis decoding inherited from v047",
+    "Generic task-resolution instruction: exact tested structural rules",
+    "Early class/target/feature contract errors inside existing semantic repair loop"
+  ],
+  "exact_contract_tests": {
+    "passed": 74,
+    "seconds": 1.05,
+    "log": "../outputs/quality_goal_20261023/task_contract_complete_exact.log"
+  },
+  "native_parser_exact_tests": {
+    "passed": 38,
+    "tested_archive": "v047",
+    "sources_unchanged": true,
+    "scope": "Parser/receipt/pressure and controller fit fixtures; not v048 live public quality"
+  },
+  "independent_review": {
+    "passed": true,
+    "targeted_tests": 27,
+    "seconds": 1.14,
+    "report": "../outputs/quality_goal_20261023/REVIEW_TASK_CONTRACT.md"
+  },
+  "clean_archive_entry": {
+    "passed": 4,
+    "mock_api_only": true,
+    "default_seconds": 10800,
+    "report": "../outputs/quality_goal_20261023/v048_exact_entry/REPORT.json"
+  },
+  "live_instruction_gates": {
+    "valid_public_contracts_and_activation": 2,
+    "missing_metric_unresolved": true,
+    "generation_retries": 0,
+    "instruction_exact_bytes": true,
+    "report": "../outputs/quality_goal_20261023/resolve_structural_rules/V2_RESULTS.json"
+  },
+  "current_source_contract_replay": "../outputs/quality_goal_20261023/V048_CURRENT_CONTRACT_REPLAY.json",
+  "recorded_public_training_replay": {
+    "archive": "v047",
+    "passed_underlying_gates": true,
+    "fresh_generation": false,
+    "applicability": "Same native parser and training code; v048 full run still required",
+    "report": "../outputs/quality_goal_20261023/v047_public_recorded_replay/ACCEPTANCE_RECHECK.json"
+  },
+  "live_archive_end_to_end": {
+    "status": "running",
+    "task": "regression",
+    "seconds": 10800,
+    "output": "../outputs/quality_goal_20261023/contract_v048_regression_full3h"
+  },
+  "full_two_task_same_archive_acceptance": false,
+  "quality_advantage_established": false,
+  "candidate_promoted": false,
+  "submitted_to_platform": false,
+  "requirements_identical": true,
+  "knowledge_identical": true,
+  "test_tooling_or_limits_packaged": false,
+  "default_seconds": 10800,
+  "count_or_llm_time_caps": null,
+  "full_regression_live": {
+    "status": "terminal_completed_with_external_API_failure",
+    "report": "../outputs/quality_goal_20261023/contract_v048_regression_full3h/REPORT.json",
+    "allocated_seconds": 10800,
+    "elapsed_seconds": 3746.9591057300568,
+    "state": "completed",
+    "control_status": "completed",
+    "refit_status": "completed",
+    "csv_scope": "full_train_refit",
+    "csv_rows": 22449,
+    "csv_sha256": "17ecf571889e823fc34d6edf8548dc52590a60d7b8a8b4cb55b23cf840f24098",
+    "control_scores": {
+      "baseline": 43.65885834443807,
+      "winner": 42.44867871576843
+    },
+    "same_archive_two_task_acceptance": false,
+    "before_remaining": 383.01491269400253,
+    "after_remaining": 291.744225220459,
+    "shared_counter_delta": 91.2706874735436,
+    "quality_effect_vs_archive_established": false
+  }
+}

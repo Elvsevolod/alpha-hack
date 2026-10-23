@@ -1,0 +1,40 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "регуляризация; исходные признаки",
+  "applicability_rules": [],
+  "conditions": [
+    "На fit есть константы, дубли или избыточная корреляция."
+  ],
+  "constraints": "Обучать отбор внутри fit и переобучать на refit; не использовать скрытые метки.",
+  "contraindications": [
+    "Обучать отбор внутри fit и переобучать на refit; не использовать скрытые метки."
+  ],
+  "cost": "От низкой до квадратичной по числу колонок для корреляций.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверить ограниченный готовый отбор",
+  "id": "feature_selection",
+  "method_id": "feature_selection",
+  "minimum_experiment": "Один ограниченный отбор с сохранением списка колонок; сравнить с исходной моделью.",
+  "missing_references": [],
+  "observations": "Есть константы, дубли и корреляции",
+  "references": [
+    "api_feature_engine_selection_DropCorrelatedFeatures"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_feature_engine_selection_DropCorrelatedFeatures",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "отбор",
+    "/",
+    "feature",
+    "selection"
+  ],
+  "title": "Отбор / feature selection",
+  "version": 2
+}

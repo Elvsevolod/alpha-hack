@@ -1,0 +1,43 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "unresolved; уточнение по источникам",
+  "applicability_rules": [],
+  "conditions": [
+    "Есть подтверждённое описание целевой величины и метрики; до обучения устранить неоднозначность."
+  ],
+  "constraints": "Нельзя угадывать таргет по dtype или выбирать метрику по удобству.",
+  "contraindications": [
+    "Нельзя угадывать таргет по dtype или выбирать метрику по удобству."
+  ],
+  "cost": "Низкая: проверка схемы и контракта.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Подтвердить полный контракт по схеме и описанию",
+  "id": "task_contract",
+  "method_id": "task_contract",
+  "minimum_experiment": "Сопоставить имена целей, классы, тип прогноза и формат ответа на синтетическом примере.",
+  "missing_references": [],
+  "observations": "Неоднозначны таргет, метрика или формат",
+  "references": [
+    "api_sklearn_metrics_f1_score"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_metrics_f1_score",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "постановка",
+    "и",
+    "формат",
+    "ответа",
+    "/",
+    "task",
+    "contract"
+  ],
+  "title": "Постановка и формат ответа / task contract",
+  "version": 2
+}

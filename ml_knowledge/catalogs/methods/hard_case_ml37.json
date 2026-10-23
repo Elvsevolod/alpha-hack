@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml37",
+  "method_id": "hard_case_ml37",
+  "version": 1,
+  "title": "Разброс ошибки зависит от объекта",
+  "observations": "остатки растут с площадью/нагрузкой, разная вариативность у типов зданий, асимметричные хвосты.",
+  "hypothesis": "для RMSE улучшать условное среднее через признаки/модель; для MAE/квантильного задания сравнить подходящий квантиль. Условия объединённых loss фиксировать явно.",
+  "diagnostic": "использовать внутренние out-of-sample остатки и проверять изменения разброса отдельно от смещения среднего; не делать вывод по in-sample остаткам.",
+  "minimum_experiment": "для RMSE улучшать условное среднее через признаки/модель; для MAE/квантильного задания сравнить подходящий квантиль. Условия объединённых loss фиксировать явно.",
+  "acceptance": "улучшение целевой точечной или квантильной метрики подтверждено в нужной постановке; тип оценки не подменён.",
+  "constraints": "inverse-variance weighting меняет целевой риск; интервальная модель не обязана улучшить точечный RMSE. Гетероскедастичность не разрешает пересчитать метрику на удобной шкале.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "остатки растут с площадью/нагрузкой, разная вариативность у типов зданий, асимметричные хвосты."
+  ],
+  "contraindications": [
+    "inverse-variance weighting меняет целевой риск; интервальная модель не обязана улучшить точечный RMSE. Гетероскедастичность не разрешает пересчитать метрику на удобной шкале."
+  ],
+  "cost": "средняя",
+  "implementation_path": "custom",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_linear_model_Ridge",
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "heteroskedasticity"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.QuantileRegressor.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "heteroskedasticity",
+  "routing_priority": 0
+}

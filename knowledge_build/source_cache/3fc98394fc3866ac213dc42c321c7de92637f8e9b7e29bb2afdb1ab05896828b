@@ -1,0 +1,1119 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>optuna.study.Study &mdash; Optuna 4.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=d0d4e556" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=77be99ba"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=a56c686a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <script src="../../_static/js/versions.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="optuna.study.create_study" href="optuna.study.create_study.html" />
+    <link rel="prev" title="optuna.study" href="../study.html" /> 
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="optuna" /><meta name="readthedocs-version-slug" content="v4.2.1" /><meta name="readthedocs-resolver-filename" content="/reference/generated/optuna.study.Study.html" /><meta name="readthedocs-http-status" content="200" /></head>
+
+<body class="wy-body-for-nav">
+    <div class="navbar">
+        <div class="navbar ml-auto">
+            <ul class="navbar-nav">
+                <li>
+                    <a href="https://optuna.org/#key_features" class="header_link">Key Features</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#code_examples" class="header_link">Code Examples</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#installation" class="header_link">Installation</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#dashboard" class="header_link">Dashboard</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#hub" class="header_link">OptunaHub</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#blog" class="header_link">Blog</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#video" class="header_link">Videos</a>
+                </li>
+                <li>
+                    <a href="https://optuna.org/#paper" class="header_link">Paper</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+     
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/optuna-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="switch-menus">
+                <div class="version-switch"></div>
+                <div class="language-switch"></div>
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../optuna.html">optuna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../artifacts.html">optuna.artifacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli.html">optuna.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../distributions.html">optuna.distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">optuna.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../importance.html">optuna.importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html">optuna.integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">optuna.logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pruners.html">optuna.pruners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../samplers/index.html">optuna.samplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../search_space.html">optuna.search_space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../storages.html">optuna.storages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../study.html">optuna.study</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">optuna.study.Study</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optuna.study.Study"><code class="docutils literal notranslate"><span class="pre">Study</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.create_study.html">optuna.study.create_study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.load_study.html">optuna.study.load_study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.delete_study.html">optuna.study.delete_study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.copy_study.html">optuna.study.copy_study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.get_all_study_names.html">optuna.study.get_all_study_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.get_all_study_summaries.html">optuna.study.get_all_study_summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.MaxTrialsCallback.html">optuna.study.MaxTrialsCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.StudyDirection.html">optuna.study.StudyDirection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optuna.study.StudySummary.html">optuna.study.StudySummary</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terminator.html">optuna.terminator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trial.html">optuna.trial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">optuna.visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Optuna</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <!-- This file is necessary to remove "Edit on Github" button from readthedocs by following https://docs.readthedocs.io/en/stable/guides/remove-edit-buttons.html#remove-links-from-top-right-corner --><div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../study.html">optuna.study</a></li>
+      <li class="breadcrumb-item active">optuna.study.Study</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="optuna-study-study">
+<h1>optuna.study.Study<a class="headerlink" href="#optuna-study-study" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="optuna.study.Study">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">optuna.study.</span></span><span class="sig-name descname"><span class="pre">Study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pruner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study" title="Link to this definition"></a></dt>
+<dd><p>A study corresponds to an optimization task, i.e., a set of trials.</p>
+<p>This object provides interfaces to run a new <a class="reference internal" href="optuna.trial.Trial.html#optuna.trial.Trial" title="optuna.trial.Trial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trial</span></code></a>, access trials’
+history, set/get user-defined attributes of the study itself.</p>
+<p>Note that the direct use of this constructor is not recommended.
+To create and load a study, please refer to the documentation of
+<a class="reference internal" href="optuna.study.create_study.html#optuna.study.create_study" title="optuna.study.create_study"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_study()</span></code></a> and <a class="reference internal" href="optuna.study.load_study.html#optuna.study.load_study" title="optuna.study.load_study"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_study()</span></code></a> respectively.</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.add_trial" title="optuna.study.Study.add_trial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trial</span></code></a>(trial)</p></td>
+<td><p>Add trial to study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.add_trials" title="optuna.study.Study.add_trials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trials</span></code></a>(trials)</p></td>
+<td><p>Add trials to study.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.ask" title="optuna.study.Study.ask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ask</span></code></a>([fixed_distributions])</p></td>
+<td><p>Create a new trial from which hyperparameters can be suggested.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.enqueue_trial" title="optuna.study.Study.enqueue_trial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enqueue_trial</span></code></a>(params[, user_attrs, ...])</p></td>
+<td><p>Enqueue a trial with given parameter values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.get_trials" title="optuna.study.Study.get_trials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trials</span></code></a>([deepcopy, states])</p></td>
+<td><p>Return all trials in the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.optimize" title="optuna.study.Study.optimize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize</span></code></a>(func[, n_trials, timeout, n_jobs, ...])</p></td>
+<td><p>Optimize an objective function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.set_metric_names" title="optuna.study.Study.set_metric_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_metric_names</span></code></a>(metric_names)</p></td>
+<td><p>Set metric names.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.set_system_attr" title="optuna.study.Study.set_system_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_system_attr</span></code></a>(key, value)</p></td>
+<td><p>Set a system attribute to the study.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.set_user_attr" title="optuna.study.Study.set_user_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_user_attr</span></code></a>(key, value)</p></td>
+<td><p>Set a user attribute to the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.stop" title="optuna.study.Study.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<td><p>Exit from the current optimization loop after the running trials finish.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.tell" title="optuna.study.Study.tell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tell</span></code></a>(trial[, values, state, skip_if_finished])</p></td>
+<td><p>Finish a trial created with <a class="reference internal" href="#optuna.study.Study.ask" title="optuna.study.Study.ask"><code class="xref py py-func docutils literal notranslate"><span class="pre">ask()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.trials_dataframe" title="optuna.study.Study.trials_dataframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trials_dataframe</span></code></a>([attrs, multi_index])</p></td>
+<td><p>Export trials as a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.best_params" title="optuna.study.Study.best_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">best_params</span></code></a></p></td>
+<td><p>Return parameters of the best trial in the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.best_trial" title="optuna.study.Study.best_trial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">best_trial</span></code></a></p></td>
+<td><p>Return the best trial in the study.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.best_trials" title="optuna.study.Study.best_trials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">best_trials</span></code></a></p></td>
+<td><p>Return trials located at the Pareto front in the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.best_value" title="optuna.study.Study.best_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">best_value</span></code></a></p></td>
+<td><p>Return the best objective value in the study.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.direction" title="optuna.study.Study.direction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">direction</span></code></a></p></td>
+<td><p>Return the direction of the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.directions" title="optuna.study.Study.directions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directions</span></code></a></p></td>
+<td><p>Return the directions of the study.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.metric_names" title="optuna.study.Study.metric_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metric_names</span></code></a></p></td>
+<td><p>Return metric names.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.system_attrs" title="optuna.study.Study.system_attrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">system_attrs</span></code></a></p></td>
+<td><p>Return system attributes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optuna.study.Study.trials" title="optuna.study.Study.trials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trials</span></code></a></p></td>
+<td><p>Return all trials in the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#optuna.study.Study.user_attrs" title="optuna.study.Study.user_attrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_attrs</span></code></a></p></td>
+<td><p>Return user attributes.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>study_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p></li>
+<li><p><strong>storage</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>storages.BaseStorage</em>)</p></li>
+<li><p><strong>sampler</strong> (<em>'samplers.BaseSampler'</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>pruner</strong> (<a class="reference internal" href="optuna.pruners.BasePruner.html#optuna.pruners.BasePruner" title="optuna.pruners.BasePruner"><em>pruners.BasePruner</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.add_trial">
+<span class="sig-name descname"><span class="pre">add_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.add_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.add_trial" title="Link to this definition"></a></dt>
+<dd><p>Add trial to study.</p>
+<p>The trial is validated before being added.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optuna.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">FloatDistribution</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="n">trial</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">create_trial</span><span class="p">(</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">},</span>
+    <span class="n">distributions</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">FloatDistribution</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+    <span class="n">value</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">add_trial</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+
+<span class="n">other_study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">:</span>
+    <span class="n">other_study</span><span class="o">.</span><span class="n">add_trial</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span>
+
+<span class="n">other_study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This method should in general be used to add already evaluated trials
+(<code class="docutils literal notranslate"><span class="pre">trial.state.is_finished()</span> <span class="pre">==</span> <span class="pre">True</span></code>). To queue trials for evaluation,
+please refer to <a class="reference internal" href="#optuna.study.Study.enqueue_trial" title="optuna.study.Study.enqueue_trial"><code class="xref py py-func docutils literal notranslate"><span class="pre">enqueue_trial()</span></code></a>.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="optuna.trial.create_trial.html#optuna.trial.create_trial" title="optuna.trial.create_trial"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_trial()</span></code></a> for how to create trials.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please refer to <a class="reference internal" href="../../tutorial/20_recipes/008_specify_params.html#add-trial-tutorial"><span class="std std-ref">Second scenario: Have Optuna utilize already evaluated hyperparameters</span></a> for the tutorial of specifying
+hyperparameters with the evaluated value manually.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trial</strong> (<a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><em>FrozenTrial</em></a>) – Trial to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.add_trials">
+<span class="sig-name descname"><span class="pre">add_trials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trials</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.add_trials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.add_trials" title="Link to this definition"></a></dt>
+<dd><p>Add trials to study.</p>
+<p>The trials are validated before being added.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+
+<span class="n">other_study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">other_study</span><span class="o">.</span><span class="n">add_trials</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span>
+
+<span class="n">other_study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#optuna.study.Study.add_trial" title="optuna.study.Study.add_trial"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_trial()</span></code></a> for addition of each trial.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trials</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><em>FrozenTrial</em></a><em>]</em>) – Trials to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.ask">
+<span class="sig-name descname"><span class="pre">ask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_distributions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.ask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.ask" title="Link to this definition"></a></dt>
+<dd><p>Create a new trial from which hyperparameters can be suggested.</p>
+<p>This method is part of an alternative to <a class="reference internal" href="#optuna.study.Study.optimize" title="optuna.study.Study.optimize"><code class="xref py py-func docutils literal notranslate"><span class="pre">optimize()</span></code></a> that allows
+controlling the lifetime of a trial outside the scope of <code class="docutils literal notranslate"><span class="pre">func</span></code>. Each call to this
+method should be followed by a call to <a class="reference internal" href="#optuna.study.Study.tell" title="optuna.study.Study.tell"><code class="xref py py-func docutils literal notranslate"><span class="pre">tell()</span></code></a> to finish the
+created trial.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="../../tutorial/20_recipes/009_ask_and_tell.html#ask-and-tell"><span class="std std-ref">Ask-and-Tell Interface</span></a> tutorial provides use-cases with examples.</p>
+</div>
+<p class="rubric">Example</p>
+<p>Getting the trial object with the <a class="reference internal" href="#optuna.study.Study.ask" title="optuna.study.Study.ask"><code class="xref py py-func docutils literal notranslate"><span class="pre">ask()</span></code></a> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="n">trial</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Example</p>
+<p>Passing previously defined distributions to the <a class="reference internal" href="#optuna.study.Study.ask" title="optuna.study.Study.ask"><code class="xref py py-func docutils literal notranslate"><span class="pre">ask()</span></code></a>
+method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="n">distributions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">CategoricalDistribution</span><span class="p">([</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span> <span class="s2">&quot;sgd&quot;</span><span class="p">]),</span>
+    <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">FloatDistribution</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1"># You can pass the distributions previously defined.</span>
+<span class="n">trial</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="n">fixed_distributions</span><span class="o">=</span><span class="n">distributions</span><span class="p">)</span>
+
+<span class="c1"># `optimizer` and `lr` are already suggested and accessible with `trial.params`.</span>
+<span class="k">assert</span> <span class="s2">&quot;optimizer&quot;</span> <span class="ow">in</span> <span class="n">trial</span><span class="o">.</span><span class="n">params</span>
+<span class="k">assert</span> <span class="s2">&quot;lr&quot;</span> <span class="ow">in</span> <span class="n">trial</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fixed_distributions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>BaseDistribution</em><em>] </em><em>| </em><em>None</em>) – A dictionary containing the parameter names and parameter’s distributions. Each
+parameter in this dictionary is automatically suggested for the returned trial,
+even when the suggest method is not explicitly invoked by the user. If this
+argument is set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, no parameter is automatically suggested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="optuna.trial.Trial.html#optuna.trial.Trial" title="optuna.trial.Trial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trial</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="optuna.trial.Trial.html#optuna.trial.Trial" title="optuna.trial.Trial">Trial</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.best_params">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.best_params" title="Link to this definition"></a></dt>
+<dd><p>Return parameters of the best trial in the study.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature can only be used for single-objective optimization.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing parameters of the best trial.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.best_trial">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_trial</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><span class="pre">FrozenTrial</span></a></em><a class="headerlink" href="#optuna.study.Study.best_trial" title="Link to this definition"></a></dt>
+<dd><p>Return the best trial in the study.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature can only be used for single-objective optimization.
+If your study is multi-objective,
+use <a class="reference internal" href="#optuna.study.Study.best_trials" title="optuna.study.Study.best_trials"><code class="xref py py-attr docutils literal notranslate"><span class="pre">best_trials</span></code></a> instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> object of the best trial.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="../../tutorial/20_recipes/010_reuse_best_trial.html#reuse-best-trial"><span class="std std-ref">Re-use the best trial</span></a> tutorial provides a detailed example of how to use this
+method.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.best_trials">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_trials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><span class="pre">FrozenTrial</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.best_trials" title="Link to this definition"></a></dt>
+<dd><p>Return trials located at the Pareto front in the study.</p>
+<p>A trial is located at the Pareto front if there are no trials that dominate the trial.
+It’s called that a trial <code class="docutils literal notranslate"><span class="pre">t0</span></code> dominates another trial <code class="docutils literal notranslate"><span class="pre">t1</span></code> if
+<code class="docutils literal notranslate"><span class="pre">all(v0</span> <span class="pre">&lt;=</span> <span class="pre">v1)</span> <span class="pre">for</span> <span class="pre">v0,</span> <span class="pre">v1</span> <span class="pre">in</span> <span class="pre">zip(t0.values,</span> <span class="pre">t1.values)</span></code> and
+<code class="docutils literal notranslate"><span class="pre">any(v0</span> <span class="pre">&lt;</span> <span class="pre">v1)</span> <span class="pre">for</span> <span class="pre">v0,</span> <span class="pre">v1</span> <span class="pre">in</span> <span class="pre">zip(t0.values,</span> <span class="pre">t1.values)</span></code> are held.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.best_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></em><a class="headerlink" href="#optuna.study.Study.best_value" title="Link to this definition"></a></dt>
+<dd><p>Return the best objective value in the study.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature can only be used for single-objective optimization.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A float representing the best objective value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.direction">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">direction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="optuna.study.StudyDirection.html#optuna.study.StudyDirection" title="optuna.study._study_direction.StudyDirection"><span class="pre">StudyDirection</span></a></em><a class="headerlink" href="#optuna.study.Study.direction" title="Link to this definition"></a></dt>
+<dd><p>Return the direction of the study.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature can only be used for single-objective optimization.
+If your study is multi-objective,
+use <a class="reference internal" href="#optuna.study.Study.directions" title="optuna.study.Study.directions"><code class="xref py py-attr docutils literal notranslate"><span class="pre">directions</span></code></a> instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="optuna.study.StudyDirection.html#optuna.study.StudyDirection" title="optuna.study.StudyDirection"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudyDirection</span></code></a> object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.directions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">directions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="optuna.study.StudyDirection.html#optuna.study.StudyDirection" title="optuna.study._study_direction.StudyDirection"><span class="pre">StudyDirection</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.directions" title="Link to this definition"></a></dt>
+<dd><p>Return the directions of the study.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of <a class="reference internal" href="optuna.study.StudyDirection.html#optuna.study.StudyDirection" title="optuna.study.StudyDirection"><code class="xref py py-class docutils literal notranslate"><span class="pre">StudyDirection</span></code></a> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.enqueue_trial">
+<span class="sig-name descname"><span class="pre">enqueue_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_if_exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.enqueue_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.enqueue_trial" title="Link to this definition"></a></dt>
+<dd><p>Enqueue a trial with given parameter values.</p>
+<p>You can fix the next sampling parameters which will be evaluated in your
+objective function.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">enqueue_trial</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+<span class="n">study</span><span class="o">.</span><span class="n">enqueue_trial</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">user_attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;memo&quot;</span><span class="p">:</span> <span class="s2">&quot;optimal&quot;</span><span class="p">})</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">user_attrs</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;memo&quot;</span><span class="p">:</span> <span class="s2">&quot;optimal&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>]</em>) – Parameter values to pass your objective function.</p></li>
+<li><p><strong>user_attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – A dictionary of user-specific attributes other than <code class="docutils literal notranslate"><span class="pre">params</span></code>.</p></li>
+<li><p><strong>skip_if_exists</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – <p>When <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, prevents duplicate trials from being enqueued again.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method might produce duplicated trials if called simultaneously
+by multiple processes at the same time with same <code class="docutils literal notranslate"><span class="pre">params</span></code> dict.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Please refer to <a class="reference internal" href="../../tutorial/20_recipes/008_specify_params.html#enqueue-trial-tutorial"><span class="std std-ref">First Scenario: Have Optuna evaluate your hyperparameters</span></a> for the tutorial of specifying
+hyperparameters manually.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.get_trials">
+<span class="sig-name descname"><span class="pre">get_trials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deepcopy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.get_trials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.get_trials" title="Link to this definition"></a></dt>
+<dd><p>Return all trials in the study.</p>
+<p>The returned trials are ordered by trial number.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#optuna.study.Study.trials" title="optuna.study.Study.trials"><code class="xref py py-attr docutils literal notranslate"><span class="pre">trials</span></code></a> for related property.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">trials</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">get_trials</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>deepcopy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Flag to control whether to apply <code class="docutils literal notranslate"><span class="pre">copy.deepcopy()</span></code> to the trials.
+Note that if you set the flag to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, you shouldn’t mutate
+any fields of the returned trial. Otherwise the internal state of
+the study may corrupt and unexpected behavior may happen.</p></li>
+<li><p><strong>states</strong> (<em>Container</em><em>[</em><a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState" title="optuna.trial.TrialState"><em>TrialState</em></a><em>] </em><em>| </em><em>None</em>) – Trial states to filter on. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, include all states.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial">FrozenTrial</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.metric_names">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metric_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></em><a class="headerlink" href="#optuna.study.Study.metric_names" title="Link to this definition"></a></dt>
+<dd><p>Return metric names.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use <a class="reference internal" href="#optuna.study.Study.set_metric_names" title="optuna.study.Study.set_metric_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_metric_names()</span></code></a> to set the metric names first.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list with names for each dimension of the returned values of the objective function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.optimize">
+<span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gc_after_trial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.optimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.optimize" title="Link to this definition"></a></dt>
+<dd><p>Optimize an objective function.</p>
+<p>Optimization is done by choosing a suitable set of hyperparameter values from a given
+range. Uses a sampler which implements the task of value suggestion based on a specified
+distribution. The sampler is specified in <a class="reference internal" href="optuna.study.create_study.html#optuna.study.create_study" title="optuna.study.create_study"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_study()</span></code></a> and the
+default choice for the sampler is TPE.
+See also <a class="reference internal" href="../samplers/generated/optuna.samplers.TPESampler.html#optuna.samplers.TPESampler" title="optuna.samplers.TPESampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">TPESampler</span></code></a> for more details on ‘TPE’.</p>
+<p>Optimization will be stopped when receiving a termination signal such as SIGINT and
+SIGTERM. Unlike other signals, a trial is automatically and cleanly failed when receiving
+SIGINT (Ctrl+C). If <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> is greater than one or if another signal than SIGINT
+is used, the interrupted trial state won’t be properly updated.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>ObjectiveFuncType</em>) – A callable that implements objective function.</p></li>
+<li><p><strong>n_trials</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><em>None</em>) – <p>The number of trials for each process. <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> represents no limit in terms of
+the number of trials. The study continues to create trials until the number of
+trials reaches <code class="docutils literal notranslate"><span class="pre">n_trials</span></code>, <code class="docutils literal notranslate"><span class="pre">timeout</span></code> period elapses,
+<a class="reference internal" href="#optuna.study.Study.stop" title="optuna.study.Study.stop"><code class="xref py py-func docutils literal notranslate"><span class="pre">stop()</span></code></a> is called, or a termination signal such as
+SIGTERM or Ctrl+C is received.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="optuna.study.MaxTrialsCallback.html#optuna.study.MaxTrialsCallback" title="optuna.study.MaxTrialsCallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">optuna.study.MaxTrialsCallback</span></code></a> can ensure how many times trials
+will be performed across all processes.</p>
+</div>
+</p></li>
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – Stop study after the given number of second(s). <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> represents no limit in
+terms of elapsed time. The study continues to create trials until the number of
+trials reaches <code class="docutils literal notranslate"><span class="pre">n_trials</span></code>, <code class="docutils literal notranslate"><span class="pre">timeout</span></code> period elapses,
+<a class="reference internal" href="#optuna.study.Study.stop" title="optuna.study.Study.stop"><code class="xref py py-func docutils literal notranslate"><span class="pre">stop()</span></code></a> is called or, a termination signal such as
+SIGTERM or Ctrl+C is received.</p></li>
+<li><p><strong>n_jobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – <p>The number of parallel jobs. If this argument is set to <code class="docutils literal notranslate"><span class="pre">-1</span></code>, the number is
+set to CPU count.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> allows parallelization using <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threading</span></code></a> and may suffer from
+<a class="reference external" href="https://wiki.python.org/moin/GlobalInterpreterLock">Python’s GIL</a>.
+It is recommended to use <a class="reference internal" href="../../tutorial/10_key_features/004_distributed.html#distributed"><span class="std std-ref">process-based parallelization</span></a>
+if <code class="docutils literal notranslate"><span class="pre">func</span></code> is CPU bound.</p>
+</div>
+</p></li>
+<li><p><strong>catch</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><em>type</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><em>Exception</em></a><em>]</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.13)"><em>type</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><em>Exception</em></a><em>]</em>) – A study continues to run even when a trial raises one of the exceptions specified
+in this argument. Default is an empty tuple, i.e. the study will stop for any
+exception except for <a class="reference internal" href="optuna.exceptions.TrialPruned.html#optuna.exceptions.TrialPruned" title="optuna.exceptions.TrialPruned"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrialPruned</span></code></a>.</p></li>
+<li><p><strong>callbacks</strong> (<em>Iterable</em><em>[</em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="#optuna.study.Study" title="optuna.study.Study"><em>Study</em></a><em>, </em><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><em>FrozenTrial</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>] </em><em>| </em><em>None</em>) – <p>List of callback functions that are invoked at the end of each trial. Each function
+must accept two parameters with the following types in this order:
+<a class="reference internal" href="#optuna.study.Study" title="optuna.study.Study"><code class="xref py py-class docutils literal notranslate"><span class="pre">Study</span></code></a> and <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See the tutorial of <a class="reference internal" href="../../tutorial/20_recipes/007_optuna_callback.html#optuna-callback"><span class="std std-ref">Callback for Study.optimize</span></a> for how to use and implement
+callback functions.</p>
+</div>
+</p></li>
+<li><p><strong>gc_after_trial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – <p>Flag to determine whether to automatically run garbage collection after each trial.
+Set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> to run the garbage collection, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> otherwise.
+When it runs, it runs a full collection by internally calling <a class="reference external" href="https://docs.python.org/3/library/gc.html#gc.collect" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">gc.collect()</span></code></a>.
+If you see an increase in memory consumption over several trials, try setting this
+flag to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../../faq.html#out-of-memory-gc-collect"><span class="std std-ref">How do I avoid running out of memory (OOM) when optimizing studies?</span></a></p>
+</div>
+</p></li>
+<li><p><strong>show_progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Flag to show progress bars or not. To show progress bar, set this <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.
+Note that it is disabled when <code class="docutils literal notranslate"><span class="pre">n_trials</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
+<code class="docutils literal notranslate"><span class="pre">timeout</span></code> is not <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, and <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> <span class="math notranslate nohighlight">\(\ne 1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If nested invocation of this method occurs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.set_metric_names">
+<span class="sig-name descname"><span class="pre">set_metric_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.set_metric_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.set_metric_names" title="Link to this definition"></a></dt>
+<dd><p>Set metric names.</p>
+<p>This method names each dimension of the returned values of the objective function.
+It is particularly useful in multi-objective optimization. The metric names are
+mainly referenced by the visualization functions.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span><span class="n">directions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;minimize&quot;</span><span class="p">,</span> <span class="s2">&quot;minimize&quot;</span><span class="p">])</span>
+<span class="n">study</span><span class="o">.</span><span class="n">set_metric_names</span><span class="p">([</span><span class="s2">&quot;x**2&quot;</span><span class="p">,</span> <span class="s2">&quot;x+1&quot;</span><span class="p">])</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">trials_dataframe</span><span class="p">(</span><span class="n">multi_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;x**2&quot;</span><span class="p">,</span> <span class="s2">&quot;x+1&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The names set by this method are used in <a class="reference internal" href="#optuna.study.Study.trials_dataframe" title="optuna.study.Study.trials_dataframe"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trials_dataframe()</span></code></a>
+and <a class="reference internal" href="../visualization/generated/optuna.visualization.plot_pareto_front.html#optuna.visualization.plot_pareto_front" title="optuna.visualization.plot_pareto_front"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_pareto_front()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metric_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – A list of metric names for the objective function.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Added in v3.2.0 as an experimental feature. The interface may change in newer versions
+without prior notice. See <a class="reference external" href="https://github.com/optuna/optuna/releases/tag/v3.2.0">https://github.com/optuna/optuna/releases/tag/v3.2.0</a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.set_system_attr">
+<span class="sig-name descname"><span class="pre">set_system_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.set_system_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.set_system_attr" title="Link to this definition"></a></dt>
+<dd><p>Set a system attribute to the study.</p>
+<p>Note that Optuna internally uses this method to save system messages. Please use
+<a class="reference internal" href="#optuna.study.Study.set_user_attr" title="optuna.study.Study.set_user_attr"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_user_attr()</span></code></a> to set users’ attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A key string of the attribute.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A value of the attribute. The value should be JSON serializable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deprecated in v3.1.0. This feature will be removed in the future. The removal of this
+feature is currently scheduled for v5.0.0, but this schedule is subject to change.
+See <a class="reference external" href="https://github.com/optuna/optuna/releases/tag/v3.1.0">https://github.com/optuna/optuna/releases/tag/v3.1.0</a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.set_user_attr">
+<span class="sig-name descname"><span class="pre">set_user_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.set_user_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.set_user_attr" title="Link to this definition"></a></dt>
+<dd><p>Set a user attribute to the study.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#optuna.study.Study.user_attrs" title="optuna.study.Study.user_attrs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_attrs</span></code></a> for related attribute.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See the recipe on <a class="reference internal" href="../../tutorial/20_recipes/003_attributes.html#attributes"><span class="std std-ref">User Attributes</span></a>.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;objective function&quot;</span><span class="p">,</span> <span class="s2">&quot;quadratic function&quot;</span><span class="p">)</span>
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;dimensions&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;contributors&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Akiba&quot;</span><span class="p">,</span> <span class="s2">&quot;Sano&quot;</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">study</span><span class="o">.</span><span class="n">user_attrs</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;objective function&quot;</span><span class="p">:</span> <span class="s2">&quot;quadratic function&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dimensions&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;contributors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Akiba&quot;</span><span class="p">,</span> <span class="s2">&quot;Sano&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A key string of the attribute.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – A value of the attribute. The value should be JSON serializable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.stop" title="Link to this definition"></a></dt>
+<dd><p>Exit from the current optimization loop after the running trials finish.</p>
+<p>This method lets the running <a class="reference internal" href="#optuna.study.Study.optimize" title="optuna.study.Study.optimize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">optimize()</span></code></a> method return
+immediately after all trials which the <a class="reference internal" href="#optuna.study.Study.optimize" title="optuna.study.Study.optimize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">optimize()</span></code></a> method
+spawned finishes.
+This method does not affect any behaviors of parallel or successive study processes.
+This method only works when it is called inside an objective function or callback.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">trial</span><span class="o">.</span><span class="n">number</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">trial</span><span class="o">.</span><span class="n">study</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">trials</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.system_attrs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">system_attrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.system_attrs" title="Link to this definition"></a></dt>
+<dd><p>Return system attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing all system attributes.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deprecated in v3.1.0. This feature will be removed in the future. The removal of this
+feature is currently scheduled for v5.0.0, but this schedule is subject to change.
+See <a class="reference external" href="https://github.com/optuna/optuna/releases/tag/v3.1.0">https://github.com/optuna/optuna/releases/tag/v3.1.0</a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.tell">
+<span class="sig-name descname"><span class="pre">tell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_if_finished</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.tell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.tell" title="Link to this definition"></a></dt>
+<dd><p>Finish a trial created with <a class="reference internal" href="#optuna.study.Study.ask" title="optuna.study.Study.ask"><code class="xref py py-func docutils literal notranslate"><span class="pre">ask()</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="../../tutorial/20_recipes/009_ask_and_tell.html#ask-and-tell"><span class="std std-ref">Ask-and-Tell Interface</span></a> tutorial provides use-cases with examples.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optuna.trial</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrialState</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">4</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="n">n_trials</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trials</span><span class="p">):</span>
+    <span class="n">trial</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;lr&quot;</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Iterative gradient descent objective function.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Initial value.</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">128</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">trial</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">trial</span><span class="o">.</span><span class="n">should_prune</span><span class="p">():</span>
+            <span class="c1"># Finish the trial with the pruned state.</span>
+            <span class="n">study</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">TrialState</span><span class="o">.</span><span class="n">PRUNED</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="n">gy</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">gy</span> <span class="o">*</span> <span class="n">lr</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Finish the trial with the final value after all iterations.</span>
+        <span class="n">study</span><span class="o">.</span><span class="n">tell</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trial</strong> (<a class="reference internal" href="optuna.trial.Trial.html#optuna.trial.Trial" title="optuna.trial.Trial"><em>Trial</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – A <a class="reference internal" href="optuna.trial.Trial.html#optuna.trial.Trial" title="optuna.trial.Trial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trial</span></code></a> object or a trial number.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>] </em><em>| </em><em>None</em>) – Optional objective value or a sequence of such values in case the study is used
+for multi-objective optimization. Argument must be provided if <code class="docutils literal notranslate"><span class="pre">state</span></code> is
+<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.COMPLETE" title="optuna.trial.TrialState.COMPLETE"><code class="xref py py-class docutils literal notranslate"><span class="pre">COMPLETE</span></code></a> and should be <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if <code class="docutils literal notranslate"><span class="pre">state</span></code>
+is <a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.FAIL" title="optuna.trial.TrialState.FAIL"><code class="xref py py-class docutils literal notranslate"><span class="pre">FAIL</span></code></a> or
+<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.PRUNED" title="optuna.trial.TrialState.PRUNED"><code class="xref py py-class docutils literal notranslate"><span class="pre">PRUNED</span></code></a>.</p></li>
+<li><p><strong>state</strong> (<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState" title="optuna.trial.TrialState"><em>TrialState</em></a><em> | </em><em>None</em>) – State to be reported. Must be <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
+<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.COMPLETE" title="optuna.trial.TrialState.COMPLETE"><code class="xref py py-class docutils literal notranslate"><span class="pre">COMPLETE</span></code></a>,
+<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.FAIL" title="optuna.trial.TrialState.FAIL"><code class="xref py py-class docutils literal notranslate"><span class="pre">FAIL</span></code></a> or
+<a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.PRUNED" title="optuna.trial.TrialState.PRUNED"><code class="xref py py-class docutils literal notranslate"><span class="pre">PRUNED</span></code></a>.
+If <code class="docutils literal notranslate"><span class="pre">state</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
+it will be updated to <a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.COMPLETE" title="optuna.trial.TrialState.COMPLETE"><code class="xref py py-class docutils literal notranslate"><span class="pre">COMPLETE</span></code></a>
+or <a class="reference internal" href="optuna.trial.TrialState.html#optuna.trial.TrialState.FAIL" title="optuna.trial.TrialState.FAIL"><code class="xref py py-class docutils literal notranslate"><span class="pre">FAIL</span></code></a> depending on whether
+validation for <code class="docutils literal notranslate"><span class="pre">values</span></code> reported succeed or not.</p></li>
+<li><p><strong>skip_if_finished</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Flag to control whether exception should be raised when values for already
+finished trial are told. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, tell is skipped without any error
+when the trial is already finished.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> representing the resulting trial.
+A returned trial is deep copied thus user can modify it as needed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial">FrozenTrial</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.trials">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><span class="pre">FrozenTrial</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.trials" title="Link to this definition"></a></dt>
+<dd><p>Return all trials in the study.</p>
+<p>The returned trials are ordered by trial number.</p>
+<p>This is a short form of <code class="docutils literal notranslate"><span class="pre">self.get_trials(deepcopy=True,</span> <span class="pre">states=None)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>A list of <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> objects.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#optuna.study.Study.get_trials" title="optuna.study.Study.get_trials"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_trials()</span></code></a> for related method.</p>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="optuna.study.Study.trials_dataframe">
+<span class="sig-name descname"><span class="pre">trials_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('number',</span> <span class="pre">'value',</span> <span class="pre">'datetime_start',</span> <span class="pre">'datetime_complete',</span> <span class="pre">'duration',</span> <span class="pre">'params',</span> <span class="pre">'user_attrs',</span> <span class="pre">'system_attrs',</span> <span class="pre">'state')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/optuna/study/study.html#Study.trials_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#optuna.study.Study.trials_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Export trials as a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a>.</p>
+<p>The <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> provides various features to analyze studies. It is also useful to draw a
+histogram of objective values and to export trials as a CSV file.
+If there are no trials, an empty <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> is returned.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Create a dataframe from the study.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">trials_dataframe</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>  <span class="c1"># n_trials.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Specifies field names of <a class="reference internal" href="optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="optuna.trial.FrozenTrial"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenTrial</span></code></a> to include them to a
+DataFrame of trials.</p></li>
+<li><p><strong>multi_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Specifies whether the returned <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> employs <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/advanced.html">MultiIndex</a> or not. Columns that
+are hierarchical by nature such as <code class="docutils literal notranslate"><span class="pre">(params,</span> <span class="pre">x)</span></code> will be flattened to
+<code class="docutils literal notranslate"><span class="pre">params_x</span></code> when set to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> of trials in the <a class="reference internal" href="#optuna.study.Study" title="optuna.study.Study"><code class="xref py py-class docutils literal notranslate"><span class="pre">Study</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">value</span></code> is in <code class="docutils literal notranslate"><span class="pre">attrs</span></code> during multi-objective optimization, it is implicitly
+replaced with <code class="docutils literal notranslate"><span class="pre">values</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <a class="reference internal" href="#optuna.study.Study.set_metric_names" title="optuna.study.Study.set_metric_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_metric_names()</span></code></a> is called, the <code class="docutils literal notranslate"><span class="pre">value</span></code> or <code class="docutils literal notranslate"><span class="pre">values</span></code>
+is implicitly replaced with the dictionary with the objective name as key and the
+objective value as value.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="optuna.study.Study.user_attrs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_attrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#optuna.study.Study.user_attrs" title="Link to this definition"></a></dt>
+<dd><p>Return user attributes.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#optuna.study.Study.set_user_attr" title="optuna.study.Study.set_user_attr"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_user_attr()</span></code></a> for related method.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">optuna</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">()</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;objective function&quot;</span><span class="p">,</span> <span class="s2">&quot;quadratic function&quot;</span><span class="p">)</span>
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;dimensions&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">study</span><span class="o">.</span><span class="n">set_user_attr</span><span class="p">(</span><span class="s2">&quot;contributors&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Akiba&quot;</span><span class="p">,</span> <span class="s2">&quot;Sano&quot;</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">study</span><span class="o">.</span><span class="n">user_attrs</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;objective function&quot;</span><span class="p">:</span> <span class="s2">&quot;quadratic function&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dimensions&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;contributors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Akiba&quot;</span><span class="p">,</span> <span class="s2">&quot;Sano&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing all user attributes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../study.html" class="btn btn-neutral float-left" title="optuna.study" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="optuna.study.create_study.html" class="btn btn-neutral float-right" title="optuna.study.create_study" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, Optuna Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+    <a href="../../privacy.html">Privacy Policy</a>.
+     
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

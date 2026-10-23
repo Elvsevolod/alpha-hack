@@ -1,0 +1,15 @@
+{
+  "version_tag": "v047",
+  "archive": "solution_v047.zip",
+  "sha256": "7166c366a637597a21e60f1bfddbe52746ec9ab4caa3c157f6d88fef1292efd5",
+  "status": "native_fix_technical_checks_passed_superseded_by_v048",
+  "exact_focused_tests": 38,
+  "clean_entry_cases_passed": 4,
+  "recorded_public_training_replay_passed": true,
+  "recorded_replay_report": "../outputs/quality_goal_20261023/v047_public_recorded_replay/ACCEPTANCE_RECHECK.json",
+  "fresh_autonomous_live_run": false,
+  "full_acceptance": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "candidate_promoted": false
+}

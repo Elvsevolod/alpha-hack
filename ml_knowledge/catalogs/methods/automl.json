@@ -1,0 +1,48 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "прямые семейства; Optuna",
+  "applicability_rules": [],
+  "conditions": [
+    "Разрешённый адаптер подтверждён реестром возможностей."
+  ],
+  "constraints": "Чтение документации не включает адаптер; внешние метки не передавать tuning_data; один владелец поиска.",
+  "contraindications": [
+    "Чтение документации не включает адаптер; внешние метки не передавать tuning_data; один владелец поиска."
+  ],
+  "cost": "Высокая: весь поиск и refit внутри общего дедлайна.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Один FLAML/AutoGluon эксперимент с независимой оценкой",
+  "id": "automl",
+  "method_id": "automl",
+  "minimum_experiment": "Один FLAML/AutoGluon run с ограниченным временем и независимой внешней оценкой.",
+  "missing_references": [],
+  "observations": "Нужно проверить портфель в общем бюджете",
+  "references": [
+    "api_flaml_AutoML",
+    "api_autogluon_tabular_TabularPredictor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_flaml_AutoML",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_autogluon_tabular_TabularPredictor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "готовый",
+    "automl",
+    "/",
+    "budgeted",
+    "library",
+    "search"
+  ],
+  "title": "Готовый AutoML / budgeted library search",
+  "version": 2
+}

@@ -1,0 +1,1 @@
+{"added":6,"failures":[],"requested":["scipy.cluster","scipy.linalg.cython_blas","scipy.linalg.cython_lapack","scipy.optimize.cython_optimize","scipy.special.cython_special","scipy.stats._result_classes"]}

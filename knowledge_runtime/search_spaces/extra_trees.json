@@ -1,0 +1,1 @@
+{"cost_constraints":"Check matrix width, parameter count and full-refit reserve before fit","id":"extra_trees","limits":{"max_trials":40,"n_jobs":1,"no_nested_search":true,"scope":"inner_fit_only"},"owner":"optuna","parameters":{"min_samples_leaf":{"high":8,"low":1,"type":"int"},"n_estimators":{"high":250,"low":50,"step":50,"type":"int"}},"version":1}

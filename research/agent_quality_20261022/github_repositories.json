@@ -1,0 +1,367 @@
+{
+  "observed_date": "2026-10-22",
+  "note": "Purposeful popularity/relevance sample, not a global top-N ranking. Stars are observed snapshots, not quality evidence.",
+  "repositories": [
+    {
+      "repo": "WecoAI/aideml",
+      "url": "https://github.com/WecoAI/aideml",
+      "stars": 1591,
+      "default_branch": "main",
+      "default_commit": "ad73d227af481bea3de06f884f41b2993dd6453a",
+      "pushed_at": "2026-10-16T14:33:42Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C01",
+        "C39",
+        "C40"
+      ]
+    },
+    {
+      "repo": "SWE-agent/mini-swe-agent",
+      "url": "https://github.com/SWE-agent/mini-swe-agent",
+      "stars": 8732,
+      "default_branch": "main",
+      "default_commit": "04d809ceab9df28f9adaed044884180159172930",
+      "pushed_at": "2026-10-19T22:57:58Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C02"
+      ]
+    },
+    {
+      "repo": "SWE-agent/SWE-agent",
+      "url": "https://github.com/SWE-agent/SWE-agent",
+      "stars": 20612,
+      "default_branch": "main",
+      "default_commit": "3ea751c087f32b16e039a2233dd6eefecef325d5",
+      "pushed_at": "2026-10-19T22:57:44Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C03"
+      ]
+    },
+    {
+      "repo": "OpenHands/OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands",
+      "stars": 91543,
+      "default_branch": "main",
+      "default_commit": "df87d66078f8e2a3bc95e2118157311896c8b79d",
+      "pushed_at": "2026-10-22T09:44:18Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": []
+    },
+    {
+      "repo": "langchain-ai/langgraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "stars": 43706,
+      "default_branch": "main",
+      "default_commit": "3cd57c038ad827d05f80c6488adea9994156c58c",
+      "pushed_at": "2026-10-22T04:17:19Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C06"
+      ]
+    },
+    {
+      "repo": "microsoft/autogen",
+      "url": "https://github.com/microsoft/autogen",
+      "stars": 61522,
+      "default_branch": "main",
+      "default_commit": "004749e6b7102c8fd317b9b1499ce5807223c278",
+      "pushed_at": "2026-10-16T16:14:37Z",
+      "archived": false,
+      "license": "CC-BY-4.0",
+      "files_inspected": [
+        "C07"
+      ]
+    },
+    {
+      "repo": "crewAIInc/crewAI",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "stars": 59979,
+      "default_branch": "main",
+      "default_commit": "f76ee29450c5b142e57f1e9b3909ffc6e416d365",
+      "pushed_at": "2026-10-22T07:37:07Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C32",
+        "C33"
+      ]
+    },
+    {
+      "repo": "huggingface/smolagents",
+      "url": "https://github.com/huggingface/smolagents",
+      "stars": 29978,
+      "default_branch": "main",
+      "default_commit": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "pushed_at": "2026-10-06T18:35:07Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C08"
+      ]
+    },
+    {
+      "repo": "Aider-AI/aider",
+      "url": "https://github.com/Aider-AI/aider",
+      "stars": 49692,
+      "default_branch": "main",
+      "default_commit": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+      "pushed_at": "2026-05-22T14:02:20Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C09",
+        "C10"
+      ]
+    },
+    {
+      "repo": "cline/cline",
+      "url": "https://github.com/cline/cline",
+      "stars": 70708,
+      "default_branch": "main",
+      "default_commit": "c441897f11f658f978a00678f045670c1ab2b60d",
+      "pushed_at": "2026-10-22T07:43:45Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C11"
+      ]
+    },
+    {
+      "repo": "langchain-ai/deepagents",
+      "url": "https://github.com/langchain-ai/deepagents",
+      "stars": 30503,
+      "default_branch": "main",
+      "default_commit": "b4ac8829692785a221150658401ae558f4bff3f3",
+      "pushed_at": "2026-10-22T09:14:24Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C12",
+        "C13",
+        "C14"
+      ]
+    },
+    {
+      "repo": "microsoft/RD-Agent",
+      "url": "https://github.com/microsoft/RD-Agent",
+      "stars": 15018,
+      "default_branch": "main",
+      "default_commit": "484776c211e4fbbeef03e0ec00d6bbee7362a4f4",
+      "pushed_at": "2026-10-21T16:01:22Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C15",
+        "C16",
+        "C31"
+      ]
+    },
+    {
+      "repo": "SakanaAI/AI-Scientist-v2",
+      "url": "https://github.com/SakanaAI/AI-Scientist-v2",
+      "stars": 7381,
+      "default_branch": "main",
+      "default_commit": "96bd51617cfdbb494a9fc283af00fe090edfae48",
+      "pushed_at": "2025-12-19T07:46:32Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "files_inspected": [
+        "C17"
+      ]
+    },
+    {
+      "repo": "facebookresearch/aira-dojo",
+      "url": "https://github.com/facebookresearch/aira-dojo",
+      "stars": 177,
+      "default_branch": "main",
+      "default_commit": "c795d8649d30b77fa9b8c011b978bba7127507ad",
+      "pushed_at": "2026-04-14T00:40:56Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "files_inspected": [
+        "C18",
+        "C19",
+        "C20"
+      ]
+    },
+    {
+      "repo": "FoundationAgents/MetaGPT",
+      "url": "https://github.com/FoundationAgents/MetaGPT",
+      "stars": 70962,
+      "default_branch": "main",
+      "default_commit": "11cdf466d042aece04fc6cfd13b28e1a70341b1f",
+      "pushed_at": "2026-01-21T10:12:33Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C23"
+      ]
+    },
+    {
+      "repo": "Significant-Gravitas/AutoGPT",
+      "url": "https://github.com/Significant-Gravitas/AutoGPT",
+      "stars": 187699,
+      "default_branch": "master",
+      "default_commit": "8d4a965b7bbc87b271cd7e4c163ed09d443e9199",
+      "pushed_at": "2026-10-22T09:47:06Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "files_inspected": [
+        "C27"
+      ]
+    },
+    {
+      "repo": "FoundationAgents/OpenManus",
+      "url": "https://github.com/FoundationAgents/OpenManus",
+      "stars": 58755,
+      "default_branch": "main",
+      "default_commit": "3309bf4e416fb1c74b008f3e86494439a31bad53",
+      "pushed_at": "2026-09-30T08:37:25Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C24"
+      ]
+    },
+    {
+      "repo": "SJTU-SAI-agents/ML-Master",
+      "url": "https://github.com/sjtu-sai-agents/ML-Master",
+      "stars": 455,
+      "default_branch": "main",
+      "default_commit": "6a7bf550074d09162fa955adcc4ed81017c0e697",
+      "pushed_at": "2026-03-29T18:00:43Z",
+      "archived": false,
+      "files_inspected": [
+        "C21"
+      ]
+    },
+    {
+      "repo": "OpenHands/software-agent-sdk",
+      "url": "https://github.com/OpenHands/software-agent-sdk",
+      "stars": 1289,
+      "default_branch": "main",
+      "default_commit": "efec2c38cda179129bef4e93dcf5f66ebe3695d4",
+      "pushed_at": "2026-10-22T09:36:34Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C04",
+        "C05"
+      ]
+    },
+    {
+      "repo": "bytedance/trae-agent",
+      "url": "https://github.com/bytedance/trae-agent",
+      "stars": 12156,
+      "default_branch": "main",
+      "default_commit": "e839e559ac61bdd0e057c375dd1dee391fee797d",
+      "pushed_at": "2026-02-05T11:21:00Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C30"
+      ]
+    },
+    {
+      "repo": "letta-ai/letta",
+      "url": "https://github.com/letta-ai/letta",
+      "stars": 25226,
+      "default_branch": "main",
+      "default_commit": "8816d3a8516893bfdc0fa14bfb1235226012e295",
+      "pushed_at": "2026-10-18T22:28:04Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C29"
+      ]
+    },
+    {
+      "repo": "stanfordnlp/dspy",
+      "url": "https://github.com/stanfordnlp/dspy",
+      "stars": 38729,
+      "default_branch": "main",
+      "default_commit": "b4beb23d94711857f618042f4e89260b2e8e09b3",
+      "pushed_at": "2026-10-21T21:18:50Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C22"
+      ]
+    },
+    {
+      "repo": "OpenAutoCoder/Agentless",
+      "url": "https://github.com/OpenAutoCoder/Agentless",
+      "stars": 2130,
+      "default_branch": "main",
+      "default_commit": "5ce5888b9f149beaace393957a55ea8ee46c9f71",
+      "pushed_at": "2024-12-22T19:29:31Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C25"
+      ]
+    },
+    {
+      "repo": "NousResearch/hermes-agent",
+      "url": "https://github.com/NousResearch/hermes-agent",
+      "stars": 256091,
+      "default_branch": "main",
+      "default_commit": "944c3a434071f43e64b443d033f3eba30c64434c",
+      "pushed_at": "2026-10-22T09:43:13Z",
+      "archived": false,
+      "license": "MIT",
+      "files_inspected": [
+        "C28",
+        "C41"
+      ]
+    },
+    {
+      "repo": "google/adk-recipes",
+      "url": "https://github.com/google/adk-recipes",
+      "stars": 10519,
+      "default_branch": "main",
+      "default_commit": "be63596f7eaeae0858c6a0746f48ed22429d1124",
+      "pushed_at": "2026-10-22T00:37:18Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C34",
+        "C35",
+        "C36",
+        "C37",
+        "C38"
+      ]
+    },
+    {
+      "repo": "aaif-goose/goose",
+      "url": "https://github.com/aaif-goose/goose",
+      "stars": 55523,
+      "default_branch": "main",
+      "default_commit": "6835dd45a21a701b017abe38aa4204e18fed9213",
+      "pushed_at": "2026-10-22T09:28:19Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "files_inspected": [
+        "C26"
+      ]
+    },
+    {
+      "repo": "jaehyun513/MLE-STAR",
+      "url": "https://github.com/jaehyun513/MLE-STAR",
+      "stars": 17,
+      "default_branch": "main",
+      "default_commit": "d33445de01d66b42cf3e5093bc0623502393864c",
+      "pushed_at": "2025-08-26T01:38:26Z",
+      "archived": false,
+      "files_inspected": []
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-22",
+  "status": "research_prepared_not_runtime_integrated",
+  "files": {
+    "Исследование_сложных_ML_задач.md": "7f9df988c6e915246846ff4f29116f9c147811fc94eb3cf635c5c280912818e2",
+    "docs/ml_hard_cases.md": "c88e44c281df130a54ae4e2c6f1715658777777cd835aebd740449c33b8eb1e5",
+    "docs/agent_ml_policy.md": "d04714b516628ea55475bec5d75bdc00071152483c8e7be5c8984d983ee6d921",
+    "research/ml_best_practices_20261022/SOURCES.md": "88a02a69d4e647d1e325a034ebc5e9fd9e4ecafc480a877099560c744ed2d566",
+    "research/ml_best_practices_20261022/audit_probes.json": "ee61cfeef737e40b081d01a149d1c92497dfabfd4af1dfc5b5369e649427b97b",
+    "research/ml_best_practices_20261022/hard_cases.json": "fd62b25f032e09a86d7ffcc0586bbacda78c68969c126a2b3ecc06844cdfe461",
+    "research/ml_best_practices_20261022/inputs.sha256.json": "f0f931bac74ee79b51799be5b37df84bcd9308935b0767b411726801604f1f25",
+    "research/ml_best_practices_20261022/public_data_profile.json": "07904d91c49ee8a0102a035910e80e8e4f11b03f380fcbce4a5f434ce0741a26",
+    "research/ml_best_practices_20261022/retrieval_probe.json": "7334778dca8b4d7dfe739e25cc5997f4162714ce3ab1b1ace2e58b22bd13ede2",
+    "research/ml_best_practices_20261022/sources.json": "b5b43eefe23491113d8595b410f27829bc70198c5beb5effed05fc703bf95065",
+    "research/ml_best_practices_20261022/verification.json": "a1312f0c1b38c68d3e0cf54dc95da32e83bcd1a9f08521b0807d73d9e5712b25"
+  }
+}

@@ -1,0 +1,18 @@
+{"added":0,"package":"scikit-learn","requested":2,"unresolved":2}
+{"added":0,"package":"catboost","requested":0,"unresolved":0}
+{"added":0,"package":"lightgbm","requested":0,"unresolved":0}
+{"added":0,"package":"xgboost","requested":8,"unresolved":8}
+{"added":2,"package":"imbalanced-learn","requested":4,"unresolved":2}
+{"added":0,"package":"category-encoders","requested":0,"unresolved":0}
+{"added":0,"package":"feature-engine","requested":0,"unresolved":0}
+{"added":88,"package":"statsmodels","requested":101,"unresolved":0}
+{"added":6,"package":"optuna","requested":6,"unresolved":0}
+{"added":166,"package":"torch","requested":389,"unresolved":149}
+{"added":3,"package":"autogluon.tabular","requested":4,"unresolved":0}
+'nlp' extra dependency package 'fasttext-numpy2' isn't installed. Look at README.md in repo 'LightAutoML' for installation instructions.
+'nlp' extra dependency package 'fasttext-numpy2' isn't installed. Look at README.md in repo 'LightAutoML' for installation instructions.
+{"added":0,"package":"lightautoml","requested":2,"unresolved":2}
+{"added":0,"package":"flaml","requested":0,"unresolved":0}
+{"added":442,"package":"numpy","requested":486,"unresolved":38}
+{"added":0,"package":"pandas","requested":0,"unresolved":0}
+{"added":6,"package":"scipy","requested":6,"unresolved":0}

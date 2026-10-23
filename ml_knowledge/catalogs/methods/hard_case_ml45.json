@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml45",
+  "method_id": "hard_case_ml45",
+  "version": 1,
+  "title": "Разреженная матрица внезапно стала плотной",
+  "observations": "OOM после one-hot/TF-IDF, память растёт как `n_rows * n_features`, scaler центрирует sparse-матрицу.",
+  "hypothesis": "сохранить sparse-путь, ограничить словарь и использовать подходящую линейную модель; измерить пик памяти на пилоте без изменения оценочного смысла.",
+  "diagnostic": "формат, dtype, число ненулевых значений и все операции, способные вызвать `toarray`/dense concatenate; учесть копии и параллельные fit.",
+  "minimum_experiment": "сохранить sparse-путь, ограничить словарь и использовать подходящую линейную модель; измерить пик памяти на пилоте без изменения оценочного смысла.",
+  "acceptance": "реальный пик памяти и итоговый refit укладываются в лимит, форма/индексы сохранены, авария не замаскирована молчаливым урезанием данных.",
+  "constraints": "оценка только размера исходного CSV не отражает память pipeline. Масштабирование с центрированием разреженного представления может уплотнить его; готовый адаптер проверять отдельно.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "OOM после one-hot/TF-IDF, память растёт как `n_rows * n_features`, scaler центрирует sparse-матрицу."
+  ],
+  "contraindications": [
+    "оценка только размера исходного CSV не отражает память pipeline. Масштабирование с центрированием разреженного представления может уплотнить его; готовый адаптер проверять отдельно."
+  ],
+  "cost": "низкая для проверки, высокая при ошибке",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_feature_extraction_text_TfidfVectorizer"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "sparse"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.RobustScaler.html",
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "sparse",
+  "routing_priority": 0
+}

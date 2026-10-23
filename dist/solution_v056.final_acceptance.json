@@ -1,0 +1,274 @@
+{
+  "utc": "2026-10-23T01:41:24.682828+00:00",
+  "archive": "solution_v056.zip",
+  "sha256": "c984ea8b611d04ea8db43c8a2970b16a80843e92f88024057ea2c1694e1e5d70",
+  "bytes": 95019296,
+  "status": "qualified_technical_acceptance",
+  "promoted_to_candidate": true,
+  "platform_uploaded": false,
+  "runtime_source_match_files": 53,
+  "base_live_archive": "solution_v055.zip",
+  "base_live_registered_technical_gates_passed": true,
+  "base_live_acceptance": {
+    "utc": "2026-10-23T01:36:19.431548+00:00",
+    "archive": "dist/solution_v055.zip",
+    "archive_sha256": "5a2f079f1415b6d3d7a5f95b44389fe9a57a8be869e5156749bac25c697227ef",
+    "registered_technical_terminal_gates_passed": true,
+    "three_hour_continuous_quality_demonstration": false,
+    "allocated_seconds_each": 10800,
+    "stop_cause": "External development shared-budget guard permanently stopped new paid calls after complete framed provider502 without usage.cost. HTTP outcome is known; per-request billing is unknown. Local control/refit continued.",
+    "gate_reason": "response_billing_unknown",
+    "upstream_http_outcome_unknown": false,
+    "upstream_active_request": null,
+    "results": [
+      {
+        "task": "regression",
+        "exit_code": 0,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "elapsed_seconds": 5164.181243896484,
+        "model_calls": 45,
+        "research_candidates": 11,
+        "successful_qwen_full_nonbaseline_models": 9,
+        "control_scores": {
+          "baseline": 43.65885834443807,
+          "exp_3fc42ca11f8131b7": 41.567913991533985
+        },
+        "control_winner": "exp_3fc42ca11f8131b7",
+        "csv": {
+          "passed": true,
+          "checks": {
+            "schema": true,
+            "row_count": true,
+            "ids_order": true,
+            "unique_ids": true,
+            "no_missing": true,
+            "values": true
+          },
+          "rows": 22449,
+          "sha256": "740ba4c83d112f1f03cbfacae71c8c6145545e9fbe671329a353f1080cb66e5c"
+        },
+        "publication_scope": "full_train_refit",
+        "full_train_rows": 53308
+      },
+      {
+        "task": "classification",
+        "exit_code": 0,
+        "state": "completed",
+        "control_status": "completed",
+        "refit_status": "completed",
+        "elapsed_seconds": 5302.417047023773,
+        "model_calls": 43,
+        "research_candidates": 17,
+        "successful_qwen_full_nonbaseline_models": 10,
+        "control_scores": {
+          "baseline": 0.6173799485958739,
+          "exp_60739afab6a1b2c8": 0.6081955545971443,
+          "exp_93ac34e05a80a7b9": 0.6044795451096011
+        },
+        "control_winner": "baseline",
+        "csv": {
+          "passed": true,
+          "checks": {
+            "schema": true,
+            "row_count": true,
+            "ids_order": true,
+            "unique_ids": true,
+            "no_missing": true,
+            "values": true
+          },
+          "rows": 41166,
+          "sha256": "4c1c0178e37fc5a1ef9aa6ffcb2f595df12387196b98cb6826a688a4f19a1872"
+        },
+        "publication_scope": "full_train_refit",
+        "full_train_rows": 87670
+      }
+    ],
+    "provenance": "FINAL_QWEN_MODEL_PROVENANCE.json",
+    "api": {
+      "before_remaining": 600.0,
+      "after_remaining": 485.963491097151,
+      "observed_account_counter_increase": 114.03650890284905,
+      "reported_successful_own_cost": 114.03650890284902,
+      "conservative_counter_plus_reported": 228.07301780569807,
+      "shared_max_authorized": 400,
+      "closed_ledger": true,
+      "unreconciled_billing_request": "6835ccc3ee3b4a63bcb1e5c878acc4b5",
+      "per_request_billing_reconciled": false,
+      "observed_delta_is_not_unknown_request_cost_or_a_delayed_billing_guarantee": true,
+      "new_paid_calls_allowed": false
+    },
+    "quality_advantage_over_prior_archives_established": false,
+    "private_or_site_metric_established": false,
+    "fresh_v056_live_behavior_tested": false,
+    "review_scope": "../MAIN_EARLY_STOP_ACCEPTANCE_SCOPE_AUDIT.md"
+  },
+  "message_only_delta": {
+    "changed_sites": 5,
+    "changed_string_constants": 6,
+    "all_other_ast_identical": true,
+    "delta_audit": "../outputs/quality_goal_20261023/V056_STRING_ONLY_DIFF_AUDIT.json",
+    "native_and_json_repair_host_tests": 2,
+    "exact_targeted_tests": 4,
+    "exact_clean_entry_cases": 4,
+    "entry_report": {
+      "archive_sha256": "c984ea8b611d04ea8db43c8a2970b16a80843e92f88024057ea2c1694e1e5d70",
+      "command": [
+        "python",
+        "solution.py",
+        "task.md"
+      ],
+      "organizer_requests": 0,
+      "cases": [
+        {
+          "case": "unset",
+          "exit_code": 0,
+          "calls": 3,
+          "limits": {
+            "cpu": 7,
+            "max_calls": null,
+            "max_candidates": null,
+            "max_debug": null,
+            "max_llm_seconds": null,
+            "memory_mb": 28000,
+            "seconds": 10800,
+            "stagnation": 3
+          },
+          "state": "completed",
+          "control": "completed",
+          "refit": "completed",
+          "csv_valid": true,
+          "efforts": [
+            "xhigh",
+            "xhigh",
+            "medium"
+          ],
+          "transports": [
+            "json",
+            "native",
+            "native"
+          ],
+          "passed": true
+        },
+        {
+          "case": "empty",
+          "exit_code": 0,
+          "calls": 3,
+          "limits": {
+            "cpu": 7,
+            "max_calls": null,
+            "max_candidates": null,
+            "max_debug": null,
+            "max_llm_seconds": null,
+            "memory_mb": 28000,
+            "seconds": 10800,
+            "stagnation": 3
+          },
+          "state": "completed",
+          "control": "completed",
+          "refit": "completed",
+          "csv_valid": true,
+          "efforts": [
+            "xhigh",
+            "xhigh",
+            "medium"
+          ],
+          "transports": [
+            "json",
+            "native",
+            "native"
+          ],
+          "passed": true
+        },
+        {
+          "case": "whitespace",
+          "exit_code": 0,
+          "calls": 3,
+          "limits": {
+            "cpu": 7,
+            "max_calls": null,
+            "max_candidates": null,
+            "max_debug": null,
+            "max_llm_seconds": null,
+            "memory_mb": 28000,
+            "seconds": 10800,
+            "stagnation": 3
+          },
+          "state": "completed",
+          "control": "completed",
+          "refit": "completed",
+          "csv_valid": true,
+          "efforts": [
+            "xhigh",
+            "xhigh",
+            "medium"
+          ],
+          "transports": [
+            "json",
+            "native",
+            "native"
+          ],
+          "passed": true
+        },
+        {
+          "case": "json_fallback",
+          "exit_code": 0,
+          "calls": 4,
+          "limits": {
+            "cpu": 7,
+            "max_calls": null,
+            "max_candidates": null,
+            "max_debug": null,
+            "max_llm_seconds": null,
+            "memory_mb": 28000,
+            "seconds": 10800,
+            "stagnation": 3
+          },
+          "state": "completed",
+          "control": "completed",
+          "refit": "completed",
+          "csv_valid": true,
+          "efforts": [
+            "xhigh",
+            "xhigh",
+            "xhigh",
+            "medium"
+          ],
+          "transports": [
+            "json",
+            "native",
+            "json",
+            "json"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "review": "../outputs/quality_goal_20261023/REVIEW_V056_REPAIR_GUIDANCE.md"
+  },
+  "final_independent_review": "../outputs/quality_goal_20261023/FINAL_ACCEPTANCE_REVIEW.md",
+  "acceptance_scope_review": "../outputs/quality_goal_20261023/MAIN_EARLY_STOP_ACCEPTANCE_SCOPE_AUDIT.md",
+  "verification_addendum": "../outputs/quality_goal_20261023/V056_MESSAGE_ONLY_ACCEPTANCE_ADDENDUM.json",
+  "defaults": {
+    "seconds": 10800,
+    "cpu": 7,
+    "memory_mb": 28000,
+    "global_debug_candidate_call_llm_time_caps": null,
+    "research_per_attempt_n_trials_max": 40,
+    "per_attempt_hpo_cap_inherited_from_v043": true
+  },
+  "original_remaining_plan": "Closed with C2/C3 not promoted; outputs/agent_remaining_v044/REPORT.md",
+  "historical_full_QA_acceptance_claim": false,
+  "fresh_v056_paid_behavior_tested": false,
+  "continuous_three_hour_quality_demonstration": false,
+  "causal_cross_version_quality_advantage_established": false,
+  "private_or_site_score_established": false,
+  "billing_cost_unknown_request": "6835ccc3ee3b4a63bcb1e5c878acc4b5",
+  "billing_reconciled": false,
+  "shared_ledger_closed": true,
+  "new_paid_calls_allowed": false,
+  "report": "../outputs/quality_goal_20261023/FINAL_REPORT.md",
+  "LATEST_pointer_unchanged": true
+}

@@ -1,0 +1,1201 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LiteLLM API",
+    "version": "1.105.1"
+  },
+  "source_url": "https://changellenge.up.railway.app/openapi.json",
+  "paths": {
+    "/v1/chat/completions": {
+      "post": {
+        "tags": [
+          "chat/completions"
+        ],
+        "summary": "Chat Completion",
+        "description": "Follows the exact same API spec as `OpenAI's Chat API https://platform.openai.com/docs/api-reference/chat`\n\n```bash\ncurl -X POST http://localhost:4000/v1/chat/completions \n-H \"Content-Type: application/json\" \n-H \"Authorization: Bearer sk-1234\" \n-d '{\n    \"model\": \"gpt-4o\",\n    \"messages\": [\n        {\n            \"role\": \"user\",\n            \"content\": \"Hello!\"\n        }\n    ]\n}'\n```",
+        "operationId": "chat_completion_v1_chat_completions_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model",
+                  "messages"
+                ],
+                "properties": {
+                  "model": {
+                    "title": "Model",
+                    "type": "string"
+                  },
+                  "messages": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionUserMessage"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionAssistantMessage"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionToolMessage"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionSystemMessage"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionFunctionMessage"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ChatCompletionDeveloperMessage"
+                        }
+                      ]
+                    },
+                    "title": "Messages",
+                    "type": "array",
+                    "example": [
+                      {
+                        "role": "user",
+                        "content": "Hello, how are you?"
+                      }
+                    ]
+                  },
+                  "frequency_penalty": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Frequency Penalty"
+                  },
+                  "logit_bias": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "type": "number"
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Logit Bias"
+                  },
+                  "logprobs": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Logprobs"
+                  },
+                  "top_logprobs": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Top Logprobs"
+                  },
+                  "max_tokens": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Max Tokens"
+                  },
+                  "n": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "N"
+                  },
+                  "presence_penalty": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Presence Penalty"
+                  },
+                  "response_format": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Response Format"
+                  },
+                  "seed": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Seed"
+                  },
+                  "service_tier": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Service Tier"
+                  },
+                  "stop": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Stop"
+                  },
+                  "stream_options": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Stream Options"
+                  },
+                  "temperature": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Temperature"
+                  },
+                  "top_p": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Top P"
+                  },
+                  "tools": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Tools"
+                  },
+                  "tool_choice": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Tool Choice"
+                  },
+                  "parallel_tool_calls": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Parallel Tool Calls"
+                  },
+                  "function_call": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Function Call"
+                  },
+                  "functions": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Functions"
+                  },
+                  "user": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "User"
+                  },
+                  "stream": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Stream"
+                  },
+                  "metadata": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Metadata"
+                  },
+                  "guardrails": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Guardrails"
+                  },
+                  "caching": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Caching"
+                  },
+                  "num_retries": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Num Retries"
+                  },
+                  "context_window_fallback_dict": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Context Window Fallback Dict"
+                  },
+                  "fallbacks": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Fallbacks"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "tags": [
+          "model management"
+        ],
+        "summary": "Model List",
+        "description": "Use `/model/info` - to get detailed model information, example - pricing, mode, etc.\n\nThis is just for compatibility with openai projects like aider.\n\nQuery Parameters:\n- include_metadata: Include additional metadata in the response with fallback information\n- fallback_type: Type of fallbacks to include (\"general\", \"context_window\", \"content_policy\")\n                Defaults to \"general\" when include_metadata=true\n- scope: Optional scope parameter. Currently only accepts \"expand\".\n         When scope=expand is passed, proxy admins, team admins, and org admins\n         will receive all proxy models as if they are a proxy admin.\n- healthy_only: When true, hide models whose backing deployments are all marked\n                unhealthy by background health checks. Set\n                `general_settings.model_list_healthy_only: true` to apply this\n                to every caller without the query parameter. Requires\n                `background_health_checks: true` in general_settings, plus\n                either `model_list_healthy_only` or `enable_health_check_routing`\n                to keep deployment health state cached; without health state\n                the listing is returned unfiltered (fail open).\n                Models expanded from wildcard routes (e.g. `openai/*`) are not\n                filtered, and nothing is hidden when `allowed_fails_policy` is\n                configured (cooldown remains the sole exclusion mechanism).\n                Hiding is presentation-only: a hidden model can still be\n                called directly.",
+        "operationId": "model_list_v1_models_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "return_wildcard_routes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Return Wildcard Routes"
+            }
+          },
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "include_model_access_groups",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Include Model Access Groups"
+            }
+          },
+          {
+            "name": "only_model_access_groups",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Only Model Access Groups"
+            }
+          },
+          {
+            "name": "include_metadata",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Include Metadata"
+            }
+          },
+          {
+            "name": "fallback_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Fallback Type"
+            }
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scope"
+            }
+          },
+          {
+            "name": "healthy_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Healthy Only"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/model_group/info": {
+      "get": {
+        "tags": [
+          "model management"
+        ],
+        "summary": "Model Group Info",
+        "description": "Get information about all the deployments on litellm proxy, including config.yaml descriptions (except api key and api base)\n\n- /model_group/info returns all model groups. End users of proxy should use /model_group/info since those models will be used for /chat/completions, /embeddings, etc.\n- /model_group/info?model_group=rerank-english-v3.0 returns all model groups for a specific model group (`model_name` in config.yaml)\n\n\n\nExample Request (All Models):\n```shell\ncurl -X 'GET'     'http://localhost:4000/model_group/info'     -H 'accept: application/json'     -H 'x-api-key: sk-1234'\n```\n\nExample Request (Specific Model Group):\n```shell\ncurl -X 'GET'     'http://localhost:4000/model_group/info?model_group=rerank-english-v3.0'     -H 'accept: application/json'     -H 'Authorization: Bearer sk-1234'\n```\n\nExample Request (Specific Wildcard Model Group): (e.g. `model_name: openai/*` on config.yaml)\n```shell\ncurl -X 'GET'     'http://localhost:4000/model_group/info?model_group=openai/tts-1'\n-H 'accept: application/json'     -H 'Authorization: Bearersk-1234'\n```\n\nLearn how to use and set wildcard models [here](https://docs.litellm.ai/docs/wildcard_routing)\n\nExample Response:\n```json\n    {\n        \"data\": [\n            {\n            \"model_group\": \"rerank-english-v3.0\",\n            \"providers\": [\n                \"cohere\"\n            ],\n            \"max_input_tokens\": null,\n            \"max_output_tokens\": null,\n            \"input_cost_per_token\": 0.0,\n            \"output_cost_per_token\": 0.0,\n            \"mode\": null,\n            \"tpm\": null,\n            \"rpm\": null,\n            \"supports_parallel_function_calling\": false,\n            \"supports_vision\": false,\n            \"supports_function_calling\": false,\n            \"supported_openai_params\": [\n                \"stream\",\n                \"temperature\",\n                \"max_tokens\",\n                \"logit_bias\",\n                \"top_p\",\n                \"frequency_penalty\",\n                \"presence_penalty\",\n                \"stop\",\n                \"n\",\n                \"extra_headers\"\n            ]\n            },\n            {\n            \"model_group\": \"gpt-3.5-turbo\",\n            \"providers\": [\n                \"openai\"\n            ],\n            \"max_input_tokens\": 16385.0,\n            \"max_output_tokens\": 4096.0,\n            \"input_cost_per_token\": 1.5e-06,\n            \"output_cost_per_token\": 2e-06,\n            \"mode\": \"chat\",\n            \"tpm\": null,\n            \"rpm\": null,\n            \"supports_parallel_function_calling\": false,\n            \"supports_vision\": false,\n            \"supports_function_calling\": true,\n            \"supported_openai_params\": [\n                \"frequency_penalty\",\n                \"logit_bias\",\n                \"logprobs\",\n                \"top_logprobs\",\n                \"max_tokens\",\n                \"max_completion_tokens\",\n                \"n\",\n                \"presence_penalty\",\n                \"seed\",\n                \"stop\",\n                \"stream\",\n                \"stream_options\",\n                \"temperature\",\n                \"top_p\",\n                \"tools\",\n                \"tool_choice\",\n                \"function_call\",\n                \"functions\",\n                \"max_retries\",\n                \"extra_headers\",\n                \"parallel_tool_calls\",\n                \"response_format\"\n            ]\n            },\n            {\n            \"model_group\": \"llava-hf\",\n            \"providers\": [\n                \"openai\"\n            ],\n            \"max_input_tokens\": null,\n            \"max_output_tokens\": null,\n            \"input_cost_per_token\": 0.0,\n            \"output_cost_per_token\": 0.0,\n            \"mode\": null,\n            \"tpm\": null,\n            \"rpm\": null,\n            \"supports_parallel_function_calling\": false,\n            \"supports_vision\": true,\n            \"supports_function_calling\": false,\n            \"supported_openai_params\": [\n                \"frequency_penalty\",\n                \"logit_bias\",\n                \"logprobs\",\n                \"top_logprobs\",\n                \"max_tokens\",\n                \"max_completion_tokens\",\n                \"n\",\n                \"presence_penalty\",\n                \"seed\",\n                \"stop\",\n                \"stream\",\n                \"stream_options\",\n                \"temperature\",\n                \"top_p\",\n                \"tools\",\n                \"tool_choice\",\n                \"function_call\",\n                \"functions\",\n                \"max_retries\",\n                \"extra_headers\",\n                \"parallel_tool_calls\",\n                \"response_format\"\n            ]\n            }\n        ]\n        }\n```",
+        "operationId": "model_group_info_model_group_info_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "model_group",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model Group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utils/supported_openai_params": {
+      "get": {
+        "tags": [
+          "llm utils"
+        ],
+        "summary": "Supported Openai Params",
+        "description": "Returns supported openai params for a given litellm model name\n\ne.g. `gpt-4` vs `gpt-3.5-turbo`\n\nExample curl:\n```\ncurl -X GET --location 'http://localhost:4000/utils/supported_openai_params?model=gpt-3.5-turbo-16k'         --header 'Authorization: Bearer sk-1234'\n```",
+        "operationId": "supported_openai_params_utils_supported_openai_params_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Model"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/key/info": {
+      "get": {
+        "tags": [
+          "key management"
+        ],
+        "summary": "Info Key Fn",
+        "description": "Retrieve information about a key.\n\nParameters:\n- key: str | None (query parameter) - The key to look up. Accepts the plaintext key or its hash;\n  prefer the hash, since a query parameter is recorded verbatim by any HTTP access log in front\n  of the proxy. Defaults to the key in the Authorization header.\n\nReturns:\n- key: str - The key that was looked up, echoed back as it was passed in\n- info: dict - The key's row, minus the hashed token. Deleted keys are served from the\n  LiteLLM_DeletedVerificationToken archive and carry deleted_at / deleted_by\n    - status: \"active\" | \"expired\" | \"revoked\" | \"deleted\" - Derived from blocked, expires and\n      whether the row came from the archive\n    - key_alias: str | None - User-friendly key alias\n    - spend: float - Amount spent by the key. When budget_duration is set this covers only the\n      current budget window, not the key's lifetime\n    - max_budget: float | None - Max budget for the key, enforced against spend\n    - budget_duration: str | None - Budget reset period (\"30d\", \"1h\", etc.)\n    - budget_reset_at: datetime | None - When the current budget window ends and spend is next\n      reset to 0, not when it was last reset. Reset times snap to standard boundaries in the\n      configured timezone (30d and 1mo land on the 1st of the month, 7d on Monday, 1h on the\n      hour), so subtracting budget_duration from it does not give the window's start\n    - model_max_budget: dict - Per-model budgets, e.g. {\"gpt-4\": {\"budget_limit\": 0.0005, \"time_period\": \"30d\"}}\n    - model_max_budget_usage: dict | None - Current-window spend per model, present only when\n      the key has per-model budgets\n    - budget_limits: list | None - Concurrent budget windows, exactly as stored\n    - budget_limits_usage: dict | None - Current-window spend per budget window, e.g.\n      {\"1h\": {\"current_spend\": 0.0009}}, present only when the key has budget windows\n      (read from the same cross-pod spend counter the budget enforcement uses)\n    - models: list - Model_name's the key is allowed to call\n    - tpm_limit / rpm_limit: int | None - Tokens and requests per minute limits\n    - metadata: dict - Metadata for the key, e.g. {\"team\": \"core-infra\"}\n    - blocked: bool | None - Whether the key is blocked\n    - expires: datetime | None - When the key stops authenticating requests\n    - last_active: datetime | None - When the key was last used\n    - object_permission: dict | None - Resolved vector store / MCP permissions when the key has\n      an object_permission_id\n\nExample Curl:\n```\ncurl -X GET \"http://0.0.0.0:4000/key/info?key=d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa\" -H \"Authorization: Bearer sk-1234\"\n```\n\nExample Curl - if no key is passed, it will use the Key Passed in Authorization Header\n```\ncurl -X GET \"http://0.0.0.0:4000/key/info\" -H \"Authorization: Bearer sk-test-example-key-123\"\n```",
+        "operationId": "info_key_fn_key_info_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
+              "title": "Key"
+            },
+            "description": "Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProxyChatCompletionRequest": {
+        "description": "Pydantic model for chat completion requests that includes both OpenAI standard fields\nand LiteLLM-specific parameters. This replaces the previous TypedDict version.",
+        "properties": {
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "messages": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ChatCompletionUserMessage"
+                },
+                {
+                  "$ref": "#/components/schemas/ChatCompletionAssistantMessage"
+                },
+                {
+                  "$ref": "#/components/schemas/ChatCompletionToolMessage"
+                },
+                {
+                  "$ref": "#/components/schemas/ChatCompletionSystemMessage"
+                },
+                {
+                  "$ref": "#/components/schemas/ChatCompletionFunctionMessage"
+                },
+                {
+                  "$ref": "#/components/schemas/ChatCompletionDeveloperMessage"
+                }
+              ]
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "frequency_penalty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Frequency Penalty"
+          },
+          "logit_bias": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Logit Bias"
+          },
+          "logprobs": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Logprobs"
+          },
+          "top_logprobs": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Top Logprobs"
+          },
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Max Tokens"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "N"
+          },
+          "presence_penalty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Presence Penalty"
+          },
+          "response_format": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Response Format"
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Seed"
+          },
+          "service_tier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Service Tier"
+          },
+          "stop": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Stop"
+          },
+          "stream_options": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Stream Options"
+          },
+          "temperature": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Temperature"
+          },
+          "top_p": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Top P"
+          },
+          "tools": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tools"
+          },
+          "tool_choice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tool Choice"
+          },
+          "parallel_tool_calls": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Parallel Tool Calls"
+          },
+          "function_call": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Function Call"
+          },
+          "functions": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Functions"
+          },
+          "user": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "User"
+          },
+          "stream": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Stream"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Metadata"
+          },
+          "guardrails": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Guardrails"
+          },
+          "caching": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Caching"
+          },
+          "num_retries": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Num Retries"
+          },
+          "context_window_fallback_dict": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Context Window Fallback Dict"
+          },
+          "fallbacks": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fallbacks"
+          }
+        },
+        "required": [
+          "model",
+          "messages"
+        ],
+        "title": "ProxyChatCompletionRequest",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "description": "Bearer token",
+        "in": "header",
+        "name": "x-litellm-api-key"
+      },
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

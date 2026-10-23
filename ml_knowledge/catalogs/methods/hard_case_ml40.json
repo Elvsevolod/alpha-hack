@@ -1,0 +1,35 @@
+{
+  "id": "hard_case_ml40",
+  "method_id": "hard_case_ml40",
+  "version": 1,
+  "title": "Единицы, отношения и нормированные таргеты",
+  "observations": "площадь в ft², осадки в inches, таргет уже «на единицу площади», два столбца года в разных шкалах, отношения потоков с нулевым знаменателем.",
+  "hypothesis": "небольшой физически согласованный набор отношений/контрастов с явным поведением при нуле и NaN; один набор на ablation.",
+  "diagnostic": "выписать размерности и смысл каждого производного признака; различать градусо-сутки и температуру, направление ветра и градусы температуры.",
+  "minimum_experiment": "небольшой физически согласованный набор отношений/контрастов с явным поведением при нуле и NaN; один набор на ablation.",
+  "acceptance": "все формулы размерностно осмысленны, конечны и одинаковы на fit/predict; метрика использует исходные единицы задания.",
+  "constraints": "Не вычитать анонимный код периода из календарного года без соответствия шкал; не нормировать повторно уже удельный таргет и не менять единицы выхода.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "площадь в ft², осадки в inches, таргет уже «на единицу площади», два столбца года в разных шкалах, отношения потоков с нулевым знаменателем."
+  ],
+  "contraindications": [
+    "Не вычитать анонимный код периода из календарного года без соответствия шкал; не нормировать повторно уже удельный таргет и не менять единицы выхода."
+  ],
+  "cost": "низкая",
+  "implementation_path": "custom",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_mean_squared_error"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "units"
+  ],
+  "research_sources": [],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "units",
+  "routing_priority": 0
+}

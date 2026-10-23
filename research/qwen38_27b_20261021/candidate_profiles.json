@@ -1,0 +1,234 @@
+{
+  "date": "2026-10-21",
+  "status": "research_candidates_not_applied",
+  "model_id": "qwen/qwen3.8-27b",
+  "live_model_calls": 0,
+  "scope": "Sampling and reasoning recommendations. No source, environment, endpoint, archive, automation, or model weights were changed.",
+  "profiles": [
+    {
+      "id": "C0_existing_local",
+      "purpose": "Existing local request, preserved for comparison. Omitted parameters have unknown server defaults.",
+      "thinking_request": false,
+      "sampling_explicitly_sent": {
+        "temperature": 0.2
+      },
+      "combined_output_tokens": 8192,
+      "openrouter_compatible_extra_body": {
+        "temperature": 0.2,
+        "reasoning": {
+          "enabled": false
+        }
+      },
+      "applied_by_this_research": false
+    },
+    {
+      "id": "C1_agent_start",
+      "purpose": "Preferred starting candidate under the shared training deadline.",
+      "thinking": true,
+      "reasoning_effort": "medium",
+      "sampling": {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "repetition_penalty": 1
+      },
+      "recommended_initial_combined_output_tokens": 16384,
+      "client_context_guard": 262144,
+      "separate_hard_reasoning_budget": null,
+      "requires_endpoint_parameter_verification": true,
+      "requires_latency_and_timeout_verification": true,
+      "proven_best_for_this_agent": false
+    },
+    {
+      "id": "C2_deep_quality",
+      "purpose": "Quality-oriented candidate for a difficult individual decision, with sufficient request time.",
+      "thinking": true,
+      "reasoning_effort": "xhigh",
+      "sampling": {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "repetition_penalty": 1
+      },
+      "recommended_initial_combined_output_tokens": 32768,
+      "client_context_guard": 262144,
+      "separate_hard_reasoning_budget": null,
+      "requires_endpoint_parameter_verification": true,
+      "requires_latency_and_timeout_verification": true,
+      "proven_best_for_this_agent": false
+    },
+    {
+      "id": "C3_temperature_challenger",
+      "purpose": "Compare only temperature against C1; not established as universally superior.",
+      "thinking": true,
+      "reasoning_effort": "medium",
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "repetition_penalty": 1
+      },
+      "recommended_initial_combined_output_tokens": 16384,
+      "client_context_guard": 262144,
+      "separate_hard_reasoning_budget": null,
+      "requires_endpoint_parameter_verification": true,
+      "requires_latency_and_timeout_verification": true,
+      "proven_best_for_this_agent": false
+    },
+    {
+      "id": "R_non_thinking_reference",
+      "purpose": "Complete published non-thinking sampling reference, for a separately validated mechanical task.",
+      "thinking": false,
+      "reasoning_effort": null,
+      "sampling": {
+        "temperature": 0.7,
+        "top_p": 0.8,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 1.5,
+        "frequency_penalty": 0,
+        "repetition_penalty": 1
+      },
+      "recommended_initial_combined_output_tokens": 8192,
+      "proven_best_for_this_agent": false
+    }
+  ],
+  "transport_examples": {
+    "normalized_gateway": [
+      {
+        "profile_id": "C1_agent_start",
+        "compatibility": "Conditional example for a gateway that verifiably implements OpenRouter reasoning semantics.",
+        "OPENAI_EXTRA_BODY_minimal": {
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning": {
+            "effort": "medium"
+          }
+        },
+        "AGENT_OUTPUT_TOKENS_example": "16384"
+      },
+      {
+        "profile_id": "C2_deep_quality",
+        "compatibility": "Conditional example for a gateway that verifiably implements OpenRouter reasoning semantics.",
+        "OPENAI_EXTRA_BODY_minimal": {
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning": {
+            "effort": "xhigh"
+          }
+        },
+        "AGENT_OUTPUT_TOKENS_example": "32768"
+      },
+      {
+        "profile_id": "C3_temperature_challenger",
+        "compatibility": "Conditional example for a gateway that verifiably implements OpenRouter reasoning semantics.",
+        "OPENAI_EXTRA_BODY_minimal": {
+          "temperature": 0.6,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning": {
+            "effort": "medium"
+          }
+        },
+        "AGENT_OUTPUT_TOKENS_example": "16384"
+      }
+    ],
+    "native_qwen": [
+      {
+        "profile_id": "C1_agent_start",
+        "compatibility": "Conditional example for a verified native Qwen/vLLM-style API; do not combine with the gateway example.",
+        "extra_body_minimal": {
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning_effort": "medium",
+          "chat_template_kwargs": {
+            "enable_thinking": true
+          }
+        }
+      },
+      {
+        "profile_id": "C2_deep_quality",
+        "compatibility": "Conditional example for a verified native Qwen/vLLM-style API; do not combine with the gateway example.",
+        "extra_body_minimal": {
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning_effort": "xhigh",
+          "chat_template_kwargs": {
+            "enable_thinking": true
+          }
+        }
+      },
+      {
+        "profile_id": "C3_temperature_challenger",
+        "compatibility": "Conditional example for a verified native Qwen/vLLM-style API; do not combine with the gateway example.",
+        "extra_body_minimal": {
+          "temperature": 0.6,
+          "top_p": 0.95,
+          "top_k": 20,
+          "reasoning_effort": "medium",
+          "chat_template_kwargs": {
+            "enable_thinking": true
+          }
+        }
+      }
+    ]
+  },
+  "neutral_parameters_note": "The semantic table includes neutral penalties and disabled min_p. Minimal transport examples omit these fields to avoid making unsupported neutral options mandatory; endpoint defaults must be checked before a controlled experiment.",
+  "preserve_thinking_note": "Current agent reconstructs system + user state without prior assistant reasoning. Setting preserve_thinking alone will not restore absent history.",
+  "controlled_comparison": {
+    "profiles": [
+      "C0_existing_local",
+      "C1_agent_start",
+      "C2_deep_quality",
+      "C3_temperature_challenger"
+    ],
+    "frozen_states": 12,
+    "repeats_per_state": 3,
+    "total_model_requests_if_fully_run": 144,
+    "thinking_profiles_same_combined_output_tokens": 32768,
+    "thinking_profiles_same_request_timeout": "Choose after latency/capability preflight; must be long enough to measure untruncated answer quality, subject to approved API budget.",
+    "training_seed_held_fixed": true,
+    "sampling_seeds_if_supported": [
+      17,
+      42,
+      73
+    ],
+    "run_executed": false
+  },
+  "runtime_constraints": {
+    "existing_request_timeout_cap_seconds": 300,
+    "existing_total_default_minutes": 175,
+    "starting_context_guard": 262144,
+    "xhigh_65536_is_not_current_client_auto_growth": true,
+    "all_profile_deployment_requires_review_of_actual_wire_request": true,
+    "do_not_add_provider_overrides_to_platform_solution": true
+  },
+  "unsupported_assumptions_to_avoid": [
+    "reasoning.effort is a hard token cap",
+    "reasoning.exclude disables thinking",
+    "all endpoints accept chat_template_kwargs",
+    "model name proves exact precision or runtime",
+    "all public provider parameters are forwarded by organizer proxy",
+    "larger context or output always improves final CSV metrics",
+    "sampling seed is the same as training seed"
+  ],
+  "sources": [
+    "https://huggingface.co/Qwen/Qwen3.8-27B",
+    "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/generation_config.json",
+    "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/chat_template.jinja",
+    "https://openrouter.ai/docs/guides/best-practices/reasoning-tokens"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version_tag": "v019",
+  "archive": "solution_v019.zip",
+  "bytes": 94679680,
+  "sha256": "64e21229e270a616670484e4f62da44d3fdaf4a0a16124e8b8d385c9a2971cab",
+  "status": "knowledge_integration_targeted_acceptance_passed",
+  "full_plan_acceptance": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "manifest": "solution_v019.manifest.json",
+  "acceptance": "solution_v019.acceptance.json",
+  "acceptance_sha256": "bbb89097d7c865d12ab4103d0dd76aa72641d3c573e10f6b42200465e2da329d",
+  "documentation": "../outputs/knowledge_integration/REVIEW_AND_TESTS.md",
+  "token_savings_established_on_frozen_histories": false
+}

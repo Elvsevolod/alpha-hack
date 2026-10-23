@@ -1,0 +1,250 @@
+{
+  "archive": "solution_v045.zip",
+  "archive_sha256": "cce9cc48d3a0511d5fdb85c0d39e9d0d2d8f281e6e791886a21898d833728675",
+  "bytes": 95016693,
+  "status": "SSE_transport_short_live_and_refit_passed",
+  "base": "solution_v043.zip",
+  "runtime_changes": [
+    "automl_agent/qwen.py",
+    "automl_agent/qwen_stream.py",
+    "context_compressor/transport.py"
+  ],
+  "unchanged": {
+    "knowledge_release": "v004",
+    "original_requirements": true,
+    "default_seconds": 10800,
+    "generation_policy": "temperature1; medium/xhigh unchanged",
+    "global_calls_candidates_debug_llm_seconds_caps": null
+  },
+  "offline_exact_tests": {
+    "passed": 158,
+    "failed": 0,
+    "seconds": 104.75,
+    "log": "../outputs/quality_goal_20261023/stream_exact_focused_recheck.log"
+  },
+  "independent_review": {
+    "new_sse_tests_passed": 21,
+    "gateway_tests_passed": 2,
+    "blockers": 0,
+    "prepared_wire_and_audit_match": true,
+    "wall_timer_covers_full_stream": true,
+    "unknown_stream_no_retry": true,
+    "document": "../outputs/quality_goal_20261023/REVIEW_STREAM.md"
+  },
+  "real_api_evidence": {
+    "confirmed_classification_contract": true,
+    "seconds": 303.367,
+    "actual_sse_replay_passed": true
+  },
+  "live_training_pair": "../outputs/quality_goal_20261023/stream_v045_30m/REPORT.json",
+  "full_quality_validation_complete": false,
+  "quality_advantage_established": false,
+  "candidate_pointer_not_promoted": false,
+  "submitted_to_platform": false,
+  "exact_entry": {
+    "archive_sha256": "cce9cc48d3a0511d5fdb85c0d39e9d0d2d8f281e6e791886a21898d833728675",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "live_tested": true,
+  "short_live_pair_passed": true,
+  "short_live_scope": {
+    "seconds_per_task": 1800,
+    "cpu": 5,
+    "memory_gib": 4.5,
+    "API_requests_serialized_by_external_gateway": true
+  },
+  "full_three_hour_rehearsal_complete": false,
+  "quality_advantage_over_v043_established": false,
+  "frozen_control_results": {
+    "regression": {
+      "scores": {
+        "baseline": 43.65885834443807,
+        "exp_0406c1d90804ca04": 41.449243872902144
+      },
+      "winner": "exp_0406c1d90804ca04",
+      "csv": {
+        "passed": true,
+        "checks": {
+          "schema": true,
+          "row_count": true,
+          "ids_order": true,
+          "unique_ids": true,
+          "no_missing": true,
+          "values": true
+        },
+        "rows": 22449,
+        "sha256": "3bd0923a9a567430cab91f700bebe73f9dd0cc569995e1a477f0e2d5598084ab"
+      },
+      "scope": "full_train_refit"
+    },
+    "classification": {
+      "scores": {
+        "baseline": 0.6173799485958739
+      },
+      "winner": "baseline",
+      "csv": {
+        "passed": true,
+        "checks": {
+          "schema": true,
+          "row_count": true,
+          "ids_order": true,
+          "unique_ids": true,
+          "no_missing": true,
+          "values": true
+        },
+        "rows": 41166,
+        "sha256": "d18e4cb181ff7e1796a9c7c956575ebf0303b0268d0d6231799c82b46fc5d646"
+      },
+      "scope": "full_train_refit"
+    }
+  },
+  "full_three_hour_allocation_rehearsal": {
+    "report": "../outputs/quality_goal_20261023/stream_v045_full3h/REPORT.json",
+    "both_tasks_passed": false,
+    "regression": "terminal numeric feature role failure before CSV",
+    "classification": {
+      "state": "completed",
+      "control_status": "completed",
+      "refit_status": "completed",
+      "scope": "full_train_refit",
+      "rows": 41166,
+      "control_scores": {
+        "baseline": 0.6173799485958739,
+        "exp_6601d74d3d8a0706": 0.6208663074047832
+      },
+      "csv_sha256": "107a939433f6cc3d5237f1d4ccbb0f5d6bca81bc1ab1e046d337ec4ac8b74036",
+      "external_gateway_closed": "upstream_outcome_unknown",
+      "quality_scope": "Within-run public closed control; not paired archive comparison or hidden platform score"
+    }
+  }
+}

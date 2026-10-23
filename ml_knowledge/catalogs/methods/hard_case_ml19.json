@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml19",
+  "method_id": "hard_case_ml19",
+  "version": 1,
+  "title": "Меняются блоки доступных измерений",
+  "observations": "сразу несколько датчиков отсутствуют в одном периоде/центре; между train и test существенно меняются доли NaN.",
+  "hypothesis": "сравнить устойчивый базовый набор с полным; внутри fit провести реалистичную стресс-проверку отключения блока датчиков, сохранив правило оценки.",
+  "diagnostic": "сгруппировать шаблоны пропуска и время/источник по fit-only агрегатам; оценить, какие признаки доступны совместно.",
+  "minimum_experiment": "сравнить устойчивый базовый набор с полным; внутри fit провести реалистичную стресс-проверку отключения блока датчиков, сохранив правило оценки.",
+  "acceptance": "эффект проверен на разумных сценариях недоступности и основном критерии; маски не подбираются по внешним ошибкам или скрытым меткам.",
+  "constraints": "случайное независимое маскирование ячеек может не моделировать реальное отключение блока. Разделённые модели по маскам требуют достаточной поддержки и бюджета.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "сразу несколько датчиков отсутствуют в одном периоде/центре; между train и test существенно меняются доли NaN."
+  ],
+  "contraindications": [
+    "случайное независимое маскирование ячеек может не моделировать реальное отключение блока. Разделённые модели по маскам требуют достаточной поддержки и бюджета."
+  ],
+  "cost": "средняя",
+  "implementation_path": "custom",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_impute_SimpleImputer"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "missingness_shift"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/impute.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "missingness_shift",
+  "routing_priority": 0
+}

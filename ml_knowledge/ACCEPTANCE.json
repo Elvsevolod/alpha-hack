@@ -1,0 +1,135 @@
+{
+  "annotations_sha256": "5f1a795db4d16d8db60680a4fdf278924014d34effcd461ef40f1e21dde67de1",
+  "checks": {
+    "comparative_behavior_improvement": {
+      "status": "not_established"
+    },
+    "context_evaluation": {
+      "critical_passed": true,
+      "false_confident": 0,
+      "final_v003_run_is_new_independent_evidence": false,
+      "first_independent_archive": "releases/ml_knowledge_v001.zip",
+      "first_independent_run": "reports/heldout_final.json",
+      "human_annotation_review": false,
+      "negative_and_version_cases_passed": 10,
+      "negative_and_version_cases_total": 10,
+      "positive_sufficient": 20,
+      "positive_total": 20,
+      "report": "reports/v003/heldout.json",
+      "status": "regression_passed"
+    },
+    "corpus_completeness": {
+      "errored_inventory_items": 158,
+      "report": "reports/coverage_gaps.json",
+      "status": "incomplete",
+      "unavailable_inventory_items": 67,
+      "unresolved_expansions": 400
+    },
+    "deterministic_tool_sequences": {
+      "is_autonomous_live_behavior": false,
+      "passed": 6,
+      "report": "reports/v003/replay.json",
+      "status": "passed",
+      "total": 6
+    },
+    "functional_readiness_under_original_plan": {
+      "reason": "Full live outcomes and full agreed corpus are not established.",
+      "status": "not_established"
+    },
+    "historical_queries": {
+      "auxiliary_threshold_passed": false,
+      "baseline_hit_at_5": 0.925,
+      "final_packets_sufficient": 32,
+      "hit_at_5": 0.925,
+      "report": "reports/v003/legacy_development.json",
+      "status": "mixed",
+      "total": 40
+    },
+    "integration": {
+      "compressor_changed": false,
+      "main_agent_changed": false,
+      "status": "deferred_by_requested_isolation"
+    },
+    "live_acceptance": {
+      "completed_runs": 0,
+      "planned_runs": 24,
+      "reason": "Requires the common frozen architecture and its final compressor integration; user requested a separate block.",
+      "status": "not_run"
+    },
+    "reproducibility": {
+      "all_identical": true,
+      "report": "reports/reproducibility.json",
+      "scope": "Two independent offline normalizations and SQLite builds of the same fixed inputs; runtime-only v003 changes do not alter these builder inputs.",
+      "status": "passed"
+    },
+    "resources": {
+      "cold_report": "reports/v003/cold.json",
+      "integrated_solution_verified": false,
+      "report": "reports/v003/resources.json",
+      "status": "passed_for_standalone_module",
+      "zip_headroom_bytes": 5485871
+    },
+    "source_versions_and_identity": {
+      "libraries": 16,
+      "not_a_completeness_claim": true,
+      "organizer_dependencies_exact": 37,
+      "source_inventory": "frozen/expected.json",
+      "status": "passed_for_collected_inputs"
+    },
+    "technical": {
+      "report": "reports/v003/unit.json",
+      "status": "passed",
+      "tests": 46
+    }
+  },
+  "corpus": "a43e4842fb3899b2e61a1803204d6d1f25090679a63ed5f33f740efeab24979e",
+  "platform_submission_performed": false,
+  "real_qwen_calls": 0,
+  "release": {
+    "corpus": "a43e4842fb3899b2e61a1803204d6d1f25090679a63ed5f33f740efeab24979e",
+    "files": 222,
+    "integration_status": "not_integrated_by_user_request",
+    "kind": "independent_knowledge_module_not_platform_solution",
+    "path": "releases/ml_knowledge_v003.zip",
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "under_100000000_bytes": true,
+    "zip_bytes": 94514129,
+    "zip_sha256": "003ed6a64ce3dc26853186b0a48f98cec6df480897798b3411e19ab5ebec558b"
+  },
+  "report_sha256": {
+    "evaluation/annotations.lock.json": "baff66e4fb54c7a86b5407438c6fdf45e86639514650df4814b69254699bc8f7",
+    "reports/baseline_legacy40.json": "50737cf6eb70d39d0d375c2a68a36c4b37368f33b870e7008207f8311476b956",
+    "reports/coverage_gaps.json": "62d46609c13037dc334fdad8b81125c7cf43f7bedccc0f4e9c081a1dfacfd0b6",
+    "reports/heldout_final.json": "f91210e1b122c9d222e3bd5ee07bf520d765c5ad2d2bd7abdf06b3240b74db20",
+    "reports/reproducibility.json": "23b992f8efcc2c926a23a6e3beb36ae56b74e5d71e1648cd073b5d5dddde4827",
+    "reports/v003/cold.json": "a79a0b68f46d6434f5c1016ee5c8279426f85a2c8fa8a101fecd79e54433ba49",
+    "reports/v003/development.json": "330a4ad0218db02dd3e85b9bdf7a76183cc9b6d21f78fc0e715bf66082b20bad",
+    "reports/v003/heldout.json": "f2b5d2d520fc8784ac676d20fd393111945702cb9f4477dc17f2421060281fed",
+    "reports/v003/legacy_development.json": "79e0ddf741601555be048a11751e3c360ae97ad3ef31041498539eba52558277",
+    "reports/v003/replay.json": "342956967249eb4b3e08bf7561d51e5b7f84bbe1d9ba69406ca6c1020d9ae25e",
+    "reports/v003/resources.json": "83afbb8f40cdd6f858c5cbb5c6aad3b80eb14a50ed5688db09bff2d48c74f059",
+    "reports/v003/unit.json": "6a1b68ba399aaeb9da2fe6c9f4c3070fff32730c3f9a60f56d8e82d153de7d0b",
+    "reports/v003/unit.log": "6490cccd8fbe3099bf00c3615ad66d995b2530eca1d34700ee3e44d6e53dc6c5",
+    "verification/v003/harness/identity.json": "7806be5fc8fad32940cc69fd0383ecbea837e542c75fb20441a5b3cddcd79c1b"
+  },
+  "schema": "mlkb-standalone-acceptance-1",
+  "scope": "Only ml_knowledge/; independent knowledge module for later integration",
+  "source_sha256": {
+    "__init__.py": "b93033609dcd3ecff48394ef45336444f4a9a94004b2cb596d1fc7f2c068e53e",
+    "benchmark.py": "89a3510bdf312aeac75997910fe426999f40f9c0f80d2ec50c5c2e360696e887",
+    "build.py": "597d879d24abd3b84b94fb26032e4913016057356d8dd58108b14c26018c145b",
+    "bundle.py": "9b45bdee5eb0cb913a6de547717b8134f16ac7a128854c8d18298b5c03dc0ce0",
+    "collect.py": "826f19c091ff71f7234814114d95f33903995ce56f86b1d18d3395e99a8e093b",
+    "context.py": "2d44cd01b50dfb9ca5686a733e73f2c3a0dfdafaba5ec74ec2d8683dbd6829a1",
+    "core.py": "dd0361f78f61310afab96a01904ba3db5394bc02bbb122c9927887fd2adbf5f8",
+    "evaluate.py": "1a6ed99b4a1cc4646380ca41cc17bd4c3f01c810ac22aeaaa903542fa0849092",
+    "export_api.py": "fb2c97b2e1403071f722735b6c67e15066642c0a1d38374adf0eecf27691a83f",
+    "export_requested.py": "f08cd3fc7db995db5c221945fa00c8496ba2a3c608ab7a57a90a93025c8fedb4",
+    "lexical.py": "4049f665ebea14628d1e6b7f60fd1a74df60085992e5e84b0e0acef9373472d1",
+    "memory.py": "aa3aa74208bdb57021af05c5b2f01f653b33f62670db40db5d079ffdea11ac34",
+    "normalize.py": "4f35a88c7d6fd66aa93cb0cb40afcaa89ec2588c758f3ac89ad0f4f59236285b",
+    "replay.py": "b688e1936443dd953ad02fd7766305c66773b7b9ec08d258fab7a8fa08e8d53c",
+    "runtime.py": "4a4ecf4a08d5f4d84449497869bb0d20db3cd682f392d9a8b83fe1331d9b0658"
+  },
+  "status": "standalone_core_verified_with_open_gaps"
+}

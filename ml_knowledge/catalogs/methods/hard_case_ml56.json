@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml56",
+  "method_id": "hard_case_ml56",
+  "version": 1,
+  "title": "Дешёвый пилот неверно ранжирует модели",
+  "observations": "малая подвыборка меняет долю редких классов, групп и масштабы обработки; на полном fit порядок моделей другой.",
+  "hypothesis": "небольшой осмысленный пилот для fit/predict/save/load и стоимости; перспективное направление подтвердить полноценным сопоставимым запуском, если бюджет позволяет.",
+  "diagnostic": "выяснить цель пилота: совместимость/стоимость или качество. Проверить покрытие, размер представления и нелинейность масштабирования.",
+  "minimum_experiment": "небольшой осмысленный пилот для fit/predict/save/load и стоимости; перспективное направление подтвердить полноценным сопоставимым запуском, если бюджет позволяет.",
+  "acceptance": "прогноз полного времени и памяти имеет запас и фактическую опору; качество семейства не отвергнуто по отсутствующему/нерепрезентативному результату.",
+  "constraints": "`pilot` не равен завершённому кандидату. Pruning не должен объявлять медленно стартующее семейство бесполезным только по несопоставимой промежуточной шкале.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "малая подвыборка меняет долю редких классов, групп и масштабы обработки; на полном fit порядок моделей другой."
+  ],
+  "contraindications": [
+    "`pilot` не равен завершённому кандидату. Pruning не должен объявлять медленно стартующее семейство бесполезным только по несопоставимой промежуточной шкале."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "resource_contract"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "pilot"
+  ],
+  "research_sources": [
+    "https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "pilot",
+  "routing_priority": 0
+}

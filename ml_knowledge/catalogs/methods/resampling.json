@@ -1,0 +1,46 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "веса классов; RandomOverSampler",
+  "applicability_rules": [],
+  "conditions": [
+    "Внутри обучающего fold достаточно объектов меньшинства."
+  ],
+  "constraints": "Validation/control не ресэмплируются; SMOTE для смешанных категорий требует отдельного решения.",
+  "contraindications": [
+    "Validation/control не ресэмплируются; SMOTE для смешанных категорий требует отдельного решения."
+  ],
+  "cost": "Средняя: увеличивает объём fit; соседский поиск.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Изменять только обучающий fold",
+  "id": "resampling",
+  "method_id": "resampling",
+  "minimum_experiment": "Resampling внутри imblearn Pipeline на fit; проверить неизменность validation.",
+  "missing_references": [],
+  "observations": "Нужна дополнительная гипотеза дисбаланса",
+  "references": [
+    "api_imblearn_over_sampling_RandomOverSampler",
+    "api_imblearn_over_sampling_SMOTE"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_imblearn_over_sampling_RandomOverSampler",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_imblearn_over_sampling_SMOTE",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "ресэмплинг",
+    "/",
+    "smote",
+    "oversampling"
+  ],
+  "title": "Ресэмплинг / SMOTE oversampling",
+  "version": 2
+}

@@ -1,0 +1,53 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "леса; линейные; MLP",
+  "applicability_rules": [],
+  "conditions": [
+    "Подтверждены формат категорий, objective и ресурсный лимит."
+  ],
+  "constraints": "Три бустинга не заменяют разные модельные семейства; поддержку API проверить отдельно.",
+  "contraindications": [
+    "Три бустинга не заменяют разные модельные семейства; поддержку API проверить отдельно."
+  ],
+  "cost": "Средняя; число итераций и деревьев входят в refit.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить разные бустинги и обработку категорий",
+  "id": "boosting",
+  "method_id": "boosting",
+  "minimum_experiment": "Один ограниченный fit выбранного бустинга, одна изменяемая гипотеза.",
+  "missing_references": [],
+  "observations": "Табличная задача с числовыми и категориальными признаками",
+  "references": [
+    "api_catboost_CatBoostRegressor",
+    "api_lightgbm_LGBMRegressor",
+    "api_xgboost_XGBRegressor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_catboost_CatBoostRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_lightgbm_LGBMRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_xgboost_XGBRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "градиентный",
+    "бустинг",
+    "/",
+    "gradient",
+    "boosting"
+  ],
+  "title": "Градиентный бустинг / gradient boosting",
+  "version": 2
+}

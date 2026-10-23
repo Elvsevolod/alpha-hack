@@ -1,0 +1,1460 @@
+{
+  "research_date": "2026-10-21",
+  "notes": "Discovery ledger, not an endorsement or a count of independent experiments. Search-only entries and secondary summaries are explicitly distinguished. Curated file URLs may have been fetched through their raw/API equivalents. See SOURCES.md for evaluation.",
+  "statistics": {
+    "unique_urls": 189,
+    "content_retrieved_urls": 51,
+    "curated_sources": 42
+  },
+  "sources": [
+    {
+      "title": "Qwen/Qwen3.8-27B · Hugging Face",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S01"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen",
+      "url": "https://qwen.ai/blog?id=qwen3.8",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B - API Pricing & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/qwen/qwen3.8-27b",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B - GroqDocs",
+      "url": "https://console.groq.com/docs/model/qwen/qwen3.8-27b",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S07"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B | vLLM Recipes",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S05"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8-27B - SGLang Documentation",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S06"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8-27B - QwenCloud",
+      "url": "https://www.qwencloud.com/models/qwen3.8-27b",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S04"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · Qwen3.8-27B has the best coding ceiling you can run at home on consumer hardware, it ships with reasoning_effort defaulting to xhigh - I measured what that costs",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/194",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S24"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8-27B: reasoning_effort=\"xhigh\" (the default) returns an empty answer with finish_reason=\"stop\" on ~17% of calls · Issue #216 · QwenLM/Qwen3.8",
+      "url": "https://github.com/QwenLM/Qwen3.8/issues/216",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S26"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · Hugging Face",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B?chat_template=default",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · Doubt regarding reasoning instruction in chat_template.jinja",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/173",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S23"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen-3.8-27B-Tuning/docs/results/01-artifacts.md at main · xenodeve/Qwen-3.8-27B-Tuning · GitHub",
+      "url": "https://github.com/xenodeve/Qwen-3.8-27B-Tuning/blob/main/docs/results/01-artifacts.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B for agentic work: speculative decoding and reasoning effort | Erfi's Lexicanum",
+      "url": "https://erfi.dev/reference/qwen38-agentic-tuning/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S28"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B reasoning effort low/medium/xhigh comparison",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vpuh7m/qwen38_27b_reasoning_effort_lowmediumxhigh/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S35"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen-3.8-27B-Tuning/docs/researchs/artificial-analysis/README.md at main · xenodeve/Qwen-3.8-27B-Tuning · GitHub",
+      "url": "https://github.com/xenodeve/Qwen-3.8-27B-Tuning/blob/main/docs/researchs/artificial-analysis/README.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B thinks by default, and the default effort is xhigh – SikiT",
+      "url": "https://readsikit.com/2026/08/17/qwen-38-default-thinking-effort/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B's Reasoning-Effort Trap: 22,000 Tokens to Draw a Circle - Luong Hong Thuan",
+      "url": "https://www.luonghongthuan.com/en/blog/qwen3-8-27b-reasoning-effort-trap/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "primitive-ai/Qwen3.8-27B-mixed-NVFP4-FP8 · Hugging Face",
+      "url": "https://huggingface.co/primitive-ai/Qwen3.8-27B-mixed-NVFP4-FP8?local-app=sglang",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Why Qwen 3.8 27B Feels Slow: Reasoning Tokens Measured",
+      "url": "https://insiderllm.com/guides/qwen-3-8-27b-reasoning-token-cost/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Why no \"high\" reasoning effort in Qwen 3.8 27b ?",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vsgrh7/why_no_high_reasoning_effort_in_qwen_38_27b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "ThinkingCap 3.8-27B vs. Swift 3.8-27B vs. Qwen 3.8-27B Benchmarks",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wp5vqr/thinkingcap_3827b_vs_swift_3827b_vs_qwen_3827b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "The difference between \"medium\" and \"xhigh\" reasoning effort for Qwen3.8-27B is actually insane.",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vohpc8/the_difference_between_medium_and_xhigh_reasoning/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "reasoning_effort: \"medium\" - YouTube",
+      "url": "https://www.youtube.com/watch?v=7aOQ8U4asIE",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B overthinks a lot so I fixed it (TB 2.1, LiveCodeBench v6 included)",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1wdm7gt/qwen_38_27b_overthinks_a_lot_so_i_fixed_it_tb_21/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Adjust thinking level for Qwen3.8-27b",
+      "url": "https://www.reddit.com/r/PiCodingAgent/comments/1vqek5f/adjust_thinking_level_for_qwen3827b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B - 4 benchmark tests and compared with other open weight models - YouTube",
+      "url": "https://www.youtube.com/watch?v=JWmL65KmFaw",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I ran Qwen3.8-27B on medical benchmarks (including MedQA, MedXpertQA and MMLU). It lost 7/10 to Qwen3.6-27B, 3/10 to Pestle-27B-Ternary and 2/10 to MedGemma-27B",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1voqrm7/i_ran_qwen3827b_on_medical_benchmarks_including/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Quick PSA: Qwen3.8-27B reasoning effort vs reasoning budget in llama.cpp",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vpwfpe/quick_psa_qwen3827b_reasoning_effort_vs_reasoning/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "How to stop Qwen3.8-27b from overthinking",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vqmiu3/how_to_stop_qwen3827b_from_overthinking/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Nine models, five coding tasks, one 16GB GPU",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x8qlvw/nine_models_five_coding_tasks_one_16gb_gpu/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B UD-Q2_K_XL is usable at 9.8 GB — the smallest file that still behaves like the 4-bit one, but here's the catch.",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vxwb7o/qwen3827b_udq2_k_xl_is_usable_at_98_gb_the/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Empirical benchmark and parameter optimization of Qwen 3.8 27B (NVFP4, DFlash-2, MTP) in multi-turn coding environments",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1wr7r5a/empirical_benchmark_and_parameter_optimization_of/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen",
+      "url": "https://en.wikipedia.org/wiki/Qwen",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "List of large language models",
+      "url": "https://en.wikipedia.org/wiki/List_of_large_language_models",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B (xhigh) vs Qwen3.8 27B (medium): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S16"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (Low) vs Qwen3.8 27B (Medium): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-low-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S18"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (Non-reasoning) vs Qwen3.8 27B (Medium): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-non-reasoning-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S17"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (medium) - Intelligence, Performance & Price Analysis | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S13"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (Non-reasoning) vs Qwen3.8 27B (Xhigh): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-non-reasoning-vs-qwen3-8-27b",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 Max (0902) vs Qwen3.8 27B (Medium): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-max-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-Flash-Next vs Qwen3.8 27B (Medium): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-flash-next-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-Flash-Next vs Qwen3.8 27B (Xhigh): Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-flash-next-vs-qwen3-8-27b",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B Models - Intelligence, Performance & Price Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/releases/qwen3-8-27b",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B (Medium) vs Qwen3.7 Plus: Model Comparison | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-medium-vs-qwen3-7-plus",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B (Non-reasoning) vs. Qwen3.8 27B (medium): comparação de modelos | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/pt/models/comparisons/qwen3-8-27b-non-reasoning-vs-qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B (medium)——智能、性能与价格分析 | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/zh/models/qwen3-8-27b-medium",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Reasoning Tokens - Improve AI Model Decision Making",
+      "url": "https://openrouter.ai/docs/guides/best-practices/reasoning-tokens",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S09"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Provider Routing - Smart Multi-Provider Request Management",
+      "url": "https://openrouter.ai/docs/guides/routing/provider-selection",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S10"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "API Parameters - Complete Guide to Request Configuration",
+      "url": "https://openrouter.ai/docs/api/reference/parameters",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B-FP8: First Benchmarks on RTX PRO 6000 Blackwell | Veladan Programming Blog",
+      "url": "https://blog.veladan.org/2026/08/14/qwen3-8-27b-fp8-benchmarks.html",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S19"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8-27B on a 24 GB RTX 3090: measured settings, speeds and energy",
+      "url": "https://chinkeong.github.io/qwen-27b/index.html",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S30"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "qwen3.8-27b-5090-bench/README.md at master · Gigaxel/qwen3.8-27b-5090-bench · GitHub",
+      "url": "https://github.com/Gigaxel/qwen3.8-27b-5090-bench/blob/master/README.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B: The Thinking Dial, Measured | Veladan Programming Blog",
+      "url": "https://blog.veladan.org/2026/08/15/qwen3-8-27b-thinking-depth.html",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S20"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "ModelFile for 3.8 27B for Coding in OpenCode/OpenChamber?",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1vst447/modelfile_for_38_27b_for_coding_in/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "qwen3.8-27b-strix-halo/benchmark.md at main · yandaq/qwen3.8-27b-strix-halo · GitHub",
+      "url": "https://github.com/yandaq/qwen3.8-27b-strix-halo/blob/main/benchmark.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27b harness",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1w2bjdy/qwen_38_27b_harness/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B on One RTX 3090",
+      "url": "https://jonidimo.github.io/qwen38-3090-benchmark/benchmark.html",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S29"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "localLLMinference/research/qwen3.8-27b-context-sweep-300w-2026-08-31.md at main · OthmanB/localLLMinference · GitHub",
+      "url": "https://github.com/OthmanB/localLLMinference/blob/main/research/qwen3.8-27b-context-sweep-300w-2026-08-31.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "ecohash-benchmarks/llm/speculative-decoding-qwen3.8-27b.md at main · ecohash-ai/ecohash-benchmarks · GitHub",
+      "url": "https://github.com/ecohash-ai/ecohash-benchmarks/blob/main/llm/speculative-decoding-qwen3.8-27b.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "What do you think of my Modelfile for Qwen3.8",
+      "url": "https://www.reddit.com/r/ollama/comments/1vtag0z/what_do_you_think_of_my_modelfile_for_qwen38/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27Bを6量子化で回したら、モデルより先に「自分のベンチのバグ」と「temperature設定」を測っていた｜zephel01",
+      "url": "https://note.com/zephel01/n/nc029ef849660",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "qwen3.8-27b-dgx-spark-dflash2/RESULTS.md at master · pangoleen/qwen3.8-27b-dgx-spark-dflash2 · GitHub",
+      "url": "https://github.com/pangoleen/qwen3.8-27b-dgx-spark-dflash2/blob/master/RESULTS.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 on DGX Spark · Sagar Pandita",
+      "url": "https://sagarpandita.com/experimental/qwen38-dgx-spark.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Beat My Qwen3.6-35B on a Harder Test. The Test Also Crashed My Server. | Sovereign AI Blog",
+      "url": "https://sovgrid.org/blog/qwen38-27b-vs-qwen36-35b-dgx-spark-ab-test/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I ran the benchmarks",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1vu8dgd/i_ran_the_benchmarks/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Thoughts on Qwen 3.8 27b in real world tasks?",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1wb1l94/thoughts_on_qwen_38_27b_in_real_world_tasks/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I pushed Qwen3.8-27B to 124 tps on a single request on a RTX 3090",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vrw4sz/i_pushed_qwen3827b_to_124_tps_on_a_single_request/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B took a serious hit to *knowledge* vs 3.6",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vt7l3e/qwen3827b_took_a_serious_hit_to_knowledge_vs_36/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I spent a couple of days benchmarking local Qwen models against Claude Opus 4.6 — here are the results",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xarwqr/i_spent_a_couple_of_days_benchmarking_local_qwen/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I read ~60 Qwen3.8-27B threads and cross-referenced them. 11 of the 64 permalinks were wrong, and the corpus contradicts itself on nearly every axis.",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vux9f6/i_read_60_qwen3827b_threads_and_crossreferenced/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Weirdly, no one talks about Temperature setting for the Qwen3.8 27b",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vr3cma/weirdly_no_one_talks_about_temperature_setting/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S37"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Tesla V100 32GB + Qwen3.8-27B at 23.6 tok/s and 256K context — cooled by a blower mounted with Velcro",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vx1l94/tesla_v100_32gb_qwen3827b_at_236_toks_and_256k/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-Flash-Next 和 Qwen3.8-27B 怎么配置：我们踩过的坑和实测对比 · 龙虾AGI通用实验室",
+      "url": "https://myagilab.com/articles/learn/2026-09-28-81cc49.html",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S39"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "海光 K100AI DCU（8 卡）部署 Qwen3.8-27B 实践指南（SGLang 篇） - 技术栈",
+      "url": "https://jishuzhan.net/article/2096064084794593281",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B画一张图想了21分钟：上手前先改这3个设置，社区已经替你调好了_IT互联网_什么值得买",
+      "url": "https://post.smzdm.com/p/ad7dr0md/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B 默认推理设置过度思考 · 干货攻略 · 研究库",
+      "url": "https://papers.ananclaw.com/guide/qwen-qwen3-8-27b-reasoning-effort",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B 开源深度解析：270亿参数原生多模态，reasoning_effort 开启可控推理新范式_AI_人间凡尔赛-DeepSeek技术社区",
+      "url": "https://deepseek.csdn.net/6a87b4a8662f9a54cb9f1249.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "FAQ 汇总：关于 Qwen3.8-27B 开源多模态大模型的 10 个高频问题与官方最佳实践解答_倪燃喆Queenie-亚马逊云科技技术品牌专区",
+      "url": "https://devpress.csdn.net/awstech/6a91da5b3bda720d4b3594bb.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Mac 本地部署教程：16G 内存也能跑+量化选型实测（2026） - ai345",
+      "url": "https://www.ai345.info/ai-guide/qwen3-8-27b-mac-16gb-local-deployment-guide",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "技术热点落地：Qwen3.8-27B 本地部署实战——FP8/GGUF/NVFP4 选型与消费级显卡避坑清单（2026-08-16）",
+      "url": "https://www.shengyayun.com/blog/tech-implementation-2026-08-16/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Gated DeltaNet + 262K 上下文：拆解 Qwen3.8-27B 为何能「小而能打」 - AtomGit | GitCode博客",
+      "url": "https://blog.gitcode.com/f1fcd2f8b3d8f28c58830a480d25aed4.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "花一下午把Qwen3.8-27B跑在本地，最坑的不是显存 - 技术栈",
+      "url": "https://jishuzhan.net/article/2089371996625715201",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B 和 Qwen3.6-35B-A3B-FP8 能力对比_人工智能_鬓戈-DeepSeek技术社区",
+      "url": "https://deepseek.csdn.net/6a816e0a662f9a54cb9d7167.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Which open-source harness you use with Qwen3.8-27B?",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1vx58g5/which_opensource_harness_you_use_with_qwen3827b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "- YouTube",
+      "url": "https://www.youtube.com/watch?v=Ku9LfJ8yC7U",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Uncensored Qwen3.8-27b did my directory submissions in under 2 hours",
+      "url": "https://www.reddit.com/r/AI_Agents/comments/1x7qdxc/uncensored_qwen3827b_did_my_directory_submissions/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Serving a 27B reasoning model on 4× NVIDIA L4 (no P2P): what worked, what didn't, and our final config (~104 tok/s)",
+      "url": "https://www.reddit.com/r/Vllm/comments/1ww69fo/serving_a_27b_reasoning_model_on_4_nvidia_l4_no/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Fixed Jinja chat template for Qwen 3.5, 3.6, and the new 3.8 release",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vnm7le/fixed_jinja_chat_template_for_qwen_35_36_and_the/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "HELP: Qwen 27B + llama + Codex: useful analyses but NO edit or diff",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1wbgjb2/help_qwen_27b_llama_codex_useful_analyses_but_no/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Q6 + F16 KV vs Q8 + Q8 KV",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1vus3h9/qwen3827b_q6_f16_kv_vs_q8_q8_kv/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Full Qwen3.8-27B on one RTX 4090, native Windows: 5,000 tok/s prefill (1.8x llama.cpp) and up to 289 tok/s decode. Ternary Bonsai 27B reaches 532.",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1wqrs9a/full_qwen3827b_on_one_rtx_4090_native_windows/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B vs Qwen3.8-Flash-Next as agent workers on single Radeon AI PRO R9700 32 GB VRAM + 64GB RAM: tool-eval results  running Flash-Next with 2 slots 128k context each.",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1wxshto/qwen3827b_vs_qwen38flashnext_as_agent_workers_on/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "How would you test Qwen3.8-27B inside a coding agent?",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vx9ao5/how_would_you_test_qwen3827b_inside_a_coding_agent/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Q4 on RTX 4060 8GB + 32GB RAM — ~6 tok/s with MTP, plus real Qwen3-VL invoice tests",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1x28tms/qwen3827b_q4_on_rtx_4060_8gb_32gb_ram_6_toks_with/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Ternary Bonsai 2 27B at up to 532 tok/s on one RTX 4090, native Windows: MTP + n-gram speculative decoding in a from-scratch CUDA engine",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1wqab4z/ternary_bonsai_2_27b_at_up_to_532_toks_on_one_rtx/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "A preliminary Qwen3.8-27B model card is live!",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vo2iiz/a_preliminary_qwen3827b_model_card_is_live/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B (xhigh) - Intelligence, Performance & Price Analysis | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S12"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (low) - Intelligence, Performance & Price Analysis | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-low",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S14"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen3.8 27B (non-reasoning) - Intelligence, Performance & Price Analysis | Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-non-reasoning",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S15"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Simon Willison: Qwen 3.8 27B is excellent, but it defaults to wildly overthinking things : r/LocalLLaMA",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vqaqgn/",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B is not bad but I struggle a bit with quality. What about the new Froggeric template v22.1? : r/LocalLLM",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vqlyat/",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Any benchmarks out for Qwen 3.8 27B thinking xhigh vs medium? : r/LocalLLaMA",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vr7p3r/",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Evidence: tool-list POSITION affects tool attention (Qwen3.8-27B) — descriptions + tail placement fix \"tool not in kit\" failures · ggml-org llama.cpp · Discussion #27165 · GitHub",
+      "url": "https://github.com/ggml-org/llama.cpp/discussions/27165",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S34"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen 3.8 27B is excellent, but it defaults to wildly overthinking things",
+      "url": "https://simonwillison.net/2026/Aug/16/qwen-38-27b/",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S21"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · This model cannot stop thinking",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/113",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S22"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "GitHub - Murai-Labs/qwen3.8-27b-rtx5090: Qwen3.8-27B (NVFP4) on a single RTX 5090: verified native FP4 on sm_120, MTP speculative decoding at ~2x decode, and the chat-template fix for multi-turn truncation. Measured, with the failures kept in. · GitHub",
+      "url": "https://github.com/Murai-Labs/qwen3.8-27b-rtx5090",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "README.md · twolven/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-AWQ-MTP at main",
+      "url": "https://huggingface.co/twolven/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-AWQ-MTP/blame/main/README.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "offlabel/models/qwen3.8-27b.md at main · TheTom/offlabel · GitHub",
+      "url": "https://github.com/TheTom/offlabel/blob/main/models/qwen3.8-27b.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · Qwen 3.8 get stuck in massive 20k–50k token thinking loops on SGLang?",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/178",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S25"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Qwen/Qwen3.8-27B · Hugging Face",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B?hardware=radeon-760m-96gb",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Two Rigs, Five Runtimes: My Qwen3.8-27B Benchmark Across NVIDIA and AMD | Vadi Taslim",
+      "url": "https://www.vaditaslim.com/blog/ai/qwen3.8-27b-two-rigs",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "iapp/openthai2.0-qwen3.8-27b · Hugging Face",
+      "url": "https://rag-chunk-visualizer-proxy.modelpark.app/iapp/openthai2.0-qwen3.8-27b",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B-FP8-on-a-single-DGX-Spark/NOTES.md at main · 0xBakeer/Qwen3.8-27B-FP8-on-a-single-DGX-Spark · GitHub",
+      "url": "https://github.com/0xBakeer/Qwen3.8-27B-FP8-on-a-single-DGX-Spark/blob/main/NOTES.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Benchmarking Qwen3.8 27B quantizations: 4-bit holds up, 1-bit collapses",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vz3ieu/benchmarking_qwen38_27b_quantizations_4bit_holds/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Evaluated locally run Qwen 3.8 27B against a large codebase exploration task, then asked Sonnet 5 to review the quality of Qwen's output.",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1vpewmg/evaluated_locally_run_qwen_38_27b_against_a_large/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Optimizing Qwen3.6 / Qwen3.8-27B on 16GB VRAM: Complete Benchmark Results and Setup Guide (~30-50tps at 32k to 72k context)",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vrcieb/optimizing_qwen36_qwen3827b_on_16gb_vram_complete/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Large Context w/ MTP, DFlash2, ngram-mod, Testing Qwen3.8-27B on 16GB VRAM",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vt3cpw/large_context_w_mtp_dflash2_ngrammod_testing/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Optimizing Qwen3.6 / Qwen3.8-27B on 16GB VRAM: Complete Benchmark Results and Setup Guide (~30-50tps at 32k to 72k context)",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vrchn9/optimizing_qwen36_qwen3827b_on_16gb_vram_complete/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Share your VLLM configs for Qwen 3.8 27B",
+      "url": "https://www.reddit.com/r/Vllm/comments/1vodlzk/share_your_vllm_configs_for_qwen_38_27b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Finally got qwen 3.8 q4 k_M 27b runnin slick 40tkps load at 240k inf 4qnl for stable agentic coding on a 7900xtx. I have been finally able to give hermes a task and come back to results. Built a panel to manage my inference servers from hermes.",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wkvl7h/finally_got_qwen_38_q4_k_m_27b_runnin_slick/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Cut Qwen3.8-27B Reasoning Tokens by 40% -- 3.8 'ThinkingCap' benchmarked!",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wh5elt/cut_qwen3827b_reasoning_tokens_by_40_38/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Alright, We got Qwen3.8-27B. Now it's community's turn to make it more better & faster",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1voc15b/alright_we_got_qwen3827b_now_its_communitys_turn/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "My Qwen 3.8 27B tests on limited VRAM (16-20GB)",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wlf6hb/my_qwen_38_27b_tests_on_limited_vram_1620gb/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B OpenCode Config, With various reasoning effort low, med, xhigh, xhigh no preserve",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vrer1g/qwen_38_27b_opencode_config_with_various/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B",
+      "url": "https://unsloth.ai/models/qwen3.8-27b",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S42"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Unsloth Model Catalog | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/get-started/unsloth-model-catalog",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Run & Fine-tune Qwen3",
+      "url": "https://unsloth.ai/blog/qwen3",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Tutorials: How To Fine-tune & Run LLMs | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/models/tutorials",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Reinforcement Learning (RL) Guide | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/get-started/reinforcement-learning-rl-guide",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Unsloth Docs | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Unsloth Notebooks | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/get-started/unsloth-notebooks",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Memory Efficient RL | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/get-started/reinforcement-learning-rl-guide/memory-efficient-rl",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "What Model Should I Use for Fine-tuning? | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/what-model-should-i-use",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "3x Faster LLM Training with Unsloth Kernels + Packing | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/blog",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Unsloth - Run and Train Models Locally",
+      "url": "https://unsloth.ai/?trk=public_profile__reactions-text",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "How to Run Qwen-Image-2512 Locally in ComfyUI | Unsloth Documentation",
+      "url": "https://unsloth.ai/docs/models/tutorials/qwen-image-2512",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Is my setup the fault or is Qwen 3.8 27B overhyped?",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1w61m5t/is_my_setup_the_fault_or_is_qwen_38_27b_overhyped/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "I have to be honest and give double praise to Qwen's attitude. The open weights are coming and we will have The 27B version too!",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1ve2cpo/i_have_to_be_honest_and_give_double_praise_to/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B announced alongside Qwen3.8-Max",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1ve0psn/qwen3827b_announced_alongside_qwen38max/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "20GB Franken-GPU Rig | 3060 + 2070 | Qwen3.8-27B | 68k Context | 100% GPU Offload | ~18 t/s",
+      "url": "https://www.reddit.com/r/ollama/comments/1xajvvb/20gb_frankengpu_rig_3060_2070_qwen3827b_68k/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen 3.8 27B on Strix Halo - some Results",
+      "url": "https://www.reddit.com/r/StrixHalo/comments/1vobzvd/qwen_38_27b_on_strix_halo_some_results/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Testing Qwen 3.8 Flash Next with Different Coding Tools",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1x8lsnl/testing_qwen_38_flash_next_with_different_coding/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B on Mac: quants, temperatures, hardware, and the speed tricks that actually matter",
+      "url": "https://www.reddit.com/r/hermesagent/comments/1w28crr/qwen3827b_on_mac_quants_temperatures_hardware_and/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Running Qwen3.8-27B-Q8_0 with llama.cpp on AMD Radeon AI Pro R9700 w/ ROCm tweaks",
+      "url": "https://www.reddit.com/r/ROCm/comments/1vpbrht/running_qwen3827bq8_0_with_llamacpp_on_amd_radeon/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Post-thinking sampler settings for vLLM",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vs1fmh/postthinking_sampler_settings_for_vllm/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B — One Week Later: The r/LocalLLaMA + r/LocalLLM Verdict 8-22-26",
+      "url": "https://www.reddit.com/r/hermesagent/comments/1vvtrc5/qwen3827b_one_week_later_the_rlocalllama/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "GitHub - teruyukishiraiwa/qwen3.8-rtx3060-technical-report: Reproducible single-system evaluation of Qwen3.8-27B on an RTX 3060 12 GB: long-context inference, KV-cache optimization, Windows/WSL2, and Codex integration. · GitHub",
+      "url": "https://github.com/teruyukishiraiwa/qwen3.8-rtx3060-technical-report",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "On the Design of Qwen3.8 Next Architecture: Evaluation, Efficiency, and Training Stability | Chlience Paper Archive",
+      "url": "https://papers.chlience.com/papers/2026-08-26-qwen3-8-flash-next-architecture/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Review: The Open-Weight 27B Worth Running",
+      "url": "https://www.orcarouter.ai/blog/qwen-3-8-27b-review",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Report Structure and Key Findings | QwenLM/Qwen3.8-Flash-Next | DeepWiki",
+      "url": "https://deepwiki.com/QwenLM/Qwen3.8-Flash-Next/4.1-report-structure-and-key-findings",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Self hosted Qwen 3.8 27b for real work: my 1 month experience",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1x7u4kd/self_hosted_qwen_38_27b_for_real_work_my_1_month/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S40"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "README.md · Qwen/Qwen3.8-Flash-Next at refs/pr/39",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/blame/refs%2Fpr%2F39/README.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Tell me about what your experiences with Qwen 3.8 27B have been like?",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1wvw8hv/tell_me_about_what_your_experiences_with_qwen_38/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B vs Frontier vs Others",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x49pmn/qwen3827b_vs_frontier_vs_others/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8: 27b vs flash next. We all know the benchmarks, but at least to me, the reality is a different story",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wyynn4/qwen38_27b_vs_flash_next_we_all_know_the/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Ugh I didn't want to post this... Back to Qwen3.8 27B",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzj990/ugh_i_didnt_want_to_post_this_back_to_qwen38_27b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Review [Oct 2026]: 4.7/5 — Best overall | Top5Apps",
+      "url": "https://top5apps.ai/best-ai-apps/best-open-source-ai-models/qwen3-8-27b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B results & report — Egethropic",
+      "url": "https://egethropic.com/research/opium-bench/results/27b/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B vs. Frontier Models: One DeepSWE Task Explained",
+      "url": "https://www.itechguides.com/a-quantized-qwen3-8-27b-nearly-matched-frontier-models-on-one-deepswe-task-but-didnt-pass-it/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen-3.8-27B_Strix-Halo_gfx1151/docs/FINDINGS.md at main · PieBru/Qwen-3.8-27B_Strix-Halo_gfx1151 · GitHub",
+      "url": "https://github.com/PieBru/Qwen-3.8-27B_Strix-Halo_gfx1151/blob/main/docs/FINDINGS.md",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S38"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "I benchmarked a local Qwen3.8-27B as a coding \"executor\" for Claude across 6 phases. Here's where it can replace API calls (and where it can't).",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1wuz83t/i_benchmarked_a_local_qwen3827b_as_a_coding/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "EschaLabs/Qwen3.8-27B-Escha-W2 · Hugging Face",
+      "url": "https://huggingface.co/EschaLabs/Qwen3.8-27B-Escha-W2?hardware=apple-m1-max-32gb",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "qwen3.8-research/sources.md at main · guangxiangdebizi/qwen3.8-research · GitHub",
+      "url": "https://github.com/guangxiangdebizi/qwen3.8-research/blob/main/sources.md",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B Q4_K_M on one RTX 3090 + OpenCode: throughput, four coding tasks, and a reasoning-budget failure",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wv9rzc/qwen3827b_q4_k_m_on_one_rtx_3090_opencode/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B took 7 hours on a task and didn’t make it as far as Gemma 26B did in 10 minutes…what am I doing wrong?",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1x70juc/qwen38_27b_took_7_hours_on_a_task_and_didnt_make/",
+      "seen_in_search": true,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S41"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "I don't get the qwen 3.8 flash next hype",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x7uf15/i_dont_get_the_qwen_38_flash_next_hype/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Best Qwen3.8 27B Quant/FineTune to be used on a 3090",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1x7jkue/best_qwen38_27b_quantfinetune_to_be_used_on_a_3090/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Stick with Qwen3.8 27B or move away?",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xb522p/stick_with_qwen38_27b_or_move_away/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen",
+      "url": "https://pt.wikipedia.org/wiki/Qwen",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen",
+      "url": "https://ru.wikipedia.org/wiki/Qwen",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8 27B - API Pricing & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/qwen/qwen3.8-27B",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?fmt=cards&order=newest&q=qwen",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Qwen3.8-27B - vLLM Ascend",
+      "url": "https://docs.vllm.ai/projects/ascend/en/latest/tutorials/models/Qwen3.8-27B.html",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?input_modalities=image",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Ternary Bonsai 2 27B - API Pricing & Providers | OpenRouter",
+      "url": "https://openrouter.ai/prism-ml/ternary-bonsai-2-27b/",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/Models",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?arch=GPT&fmt=cards&q=qwen",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?fmt=cards&output_modalities=text",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?q=microsoft-phi-4",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+      "url": "https://openrouter.ai/models?order=newest&supported_parameters=tools",
+      "seen_in_search": true,
+      "content_retrieved": false,
+      "curated_ids": []
+    },
+    {
+      "title": "Официальный generation_config.json",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/generation_config.json",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S02"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "Официальный chat_template.jinja",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/chat_template.jinja",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S03"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "OpenRouter: параметры API",
+      "url": "https://openrouter.ai/docs/api_reference/parameters",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S08"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "OpenRouter: каталог endpoints Qwen3.8-27B",
+      "url": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S11"
+      ],
+      "content_route": "web open/find"
+    },
+    {
+      "title": "QwenLM issue 217: недопустимый high",
+      "url": "https://github.com/QwenLM/Qwen3.8/issues/217",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S27"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "NInfer bench: README",
+      "url": "https://github.com/chupaty/ninfer-bench/blob/main/README.md",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S31"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "NInfer bench: методика",
+      "url": "https://github.com/chupaty/ninfer-bench/blob/main/METHODOLOGY.md",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S32"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "Murai Labs: vLLM, MTP и история",
+      "url": "https://github.com/Murai-Labs/qwen3.8-27b-rtx5090/blob/main/README.md",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S33"
+      ],
+      "content_route": "GitHub connector (raw/API) or web equivalent"
+    },
+    {
+      "title": "Reddit: 12 SWEmini задач",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vqlyat/qwen_38_27b_is_not_bad_but_i_struggle_a_bit_with/",
+      "seen_in_search": false,
+      "content_retrieved": true,
+      "curated_ids": [
+        "S36"
+      ],
+      "content_route": "web open/find"
+    }
+  ]
+}

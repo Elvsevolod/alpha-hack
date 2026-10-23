@@ -1,0 +1,144 @@
+{
+  "captured_at_utc": "2026-10-22T09:58:19.920100+00:00",
+  "scope": "Read-only research snapshot; no runtime source changed; external processes may edit working files",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "77abb28a95271c3d7164a23fec7edcc4756cefdbf00c416ca0ae5645c0fbdd56",
+      "bytes": 872,
+      "snapshot": "local_snapshot/AGENTS.md"
+    },
+    {
+      "path": "README.md",
+      "sha256": "73d03075210d270e256124dee6cbfa4f03c15245f1e542b92e9a50a73181e00e",
+      "bytes": 28990,
+      "snapshot": "local_snapshot/README.md"
+    },
+    {
+      "path": "План_исправлений_по_QA_организаторов.md",
+      "sha256": "d17acb966349bae2b716bdfb31100807ffc8d6994b1c0768567d33b4f5af5a9e",
+      "bytes": 34598,
+      "snapshot": "local_snapshot/План_исправлений_по_QA_организаторов.md"
+    },
+    {
+      "path": "Исследование_сложных_ML_задач.md",
+      "sha256": "7f9df988c6e915246846ff4f29116f9c147811fc94eb3cf635c5c280912818e2",
+      "bytes": 45831,
+      "snapshot": "local_snapshot/Исследование_сложных_ML_задач.md"
+    },
+    {
+      "path": "docs/agent_ml_policy.md",
+      "sha256": "d04714b516628ea55475bec5d75bdc00071152483c8e7be5c8984d983ee6d921",
+      "bytes": 11165,
+      "snapshot": "local_snapshot/docs/agent_ml_policy.md"
+    },
+    {
+      "path": "automl_agent/controller.py",
+      "sha256": "d697845160a60a5775434d436f20c656069d422119db8ed76cd4350476a84663",
+      "bytes": 113331,
+      "snapshot": "local_snapshot/automl_agent/controller.py"
+    },
+    {
+      "path": "automl_agent/contracts.py",
+      "sha256": "0353367f578681911f9a35ce13df725e8eb70cfd0877877280f722f321abed5e",
+      "bytes": 25876,
+      "snapshot": "local_snapshot/automl_agent/contracts.py"
+    },
+    {
+      "path": "automl_agent/context_memory.py",
+      "sha256": "0923cb7077f82b10795c2073d3d763343450042cc7997eb77b94ecc5ec99ee15",
+      "bytes": 18748,
+      "snapshot": "local_snapshot/automl_agent/context_memory.py"
+    },
+    {
+      "path": "automl_agent/knowledge.py",
+      "sha256": "352a4242a695d69dd241574c8eb765a3bfaf8499582351484a5caf3d73d75e66",
+      "bytes": 15033,
+      "snapshot": "local_snapshot/automl_agent/knowledge.py"
+    },
+    {
+      "path": "automl_agent/qwen.py",
+      "sha256": "fcec04b4bd8709358749617afa7507ae0e59438e95627125d16a02b064f0ebda",
+      "bytes": 21211,
+      "snapshot": "local_snapshot/automl_agent/qwen.py"
+    },
+    {
+      "path": "automl_agent/progress.py",
+      "sha256": "c45b75d0df59c2f26def417096b1b1a188f401bd9aa6af61ae731c7618105e78",
+      "bytes": 1336,
+      "snapshot": "local_snapshot/automl_agent/progress.py"
+    },
+    {
+      "path": "automl_agent/run_tools.py",
+      "sha256": "db12f63f32c48b1da525e3567dd19e6e68070ea88de467ade32ce6f021634385",
+      "bytes": 11661,
+      "snapshot": "local_snapshot/automl_agent/run_tools.py"
+    },
+    {
+      "path": "automl_agent/evaluation.py",
+      "sha256": "32128e2bd7a6c63f7bb2eb6c2efd4bcc27db2bfa36ce8073c361c9ed28214fdf",
+      "bytes": 11821,
+      "snapshot": "local_snapshot/automl_agent/evaluation.py"
+    },
+    {
+      "path": "automl_agent/budget.py",
+      "sha256": "9969f222f5fde7d19c44a777e4e52e431eb3c41983c1ae1aed68d97cb8127b5d",
+      "bytes": 3359,
+      "snapshot": "local_snapshot/automl_agent/budget.py"
+    },
+    {
+      "path": "automl_agent/completion.py",
+      "sha256": "fc156ab06f70cc4874c9beaabbbd0ba3c238d2cefe5e3f1d7a764bc2cf2e5260",
+      "bytes": 4458,
+      "snapshot": "local_snapshot/automl_agent/completion.py"
+    },
+    {
+      "path": "automl_agent/custom.py",
+      "sha256": "c694eea68cabe67633b9d0e04b25d17dd1bb3fe3b3e44a1215c412daf4e123de",
+      "bytes": 7478,
+      "snapshot": "local_snapshot/automl_agent/custom.py"
+    },
+    {
+      "path": "automl_agent/compatibility.py",
+      "sha256": "007b6827fef4a2c9a93ba6801205c637a297c8eb1490bee4131dc1f0ed8fc179",
+      "bytes": 6386,
+      "snapshot": "local_snapshot/automl_agent/compatibility.py"
+    },
+    {
+      "path": "automl_agent/search.py",
+      "sha256": "bf6cc220dbc987e8f53d69687b8d98117165903fd71887235bb86cd0bd26c2b2",
+      "bytes": 24493,
+      "snapshot": "local_snapshot/automl_agent/search.py"
+    },
+    {
+      "path": "ml_knowledge/context.py",
+      "sha256": "2d44cd01b50dfb9ca5686a733e73f2c3a0dfdafaba5ec74ec2d8683dbd6829a1",
+      "bytes": 14948,
+      "snapshot": "local_snapshot/ml_knowledge/context.py"
+    },
+    {
+      "path": "outputs/qa_plan_implementation_A/REPORT.md",
+      "sha256": "74720167a7374de0d0b8495d5f87677bf8db34950a803d2ab5c8c37459d0e14d",
+      "bytes": 7316,
+      "snapshot": "local_snapshot/outputs/qa_plan_implementation_A/REPORT.md"
+    },
+    {
+      "path": "outputs/score_audit_v022_20261022/REPORT.md",
+      "sha256": "a7e05ebfb424b288c68debf932f3894a48cf6c401e0cd0e0a7943572f2ff41e8",
+      "bytes": 21193,
+      "snapshot": "local_snapshot/outputs/score_audit_v022_20261022/REPORT.md"
+    },
+    {
+      "path": "research/ml_best_practices_20261022/audit_probes.json",
+      "sha256": "ee61cfeef737e40b081d01a149d1c92497dfabfd4af1dfc5b5369e649427b97b",
+      "bytes": 805,
+      "snapshot": "local_snapshot/research/ml_best_practices_20261022/audit_probes.json"
+    },
+    {
+      "path": "/Users/elvsevolod/Documents/Codex/2026-10-22/api-3-x20/outputs/diagnostic_v024_20261022_run02/Разбор_прогона.md",
+      "sha256": "6d5048d3429b1ffd966e4ca1d96308894d322e0b438bd8ab8a1883e90103aa6e",
+      "bytes": 18526,
+      "snapshot": "local_snapshot/diagnostic_v024_run02_report.md"
+    }
+  ]
+}

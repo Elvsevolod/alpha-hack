@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml55",
+  "method_id": "hard_case_ml55",
+  "version": 1,
+  "title": "Поиск застрял в одном семействе и перебирает параметры",
+  "observations": "несколько сопоставимых попыток без улучшения, близкие параметры и повторные чтения одной справки.",
+  "hypothesis": "выбрать одну другую причину ошибки: представление, семейство, веса, обработку хвоста либо simple ensemble. Для перспективного семейства — ограниченный random/TPE-поиск внутри fit, без вложенных оптимизаторов.",
+  "diagnostic": "отличить недостаточную настройку от неверного представления, протокола, метрики или отсутствующего сигнала; прочитать уже сохранённые результаты.",
+  "minimum_experiment": "выбрать одну другую причину ошибки: представление, семейство, веса, обработку хвоста либо simple ensemble. Для перспективного семейства — ограниченный random/TPE-поиск внутри fit, без вложенных оптимизаторов.",
+  "acceptance": "каждый новый запуск проверяет отличимую гипотезу и даёт измеримое свидетельство; нет заявленного выигрыша по одной неподтверждённой разнице.",
+  "constraints": "число попыток само по себе не показатель глубины исследования; широкая сетка второстепенных параметров съедает бюджет. Плато не разрешает переоткрыть control.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "несколько сопоставимых попыток без улучшения, близкие параметры и повторные чтения одной справки."
+  ],
+  "contraindications": [
+    "число попыток само по себе не показатель глубины исследования; широкая сетка второстепенных параметров съедает бюджет. Плато не разрешает переоткрыть control."
+  ],
+  "cost": "средняя",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_optuna_study_Study"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "stagnation"
+  ],
+  "research_sources": [
+    "https://www.jmlr.org/papers/v13/bergstra12a.html",
+    "https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "stagnation",
+  "routing_priority": 0
+}

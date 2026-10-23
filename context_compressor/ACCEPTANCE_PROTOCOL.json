@@ -1,0 +1,80 @@
+{
+  "version": "context-acceptance/1",
+  "status": "standalone_offline_ready; integrated_protocol_requires_finished_B0",
+  "source_plan": "идем по правильному сжатию контекста.md",
+  "baseline": {
+    "B0": "finished frozen main development before compression changes",
+    "B1": "same B0 plus only durable delivery and separate channel diagnostics; old history selection",
+    "N": "same B0 plus the new compressor, notes, bounded core, discovery and bounded assembly",
+    "freeze_required": ["source_sha256", "dependency_sha256", "launch_parameters", "delivery_sha256", "model", "generation", "transport", "task_sources", "split", "protocol"],
+    "upstream_change": "rebase B1 and N onto the same new B0 and rerun affected final checks; never pool bases"
+  },
+  "tuning_tasks": 6,
+  "final_tasks": {
+    "count": 8,
+    "families": ["regression", "classification", "multioutput_regression", "multioutput_classification", "multilabel", "forecasting", "ranking", "text_features"],
+    "separate_templates_or_sources": true,
+    "control_labels_visible_to_agent": false,
+    "final_tasks_used_for_tuning": false
+  },
+  "comparison": {
+    "seeds": [17, 42, 73, 101, 137],
+    "variants": ["B0", "B1", "N"],
+    "required_runs": 120,
+    "paired_equal_fields": ["data", "split", "protocol", "model", "generation", "transport", "cpu", "ram_gb", "deadline_seconds"],
+    "balanced_variant_order": true,
+    "cpu": 4,
+    "ram_gb": 10,
+    "deadline_seconds": 300,
+    "failures_or_missing_data_excluded": false
+  },
+  "thresholds": {
+    "invariant_violations": 0,
+    "completed_csv_control_refit_count_N": ">= B0 and >= B1 per task and overall",
+    "loss_metrics": ["rmse", "mse", "mae", "log_loss"],
+    "loss_relative_mean_degradation_max": 0.01,
+    "loss_relative_denominator_min": 1e-12,
+    "score_metrics": ["f1", "accuracy", "roc_auc", "average_precision", "ndcg", "map", "r2"],
+    "score_absolute_mean_degradation_max": 0.01,
+    "prompt_token_paired_ratio_median_N_to_B1_max": 0.90,
+    "total_token_paired_ratio_median_N_to_B1_max": 1.05,
+    "full_time_paired_ratio_median_N_to_B1_max": 1.05,
+    "token_accounting": "server usage including all retries and additional reads; bytes reported separately"
+  },
+  "assembly": {
+    "history_sizes": [100, 1000, 10000],
+    "transports": ["native", "json"],
+    "warm_measurements_per_case": 30,
+    "p95_seconds_max": 0.5,
+    "maximum_seconds_max": 2,
+    "additional_peak_bytes_max": 67108864,
+    "cold_profile_rows": 256,
+    "cold_profile_features": 10000,
+    "cold_profile_seconds_max": 30,
+    "warm_assembly_fraction_of_total_run_max": 0.02
+  },
+  "qwen_behavior": {
+    "scenarios": ["delivery_after_failure", "intent_continuation", "external_instructions_in_reference"],
+    "repetitions_each": 5,
+    "required_runs": 15,
+    "violations_allowed": 0
+  },
+  "pressure": {
+    "actual_reductions_on_distinct_steps_min": 3,
+    "continued_research_after_each": true,
+    "confirmed_comparison_after_third": true,
+    "restarts_min": 1,
+    "channel_failures_min": 1,
+    "offline_and_live_required": true,
+    "insufficient_pressure": "unconfirmed; version scenario before a new run"
+  },
+  "integrated_rehearsal": {
+    "cpu_per_task": 6,
+    "ram_gib_per_task": 5,
+    "tasks_in_parallel": 2,
+    "deadline_seconds": 10800,
+    "requirements": ["all primary acceptance checks", "summed memory of all task processes", "independent files and state", "valid CSV", "required control/refit", "zero invariant violations", "live pressure at normal context budget"]
+  },
+  "live_series_quota": "alpha-api-limits before and after each actual series, with separate snapshots",
+  "missing_evidence": "unconfirmed; never weaken repetitions or thresholds automatically"
+}

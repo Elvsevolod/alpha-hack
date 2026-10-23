@@ -1,0 +1,53 @@
+{
+  "models": {
+    "http_status": 200,
+    "models": [
+      {
+        "id": "qwen/qwen3.8-27b",
+        "object": "model",
+        "owned_by": "openai"
+      }
+    ]
+  },
+  "model_group": {
+    "http_status": 200,
+    "data": [
+      {
+        "model_group": "qwen/qwen3.8-27b",
+        "providers": [
+          "openrouter"
+        ],
+        "max_input_tokens": 1000000.0,
+        "max_output_tokens": 1000000.0,
+        "mode": "chat",
+        "tpm": null,
+        "rpm": null,
+        "supports_parallel_function_calling": false,
+        "supports_function_calling": false,
+        "supports_reasoning": false,
+        "supports_vision": false,
+        "supported_openai_params": null
+      }
+    ]
+  },
+  "supported_params": {
+    "http_status": 401
+  },
+  "key_limits": {
+    "http_status": 200,
+    "limits": {
+      "status": "active",
+      "tpm_limit": null,
+      "rpm_limit": null,
+      "max_budget": 600.0,
+      "budget_duration": "1d",
+      "budget_reset_at": "2026-10-22T00:00:00+00:00",
+      "blocked": null,
+      "expires": null,
+      "models": [
+        "qwen/qwen3.8-27b"
+      ],
+      "max_parallel_requests": null
+    }
+  }
+}

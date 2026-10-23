@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "candidate": "dist/solution_v033.zip",
+  "archive_sha256": "c79b2ca65c14e61c0c19d0a760a8ccc91d5605f8a792e8b8aaeee2c99f772c61",
+  "exact_archive_checks": {
+    "embedded_sources": "B_v033_embedded_verification.json",
+    "direct_unknown_outcome": "unknown_outcome_exact_v033/REPORT.json",
+    "healthy_pair": "B_exact_v033_semantics/REPORT.json",
+    "semantic_failure_paths": "B_v033_semantic_failure_delta02/REPORT.json",
+    "composed_supervisor_preflight": "preflight_B033_composed200/REPORT.json"
+  },
+  "delta_checks": {
+    "B1_semantics": "B1_semantics_final.log",
+    "semantic_pair_v032": "B_exact_v032_semantics/REPORT.json",
+    "qwen_unknown_outcome_53_tests": "unknown_outcome_final.log",
+    "budget_cap100_stop90": "budget200_boundary/REPORT.json"
+  },
+  "inherited_acceptance": "ACCEPTANCE_v031.json",
+  "inheritance_scope": "Model, feedback, finalist and temporal implementations unchanged; inherited v031 evidence is not a complete v033 rerun",
+  "exact_healthy_pair_v033_passed": true,
+  "A_live_accepted": false,
+  "B_live_accepted": false,
+  "full_plan_acceptance": false,
+  "quality_advantage_established": false,
+  "goal_complete": false,
+  "platform_submitted": false,
+  "paid_budget": {
+    "authorized_total": 200,
+    "cap_per_series": 100,
+    "duration_seconds_per_task": 1200,
+    "automatic_paid_retries": false
+  },
+  "launch_state": "A failed; both exact archives pass local recovery with corrected supervisor; B real not started",
+  "supervisor_post_live_fix": "outputs/qa_plan_implementation_A/POST_LIVE_SUPERVISOR_REVIEW.json"
+}

@@ -1,0 +1,62 @@
+{
+  "version_tag": "v046",
+  "archive": "solution_v046.zip",
+  "sha256": "d107d15dc259f9da908ecb2f781b15434b9bf0d80934b4c1494816e47573fe32",
+  "bytes": 95016816,
+  "base": "solution_v045.zip",
+  "status": "live_archive_failed_class_metadata",
+  "changed_runtime": [
+    "automl_agent/data.py"
+  ],
+  "offline_exact_tests": {
+    "passed": 25,
+    "seconds": 0.75,
+    "log": "../outputs/quality_goal_20261023/numeric_role_final_exact.log"
+  },
+  "independent_review": {
+    "passed": true,
+    "targeted_tests": 4,
+    "seconds": 0.69,
+    "report": "../outputs/quality_goal_20261023/REVIEW_NUMERIC_ROLE.md"
+  },
+  "clean_entry": {
+    "passed": 4,
+    "cases": [
+      "unset",
+      "empty",
+      "whitespace",
+      "json_fallback"
+    ],
+    "mock_api_only": true,
+    "summary": "../outputs/quality_goal_20261023/V046_EXACT_ENTRY_SUMMARY.json"
+  },
+  "known_failure_reproduction": "../outputs/quality_goal_20261023/NUMERIC_ROLE_ACTUAL_REPRO.json",
+  "live_contract_repair": {
+    "passed": true,
+    "activation_replay_passed": true,
+    "elapsed_seconds": 178.90073783400294,
+    "retries": 0,
+    "report": "../outputs/quality_goal_20261023/numeric_role_live_correction_01/REPORT.json"
+  },
+  "live_archive_end_to_end": {
+    "status": "failed",
+    "task": "regression",
+    "seconds_external_only": 1800,
+    "output": "../outputs/quality_goal_20261023/numeric_v046_regression_30m",
+    "failure": "KeyError site_eui in constant_bundle: classes mapped to building_class on regression",
+    "elapsed_seconds": 1068.8639147281647,
+    "csv": false
+  },
+  "full_three_hour_acceptance": false,
+  "ML_quality_gain_established": false,
+  "submitted_to_platform": false,
+  "candidate_promoted": false,
+  "default_seconds": 10800,
+  "max_calls": null,
+  "max_candidates": null,
+  "max_debug": null,
+  "max_llm_seconds": null,
+  "requirements_identical": true,
+  "knowledge_identical": true,
+  "test_tooling_in_submission": false
+}

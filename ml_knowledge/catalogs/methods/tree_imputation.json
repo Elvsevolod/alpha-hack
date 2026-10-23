@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "BayesianRidge; медиана",
+  "applicability_rules": [],
+  "conditions": [
+    "Нелинейная связь между наблюдаемыми числовыми признаками."
+  ],
+  "constraints": "Смешанные категории и упрощённый цикл не объявлять точным missForest.",
+  "contraindications": [
+    "Смешанные категории и упрощённый цикл не объявлять точным missForest."
+  ],
+  "cost": "Высокая: несколько ансамблей на каждую итерацию.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Использовать деревья для восстановления наблюдённых столбцов",
+  "id": "tree_imputation",
+  "method_id": "tree_imputation",
+  "minimum_experiment": "Сравнить один небольшой ExtraTrees-восстановитель с медианой при том же split.",
+  "missing_references": [],
+  "observations": "Линейный восстановитель может упускать взаимодействия",
+  "references": [
+    "api_sklearn_ensemble_ExtraTreesRegressor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_ensemble_ExtraTreesRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "нелинейное",
+    "восстановление",
+    "/",
+    "tree",
+    "imputation"
+  ],
+  "title": "Нелинейное восстановление / tree imputation",
+  "version": 2
+}

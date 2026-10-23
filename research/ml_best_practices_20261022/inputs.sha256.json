@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-22",
+  "scope": "Read-only source and public-data audit; no organizer API, no training/evaluation claims",
+  "files": {
+    "automl_agent/controller.py": "d697845160a60a5775434d436f20c656069d422119db8ed76cd4350476a84663",
+    "automl_agent/knowledge.py": "352a4242a695d69dd241574c8eb765a3bfaf8499582351484a5caf3d73d75e66",
+    "automl_agent/validation.py": "2584f6bf9c4a34621f6464ce1eeee7b2fc85e9cc20f799df3fc0c0f4c1f2169c",
+    "automl_agent/evaluation.py": "32128e2bd7a6c63f7bb2eb6c2efd4bcc27db2bfa36ce8073c361c9ed28214fdf",
+    "automl_agent/pipelines.py": "673e7aa3b46b5cacaa049ba8aa4e96393af5c200458d460a32b18369ee0eb0f0",
+    "ml_knowledge/context.py": "2d44cd01b50dfb9ca5686a733e73f2c3a0dfdafaba5ec74ec2d8683dbd6829a1",
+    "ml_knowledge/build.py": "597d879d24abd3b84b94fb26032e4913016057356d8dd58108b14c26018c145b",
+    "skills/alpha-api-limits/SKILL.md": "64fb6f711a5ffb0a56d9ed91550eae9695a1bd7d924c55d22990678141647383",
+    "skills/alpha-submission-zip/SKILL.md": "fffb2e6d66679c0b8f2372d2cc4079a766a626b7f1c02402335a079fb6f169d1",
+    "data_for_participants/requirements.txt": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "data_for_participants/Регрессия/train.csv": "096dac951cf44fade5417ddd0465c41beee3009663dbea34e8d464a4d3c7f775",
+    "data_for_participants/Регрессия/test.csv": "a7c64db92a07e1a5b1e7f637bdd434da7a5e98a1676c854ec6a645c9e5827095",
+    "data_for_participants/Многоклассовая классификация/train.csv": "171a8915070b7575b729a32f70a45d1ad7b6f43c65b4ce12a0a68af30d5cb4e0",
+    "data_for_participants/Многоклассовая классификация/test.csv": "b825449603931b5f05a8855e3d92b57775221c93ed4730ac6b4c75b9ea608862"
+  }
+}

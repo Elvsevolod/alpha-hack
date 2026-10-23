@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "веса классов; oversampling только fit",
+  "applicability_rules": [],
+  "conditions": [
+    "Классы подтверждены, на fit измерены частоты."
+  ],
+  "constraints": "Не оценивать отсутствующий класс как качество модели; не менять внешние метки.",
+  "contraindications": [
+    "Не оценивать отсутствующий класс как качество модели; не менять внешние метки."
+  ],
+  "cost": "Низкая для весов; oversampling увеличивает fit.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверить покрытие и Macro F1",
+  "id": "rare_classes",
+  "method_id": "rare_classes",
+  "minimum_experiment": "На неизменном split сравнить одну модель с class_weight и без него.",
+  "missing_references": [],
+  "observations": "Несбалансированные классы и мало наблюдений",
+  "references": [
+    "api_sklearn_metrics_f1_score"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_metrics_f1_score",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "редкие",
+    "классы",
+    "/",
+    "rare",
+    "classes"
+  ],
+  "title": "Редкие классы / rare classes",
+  "version": 2
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml15",
+  "method_id": "hard_case_ml15",
+  "version": 1,
+  "title": "Обучение собрано из нерепрезентативной подвыборки",
+  "observations": "train получен из одного канала/центра/условия отбора; тест включает другие центры или более трудные объекты.",
+  "hypothesis": "внутри fit оставить источник целиком на оценку; сравнить регуляризацию, устойчивые признаки и разумные веса только при подтверждённом механизме отбора.",
+  "diagnostic": "установить механизм выборки по документации и признаки источника; сравнить поддержку и размеры независимых групп.",
+  "minimum_experiment": "внутри fit оставить источник целиком на оценку; сравнить регуляризацию, устойчивые признаки и разумные веса только при подтверждённом механизме отбора.",
+  "acceptance": "отчёт указывает, для каких источников есть проверка переноса, а для каких качество неизвестно; средняя метрика не выдаётся за гарантию каждому домену.",
+  "constraints": "отсутствие поддержки нельзя исправить весами; наблюдаемое различие не устанавливает причинную схему отбора. Доменные labels и target prevalence из внешних наборов не использовать.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "train получен из одного канала/центра/условия отбора; тест включает другие центры или более трудные объекты."
+  ],
+  "contraindications": [
+    "отсутствие поддержки нельзя исправить весами; наблюдаемое различие не устанавливает причинную схему отбора. Доменные labels и target prevalence из внешних наборов не использовать."
+  ],
+  "cost": "средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_model_selection_GroupShuffleSplit"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "distribution_shift"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/cross_validation.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "distribution_shift",
+  "routing_priority": 0
+}

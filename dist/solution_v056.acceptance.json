@@ -1,0 +1,157 @@
+{
+  "utc": "2026-10-23T01:18:03.187637+00:00",
+  "archive": "solution_v056.zip",
+  "sha256": "c984ea8b611d04ea8db43c8a2970b16a80843e92f88024057ea2c1694e1e5d70",
+  "technical_checks_passed": true,
+  "host_repair_tests": {
+    "passed": 2,
+    "seconds": 5.48
+  },
+  "exact_targeted_tests": {
+    "passed": 4,
+    "seconds": 7.38
+  },
+  "clean_exact_entry_cases": {
+    "archive_sha256": "c984ea8b611d04ea8db43c8a2970b16a80843e92f88024057ea2c1694e1e5d70",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "scope_audit": "outputs/quality_goal_20261023/V056_STRING_ONLY_DIFF_AUDIT.json",
+  "independent_review": "outputs/quality_goal_20261023/REVIEW_V056_REPAIR_GUIDANCE.md",
+  "applicability_protocol": "outputs/quality_goal_20261023/V056_MESSAGE_ONLY_ACCEPTANCE_ADDENDUM.json",
+  "full_base_live_acceptance": "PENDING v055 main session39056; all original registered gates required",
+  "fresh_v056_live_behavior_tested": false,
+  "incremental_ml_quality_advantage_established": false,
+  "promoted": false,
+  "uploaded": false,
+  "production_hpo_note": "Ordinary research per-attempt n_trials<=40 is inherited from v043; this is not a global trial/candidate/time quota. No change in v056."
+}

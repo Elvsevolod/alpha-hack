@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "групповой holdout; прямое обучение",
+  "applicability_rules": [],
+  "conditions": [
+    "Объект или запрос представлен несколькими строками."
+  ],
+  "constraints": "Нельзя делить одну группу между fit и validation; ID не доказывает смысл группы.",
+  "contraindications": [
+    "Нельзя делить одну группу между fit и validation; ID не доказывает смысл группы."
+  ],
+  "cost": "Низкая для split; стоимость модели умножается на folds.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сохранить целостность групп во внешнем и внутреннем split",
+  "id": "group_transfer",
+  "method_id": "group_transfer",
+  "minimum_experiment": "Проверить пустое пересечение групп и обучить одну опору.",
+  "missing_references": [],
+  "observations": "Несколько наблюдений одного объекта или запроса",
+  "references": [
+    "api_sklearn_model_selection_GroupShuffleSplit"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_model_selection_GroupShuffleSplit",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "новые",
+    "группы",
+    "/",
+    "group",
+    "validation"
+  ],
+  "title": "Новые группы / group validation",
+  "version": 2
+}

@@ -1,0 +1,1125 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feature-engine &#8212; 1.8.3</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/feature-engine.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/feature-engine.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script defer data-domain="feature-engine.readthedocs.io" src="https://plausible.io/js/plausible.js"></script>
+    <script src="_static/js/copybutton.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="canonical" href="https://feature-engine.trainindata.com/en/1.8.x/index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quickstart/index.html" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+    <!-- Cookie banner -->
+    <style>
+        /* Style for the cookie banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background-color: #ffe4e1; /* Light Pink */
+            color: #333;
+            padding: 15px;
+            max-width: 400px;
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Set a higher z-index value */
+        }
+
+        #cookie-banner p {
+        font-size: 16px; /* Font size for the text */
+        color: #333 !important; /* Set link color to black */
+        line-height: 1.5; /* Increase line height for added spacing between sentences */
+        }
+
+        #cookie-banner a {
+            color: #333;
+            text-decoration: underline;
+        }
+    </style>
+
+    <div id="cookie-banner">
+        <h2 style="font-size: 20px; margin-bottom: 10px;">This site uses cookies</h2>
+        <p style="font-size: 16px;">We use cookies to recognize your visits and preferences, to measure the effectiveness of the documentation, and discover how people find us. With your consent, you're helping us make our documentation better. <br><a href="https://www.trainindata.com/p/privacy" target="_blank">Learn More</a>.</p>
+        <button id="cookie-accept">Accept</button>
+        <button id="cookie-decline">Decline</button>
+    </div>
+
+    <script>
+        // JavaScript to show the cookie banner and handle the accept button
+        document.addEventListener('DOMContentLoaded', function () {
+            var cookieBanner = document.getElementById('cookie-banner');
+            var acceptButton = document.getElementById('cookie-accept');
+            var declineButton = document.getElementById('cookie-decline');
+
+            // Check if the user has already accepted or declined cookies
+            var cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+            if (!cookiesAccepted) {
+                cookieBanner.style.display = 'block';
+
+                acceptButton.addEventListener('click', function () {
+                    localStorage.setItem('cookiesAccepted', 'true');
+                    loadGoogleAnalytics();
+                    cookieBanner.style.display = 'none';
+                });
+
+                declineButton.addEventListener('click', function () {
+                    localStorage.setItem('cookiesAccepted', 'false');
+                    cookieBanner.style.display = 'none';
+                });
+            } else if (cookiesAccepted === 'true') {
+                loadGoogleAnalytics();
+            }
+        });
+
+        function loadGoogleAnalytics() {
+            // Load Google Analytics only if consent is given
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z6MPCG673G';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Z6MPCG673G');
+        }
+    </script>
+    <!-- Cookie banner -->
+
+
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="feature-engine" /><meta name="readthedocs-version-slug" content="1.8.x" /><meta name="readthedocs-resolver-filename" content="/" /><meta name="readthedocs-http-status" content="200" /></head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/Logo_name.png" class="logo__image only-light" alt="1.8.3 - Home"/>
+    <script>document.write(`<img src="_static/Logo_name.png" class="logo__image only-dark" alt="1.8.3 - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart/index.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api_doc/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="resources/index.html">
+    Resources
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contribute/index.html">
+    Contribute
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="whats_new/index.html">
+    What’s new
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="versions/index.html">
+    Other versions
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="donate.html">
+    Sponsor us
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/feature-engine/feature_engine" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.blog.trainindata.com/" title="Blog" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-blogger fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Blog</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/sponsors/feature-engine" title="Sponsor" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-hand-holding-heart fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Sponsor</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="quickstart/index.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api_doc/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="resources/index.html">
+    Resources
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contribute/index.html">
+    Contribute
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="whats_new/index.html">
+    What’s new
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="versions/index.html">
+    Other versions
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="donate.html">
+    Sponsor us
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/feature-engine/feature_engine" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.blog.trainindata.com/" title="Blog" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-blogger fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Blog</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/sponsors/feature-engine" title="Sponsor" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fas fa-hand-holding-heart fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Sponsor</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+  <div id="ethical-ad-placement"
+       class="flat"
+       data-ea-publisher="readthedocs"
+       data-ea-type="readthedocs-sidebar"
+       data-ea-manual="true">
+  </div>
+</div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="section" id="feature-engine">
+<h1>Feature-engine<a class="headerlink" href="#feature-engine" title="Permalink to this heading">#</a></h1>
+<div class="section" id="a-user-friendly-feature-engineering-alternative-to-scikit-learn">
+<h2>A user-friendly feature engineering alternative to Scikit-learn<a class="headerlink" href="#a-user-friendly-feature-engineering-alternative-to-scikit-learn" title="Permalink to this heading">#</a></h2>
+<div class="figure align-center" id="id1">
+<img alt="_images/FeatureEngine.png" src="_images/FeatureEngine.png" />
+<p class="caption"><span class="caption-text"><strong>Feature-engine rocks!</strong></span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</div>
+<p>Feature-engine is a Python library with multiple transformers to engineer and select
+features for machine learning models. Feature-engine, like Scikit-learn,
+uses the methods <code class="docutils literal notranslate"><span class="pre">fit()</span></code> and <code class="docutils literal notranslate"><span class="pre">transform()</span></code> to learn parameters from and then
+transform the data.</p>
+<div class="section" id="working-with-dataframes-feature-engine-is-a-no-brainer">
+<h3>Working with dataframes? 👉 Feature-engine is a no-brainer<a class="headerlink" href="#working-with-dataframes-feature-engine-is-a-no-brainer" title="Permalink to this heading">#</a></h3>
+<p>Unlike Scikit-learn, Feature-engine is designed to work with dataframes. No
+column order or name changes. A dataframe comes in, same dataframe
+comes out, with the transformed variables.</p>
+<p>We normally apply different feature engineering processes to different feature subsets. With sklearn, we restrict the
+feature engineering techniques to a certain group of variables by using an auxiliary class: the <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>.
+This class also results in a change in the name of the variables after the transformation.</p>
+<p>Feature-engine, instead, allows you to select the variables you want to transform <strong>within</strong> each
+transformer. This way, different engineering procedures can be easily applied to
+different feature subsets without the need for additional transformers or changes in the feature names.</p>
+</div>
+<div class="section" id="sitting-at-the-interface-of-pandas-and-scikit-learn">
+<h3>Sitting at the interface of pandas and scikit-learn<a class="headerlink" href="#sitting-at-the-interface-of-pandas-and-scikit-learn" title="Permalink to this heading">#</a></h3>
+<p>Pandas is great for data analysis and transformation. We ❤️ it too. But it
+doesn’t automatically learn and store parameters from the data. And that is
+key for machine learning. That’s why we created Feature-engine.</p>
+<p>Feature-engine wraps pandas functionality in Scikit-learn like transformers,
+capturing much of the pandas logic needed to learn and store parameters,
+while making these transformations compatible with Scikit-learn estimators,
+selectors, cross-validation functions and hyperparameter search methods.</p>
+<p>If your work is primarily data analysis and transformation for machine
+learning, and pandas and scikit-learn are your main tools, then Feature-engine
+is your friend.</p>
+</div>
+</div>
+<div class="section" id="feature-engine-transformers">
+<h2>Feature-engine transformers<a class="headerlink" href="#feature-engine-transformers" title="Permalink to this heading">#</a></h2>
+<p>Feature-engine includes transformers for:</p>
+<ul class="simple">
+<li><p>Missing data imputation</p></li>
+<li><p>Encoding of categorical features</p></li>
+<li><p>Discretization</p></li>
+<li><p>Outlier capping or removal</p></li>
+<li><p>Feature transformation</p></li>
+<li><p>Creation of new features</p></li>
+<li><p>Feature selection</p></li>
+<li><p>Datetime features</p></li>
+<li><p>Time series</p></li>
+<li><p>Preprocessing</p></li>
+<li><p>Scaling</p></li>
+</ul>
+<p>Feature-engine transformers are fully compatible with scikit-learn. That means that you can assemble Feature-engine
+transformers within a Scikit-learn pipeline, or use them in a grid or random search for hyperparameters.
+Check <a class="reference internal" href="quickstart/index.html#quick-start"><span class="std std-ref">**Quick Start**</span></a> for an example.</p>
+</div>
+<div class="section" id="how-did-you-find-us">
+<h2>How did you find us? 👀<a class="headerlink" href="#how-did-you-find-us" title="Permalink to this heading">#</a></h2>
+<p>We want to share Feature-engine with more people. It’d help us loads if you tell us
+how you discovered us.</p>
+<p>Then we can know what we are doing right and which channels we should use to share the love.</p>
+<div class="figure align-center">
+<a class="reference external image-reference" href="https://docs.google.com/forms/d/e/1FAIpQLSfxvgnJvuvPf2XgosakhXo5VNQafqRrjNXkoW5qDWqnuxZNSQ/viewform?usp=sf_link"><img alt="_images/how-did-you-discover.png" src="_images/how-did-you-discover.png" /></a>
+</div>
+<p>🙏 Please share your story by answering 1 quick question
+<a class="reference external" href="https://docs.google.com/forms/d/e/1FAIpQLSfxvgnJvuvPf2XgosakhXo5VNQafqRrjNXkoW5qDWqnuxZNSQ/viewform?usp=sf_link">at this link</a> 😃</p>
+</div>
+<div class="section" id="what-is-feature-engineering">
+<h2>What is feature engineering?<a class="headerlink" href="#what-is-feature-engineering" title="Permalink to this heading">#</a></h2>
+<p>Feature engineering is the process of using domain knowledge and statistical tools to create features for
+machine learning algorithms. The raw data that we normally gather as part of our business activities is rarely fit to
+train machine learning models. Instead, data scientists spend a large part of their time on data analysis, preprocessing,
+and feature engineering.</p>
+<p>Pandas is a common library for data preprocessing and feature engineering. It supports pretty much every method that is
+commonly used to transform raw data. However, pandas is not compatible with sklearn out of the box and is also not able
+to learn and store the feature engineering parameters.</p>
+<p>Feature-engine’s transformers wrap pandas functionality around an API that exposes <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code> methods to learn
+and store parameters from data and then use these parameters to transform the variables. Like this, Feature-engine makes
+the awesome functionality available in pandas fully compatible with Scikit-Learn.</p>
+</div>
+<div class="section" id="what-is-unique-about-feature-engine">
+<h2>What is unique about Feature-engine?<a class="headerlink" href="#what-is-unique-about-feature-engine" title="Permalink to this heading">#</a></h2>
+<p>The following characteristics make Feature-engine unique:</p>
+<ul class="simple">
+<li><p>Feature-engine contains the most exhaustive collection of feature engineering transformations.</p></li>
+<li><p>Feature-engine can transform a specific group of variables in the dataframe, right out-of-the-box.</p></li>
+<li><p>Feature-engine returns dataframes, hence suitable for data analysis and model deployment.</p></li>
+<li><p>Feature-engine is compatible with the Scikit-learn pipeline, Grid and Random search and cross validation.</p></li>
+<li><p>Feature-engine automatically recognizes numerical, categorical and datetime variables.</p></li>
+<li><p>Feature-engine alerts you if a transformation is not possible, e.g., if applying logarithm to negative variables or divisions by 0.</p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
+<p>Feature-engine is a Python 3 package and works well with 3.9 or later.</p>
+<p>The simplest way to install Feature-engine is from PyPI with pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>feature-engine
+</pre></div>
+</div>
+<p>Note, you can also install it with a _ as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>feature_engine
+</pre></div>
+</div>
+<p>Feature-engine is an active project and routinely publishes new releases. To upgrade
+Feature-engine to the latest version, use pip like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>feature-engine
+</pre></div>
+</div>
+<p>If you’re using Anaconda, you can install the
+<a class="reference external" href="https://anaconda.org/conda-forge/feature_engine">Anaconda Feature-engine package</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>feature_engine
+</pre></div>
+</div>
+</div>
+<div class="section" id="feature-engine-features-in-the-following-tutorials">
+<h2>Feature-engine features in the following tutorials<a class="headerlink" href="#feature-engine-features-in-the-following-tutorials" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.trainindata.com/p/feature-engineering-for-machine-learning">Feature Engineering for Machine Learning</a>, Online Course.</p></li>
+<li><p><a class="reference external" href="https://www.trainindata.com/p/feature-selection-for-machine-learning">Feature Selection for Machine Learning</a>, Online Course.</p></li>
+<li><p><a class="reference external" href="https://www.trainindata.com/p/feature-engineering-for-forecasting">Feature Engineering for Time Series Forecasting</a>, Online Course.</p></li>
+<li><p><a class="reference external" href="https://www.packtpub.com/en-us/product/python-feature-engineering-cookbook-9781835883587">Python Feature Engineering Cookbook</a>, book.</p></li>
+<li><p><a class="reference external" href="https://www.trainindata.com/p/feature-selection-in-machine-learning-book">Feature Selection in Machine Learning with Python</a>, book.</p></li>
+</ul>
+<p>More learning resources in <a class="reference internal" href="resources/index.html#learning-resources"><span class="std std-ref">**Learning Resources**</span></a>.</p>
+</div>
+<div class="section" id="feature-engine-s-transformers">
+<h2>Feature-engine’s Transformers<a class="headerlink" href="#feature-engine-s-transformers" title="Permalink to this heading">#</a></h2>
+<p>Feature-engine hosts the following groups of transformers:</p>
+<div class="section" id="missing-data-imputation-imputers">
+<h3>Missing Data Imputation: Imputers<a class="headerlink" href="#missing-data-imputation-imputers" title="Permalink to this heading">#</a></h3>
+<p>Missing data imputation consists in replacing missing values in categorical data and numerical variables with estimates
+of those nan values or arbitrary data points. Feature-engine supports the following missing data imputation methods:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/imputation/MeanMedianImputer.html"><span class="doc">MeanMedianImputer</span></a>: replaces missing data in numerical variables by the mean or median</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/ArbitraryNumberImputer.html"><span class="doc">ArbitraryNumberImputer</span></a>: replaces missing data in numerical variables by an arbitrary number</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/EndTailImputer.html"><span class="doc">EndTailImputer</span></a>: replaces missing data in numerical variables by numbers at the distribution tails</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/CategoricalImputer.html"><span class="doc">CategoricalImputer</span></a>: replaces missing data with an arbitrary string or by the most frequent category</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/RandomSampleImputer.html"><span class="doc">RandomSampleImputer</span></a>: replaces missing data by random sampling observations from the variable</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/AddMissingIndicator.html"><span class="doc">AddMissingIndicator</span></a>: adds a binary missing indicator to flag observations with missing data</p></li>
+<li><p><a class="reference internal" href="api_doc/imputation/DropMissingData.html"><span class="doc">DropMissingData</span></a>: removes observations (rows) containing missing values from dataframe</p></li>
+</ul>
+</div>
+<div class="section" id="categorical-encoders-encoders">
+<h3>Categorical Encoders: Encoders<a class="headerlink" href="#categorical-encoders-encoders" title="Permalink to this heading">#</a></h3>
+<p>Categorical encoding is the process of replacing categorical values by numerical values. Most machine learning models, and
+in particular, those supported by scikit-learn, don’t accept strings as inputs. Hence, we need to convert these strings
+into numbers that can be interpeted by these models.</p>
+<p>There are various categorical encoding techniques, including one hot encoding, ordinal encoding and target encoding.
+Feature-engine supports the following methods:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/encoding/OneHotEncoder.html"><span class="doc">OneHotEncoder</span></a>: performs one hot encoding, optional: of popular categories</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/CountFrequencyEncoder.html"><span class="doc">CountFrequencyEncoder</span></a>: replaces categories by the observation count or percentage</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/OrdinalEncoder.html"><span class="doc">OrdinalEncoder</span></a>: replaces categories by numbers arbitrarily or ordered by target</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/MeanEncoder.html"><span class="doc">MeanEncoder</span></a>: replaces categories by the target mean</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/WoEEncoder.html"><span class="doc">WoEEncoder</span></a>: replaces categories by the weight of evidence</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/DecisionTreeEncoder.html"><span class="doc">DecisionTreeEncoder</span></a>: replaces categories by predictions of a decision tree</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/RareLabelEncoder.html"><span class="doc">RareLabelEncoder</span></a>: groups infrequent categories</p></li>
+<li><p><a class="reference internal" href="api_doc/encoding/StringSimilarityEncoder.html"><span class="doc">StringSimilarityEncoder</span></a>: encodes categories based on string similarity</p></li>
+</ul>
+</div>
+<div class="section" id="variable-discretization-discretizers">
+<h3>Variable Discretization: Discretizers<a class="headerlink" href="#variable-discretization-discretizers" title="Permalink to this heading">#</a></h3>
+<p>Discretization, or binning, consists in sorting numerical features into discrete intervals. The most commonly used methods
+are equal-width and equal-frequency discretization. Feature-engine supports these and more advanced methods, like
+discretization with decision trees:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/discretisation/ArbitraryDiscretiser.html"><span class="doc">ArbitraryDiscretiser</span></a>: sorts variable into intervals defined by the user</p></li>
+<li><p><a class="reference internal" href="api_doc/discretisation/EqualFrequencyDiscretiser.html"><span class="doc">EqualFrequencyDiscretiser</span></a>: sorts variable into equal frequency intervals</p></li>
+<li><p><a class="reference internal" href="api_doc/discretisation/EqualWidthDiscretiser.html"><span class="doc">EqualWidthDiscretiser</span></a>: sorts variable into equal width intervals</p></li>
+<li><p><a class="reference internal" href="api_doc/discretisation/DecisionTreeDiscretiser.html"><span class="doc">DecisionTreeDiscretiser</span></a>: uses decision trees to create finite variables</p></li>
+<li><p><a class="reference internal" href="api_doc/discretisation/GeometricWidthDiscretiser.html"><span class="doc">GeometricWidthDiscretiser</span></a>: sorts variable into geometrical intervals</p></li>
+</ul>
+</div>
+<div class="section" id="outlier-capping-or-removal">
+<h3>Outlier Capping or Removal<a class="headerlink" href="#outlier-capping-or-removal" title="Permalink to this heading">#</a></h3>
+<p>Outliers are values that are very different with respect to the distribution observed by the variable. Some machine-learning
+models and statistical tests are sensitive to outliers. In some cases, we may want to remove outliers or replace them with
+permitted values.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/outliers/ArbitraryOutlierCapper.html"><span class="doc">ArbitraryOutlierCapper</span></a>: caps maximum and minimum values at user defined values</p></li>
+<li><p><a class="reference internal" href="api_doc/outliers/Winsorizer.html"><span class="doc">Winsorizer</span></a>: caps maximum or minimum values using statistical parameters</p></li>
+<li><p><a class="reference internal" href="api_doc/outliers/OutlierTrimmer.html"><span class="doc">OutlierTrimmer</span></a>: removes outliers from the dataset</p></li>
+</ul>
+</div>
+<div class="section" id="numerical-transformation-transformers">
+<h3>Numerical Transformation: Transformers<a class="headerlink" href="#numerical-transformation-transformers" title="Permalink to this heading">#</a></h3>
+<p>We normally use variance stabilizing transformations to make the data meet the assumptions of certain statistical tests,
+like anova, and machine learning models, like linear regression. Feature-engine supports the following transformations:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/transformation/LogTransformer.html"><span class="doc">LogTransformer</span></a>: performs logarithmic transformation of numerical variables</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/LogCpTransformer.html"><span class="doc">LogCpTransformer</span></a>: performs logarithmic transformation after adding a constant value</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/ReciprocalTransformer.html"><span class="doc">ReciprocalTransformer</span></a>: performs reciprocal transformation of numerical variables</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/PowerTransformer.html"><span class="doc">PowerTransformer</span></a>: performs power transformation of numerical variables</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/BoxCoxTransformer.html"><span class="doc">BoxCoxTransformer</span></a>: performs Box-Cox transformation of numerical variables</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/YeoJohnsonTransformer.html"><span class="doc">YeoJohnsonTransformer</span></a>: performs Yeo-Johnson transformation of numerical variables</p></li>
+<li><p><a class="reference internal" href="api_doc/transformation/ArcsinTransformer.html"><span class="doc">ArcsinTransformer</span></a>: performs arcsin transformation of numerical variables</p></li>
+</ul>
+</div>
+<div class="section" id="feature-creation">
+<h3>Feature Creation:<a class="headerlink" href="#feature-creation" title="Permalink to this heading">#</a></h3>
+<p>Feature-engine allows you to create new features by combining them mathematically or transforming them with mathematical functions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/creation/MathFeatures.html"><span class="doc">MathFeatures</span></a>: creates new variables by combining features with mathematical operations</p></li>
+<li><p><a class="reference internal" href="api_doc/creation/RelativeFeatures.html"><span class="doc">RelativeFeatures</span></a>: combines variables with reference features</p></li>
+<li><p><a class="reference internal" href="api_doc/creation/CyclicalFeatures.html"><span class="doc">CyclicalFeatures</span></a>: creates variables using sine and cosine, suitable for cyclical features</p></li>
+<li><p><a class="reference internal" href="api_doc/creation/DecisionTreeFeatures.html"><span class="doc">DecisionTreeFeatures</span></a>: creates variables resulting from predictions of decision trees on 1 or more features</p></li>
+</ul>
+</div>
+<div class="section" id="datetime">
+<h3>Datetime:<a class="headerlink" href="#datetime" title="Permalink to this heading">#</a></h3>
+<p>Data scientists rarely use datetime features in their original representation with machine learning models. Instead, we
+extract many new features from the date and time parts of the datetime variable:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/datetime/DatetimeFeatures.html"><span class="doc">DatetimeFeatures</span></a>: extract features from datetime variables</p></li>
+<li><p><a class="reference internal" href="api_doc/datetime/DatetimeSubtraction.html"><span class="doc">DatetimeSubtraction</span></a>: computes subtractions between datetime variables</p></li>
+</ul>
+</div>
+<div class="section" id="feature-selection">
+<h3>Feature Selection:<a class="headerlink" href="#feature-selection" title="Permalink to this heading">#</a></h3>
+<p>Simpler models are easier to interpret, deploy, and maintain. Feature-engine expands the feature selection functionality
+existing in other libraries like sklearn and MLXtend, with additional methods:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/selection/DropFeatures.html"><span class="doc">DropFeatures</span></a>: drops an arbitrary subset of variables from a dataframe</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/DropConstantFeatures.html"><span class="doc">DropConstantFeatures</span></a>: drops constant and quasi-constant variables from a dataframe</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/DropDuplicateFeatures.html"><span class="doc">DropDuplicateFeatures</span></a>: drops duplicated variables from a dataframe</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/DropCorrelatedFeatures.html"><span class="doc">DropCorrelatedFeatures</span></a>: drops correlated variables from a dataframe</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/SmartCorrelatedSelection.html"><span class="doc">SmartCorrelatedSelection</span></a>: selects best features from correlated groups</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/DropHighPSIFeatures.html"><span class="doc">DropHighPSIFeatures</span></a>: selects features based on the Population Stability Index (PSI)</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/SelectByInformationValue.html"><span class="doc">SelectByInformationValue</span></a>: selects features based on their information value</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/SelectByShuffling.html"><span class="doc">SelectByShuffling</span></a>: selects features by evaluating model performance after feature shuffling</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/SelectBySingleFeaturePerformance.html"><span class="doc">SelectBySingleFeaturePerformance</span></a>: selects features based on their performance on univariate estimators</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/SelectByTargetMeanPerformance.html"><span class="doc">SelectByTargetMeanPerformance</span></a>: selects features based on target mean encoding performance</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/RecursiveFeatureElimination.html"><span class="doc">RecursiveFeatureElimination</span></a>: selects features recursively, by evaluating model performance</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/RecursiveFeatureAddition.html"><span class="doc">RecursiveFeatureAddition</span></a>: selects features recursively, by evaluating model performance</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/ProbeFeatureSelection.html"><span class="doc">ProbeFeatureSelection</span></a>: selects features whose importance is greater than those of random variables</p></li>
+<li><p><a class="reference internal" href="api_doc/selection/MRMR.html"><span class="doc">MRMR</span></a>: selects features based on the Maximum Relevance Minimum Redundancy framework</p></li>
+</ul>
+</div>
+<div class="section" id="forecasting">
+<h3>Forecasting:<a class="headerlink" href="#forecasting" title="Permalink to this heading">#</a></h3>
+<p>To address forecasting as a regression by using traditional machine learning algorithms, we first need to transform the
+time series into a table of static fetaures. We can do this through lags and windows combined with aggregations over past data:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/timeseries/forecasting/LagFeatures.html"><span class="doc">LagFeatures</span></a>: extract lag features</p></li>
+<li><p><a class="reference internal" href="api_doc/timeseries/forecasting/WindowFeatures.html"><span class="doc">WindowFeatures</span></a>: create window features</p></li>
+<li><p><a class="reference internal" href="api_doc/timeseries/forecasting/ExpandingWindowFeatures.html"><span class="doc">ExpandingWindowFeatures</span></a>: create expanding window features</p></li>
+</ul>
+</div>
+<div class="section" id="preprocessing">
+<h3>Preprocessing:<a class="headerlink" href="#preprocessing" title="Permalink to this heading">#</a></h3>
+<p>When transforming variables and doing data cleaning, we usually change the variables data types (dtype in pandas). These
+can cause problems further down the pipeline. To tackle this head on, Feature-engine has transformers to ensure the data
+types and variable names match.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/preprocessing/MatchCategories.html"><span class="doc">MatchCategories</span></a>: ensures categorical variables are of type ‘category’</p></li>
+<li><p><a class="reference internal" href="api_doc/preprocessing/MatchVariables.html"><span class="doc">MatchVariables</span></a>: ensures that columns in test set match those in train set</p></li>
+</ul>
+</div>
+<div class="section" id="scaling">
+<h3>Scaling:<a class="headerlink" href="#scaling" title="Permalink to this heading">#</a></h3>
+<p>Scaling the data can help to balance the impact of all variables on the model, and can improve
+its performance.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/scaling/MeanNormalizationScaler.html"><span class="doc">MeanNormalizationScaler</span></a>: scale variables using mean normalization</p></li>
+</ul>
+</div>
+<div class="section" id="scikit-learn-wrapper">
+<h3>Scikit-learn Wrapper:<a class="headerlink" href="#scikit-learn-wrapper" title="Permalink to this heading">#</a></h3>
+<p>An alternative to scikit-learn’s <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_doc/wrappers/Wrapper.html"><span class="doc">SklearnTransformerWrapper</span></a>: applies Scikit-learn transformers to a selected subset of features</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="feature-scaling">
+<h2>Feature scaling<a class="headerlink" href="#feature-scaling" title="Permalink to this heading">#</a></h2>
+<p>Scikit-learn offers a comprehensive array of tools to apply data normalization, standardization, and min-max scaling, among
+other processes, so we felt that there was no need to bring that functionality to Feature-engine. If you want to apply these
+procedures to a subset of the variables only, check out the <a class="reference internal" href="api_doc/wrappers/Wrapper.html"><span class="doc">SklearnTransformerWrapper</span></a>:</p>
+</div>
+<div class="section" id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this heading">#</a></h2>
+<p>Can’t get something to work? Here are places where you can find help.</p>
+<ol class="arabic simple">
+<li><p>The <a class="reference internal" href="user_guide/index.html#user-guide"><span class="std std-ref">**User Guide**</span></a> in the docs.</p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/search?q=feature_engine">Stack Overflow</a>. If you ask a question, please mention “feature_engine” in it.</p></li>
+<li><p>If you are enrolled in the <a class="reference external" href="https://www.trainindata.com/p/feature-engineering-for-machine-learning">Feature Engineering for Machine Learning course</a> , post a question in a relevant section.</p></li>
+<li><p>If you are enrolled in the <a class="reference external" href="https://www.trainindata.com/p/feature-selection-for-machine-learning">Feature Selection for Machine Learning course</a> , post a question in a relevant section.</p></li>
+<li><p>Join our <a class="reference external" href="https://gitter.im/feature_engine/community">gitter community</a>. You an ask questions here as well.</p></li>
+<li><p>Ask a question in the repo by filing an <a class="reference external" href="https://github.com/feature-engine/feature_engine/issues/">issue</a> (check before if there is already a similar issue created :) ).</p></li>
+</ol>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">#</a></h2>
+<p>Interested in contributing to Feature-engine? That is great news!</p>
+<p>Feature-engine is a welcoming and inclusive project and we would be delighted to have you
+on board. We follow the
+<a class="reference external" href="http://www.python.org/psf/codeofconduct/">Python Software Foundation Code of Conduct</a>.</p>
+<p>Regardless of your skill level you can help us. We appreciate bug reports, user testing,
+feature requests, bug fixes, addition of tests, product enhancements, and documentation
+improvements. We also appreciate blogs about Feature-engine. If you happen to have one,
+let us know!</p>
+<p>For more details on how to contribute check the contributing page. Click on the
+<a class="reference internal" href="contribute/index.html#contribute"><span class="std std-ref">**Contribute**</span></a> guide.</p>
+</div>
+<div class="section" id="sponsor-us">
+<h2>Sponsor us<a class="headerlink" href="#sponsor-us" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/sponsors/solegalli">Empower Sole</a>, the main developer of
+Feature-engine, to assemble a team of paid contributors to accelerate the development of
+Feature-engine.</p>
+<div class="figure align-center">
+<a class="reference external image-reference" href="https://github.com/sponsors/solegalli"><img alt="_images/call_for_sponsors.png" src="_images/call_for_sponsors.png" /></a>
+</div>
+<p>Currently, Sole and our contributors dedicate their free time voluntarily
+to advancing the project. You can help us reach a funding milestone so that we can
+gather a group of 2-3 contributors who will commit regular hours each week to enhance
+documentation and expand Feature-engine’s functionality at a faster pace.</p>
+<p><a class="reference external" href="https://github.com/sponsors/solegalli">Your contribution</a> will play a vital role in
+propelling Feature-engine to new heights, ensuring it remains a valuable resource for
+the data science community.</p>
+<p>If you don’t have a Github account, you can also <a class="reference external" href="https://buymeacoffee.com/solegalliy">sponsor us here</a>.</p>
+</div>
+<div class="section" id="open-source">
+<h2>Open Source<a class="headerlink" href="#open-source" title="Permalink to this heading">#</a></h2>
+<p>Feature-engine’s <a class="reference external" href="https://github.com/feature-engine/feature_engine/blob/master/LICENSE.md">license</a>
+is an open source BSD 3-Clause.</p>
+<p>Feature-engine is hosted on <a class="reference external" href="https://github.com/feature-engine/feature_engine/">GitHub</a>.
+The <a class="reference external" href="https://github.com/feature-engine/feature_engine/issues/">issues</a> and
+<a class="reference external" href="https://github.com/feature-engine/feature_engine/pulls">pull requests</a> are tracked there.</p>
+</div>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/index.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#example-use">Example Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#feature-engine-with-the-scikit-learn-s-pipeline">Feature-engine with the Scikit-learn’s pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/index.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#transformation">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#creation">Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#selection">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#time-series">Time series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#other">Other</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#pipeline">Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide/index.html#tools">Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_doc/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#transformation">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#creation">Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#selection">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#time-series">Time series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#other">Other</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#pipeline">Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_doc/index.html#tools">Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources/index.html">Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources/courses.html">Courses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/books.html">Books</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/blogs.html">Blogs, Videos and More</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources/tutorials.html">Tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/index.html">Contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contribute/index.html#ways-to-contribute">Ways to contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute/index.html#getting-in-touch">Getting in touch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute/index.html#contributing-guide">Contributing Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about/index.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about/about.html">About</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/governance.html">Governance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about/roadmap.html">Roadmap</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new/index.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_180.html">Version 1.8.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_170.html">Version 1.7.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_160.html">Version 1.6.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_150.html">Version 1.5.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_140.html">Version 1.4.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_130.html">Version 1.3.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_120.html">Version 1.2.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_1.html">Version 1.1.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new/v_06.html">Version 0.6.X</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versions/index.html">Other versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">Sponsor us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html#sponsors">Sponsors</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="quickstart/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quick Start</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-user-friendly-feature-engineering-alternative-to-scikit-learn">A user-friendly feature engineering alternative to Scikit-learn</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-dataframes-feature-engine-is-a-no-brainer">Working with dataframes? 👉 Feature-engine is a no-brainer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sitting-at-the-interface-of-pandas-and-scikit-learn">Sitting at the interface of pandas and scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engine-transformers">Feature-engine transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-did-you-find-us">How did you find us? 👀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-engineering">What is feature engineering?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-unique-about-feature-engine">What is unique about Feature-engine?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engine-features-in-the-following-tutorials">Feature-engine features in the following tutorials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engine-s-transformers">Feature-engine’s Transformers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-imputation-imputers">Missing Data Imputation: Imputers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-encoders-encoders">Categorical Encoders: Encoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-discretization-discretizers">Variable Discretization: Discretizers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-capping-or-removal">Outlier Capping or Removal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-transformation-transformers">Numerical Transformation: Transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-creation">Feature Creation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime">Datetime:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature Selection:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forecasting">Forecasting:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling">Scaling:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-wrapper">Scikit-learn Wrapper:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-scaling">Feature scaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sponsor-us">Sponsor us</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source">Open Source</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018-2025, Feature-engine developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

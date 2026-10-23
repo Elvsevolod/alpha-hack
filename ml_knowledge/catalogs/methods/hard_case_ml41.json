@@ -1,0 +1,40 @@
+{
+  "id": "hard_case_ml41",
+  "method_id": "hard_case_ml41",
+  "version": 1,
+  "title": "Категории высокой кардинальности",
+  "observations": "много редких уровней, one-hot резко увеличивает размер матрицы, регуляризованная модель запоминает локальные значения.",
+  "hypothesis": "CatBoost с поддерживаемой обработкой категорий против ограниченного sparse one-hot или корректного cross-fitted encoding; изменить одно представление при сопоставимом бюджете.",
+  "diagnostic": "число уровней и их поддержка на fit; отличить настоящую категорию от запрещённого идентификатора. Проверить новые категории и ограничения памяти.",
+  "minimum_experiment": "CatBoost с поддерживаемой обработкой категорий против ограниченного sparse one-hot или корректного cross-fitted encoding; изменить одно представление при сопоставимом бюджете.",
+  "acceptance": "качество и стоимость лучше простой опоры; редкие/неизвестные уровни обработаны определённо, категории не построены на test.",
+  "constraints": "нативная обработка категорий не снимает внешние временные/групповые границы. Выученные кодировки требуют того же отображения после сохранения модели.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "много редких уровней, one-hot резко увеличивает размер матрицы, регуляризованная модель запоминает локальные значения."
+  ],
+  "contraindications": [
+    "нативная обработка категорий не снимает внешние временные/групповые границы. Выученные кодировки требуют того же отображения после сохранения модели."
+  ],
+  "cost": "средняя",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_catboost_CatBoostRegressor",
+    "api_lightgbm_LGBMRegressor",
+    "api_xgboost_XGBRegressor"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "high_cardinality"
+  ],
+  "research_sources": [
+    "https://catboost.ai/en/docs/features/categorical-features",
+    "https://arxiv.org/abs/1706.09516"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "high_cardinality",
+  "routing_priority": 0
+}

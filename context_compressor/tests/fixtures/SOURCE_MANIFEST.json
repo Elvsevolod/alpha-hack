@@ -1,0 +1,10 @@
+{
+  "status": "preliminary_development_fixture_not_final_B0",
+  "sha256": {
+    "идем по правильному сжатию контекста.md": "486ddf211e7afb791e69e6e054a353eadcc3e6c010e9f2489eecf2f216819055",
+    "automl_agent/contracts.py": "334d5cfb39757463a2967a787ea339670742d632bc871c3c9c75e94b15fe6943",
+    "automl_agent/qwen.py": "7a4da226a168d275bad190b820f6d5fa3d0f409d1778b4e23644475e6d9125df",
+    "automl_agent/controller.py": "59968f0098b73df0760f7b67dada965d24031f2959160c8b9feadc2cd1d41410",
+    "data_for_participants/requirements.txt": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+  }
+}

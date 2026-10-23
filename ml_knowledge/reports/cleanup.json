@@ -1,0 +1,36 @@
+{
+  "final_corpus_path": "ml_knowledge/corpus",
+  "removed": "Only agent-created duplicate build inputs, interim corpora and restored test cache",
+  "retained": [
+    "corpus",
+    "frozen",
+    "sources",
+    "baseline/before.zip",
+    "releases/ml_knowledge_v001.zip",
+    "verification/reproducibility_evidence",
+    "all validation reports",
+    "releases/ml_knowledge_v002.zip",
+    "releases/ml_knowledge_v003.zip",
+    "verification/v002/harness",
+    "verification/v003/harness",
+    "verification/v003/flat"
+  ],
+  "final_cleanup": [
+    {
+      "path": "verification/flat_v001",
+      "bytes": 116580058
+    },
+    {
+      "path": "verification/v002/flat",
+      "bytes": 524824023
+    },
+    {
+      "path": "verification/v003/flat/.ml_knowledge_runtime",
+      "bytes": 408241392
+    },
+    {
+      "path": "sources/catboost/source.tar.part",
+      "bytes": 19525632
+    }
+  ]
+}

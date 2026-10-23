@@ -1,0 +1,65 @@
+{
+  "version_tag": "v061",
+  "archive": "solution_v061.zip",
+  "base": "solution_v060.zip",
+  "sha256": "a910f49eb63682488e0eef484d0b81a64c37a2b6ff07b539ff018f4e51b9a91b",
+  "bytes": 95022194,
+  "flat_member_count": 225,
+  "packer_verification": {
+    "exit_code": 0,
+    "python_version": "3.12.3",
+    "source_match_checked": true,
+    "zip_and_syntax_valid": true,
+    "flat_layout_checked": true,
+    "requirements_match_checked": true,
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "archive_size_limit_bytes": 100000000,
+    "dependency_policy_checked_by_packer": false,
+    "embedded_payload_checked_by_packer": false,
+    "runtime_interface_checked_by_packer": false
+  },
+  "exact_archive_offline_mock": {
+    "report": "../outputs/agent_quality_reaudit_20261023/qwen_flat_v061/REPORT.json",
+    "passed": true,
+    "cases_passed": 4,
+    "cases": [
+      "unset",
+      "empty",
+      "whitespace",
+      "json_fallback"
+    ],
+    "control_and_refit_completed_in_every_case": true,
+    "csv_valid_in_every_case": true,
+    "organizer_api_calls": 0,
+    "image": "qwen-ml-agent:exact",
+    "image_sha256": "6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+    "network_disabled": true,
+    "read_only_root": true,
+    "container_cpus": 1,
+    "container_memory_gib": 5,
+    "platform_wall_clock_limit_seconds": 10800,
+    "development_search_caps": null,
+    "recipe_ref_description_visible_in_native_schema": true,
+    "recipe_ref_description_visible_in_json_fallback_schema": true
+  },
+  "exact_archive_knowledge_routes": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v061_hard_cases.json",
+    "passed": true,
+    "cases_passed": 6,
+    "corpus_sha256": "fb7872826dfc67aa438b3a36ec52897f680e70f18143d997da6f9ce947cbfb4d",
+    "organizer_api_calls": 0
+  },
+  "targeted_tests": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v061_test_results.json",
+    "passed": 22,
+    "failed": 0
+  },
+  "independent_review_findings_open": false,
+  "live_qwen_run": false,
+  "public_or_private_quality_measured": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "additional_paid_calls_allowed": false,
+  "paid_calls_this_cycle": 0,
+  "latest_pointer_changed": false
+}

@@ -1,0 +1,237 @@
+{
+  "archive": "dist/solution_v049.zip",
+  "sha256": "4c60d15eaa2ad9a35417a1b73bda7375246db84e394157f6c76f6f76975c8ad7",
+  "bytes": 95018103,
+  "flat_files": 224,
+  "runtime_entries": 53,
+  "changed_runtime": [
+    "automl_agent/completion.py",
+    "automl_agent/worker.py"
+  ],
+  "changed_outer_files": [
+    "agent_bundle.py"
+  ],
+  "all_python_sources_compile": true,
+  "requirements_identical": true,
+  "max_bytes": 100000000,
+  "archive_size_passed": true,
+  "test_tools_in_archive": false,
+  "workspace_matches_archive": true,
+  "status": "technical_and_offline_public_fit_passed_full_classification_live",
+  "base": "solution_v048.zip",
+  "offline_host_tests": {
+    "passed": 24,
+    "failed": 0,
+    "log": "../outputs/quality_goal_20261023/cost_phase_host_02.log"
+  },
+  "offline_exact_tests": {
+    "passed": 24,
+    "failed": 0,
+    "log": "../outputs/quality_goal_20261023/cost_phase_exact_02.log"
+  },
+  "independent_review": {
+    "blockers": 0,
+    "pure_unit_tests_passed": 11,
+    "legacy_comparisons_match": 9,
+    "document": "../outputs/quality_goal_20261023/REVIEW_COST_PHASES.md",
+    "interrupted_broad_setup_excluded_from_green": true
+  },
+  "retrospective_calibration": {
+    "pilot_cases": 19,
+    "old_exceeds_attempt_after_pilot": 11,
+    "new_exceeds_attempt_after_pilot": 7,
+    "observed_completed_cases": 7,
+    "new_forecast_covers_observed_completed": 7
+  },
+  "public_recorded_decision_replay": {
+    "report": "../outputs/quality_goal_20261023/cost_phase_public_replay_03/REPORT.json",
+    "passed": true,
+    "organizer_requests": 0,
+    "candidate_seconds": 7.05253838200224,
+    "budget_seconds": 180,
+    "old_forecast": 223.22969574322175,
+    "new_forecast": 49.165685553709324,
+    "control": "completed",
+    "refit": "completed",
+    "csv_scope": "full_train_refit",
+    "csv": {
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "row_count": true,
+        "ids_order": true,
+        "unique_ids": true,
+        "no_missing": true,
+        "values": true
+      },
+      "rows": 41166,
+      "sha256": "a7afeafcbc9fafcaa33bc755b4ef02a79f34ed667872e03648fec50324036588"
+    },
+    "not_autonomous_generation": true,
+    "quality_effect_claim": false
+  },
+  "exact_entry": {
+    "archive_sha256": "4c60d15eaa2ad9a35417a1b73bda7375246db84e394157f6c76f6f76975c8ad7",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "unchanged": {
+    "default_seconds": 10800,
+    "cpu": 7,
+    "memory_mb": 28000,
+    "max_calls": null,
+    "max_candidates": null,
+    "max_debug": null,
+    "max_llm_seconds": null,
+    "requirements_identical": true,
+    "knowledge_release": "v004"
+  },
+  "known_limitations": [
+    "Forecast remains heuristic for nonlinear/custom runtime",
+    "Separate prediction-query volume retains the pre-existing training-row scaling; no new query-count model"
+  ],
+  "full_three_hour_same_archive_pair_acceptance": false,
+  "quality_advantage_established": false,
+  "candidate_promoted": false,
+  "uploaded": false,
+  "live_classification": {
+    "directory": "../outputs/quality_goal_20261023/cost_phase_v049_classification_full3h",
+    "session_id": 39793,
+    "seconds": 10800,
+    "started_utc": "2026-10-22T20:56:21Z",
+    "api_before_remaining": 324.6504568740322,
+    "api_allowance_external": 320,
+    "api_stop_threshold_external": 300,
+    "status": "running",
+    "quality_effect_established": false
+  }
+}

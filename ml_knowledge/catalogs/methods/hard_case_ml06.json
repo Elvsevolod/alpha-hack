@@ -1,0 +1,35 @@
+{
+  "id": "hard_case_ml06",
+  "method_id": "hard_case_ml06",
+  "version": 1,
+  "title": "ID выглядит очень предсказательным или пересекается между файлами",
+  "observations": "Последовательный ID может кодировать порядок сбора; локальные ID разных файлов могут пересекаться.",
+  "hypothesis": "сохранить ID для выравнивания выхода и исключить из признаков согласно постановке; исследовать реальные разрешённые временные/групповые поля отдельно.",
+  "diagnostic": "проверить роль по контракту, уникальность внутри каждого файла и область действия ключа. Совпадение локальных счётчиков не означает один объект.",
+  "minimum_experiment": "сохранить ID для выравнивания выхода и исключить из признаков согласно постановке; исследовать реальные разрешённые временные/групповые поля отдельно.",
+  "acceptance": "модель не использует запрещённые ID; предсказания связаны с неизменяемыми row keys и возвращены в исходном порядке.",
+  "constraints": "нельзя присоединять метки train к test по такому ID, восстанавливать скрытые ответы из внешнего оригинала или нарушать заданные роли.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "Последовательный ID может кодировать порядок сбора; локальные ID разных файлов могут пересекаться."
+  ],
+  "contraindications": [
+    "нельзя присоединять метки train к test по такому ID, восстанавливать скрытые ответы из внешнего оригинала или нарушать заданные роли."
+  ],
+  "cost": "низкая",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_f1_score"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "identifiers"
+  ],
+  "research_sources": [],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "identifiers",
+  "routing_priority": 0
+}

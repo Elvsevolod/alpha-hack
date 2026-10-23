@@ -1,0 +1,91 @@
+{
+  "candidate": "dist/solution_v043.zip",
+  "archive_sha256": "7c5169d525bc9503e5c7cda6091b12a46dfacfb5382997d8bb7a2efa1c202ee7",
+  "bytes": 95014689,
+  "base_archive": "dist/solution_v039.zip",
+  "base_sha256": "f37735576f6aaf6e66fb4818a7c859715369cd2b33f6125b98e0479b469a5322",
+  "base_preserved": true,
+  "status": "ML_knowledge_offline_integration_and_review_passed",
+  "knowledge_corpus": "aaa9c1ef14260b2b6a6023f70f95ed8c9fa2c8b6035ba5b7bafe669854f2a9bf",
+  "knowledge_release": "ml_knowledge/releases/ml_knowledge_v004.zip",
+  "new_method_cards": 60,
+  "method_cards_total": 92,
+  "checks": {
+    "full_suite": {
+      "passed": 508,
+      "warnings": 24,
+      "seconds": 364.3,
+      "network": "none",
+      "environment": "qwen-ml-agent:exact; Python3.12; 37 organizer pins; separate pytest development harness",
+      "log": "outputs/ml_knowledge_v040/exact_full_v043.log"
+    },
+    "targeted_review_regressions": {
+      "passed": 50,
+      "log": "outputs/ml_knowledge_v040/review_fix_v043.log"
+    },
+    "exact_archive_entry": {
+      "passed": 4,
+      "report": "outputs/ml_knowledge_v040/exact_entry_v043/REPORT.json"
+    },
+    "exact_flat_knowledge_delivery": {
+      "passed": 5,
+      "report": "outputs/ml_knowledge_v040/flat_knowledge_v043.json"
+    },
+    "native_json_wire": {
+      "passed": 2,
+      "scope": "scripted model; serialized selected card and trained candidate",
+      "log": "outputs/ml_knowledge_v040/mock_wire_final.log",
+      "applicability": "No transport/context changes after v041; same sources in v043"
+    },
+    "dependency_versions": {
+      "matched": 37,
+      "report": "outputs/ml_knowledge_v040/dependency_environment.json"
+    },
+    "dependency_policy": {
+      "passed": true,
+      "report": "outputs/ml_knowledge_v040/dependency_policy.json",
+      "applicability": "No import/dependency changes after this audit"
+    },
+    "embedded_equality": {
+      "passed": true,
+      "files": 52,
+      "report": "outputs/ml_knowledge_v040/embedded_v043.json"
+    },
+    "packaging": {
+      "passed": true,
+      "flat_files": 224,
+      "manifest": "dist/solution_v043.manifest.json"
+    },
+    "release_audit": {
+      "passed": true,
+      "report": "outputs/ml_knowledge_v040/release_audit_v043.json"
+    },
+    "documentation_preservation": {
+      "passed": true,
+      "documents": 31675,
+      "report": "outputs/ml_knowledge_v040/corpus_preservation.json"
+    },
+    "subagent_review": {
+      "resolved": 3,
+      "confirmed_unresolved_findings": 0,
+      "report": "outputs/ml_knowledge_v040/CODE_REVIEW_FINAL.json",
+      "full_review": "outputs/ml_knowledge_v040/CODE_REVIEW.md"
+    }
+  },
+  "test_groups_overlap": true,
+  "default_seconds": 10800,
+  "paid_requests": 0,
+  "live_Qwen_tested": false,
+  "actual_real_Qwen_use_of_new_policy_established": false,
+  "quality_advantage_established": false,
+  "full_plan_acceptance": false,
+  "three_hour_rehearsal_run": false,
+  "platform_submitted": false,
+  "documentation": "outputs/ml_knowledge_v040/REPORT.md",
+  "known_limits": [
+    "400 inherited unresolved documentation expansions",
+    "Custom Python remains limited_trust",
+    "Unsupported custom declarative postprocessing is rejected; use direct/Optuna",
+    "No live model compliance or public/private quality measurements"
+  ]
+}

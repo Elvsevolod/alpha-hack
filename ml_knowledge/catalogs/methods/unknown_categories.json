@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "редкие категории; линейная модель",
+  "applicability_rules": [],
+  "conditions": [
+    "Ожидаются категории, отсутствующие на fit."
+  ],
+  "constraints": "Словарь обучается только на fit; нельзя молча переупорядочивать строки.",
+  "contraindications": [
+    "Словарь обучается только на fit; нельзя молча переупорядочивать строки."
+  ],
+  "cost": "Зависит от кардинальности; оценить ширину one-hot.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить безопасное one-hot и нативные категории",
+  "id": "unknown_categories",
+  "method_id": "unknown_categories",
+  "minimum_experiment": "Fit OneHotEncoder(handle_unknown='ignore'); predict на новой категории; проверить ключи строк.",
+  "missing_references": [],
+  "observations": "Test содержит отсутствующие на fit категории",
+  "references": [
+    "api_sklearn_preprocessing_OneHotEncoder"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_preprocessing_OneHotEncoder",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "новые",
+    "категории",
+    "/",
+    "unknown",
+    "categories"
+  ],
+  "title": "Новые категории / unknown categories",
+  "version": 2
+}

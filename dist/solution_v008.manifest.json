@@ -1,0 +1,39 @@
+{
+  "archive": "solution_v008.zip",
+  "bytes": 1839912,
+  "sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+  "members": [
+    {
+      "path": "agent_bundle.py",
+      "bytes": 2435397,
+      "sha256": "d74ff1eba675eaf6a0c724899438bad63033f8764184e967d41098cd2f0244bc"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 748,
+      "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+    },
+    {
+      "path": "solution.py",
+      "bytes": 607,
+      "sha256": "a7b7bb6a96b0fcb3d9989a509087c0ceaed1014e77e33ec6a74bd150b5041828"
+    }
+  ],
+  "source_match_checked": true,
+  "zip_and_syntax_valid": true,
+  "flat_layout_checked": true,
+  "archive_size_limit_bytes": 100000000,
+  "requirements": {
+    "filename": "requirements.txt",
+    "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+  },
+  "requirements_match_checked": true,
+  "platform_contract": "alpha-flat-2026-10-20",
+  "runtime_interface_checked": false,
+  "version": 8,
+  "version_tag": "v008",
+  "baseline": {
+    "filename": "baseline.py",
+    "sha256": "ecf66e8d7c054624eeca710c13e2b82c1ac22a03314db8a45ff1778fa16e372d"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "revision": 2,
+  "unit": "summed attempt minutes including startup, completion and stop",
+  "primary_stages": {
+    "S0": 20,
+    "S1": 30,
+    "S2_conditional": 20,
+    "S3_conditional": 120,
+    "overhead_reserve": 20
+  },
+  "primary_cap_minutes": 210,
+  "conditional_long_slot_minutes": 360,
+  "combined_cap_minutes": 570,
+  "hpo_attempts_max": 8,
+  "hpo_attempt_minutes_max": 3,
+  "replay_responses_max": 8,
+  "short_agent_attempts_max": 4,
+  "short_agent_minutes_max": 30,
+  "long_attempts_max": 2,
+  "long_attempt_minutes_max": 180,
+  "long_slot_note": "One QA long rehearsal OR one live variant series with eligible existing baseline. If both required and not already satisfied, stop with remaining requirement pending. No automatic fresh baseline or seed additions.",
+  "new_runs_performed": 0,
+  "runtime_edits": 0
+}

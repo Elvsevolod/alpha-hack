@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml31",
+  "method_id": "hard_case_ml31",
+  "version": 1,
+  "title": "Multilabel перепутан с multiclass",
+  "observations": "объект может иметь несколько меток одновременно; task требует несколько бинарных выходов, но модель делает один argmax.",
+  "hypothesis": "независимые бинарные модели как опора; внутренние пороги по меткам только при разрешённой форме выхода и достаточном support.",
+  "diagnostic": "форму таргета, macro/micro/sample усреднение, частоты меток и долю полностью нулевых строк; разбиение должно сохранять допустимое покрытие.",
+  "minimum_experiment": "независимые бинарные модели как опора; внутренние пороги по меткам только при разрешённой форме выхода и достаточном support.",
+  "acceptance": "размерность, порядок и домен каждой метки верны; оценка использует заданный способ усреднения без скрытого исключения редких выходов.",
+  "constraints": "сумма вероятностей по независимым меткам не обязана равняться единице. Корреляционные chains требуют внутреннего предотвращения leakage; готовый бинарный postprocessor не равен multilabel-пути.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "объект может иметь несколько меток одновременно; task требует несколько бинарных выходов, но модель делает один argmax."
+  ],
+  "contraindications": [
+    "сумма вероятностей по независимым меткам не обязана равняться единице. Корреляционные chains требуют внутреннего предотвращения leakage; готовый бинарный postprocessor не равен multilabel-пути."
+  ],
+  "cost": "средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "guide_scikit-learn_multioutput_multilabel"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "multilabel"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/multiclass.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "multilabel",
+  "routing_priority": 0
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": 4,
+  "candidate": "dist/solution_v038.zip",
+  "archive_sha256": "632dcd8a6a621df20ea70427db1f8dfc9f7b393cecc5463510fef5eadd0b5911",
+  "bytes": 94716249,
+  "status": "final_preparation_complete_offline_technical_checks_passed",
+  "final_preparation_complete": true,
+  "known_implementation_errors_closed": true,
+  "known_errors_registry": "KNOWN_ERRORS_CLOSED_v038.json",
+  "checks": {
+    "full_project_suite": {
+      "passed": 423,
+      "warnings": 24,
+      "seconds": 448.42,
+      "log": "final_full_suite_v037.log",
+      "scope": "v037 source snapshot before final disk-reclaim adjustment; v038 change covered by final delta suite"
+    },
+    "final_delta_suite": {
+      "passed": 76,
+      "log": "final_v038_delta_suite.log",
+      "scope": "Current final v038 source including disk reclamation, last-node reserve, semantic rollback, physical source aliases, metrics and clustering"
+    },
+    "host_reporting_suite": {
+      "passed": 16,
+      "log": "final_host_reporting_regressions02.log",
+      "scope": "Current supervisor report reason field and short comparison; local mock API only"
+    },
+    "exact_archive_routes": {
+      "passed": 6,
+      "report": "final_v038_exact/exact/REPORT.json",
+      "network": "none"
+    },
+    "failed_request_offline_replay": {
+      "passed": true,
+      "report": "final_v038_control_replay/replay/REPORT.json",
+      "rows": 45312,
+      "actual_seconds": 5.250660702999994,
+      "slot_seconds": 90,
+      "scope": "Different load from original live timeout; no entire-series acceptance claim"
+    },
+    "source_zip_equality": {
+      "passed": true,
+      "report": "final_v038_embedded_verification.json",
+      "embedded_sources": 52
+    },
+    "flat_zip_requirements_compile": {
+      "passed": true,
+      "report": "final_v038_zip_verification.json",
+      "members": 224
+    },
+    "known_secret_and_path_scan": {
+      "passed": true,
+      "report": "final_v038_secret_check.json"
+    },
+    "independent_audit": {
+      "passed": true,
+      "report": "INDEPENDENT_AUDIT_CLOSED_v038.json",
+      "substantial_unresolved_findings": 0
+    }
+  },
+  "test_counts_overlap": true,
+  "inherited_evidence": {
+    "base_acceptance": "ACCEPTANCE_v033.json",
+    "scope": "Previous exact archive entry/default-model and supervisor failure tests retained only for unchanged modules/settings. Final v038 exact routes and current delta tests listed separately. No old test relabelled as full v038 live run.",
+    "v034_to_v036": "SECTION4_STATUS.json; semantic_channel_v036_tests.log",
+    "final_delta": "final_v038_vs_v036.patch"
+  },
+  "A_live_acceptance": true,
+  "A_archive": "dist/solution_v028.zip",
+  "B_live_acceptance": false,
+  "B_archive": "dist/solution_v033.zip",
+  "B_failure": "regression control_preparation_failed; refit not_started; fit CSV",
+  "latest_archive_live_tested": false,
+  "full_plan_acceptance": false,
+  "quality_advantage_established": false,
+  "original_three_hour_acceptance": false,
+  "repeat_three_hour_waived_by_user": true,
+  "platform_submitted": false,
+  "platform_submission_authorized": false,
+  "paid_requests_during_final_preparation": 0,
+  "paid_budget": {
+    "authorized_total": 200,
+    "observed_interval_increase_all_series": 42.72924177210933,
+    "remaining_allocation_estimate": 157.27075822789067,
+    "last_known_provider_remaining": 505.64871634360645,
+    "last_snapshot": "live_B033_retry90_run02/api_limits_after.json",
+    "provider_accounting_complete": false,
+    "automatic_retries": false
+  },
+  "independent_audit_closed": true,
+  "goal_complete": false,
+  "limitation": "Code and final ZIP preparation complete; valid real A/B comparison and hidden-quality proof absent."
+}

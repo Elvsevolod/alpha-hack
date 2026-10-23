@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "date": "2026-10-22",
+  "cases": 60,
+  "sources": 47,
+  "case_ids_unique": true,
+  "required_fields_present": true,
+  "source_ids_resolved": true,
+  "local_links_resolved": true,
+  "paths": {
+    "ready": 17,
+    "mixed": 29,
+    "protocol": 4,
+    "custom": 10
+  },
+  "priorities": {
+    "P1": 37,
+    "P2": 23
+  },
+  "input_files_changed_since_snapshot": [],
+  "organizer_api_calls": 0,
+  "model_training_runs": 0,
+  "runtime_integration": "not_performed",
+  "quality_improvement": "not_measured",
+  "checks_scope": "Document structure, references and recorded source hashes; not runtime acceptance",
+  "synthetic_feedback_probes": "passed",
+  "registered_runtime_ids_added": 0
+}

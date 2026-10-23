@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml18",
+  "method_id": "hard_case_ml18",
+  "version": 1,
+  "title": "Сам факт отсутствия значения может быть информативен",
+  "observations": "поле заполняют для определённых типов объектов или после особой процедуры; например, рейтинг доступен не всем зданиям.",
+  "hypothesis": "простая импутация с индикатором против той же модели без индикатора; отдельно native NaN, если подходит семейству.",
+  "diagnostic": "изучить связь пропусков с разрешёнными признаками, периодом и внутренними ошибками на fit. Статистическое различие не устанавливает механизм MNAR.",
+  "minimum_experiment": "простая импутация с индикатором против той же модели без индикатора; отдельно native NaN, если подходит семейству.",
+  "acceptance": "индикатор стабильно улучшает целевую метрику на законных внутренних переходах; новые NaN после fit обрабатываются определённо.",
+  "constraints": "индикатор может кодировать источник сбора и потерять переносимость; при смене процесса заполнения высокое внутреннее качество может не сохраниться.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "поле заполняют для определённых типов объектов или после особой процедуры; например, рейтинг доступен не всем зданиям."
+  ],
+  "contraindications": [
+    "индикатор может кодировать источник сбора и потерять переносимость; при смене процесса заполнения высокое внутреннее качество может не сохраниться."
+  ],
+  "cost": "низкая",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_impute_SimpleImputer"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "informative_missing"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.impute.MissingIndicator.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "informative_missing",
+  "routing_priority": 0
+}

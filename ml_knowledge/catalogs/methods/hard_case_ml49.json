@@ -1,0 +1,40 @@
+{
+  "id": "hard_case_ml49",
+  "method_id": "hard_case_ml49",
+  "version": 1,
+  "title": "Нужны взаимодействия, но полный перебор слишком велик",
+  "observations": "эффект признака зависит от типа объекта/масштаба; линейная опора не улавливает отношения трафика или погодных условий и назначения здания.",
+  "hypothesis": "ограниченный бустинг как опора для взаимодействий; отдельно небольшой физически обоснованный набор отношений/произведений в custom-transformer.",
+  "diagnostic": "найти небольшое число осмысленных взаимодействий на fit и проверить альтернативное объяснение; учитывать sample size редких комбинаций.",
+  "minimum_experiment": "ограниченный бустинг как опора для взаимодействий; отдельно небольшой физически обоснованный набор отношений/произведений в custom-transformer.",
+  "acceptance": "добавлена одна объяснимая группа, есть выигрыш или отказ по измеренной причине, схему можно повторить в frozen refit.",
+  "constraints": "полный полиномиальный перебор, бесконечные деления и таргетные агрегаты до split создают стоимость и переобучение. Статистики редкой комбинации требуют сглаживания.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "эффект признака зависит от типа объекта/масштаба; линейная опора не улавливает отношения трафика или погодных условий и назначения здания."
+  ],
+  "contraindications": [
+    "полный полиномиальный перебор, бесконечные деления и таргетные агрегаты до split создают стоимость и переобучение. Статистики редкой комбинации требуют сглаживания."
+  ],
+  "cost": "средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_catboost_CatBoostRegressor",
+    "api_lightgbm_LGBMRegressor",
+    "api_xgboost_XGBRegressor"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "interactions"
+  ],
+  "research_sources": [
+    "https://arxiv.org/abs/2207.08815",
+    "https://lightgbm.readthedocs.io/en/v4.6.0/Parameters-Tuning.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "interactions",
+  "routing_priority": 0
+}

@@ -1,0 +1,20 @@
+{
+  "version_tag": "v061",
+  "archive": "solution_v061.zip",
+  "sha256": "a910f49eb63682488e0eef484d0b81a64c37a2b6ff07b539ff018f4e51b9a91b",
+  "bytes": 95022194,
+  "base": "solution_v060.zip",
+  "status": "intermediate_offline_candidate_live_quality_unverified",
+  "technical_archive_checks_passed": true,
+  "clean_mock_control_refit_passed": true,
+  "clean_mock_cases_passed": 4,
+  "latest_archive_live_tested": false,
+  "quality_advantage_established": false,
+  "additional_paid_calls_allowed": false,
+  "paid_calls_this_cycle": 0,
+  "submitted_to_platform": false,
+  "accepted_pointer_unchanged": "LATEST.json",
+  "manifest": "solution_v061.manifest.json",
+  "acceptance": "solution_v061.acceptance.json",
+  "documentation": "../outputs/agent_quality_reaudit_20261023/v061_REPORT.md"
+}

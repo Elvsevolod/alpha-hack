@@ -1,0 +1,47 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "леса; бустинг; сплайны",
+  "applicability_rules": [],
+  "conditions": [
+    "Нужна быстрая опора, доступно числовое или разреженное представление."
+  ],
+  "constraints": "Масштабирование и словари обучать только на fit; objective согласовать с задачей.",
+  "contraindications": [
+    "Масштабирование и словари обучать только на fit; objective согласовать с задачей."
+  ],
+  "cost": "Низкая/средняя, зависит от ширины матрицы.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Ridge/Logistic с масштабированием",
+  "id": "linear",
+  "method_id": "linear",
+  "minimum_experiment": "Обучить Ridge или LogisticRegression с фиксированной регуляризацией и train-only scaler.",
+  "missing_references": [],
+  "observations": "Нужны быстрые модели и проверка линейного сигнала",
+  "references": [
+    "api_sklearn_linear_model_Ridge",
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_linear_model_Ridge",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_sklearn_linear_model_LogisticRegression",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "линейная",
+    "опора",
+    "/",
+    "linear",
+    "regularization"
+  ],
+  "title": "Линейная опора / linear regularization",
+  "version": 2
+}

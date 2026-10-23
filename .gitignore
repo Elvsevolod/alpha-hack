@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.agent_work/
+outputs/
+.DS_Store
+.env
+.env.*
+!.env.example
+.cache/
+
+# Local build products, caches, and duplicated verification artifacts
+/build/
+.pytest_cache/
+/ml_knowledge/releases/
+/ml_knowledge/verification/
+/ml_knowledge/sources/catboost/checkout/

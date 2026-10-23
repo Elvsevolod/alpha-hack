@@ -1,0 +1,566 @@
+{
+  "version_tag": "v016",
+  "archive": "solution_v016.zip",
+  "archive_sha256": "9a330e87ac02d4a680b9f1e674e275ed29dd4bc9a106c9bdb0f93c02e6c1e040",
+  "base_archive": "solution_v011.zip",
+  "base_archive_sha256": "f77d41bbf26c6b85d9e7a27281c55a5d7a0386084379f187b5c71f3a355716b7",
+  "bytes": 1894887,
+  "status": "compact_context_targeted_acceptance_passed",
+  "checks": {
+    "targeted_tests": {
+      "passed": 91,
+      "skipped": 1,
+      "seconds": 61.92,
+      "skip": "jsonschema absent locally; covered by exact environment"
+    },
+    "compressor_exact_environment": {
+      "passed": 67,
+      "skipped": 0,
+      "overlaps_targeted_tests": true
+    },
+    "clean_archive_launches": {
+      "passed": 3,
+      "total": 3,
+      "model_environment": [
+        "missing",
+        "empty",
+        "whitespace"
+      ],
+      "mock_api": true,
+      "tiny_fixture_control_and_refit": true
+    },
+    "dependency_policy": {
+      "passed": true,
+      "allowed_distributions": 37,
+      "new_third_party_dependencies": []
+    },
+    "source_binding": {
+      "archive_sha256": "9a330e87ac02d4a680b9f1e674e275ed29dd4bc9a106c9bdb0f93c02e6c1e040",
+      "embedded_files_checked": 414,
+      "runtime_files": 36,
+      "source_hashes": {
+        "automl_agent/__init__.py": "dde79fe7ab0e88fb72d388817fc94eebdcda0a55e1b0e39311b42873a1691426",
+        "automl_agent/api.py": "cabe45f7f4a2ce70d6cdd7489552218ee646d40fc1312956493c68f6aa3d77b1",
+        "automl_agent/budget.py": "3c73c20688a3bc90d5f1e548eb2400d92cafd315362719c4b6aa27fb10b60f43",
+        "automl_agent/capabilities.py": "a895759ef7fa255cbe70ca71d43a257a67f513e561b64dec4fa1659a0fefcb6b",
+        "automl_agent/cleanup.py": "18ff20b1054bd609d4afcc11d72cc4191023e44f68937a03faa5837d129a6f9f",
+        "automl_agent/compatibility.py": "007b6827fef4a2c9a93ba6801205c637a297c8eb1490bee4131dc1f0ed8fc179",
+        "automl_agent/completion.py": "fc156ab06f70cc4874c9beaabbbd0ba3c238d2cefe5e3f1d7a764bc2cf2e5260",
+        "automl_agent/context_memory.py": "04ece08e336ec8e7986c08a81ad11e59fc60d027820a15c26eeea5b88936147a",
+        "automl_agent/contracts.py": "334d5cfb39757463a2967a787ea339670742d632bc871c3c9c75e94b15fe6943",
+        "automl_agent/controller.py": "0c061da1335cd269a1b4b6bf3f61c57c6fd4a528ec24464febd9b024f7f63c5d",
+        "automl_agent/custom.py": "c694eea68cabe67633b9d0e04b25d17dd1bb3fe3b3e44a1215c412daf4e123de",
+        "automl_agent/data.py": "52f2424304884f9a36200be0b8102d46b1aee131e025205f2a74d959541f4329",
+        "automl_agent/dependency_policy.py": "65f6816f06534d9f21fae7489dcc877afcb30b87c937168da7a04035380e0b98",
+        "automl_agent/evaluation.py": "32128e2bd7a6c63f7bb2eb6c2efd4bcc27db2bfa36ce8073c361c9ed28214fdf",
+        "automl_agent/executor.py": "d131cda7bec982f360cd30bb0a84c20404455025e8c5cbdfa98f06d907af368d",
+        "automl_agent/feedback.py": "71763a28449cce1a3808188c3ab23923e058de4ae21832c954293f9cd8a384c9",
+        "automl_agent/forecasting.py": "3370a79e1ad5504ac811a1f28b431c1627e89a611d6c7a9b0a883ec3203992de",
+        "automl_agent/journal.py": "9379396b4831934c9568c4a106a35d9b7dba0a79e6eacf033ec8c48f2e8c08ad",
+        "automl_agent/pipelines.py": "673e7aa3b46b5cacaa049ba8aa4e96393af5c200458d460a32b18369ee0eb0f0",
+        "automl_agent/preprocessing.py": "50d67846bb1874f51eb11c537a7ffaf9a7ba22b0e3de89de74937ee107ff77d8",
+        "automl_agent/progress.py": "c45b75d0df59c2f26def417096b1b1a188f401bd9aa6af61ae731c7618105e78",
+        "automl_agent/protocol_revision.py": "711f678ba93786e18583636cb3d03a49719a54dee3837c7a413b01482c2fc77c",
+        "automl_agent/publication.py": "8eb5ca05690927b27363ce5b69e5e346c387a767e874fe807f904b50442f0e7c",
+        "automl_agent/qwen.py": "1e1772b48b07c16391ab3180021aed981d675d773114dd1680b7efae93a3ced6",
+        "automl_agent/references.py": "9bf012c5540b4f0797af581cb4508e9d1029147492945634e1514fd92e68453c",
+        "automl_agent/search.py": "3e3c27017f1b3ae31fc6f8514dfd2e369c7f194528215d9daac6caba3f072751",
+        "automl_agent/util.py": "03b4f0ea18d150ec59d866431679f5f909c46831907a477591a8879e1eb769a6",
+        "automl_agent/validation.py": "2584f6bf9c4a34621f6464ce1eeee7b2fc85e9cc20f799df3fc0c0f4c1f2169c",
+        "automl_agent/worker.py": "678c418c23d2aef7898c216547f331d77c71d648757f6eac1da9f77cd23766eb",
+        "automl_agent/worker_entry.py": "38f9b4285ce998fcf748e26a728631de543a9beeb3cffdf6052cb013a029238d",
+        "context_compressor/__init__.py": "65bab8ea3cd5b04d5971a868f74779159f62c850931afd56ed8507cf26ca56ed",
+        "context_compressor/contracts.py": "54545d866501d6557a9f25d9eeafc382c9915f167826f7d2fdaab4276c45bbf4",
+        "context_compressor/store.py": "39c20509c72d3ffdf5567a0238057100b390dfb462c38bec06abd55a991e2ec9",
+        "context_compressor/core.py": "fca58cd46d16ef18caf5ef032d4f436d3b3ba9731ba75a97d98167e73cbc210f",
+        "context_compressor/transport.py": "4bae59c948caf9c0679eab973170addc4ac4aea7aae334ed79a52bf26191ceca",
+        "context_compressor/assembler.py": "c9b0653121cb253d0be763f65c5d0580a12afab0c2a1d0efcc21919bea061575"
+      },
+      "all_working_and_verification_and_replayed_sources_match": true,
+      "all_v011_requests_exactly_match_previous_comparison": true,
+      "identical_frozen_histories": true
+    },
+    "protected_core_and_pending_observations_survive_all_four_stages": true
+  },
+  "full_request_prompt_tokens": {
+    "regression": {
+      "native": {
+        "v011": 42454,
+        "v016": 28015,
+        "saved": 14439,
+        "saved_percent": 34.01092947660998
+      },
+      "json": {
+        "v011": 31615,
+        "v016": 16471,
+        "saved": 15144,
+        "saved_percent": 47.90131266803733
+      }
+    },
+    "classification": {
+      "native": {
+        "v011": 32217,
+        "v016": 29336,
+        "saved": 2881,
+        "saved_percent": 8.9424837818543
+      },
+      "json": {
+        "v011": 26608,
+        "v016": 17792,
+        "saved": 8816,
+        "saved_percent": 33.13289236319904
+      }
+    },
+    "repeated_400": {
+      "native": {
+        "v011": 42874,
+        "v016": 29361,
+        "saved": 13513,
+        "saved_percent": 31.517936278397165
+      },
+      "json": {
+        "v011": 37265,
+        "v016": 21728,
+        "saved": 15537,
+        "saved_percent": 41.693277874681336
+      }
+    }
+  },
+  "live_fact_qa": {
+    "regression": {
+      "v011": {
+        "success": true,
+        "correct": 19,
+        "total": 20,
+        "checks": {
+          "kind": true,
+          "targets": true,
+          "id_columns": true,
+          "metric": true,
+          "maximize": true,
+          "prediction_type": true,
+          "validation_strategy": true,
+          "min_delta_abs": true,
+          "min_delta_rel": true,
+          "min_slice_rows": true,
+          "baseline_id": true,
+          "baseline_score": true,
+          "leader_id": true,
+          "leader_score": true,
+          "active_change": true,
+          "latest_id": true,
+          "latest_status": true,
+          "latest_error": true,
+          "old_failure": false,
+          "profile_detail": true
+        },
+        "usage": {
+          "completion_tokens": 1089,
+          "prompt_tokens": 27597,
+          "total_tokens": 28686,
+          "completion_tokens_details": {
+            "audio_tokens": 0,
+            "reasoning_tokens": 905,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 27392,
+            "video_tokens": 0,
+            "cache_write_tokens": 0,
+            "cache_creation_tokens": 0
+          },
+          "cost": 0.5634233718906
+        },
+        "seconds": 6.636731000002328
+      },
+      "v016": {
+        "success": true,
+        "correct": 0,
+        "total": 20,
+        "checks": {
+          "kind": false,
+          "targets": false,
+          "id_columns": false,
+          "metric": false,
+          "maximize": false,
+          "prediction_type": false,
+          "validation_strategy": false,
+          "min_delta_abs": false,
+          "min_delta_rel": false,
+          "min_slice_rows": false,
+          "baseline_id": false,
+          "baseline_score": false,
+          "leader_id": false,
+          "leader_score": false,
+          "active_change": false,
+          "latest_id": false,
+          "latest_status": false,
+          "latest_error": false,
+          "old_failure": false,
+          "profile_detail": false
+        },
+        "usage": {
+          "completion_tokens": 1781,
+          "prompt_tokens": 12261,
+          "total_tokens": 14042,
+          "completion_tokens_details": {
+            "audio_tokens": 0,
+            "reasoning_tokens": 1385,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0,
+            "video_tokens": 0,
+            "cache_write_tokens": 0,
+            "cache_creation_tokens": 0
+          },
+          "cost": 0.5326228913538
+        },
+        "seconds": 38.97380091699961
+      }
+    },
+    "classification": {
+      "v011": {
+        "success": true,
+        "correct": 20,
+        "total": 20,
+        "checks": {
+          "kind": true,
+          "targets": true,
+          "id_columns": true,
+          "metric": true,
+          "maximize": true,
+          "prediction_type": true,
+          "validation_strategy": true,
+          "min_delta_abs": true,
+          "min_delta_rel": true,
+          "min_slice_rows": true,
+          "baseline_id": true,
+          "baseline_score": true,
+          "leader_id": true,
+          "leader_score": true,
+          "active_change": true,
+          "latest_id": true,
+          "latest_status": true,
+          "latest_error": true,
+          "old_failure": true,
+          "profile_detail": true
+        },
+        "usage": {
+          "completion_tokens": 2651,
+          "prompt_tokens": 22594,
+          "total_tokens": 25245,
+          "completion_tokens_details": {
+            "audio_tokens": 0,
+            "reasoning_tokens": 2035,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0,
+            "video_tokens": 0,
+            "cache_write_tokens": 0,
+            "cache_creation_tokens": 0
+          },
+          "cost": 0.7543941095262
+        },
+        "seconds": 31.082705290999
+      },
+      "v016": {
+        "success": true,
+        "correct": 20,
+        "total": 20,
+        "checks": {
+          "kind": true,
+          "targets": true,
+          "id_columns": true,
+          "metric": true,
+          "maximize": true,
+          "prediction_type": true,
+          "validation_strategy": true,
+          "min_delta_abs": true,
+          "min_delta_rel": true,
+          "min_slice_rows": true,
+          "baseline_id": true,
+          "baseline_score": true,
+          "leader_id": true,
+          "leader_score": true,
+          "active_change": true,
+          "latest_id": true,
+          "latest_status": true,
+          "latest_error": true,
+          "old_failure": true,
+          "profile_detail": true
+        },
+        "usage": {
+          "completion_tokens": 1942,
+          "prompt_tokens": 13588,
+          "total_tokens": 15530,
+          "completion_tokens_details": {
+            "audio_tokens": 0,
+            "reasoning_tokens": 1462,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 0,
+            "video_tokens": 0,
+            "cache_write_tokens": 0,
+            "cache_creation_tokens": 0
+          },
+          "cost": 0.3410659704894
+        },
+        "seconds": 23.469846042000427
+      }
+    }
+  },
+  "semantic_qa_audit": {
+    "method": "Human-reviewed question-label matching; original strict scores and responses are unchanged. This is not a retry or a new Qwen call.",
+    "cases": {
+      "regression": {
+        "v011": {
+          "format_valid": true,
+          "strict_correct": 19,
+          "semantic_correct": 19,
+          "total": 20,
+          "question_key_mapping": {
+            "kind": "kind",
+            "targets": "targets",
+            "id_columns": "id_columns",
+            "metric": "metric",
+            "maximize": "maximize",
+            "prediction_type": "prediction_type",
+            "validation_strategy": "validation_strategy",
+            "min_delta_abs": "min_delta_abs",
+            "min_delta_rel": "min_delta_rel",
+            "min_slice_rows": "min_slice_rows",
+            "baseline_id": "baseline_id",
+            "baseline_score": "baseline_score",
+            "leader_id": "leader_id",
+            "leader_score": "leader_score",
+            "active_change": "active_change",
+            "latest_id": "latest_id",
+            "latest_status": "latest_status",
+            "latest_error": "latest_error",
+            "old_failure": "old_failure",
+            "profile_detail": "profile_detail"
+          },
+          "semantic_checks": {
+            "kind": true,
+            "targets": true,
+            "id_columns": true,
+            "metric": true,
+            "maximize": true,
+            "prediction_type": true,
+            "validation_strategy": true,
+            "min_delta_abs": true,
+            "min_delta_rel": true,
+            "min_slice_rows": true,
+            "baseline_id": true,
+            "baseline_score": true,
+            "leader_id": true,
+            "leader_score": true,
+            "active_change": true,
+            "latest_id": true,
+            "latest_status": true,
+            "latest_error": true,
+            "old_failure": false,
+            "profile_detail": true
+          },
+          "incorrect": {
+            "old_failure": {
+              "actual": "UNKNOWN",
+              "expected": "Unknown operation ID"
+            }
+          }
+        },
+        "v016": {
+          "format_valid": false,
+          "strict_correct": 0,
+          "semantic_correct": 20,
+          "total": 20,
+          "question_key_mapping": {
+            "kind": "Exact task kind.",
+            "targets": "Exact array of target column names.",
+            "id_columns": "Exact array of ID column names.",
+            "metric": "Primary metric name.",
+            "maximize": "Does the primary metric need to be maximized? Boolean.",
+            "prediction_type": "Exact output prediction type.",
+            "validation_strategy": "Confirmed outer validation strategy: random, group or temporal.",
+            "min_delta_abs": "Exact selection-policy min_delta_abs.",
+            "min_delta_rel": "Exact selection-policy min_delta_rel.",
+            "min_slice_rows": "Exact feedback-policy min_slice_rows.",
+            "baseline_id": "Controller baseline experiment ID.",
+            "baseline_score": "Baseline external validation score.",
+            "leader_id": "Controller research leader experiment ID.",
+            "leader_score": "Leader external validation score.",
+            "active_change": "Exact changed_component string from controller active_hypothesis, not from an unrelated earlier experiment.",
+            "latest_id": "Most recently completed or failed experiment ID in this history.",
+            "latest_status": "Saved status of that latest experiment.",
+            "latest_error": "Latest error.",
+            "old_failure": "Exact error of saved operation read_state_1.",
+            "profile_detail": "Exact count of new_test_category_rows for column State_Factor in the fit profile."
+          },
+          "semantic_checks": {
+            "kind": true,
+            "targets": true,
+            "id_columns": true,
+            "metric": true,
+            "maximize": true,
+            "prediction_type": true,
+            "validation_strategy": true,
+            "min_delta_abs": true,
+            "min_delta_rel": true,
+            "min_slice_rows": true,
+            "baseline_id": true,
+            "baseline_score": true,
+            "leader_id": true,
+            "leader_score": true,
+            "active_change": true,
+            "latest_id": true,
+            "latest_status": true,
+            "latest_error": true,
+            "old_failure": true,
+            "profile_detail": true
+          },
+          "incorrect": {}
+        }
+      },
+      "classification": {
+        "v011": {
+          "format_valid": true,
+          "strict_correct": 20,
+          "semantic_correct": 20,
+          "total": 20,
+          "question_key_mapping": {
+            "kind": "kind",
+            "targets": "targets",
+            "id_columns": "id_columns",
+            "metric": "metric",
+            "maximize": "maximize",
+            "prediction_type": "prediction_type",
+            "validation_strategy": "validation_strategy",
+            "min_delta_abs": "min_delta_abs",
+            "min_delta_rel": "min_delta_rel",
+            "min_slice_rows": "min_slice_rows",
+            "baseline_id": "baseline_id",
+            "baseline_score": "baseline_score",
+            "leader_id": "leader_id",
+            "leader_score": "leader_score",
+            "active_change": "active_change",
+            "latest_id": "latest_id",
+            "latest_status": "latest_status",
+            "latest_error": "latest_error",
+            "old_failure": "old_failure",
+            "profile_detail": "profile_detail"
+          },
+          "semantic_checks": {
+            "kind": true,
+            "targets": true,
+            "id_columns": true,
+            "metric": true,
+            "maximize": true,
+            "prediction_type": true,
+            "validation_strategy": true,
+            "min_delta_abs": true,
+            "min_delta_rel": true,
+            "min_slice_rows": true,
+            "baseline_id": true,
+            "baseline_score": true,
+            "leader_id": true,
+            "leader_score": true,
+            "active_change": true,
+            "latest_id": true,
+            "latest_status": true,
+            "latest_error": true,
+            "old_failure": true,
+            "profile_detail": true
+          },
+          "incorrect": {}
+        },
+        "v016": {
+          "format_valid": true,
+          "strict_correct": 20,
+          "semantic_correct": 20,
+          "total": 20,
+          "question_key_mapping": {
+            "kind": "kind",
+            "targets": "targets",
+            "id_columns": "id_columns",
+            "metric": "metric",
+            "maximize": "maximize",
+            "prediction_type": "prediction_type",
+            "validation_strategy": "validation_strategy",
+            "min_delta_abs": "min_delta_abs",
+            "min_delta_rel": "min_delta_rel",
+            "min_slice_rows": "min_slice_rows",
+            "baseline_id": "baseline_id",
+            "baseline_score": "baseline_score",
+            "leader_id": "leader_id",
+            "leader_score": "leader_score",
+            "active_change": "active_change",
+            "latest_id": "latest_id",
+            "latest_status": "latest_status",
+            "latest_error": "latest_error",
+            "old_failure": "old_failure",
+            "profile_detail": "profile_detail"
+          },
+          "semantic_checks": {
+            "kind": true,
+            "targets": true,
+            "id_columns": true,
+            "metric": true,
+            "maximize": true,
+            "prediction_type": true,
+            "validation_strategy": true,
+            "min_delta_abs": true,
+            "min_delta_rel": true,
+            "min_slice_rows": true,
+            "baseline_id": true,
+            "baseline_score": true,
+            "leader_id": true,
+            "leader_score": true,
+            "active_change": true,
+            "latest_id": true,
+            "latest_status": true,
+            "latest_error": true,
+            "old_failure": true,
+            "profile_detail": true
+          },
+          "incorrect": {}
+        }
+      }
+    }
+  },
+  "live_qa_all_answers_correct_and_valid": false,
+  "api_limits": {
+    "before": 472.3595448864168,
+    "after": 468.2766379707482,
+    "limit": 600.0,
+    "counter_increase": 4.082906915668616,
+    "interval_may_include_other_usage": true
+  },
+  "token_savings_established_on_frozen_histories": true,
+  "full_plan_acceptance": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "report": "../outputs/context_savings_v016/REPORT.md",
+  "evidence": {
+    "REPORT.json": "1ad10b036e81cb3476ba4c83db272c5fb87c94abf96d994a8f59e64d0999ed3e",
+    "REPORT.md": "a03327583b1db2f80f3289e29de3f9831c648dc93a07b06e075d5a4221755af3",
+    "LIVE_REPORT.json": "38094f9aff733a9fb7bc74f7882080623221129c3569f89367c44d48895490ce",
+    "RETENTION_AUDIT.json": "50a8be2432b7d832875507d15f5cd24ec3fa24dc4988ae207e223a8b5224ce80",
+    "MANIFEST.json": "3ed9a337744e5e02be4efe28cc4fc3efa783e6f49952a2aa1f96fe2800be0d80",
+    "SEMANTIC_QA_AUDIT.json": "6cbb9926b602ecc9e4e9c32d68418286e2f0fe7a52e94dfe5af29dfb2df2240c",
+    "source_binding.json": "ab82b02fdcd720b724db7fca8d04645f04ef4a7bdb946ff61eecb9cba6e7afa5",
+    "targeted_tests.log": "18e05af490cfbd05ccac5d3f7488117d2769f4912b6eed1bf002fa44162bc30a",
+    "compressor_exact.log": "98119c74d187a140bf1e088ddb9b49e7dbb4fd439e85ca2ecd466f33eb910fb4",
+    "clean_archive/REPORT.json": "2ad63f5217e7a08e5ce8a0b5d153cd7bf2453e61fb532646de3d7af81451fc3f",
+    "dependency_audit.json": "8a2f0be80b3a884ff244ce88017a34a137bcd47926b36577cf9f6246d5453aa5",
+    "package_check.json": "da6c316fa1b0c9878cc79a4b6f18aff16f74868688049c5f8c151f75e0a4d787",
+    "api_limits_before.json": "47a136a6416df311bacda5bf4ac71b0b6a4eaaa8f45655be06b6c51080f80374",
+    "api_limits_after.json": "10a28a8ad8b9aff6b9d7922784d3d4505e3743a30af0dcce64c64185d7d42ff3"
+  }
+}

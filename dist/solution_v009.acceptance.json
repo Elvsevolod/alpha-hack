@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "version_tag": "v009",
+  "status": "candidate_local_checks_passed_public_qwen_pending",
+  "checked_at": "2026-10-21T03:51:26.738249+00:00",
+  "archive": "dist/solution_v009.zip",
+  "archive_bytes": 1842540,
+  "archive_sha256": "b3dd73aa6c07a9451cc84c07a11c83091f66011abedf756dcd03d349c0e5037c",
+  "embedded_bundle_sha256": "79ea934cba28323c2b40b0a125c26ab399af622c9083fc097bebd86e97d071ba",
+  "static_manifest": {
+    "path": "dist/solution_v009.manifest.json",
+    "sha256": "6e28c04feb2702467928d4ccb4b87b0fec1d0bdd482d2c8850cc4f864ab06017"
+  },
+  "ready_for_platform_upload": false,
+  "submitted_to_platform": false,
+  "full_public_qwen_validation_completed": false,
+  "live_restarts_allowed": false,
+  "deferred_reason": "User requested fixes without restarting the full public Qwen runs.",
+  "fixes": [
+    "Removed default 1200-second LLM quota and the 12-candidate/32-call caps; kept explicit development limits and the shared wall-clock deadline.",
+    "Deferred premature finish in long research runs and retained a measured control/refit reserve.",
+    "Retained native tool calling after transient HTTP/connection/time-limit/truncation failures; retry with bounded backoff and supported recovery experiments.",
+    "Applied a short connect timeout, honored runner HTTP/HTTPS endpoints and proxy environment, adapted the output allocation after a truncated response.",
+    "Handled multiple native tool calls one operation at a time and compacted older research feedback for longer searches.",
+    "Normalized controller-owned CPU/device/seed parameters before estimator validation and duplicate-computation checks.",
+    "Selected a stronger generic tabular baseline with a fallback, clarified the generated-code contract, and recorded model errors and stopping reasons.",
+    "Published and recovered submission.csv with 0644 permissions while keeping internal files private."
+  ],
+  "checks": {
+    "technical_tests": {
+      "passed": 155,
+      "warnings": 23,
+      "log": "outputs/v009_development/final_host_tests.log",
+      "uses_mock_api": true
+    },
+    "packager_tests": {
+      "passed": 10,
+      "log": "outputs/v009_development/zip_tests.log"
+    },
+    "dependency_audit": {
+      "allowed_distributions": 37,
+      "direct_imports": 61,
+      "violations": 0,
+      "report": "outputs/dependency_audit.json"
+    },
+    "package": {
+      "archive": "solution_v009.zip",
+      "bytes": 1842540,
+      "sha256": "b3dd73aa6c07a9451cc84c07a11c83091f66011abedf756dcd03d349c0e5037c",
+      "members": [
+        {
+          "path": "agent_bundle.py",
+          "bytes": 2438629,
+          "sha256": "08d33a3579c318261007196c76fb3866ba4b5977a7fbd8ad47908c1574cfd01a"
+        },
+        {
+          "path": "requirements.txt",
+          "bytes": 748,
+          "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+        },
+        {
+          "path": "solution.py",
+          "bytes": 607,
+          "sha256": "a7b7bb6a96b0fcb3d9989a509087c0ceaed1014e77e33ec6a74bd150b5041828"
+        }
+      ],
+      "source_match_checked": true,
+      "zip_and_syntax_valid": true,
+      "flat_layout_checked": true,
+      "archive_size_limit_bytes": 100000000,
+      "requirements": {
+        "filename": "requirements.txt",
+        "sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+      },
+      "requirements_match_checked": true,
+      "platform_contract": "alpha-flat-2026-10-20",
+      "runtime_interface_checked": false
+    },
+    "hygiene": {
+      "report": "outputs/v009_development/hygiene_final.json",
+      "embedded_files": 402,
+      "embedded_bundle_sha256": "79ea934cba28323c2b40b0a125c26ab399af622c9083fc097bebd86e97d071ba",
+      "embedded_sources_match_current_source": true,
+      "actual_credential_values_found_in_embedded_files": 0,
+      "files_with_personal_python_paths_or_legacy_provider": [],
+      "original_requirements_unchanged": true,
+      "v008_sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88"
+    },
+    "isolated_archive_launch": {
+      "passed": true,
+      "synthetic_cases_passed": 2,
+      "control_refit_completed": 2,
+      "entry_command": [
+        "python3",
+        "solution.py",
+        "task.md"
+      ],
+      "real_qwen_checked": false,
+      "network": "none",
+      "cpu": 1,
+      "container_memory_mb": 1536,
+      "exact_dependency_versions_checked": 37,
+      "official_platform_image": false,
+      "report": "outputs/v009_development/archive_smoke/REPORT.json"
+    }
+  },
+  "interrupted_diagnostic_live_attempt": {
+    "root": "outputs/public_live_v009_attempt01",
+    "payload_is_final_v009": false,
+    "completed": false,
+    "stopped_to_fix_transport_failure": true,
+    "not_restarted_after_user_request": true
+  },
+  "limits": {
+    "task_wall_seconds": 10500,
+    "external_platform_limit_seconds": 10800,
+    "max_candidates": null,
+    "max_model_calls": null,
+    "max_llm_seconds": null,
+    "minimum_finalization_reserve_seconds": 300,
+    "reserve_grows_with_measured_finalist_costs": true
+  },
+  "remaining_validation": [
+    "Full independent public regression and classification runs with Qwen on the final v009 payload."
+  ],
+  "known_evidence_limits": [
+    "Organizers confirmed that v008 generated predictions but its metrics did not beat the baseline. The raw platform metrics and baseline constants remain unavailable.",
+    "Short synthetic tests verify delivery and execution, not public/private prediction quality or full-duration Qwen behavior."
+  ],
+  "previous_archive": {
+    "path": "dist/solution_v008.zip",
+    "sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+    "unchanged": true
+  },
+  "production_diff": "outputs/v009_development/source_changes.diff",
+  "organizer_confirmation_for_v008": {
+    "received_date": "2026-10-21",
+    "source": "Official organizer response, relayed by the user in this chat",
+    "archive": "dist/solution_v008.zip",
+    "archive_sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+    "original_text": "ваши предсказания сформировались, но значение метрик не перебило бейзлайн, поэтому, в соответствии с расчетом итогового публичного скора - вернулся 0",
+    "predictions_generated": true,
+    "zero_score_reason": "Prediction metrics did not beat the organizer baseline; the public scoring formula returned zero.",
+    "raw_metrics_and_baseline_constants_provided": false,
+    "interpretation": "Quality-based zero score; ZIP construction is not the cause identified by organizers. This does not certify every internal runtime behavior."
+  }
+}

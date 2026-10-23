@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/optuna/optuna/blob/v4.2.1/optuna/samplers/_tpe/sampler.py#L274",
+  "tag": "v4.2.1",
+  "excerpts": [
+    {
+      "start_line": 270,
+      "end_line": 280,
+      "text": "        consider_prior: bool = True,\n        prior_weight: float = 1.0,\n        consider_magic_clip: bool = True,\n        consider_endpoints: bool = False,\n        n_startup_trials: int = 10,\n        n_ei_candidates: int = 24,\n        gamma: Callable[[int], int] = default_gamma,\n        weights: Callable[[int], np.ndarray] = default_weights,\n        seed: int | None = None,\n        *,\n        multivariate: bool = False,"
+    },
+    {
+      "start_line": 388,
+      "end_line": 412,
+      "text": "\n        states = (TrialState.COMPLETE, TrialState.PRUNED)\n        trials = study._get_trials(deepcopy=False, states=states, use_cache=True)\n        # If the number of samples is insufficient, we run random trial.\n        if len(trials) < self._n_startup_trials:\n            return {}\n\n        return self._sample(study, trial, search_space)\n\n    def sample_independent(\n        self,\n        study: Study,\n        trial: FrozenTrial,\n        param_name: str,\n        param_distribution: BaseDistribution,\n    ) -> Any:\n        states = (TrialState.COMPLETE, TrialState.PRUNED)\n        trials = study._get_trials(deepcopy=False, states=states, use_cache=True)\n\n        # If the number of samples is insufficient, we run random trial.\n        if len(trials) < self._n_startup_trials:\n            return self._random_sampler.sample_independent(\n                study, trial, param_name, param_distribution\n            )\n"
+    }
+  ],
+  "local_evidence": {
+    "pipeline_default_trials": "automl_agent/contracts.py:216",
+    "sampler_creation": "automl_agent/search.py:258",
+    "fresh_study_per_call": true,
+    "completed_real_v024_optuna_trials_from_saved_report": 74
+  },
+  "conclusion": "An ordinary tune call using default n_trials=8 does not reach the adaptive stage with TPESampler default n_startup_trials=10. This does not imply all historical tune calls used defaults."
+}

@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "регрессия релевантности",
+  "applicability_rules": [],
+  "conditions": [
+    "Есть идентификатор запроса, релевантности и фиксированный k."
+  ],
+  "constraints": "Не делить запрос между folds; group sizes вычислять после сортировки; восстановить порядок строк.",
+  "contraindications": [
+    "Не делить запрос между folds; group sizes вычислять после сортировки; восстановить порядок строк."
+  ],
+  "cost": "Средняя; зависит от числа документов и деревьев.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "LGBMRanker с группами и NDCG/MAP@k",
+  "id": "ranking",
+  "method_id": "ranking",
+  "minimum_experiment": "Fit LGBMRanker с целыми группами; проверить NDCG и соответствие ключей.",
+  "missing_references": [],
+  "observations": "Даны запросы и релевантности",
+  "references": [
+    "api_lightgbm_LGBMRanker"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_lightgbm_LGBMRanker",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "ранжирование",
+    "/",
+    "learning",
+    "to",
+    "rank"
+  ],
+  "title": "Ранжирование / learning to rank",
+  "version": 2
+}

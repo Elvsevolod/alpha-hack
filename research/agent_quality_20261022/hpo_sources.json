@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-22",
+  "sources": [
+    {
+      "id": "H01",
+      "title": "Optuna TPESampler 4.2.1",
+      "url": "https://optuna.readthedocs.io/en/v4.2.1/reference/samplers/generated/optuna.samplers.TPESampler.html",
+      "evidence": "n_startup_trials=10; initial independent samples are random",
+      "limit": "Reducing startup does not guarantee improved ML quality"
+    },
+    {
+      "id": "H02",
+      "title": "Optuna GridSampler 4.2.1",
+      "url": "https://optuna.readthedocs.io/en/v4.2.1/reference/samplers/generated/optuna.samplers.GridSampler.html",
+      "evidence": "Finite Cartesian grid enumeration; grid values are not automatically quantized",
+      "limit": "Grid is not automatically more efficient than TPE/random"
+    },
+    {
+      "id": "H03",
+      "title": "scikit-learn 1.5.2 hyperparameter search",
+      "url": "https://scikit-learn.org/1.5/modules/grid_search.html",
+      "evidence": "Grid/random search; fit and evaluation structure",
+      "limit": "Use explicit temporal/group splits instead of default random CV"
+    },
+    {
+      "id": "H04",
+      "title": "Optuna TPE source pinned v4.2.1",
+      "url": "https://github.com/optuna/optuna/blob/v4.2.1/optuna/samplers/_tpe/sampler.py#L274",
+      "evidence": "Default startup 10 and random path at lines 408-411",
+      "limit": "Newer releases need independent checks"
+    },
+    {
+      "id": "H05",
+      "title": "FLAML economical optimization",
+      "url": "https://microsoft.github.io/FLAML/docs/Use-Cases/Tune-User-Defined-Function/",
+      "evidence": "CFO and cost-related hyperparameters",
+      "limit": "Current actual adapter selection is established by local code, not doc defaults"
+    }
+  ]
+}

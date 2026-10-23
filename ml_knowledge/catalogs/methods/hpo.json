@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "смена представления; другой алгоритм",
+  "applicability_rules": [],
+  "conditions": [
+    "Выбрано семейство и определено корректное условное пространство."
+  ],
+  "constraints": "Нельзя оборачивать AutoML вторым HPO; внешний контроль не участвует в выборе.",
+  "contraindications": [
+    "Нельзя оборачивать AutoML вторым HPO; внешний контроль не участвует в выборе."
+  ],
+  "cost": "Количество trials × полный fit preprocessing/model.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Ограниченное условное пространство на внутреннем fit",
+  "id": "hpo",
+  "method_id": "hpo",
+  "minimum_experiment": "Два последовательных trial Optuna на внутреннем fit с timeout и seed.",
+  "missing_references": [],
+  "observations": "Выбрано перспективное семейство",
+  "references": [
+    "api_optuna_study_Study"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_optuna_study_Study",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "настройка",
+    "семейства",
+    "/",
+    "sequential",
+    "optuna"
+  ],
+  "title": "Настройка семейства / sequential Optuna",
+  "version": 2
+}

@@ -1,0 +1,36 @@
+test_application_requires_controller_evidence (test_module.MemoryContextTests.test_application_requires_controller_evidence) ... ok
+test_compressor_loss_is_blocked (test_module.MemoryContextTests.test_compressor_loss_is_blocked) ... ok
+test_dependency_contract (test_module.MemoryContextTests.test_dependency_contract) ... ok
+test_fact_not_invalidated_by_pipeline_only (test_module.MemoryContextTests.test_fact_not_invalidated_by_pipeline_only) ... ok
+test_hidden_labels_not_accepted_by_selector (test_module.MemoryContextTests.test_hidden_labels_not_accepted_by_selector) ... ok
+test_hypothesis_never_becomes_fact (test_module.MemoryContextTests.test_hypothesis_never_becomes_fact) ... ok
+test_oversized_critical_material_not_shortened (test_module.MemoryContextTests.test_oversized_critical_material_not_shortened) ... ok
+test_restart_keeps_substantive_constraint (test_module.MemoryContextTests.test_restart_keeps_substantive_constraint) ... ok
+test_sufficiency_and_or_after_transport (test_module.MemoryContextTests.test_sufficiency_and_or_after_transport) ... ok
+test_timeout_is_not_quality_evidence (test_module.MemoryContextTests.test_timeout_is_not_quality_evidence) ... ok
+test_validation_change_stales_recommendation (test_module.MemoryContextTests.test_validation_change_stales_recommendation) ... ok
+test_include_resolves_and_reports_missing (test_module.NormalizationTests.test_include_resolves_and_reports_missing) ... ok
+test_include_traversal_not_read (test_module.NormalizationTests.test_include_traversal_not_read) ... ok
+test_literalinclude_line_selection (test_module.NormalizationTests.test_literalinclude_line_selection) ... ok
+test_ambiguous_symbol (test_module.ReferenceTests.test_ambiguous_symbol) ... ok
+test_budget_includes_every_character (test_module.ReferenceTests.test_budget_includes_every_character) ... ok
+test_continuation_reconstructs_unicode_document (test_module.ReferenceTests.test_continuation_reconstructs_unicode_document) ... ok
+test_corrupt_corpus_disabled (test_module.ReferenceTests.test_corrupt_corpus_disabled) ... ok
+test_cursor_all_bindings (test_module.ReferenceTests.test_cursor_all_bindings) ... ok
+test_cursor_size_limit_can_change (test_module.ReferenceTests.test_cursor_size_limit_can_change) ... ok
+test_filter_precedes_limit (test_module.ReferenceTests.test_filter_precedes_limit) ... ok
+test_incompatible_method (test_module.ReferenceTests.test_incompatible_method) ... ok
+test_lossless_chunks (test_module.ReferenceTests.test_lossless_chunks) ... ok
+test_negative_all_modes (test_module.ReferenceTests.test_negative_all_modes) ... ok
+test_numeric_and_tampered_cursors_rejected (test_module.ReferenceTests.test_numeric_and_tampered_cursors_rejected) ... ok
+test_reproducible_clean_builds (test_module.ReferenceTests.test_reproducible_clean_builds) ... ok
+test_search_internal_fields_not_exposed (test_module.ReferenceTests.test_search_internal_fields_not_exposed) ... ok
+test_tail_is_indexed_in_fts_and_fallback (test_module.ReferenceTests.test_tail_is_indexed_in_fts_and_fallback) ... ok
+test_unknown_applicability_stays_unknown (test_module.ReferenceTests.test_unknown_applicability_stays_unknown) ... ok
+test_versioned_alias_is_preserved (test_module.ReferenceTests.test_versioned_alias_is_preserved) ... ok
+test_wrong_version (test_module.ReferenceTests.test_wrong_version) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.132s
+
+OK

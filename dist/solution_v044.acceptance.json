@@ -1,0 +1,179 @@
+{
+  "archive": "solution_v044.zip",
+  "archive_sha256": "c1b2ea301c0906bd08992ef77669b07d769531381b34115603ba231d17186275",
+  "status": "experimental_json_transport_candidate",
+  "runtime_changes": [
+    "automl_agent/qwen.py",
+    "context_compressor/transport.py"
+  ],
+  "offline_tests": {
+    "passed": 51,
+    "failed": 0,
+    "seconds": 93.91
+  },
+  "exact_container_entry": {
+    "archive_sha256": "c1b2ea301c0906bd08992ef77669b07d769531381b34115603ba231d17186275",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "independent_review": {
+    "findings": [],
+    "additional_tests": 3,
+    "wire_bytes_and_prepared_audit_match": true,
+    "native_tool_contract_preserved": true,
+    "response_format_extras_override_blocked": true,
+    "reasoning_not_used_as_final_content": true
+  },
+  "live_probe": {
+    "http_status": 200,
+    "final_content_chars": 3506,
+    "contract_valid": false,
+    "rejection": "Missing id in proposed output columns",
+    "seconds": 13.9165,
+    "billed_counter_increase": 0.8387943248984016
+  },
+  "full_quality_validation_complete": false,
+  "quality_advantage_established": false,
+  "default_seconds": 10800,
+  "live_pair": "../outputs/quality_goal_20261023/json_v044_30m/REPORT.json",
+  "submitted_to_platform": false,
+  "candidate_pointer_not_promoted": true,
+  "live_tested": true,
+  "live_completed": false,
+  "live_outcome": {
+    "upstream_outcome_unknown": true,
+    "gate_reason": "upstream_outcome_unknown",
+    "both_tasks_stopped_before_training": true,
+    "valid_csvs": 0
+  },
+  "promotion": "held_after_live_failure"
+}

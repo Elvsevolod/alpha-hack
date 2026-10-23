@@ -1,0 +1,49 @@
+{
+  "revision": 3,
+  "status": "Plan completely rewritten; documentation checks only",
+  "active_blocks": [
+    "C1",
+    "C2",
+    "C3"
+  ],
+  "legacy_catalogue_items": 46,
+  "catalogue_archived": "research/agent_quality_20261022/archive/before_plan_rewrite_v3/План_повышения_качества_агента.md",
+  "archive_index_lines_valid": true,
+  "links_valid": true,
+  "budget_arithmetic_valid": true,
+  "short_cycle_hours_cap": 3.5,
+  "conditional_long_slot_hours_cap": 6,
+  "total_hours_cap": 9.5,
+  "old_plan_bytes": 120090,
+  "new_plan_bytes": 27615,
+  "size_reduction_percent": 77.0,
+  "protected_files_checked": 312,
+  "changed_protected_files": [],
+  "runtime_edits_by_this_task": 0,
+  "new_training_runs": 0,
+  "qwen_calls": 0,
+  "qa_plan_edited": false,
+  "ml_report_edited": false,
+  "documents": [
+    {
+      "path": "План_повышения_качества_агента.md",
+      "bytes": 27615,
+      "sha256": "ae0041379e66391a0a5a6d3248116763770b07588ab844bddd32e3dad7d19b52"
+    },
+    {
+      "path": "Исследование_качества_агентных_систем.md",
+      "bytes": 47966,
+      "sha256": "4c234408925fc23fba8d3bfed8423d62638480e564a7c021edcebb5aba949466"
+    },
+    {
+      "path": "research/agent_quality_20261022/CRITICAL_REVIEW.md",
+      "bytes": 18310,
+      "sha256": "57136d2b083f68b8dbc99221c9769428ab19c724d1b9929a422497d79dfa92a5"
+    },
+    {
+      "path": "research/agent_quality_20261022/EXPERIMENTS.md",
+      "bytes": 23799,
+      "sha256": "67b7c7866a211efc43176cc7264b70395ca4f7c309d0a79173800cb7c5c8a6f4"
+    }
+  ]
+}

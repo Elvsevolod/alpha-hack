@@ -1,0 +1,327 @@
+{
+  "status": "Planned only; no implementation or efficacy experiment performed",
+  "ideas": [
+    {
+      "id": "TM01",
+      "title": "Учитывать финализацию нового кандидата до его допуска — P0",
+      "line": 24,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM02",
+      "title": "Калибровать прогноз фаз вместо одной линейной оценки — P0",
+      "line": 34,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM03",
+      "title": "Сделать резерв full refit недоступным подготовке контроля — P0",
+      "line": 44,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM04",
+      "title": "Проверить минимальную страховку времени и запрет позднего Qwen — P1",
+      "line": 54,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM05",
+      "title": "Перераспределять время между LLM, чтением и обучением — P1",
+      "line": 64,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM06",
+      "title": "Разрешить обоснованное раннее завершение — P1, владелец Б",
+      "line": 74,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM07",
+      "title": "Отделить бюджет поиска параметров от выбранного fit и публикации — P1",
+      "line": 84,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "TM08",
+      "title": "Привязывать прогноз времени к фактическим ресурсам — P1",
+      "line": 94,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP01",
+      "title": "Устранить несогласованность короткого HPO и старта TPE — P1",
+      "line": 106,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP02",
+      "title": "Добавить малый Grid Search и Random Search как явные альтернативы — P2",
+      "line": 116,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP03",
+      "title": "Продолжать совместимый study вместо повторного случайного старта — P1",
+      "line": 124,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP04",
+      "title": "Не начинать trial, который лишает выбранную модель завершающего fit — P0/P1",
+      "line": 134,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP05",
+      "title": "Проверить пространства поиска и сильную стартовую конфигурацию — P1",
+      "line": 144,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP06",
+      "title": "Различать AutoML-выбор семейства и полноценный HPO AutoGluon — P2",
+      "line": 152,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP07",
+      "title": "Проверить multi-fidelity и pruning, не используя пилот совместимости как score — P2",
+      "line": 162,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "HP08",
+      "title": "Подтверждать HPO-победителя на устойчивость — P1, зависит от Б",
+      "line": 170,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ01",
+      "title": "Создать измерительный набор решений и сквозных задач — P0",
+      "line": 182,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ02",
+      "title": "Подключить компактную методическую политику — P1",
+      "line": 190,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ03",
+      "title": "Подбирать знания по метрике, симптому и активной гипотезе — P1",
+      "line": 198,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ04",
+      "title": "Автоматически возвращать парную карточку эксперимента — P1",
+      "line": 208,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ05",
+      "title": "Закрывать гипотезу проверенным исходом — P1",
+      "line": 216,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ06",
+      "title": "Сократить информационные переходы без скрытого планировщика — P1",
+      "line": 224,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ07",
+      "title": "Делать ошибку инструмента достаточной для следующего корректного действия — P1",
+      "line": 232,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ08",
+      "title": "Проверять фактическое изменение относительно родителя — P1",
+      "line": 240,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ09",
+      "title": "Редактировать компонент custom-кода вместо полного переписывания — P2",
+      "line": 248,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ10",
+      "title": "Расширить preflight до проверки candidate interface — P1",
+      "line": 256,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ11",
+      "title": "Менять стратегию ремонта по сигнатуре ошибки и стоимости — P2",
+      "line": 264,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ12",
+      "title": "Давать диагностику причин ошибки на внутреннем fit — P1",
+      "line": 272,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ13",
+      "title": "Проверять переносимость решения на нескольких внутренних срезах — P1, владелец Б",
+      "line": 280,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ14",
+      "title": "Сохранять несколько разных финалистов — P1, владелец Б",
+      "line": 288,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ15",
+      "title": "Проверить небольшой портфель исходных решений — P2",
+      "line": 296,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ16",
+      "title": "Использовать целевые абляции компонентов — P2",
+      "line": 304,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ17",
+      "title": "Держать короткий список будущих гипотез — P2",
+      "line": 312,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ18",
+      "title": "Проверить простую политику выбора ветки — P2",
+      "line": 320,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ19",
+      "title": "Проверить beam/MCTS только после улучшения операторов — P3",
+      "line": 328,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ20",
+      "title": "Сделать память сравнительной и локальной к ветке — P2",
+      "line": 336,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ21",
+      "title": "Проверять достаточность контекста для решения — P1",
+      "line": 344,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ22",
+      "title": "Калибровать medium/xhigh по цене и качеству шага — P2",
+      "line": 352,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ23",
+      "title": "Включать критика по риску, с проверяемым вердиктом — P3",
+      "line": 362,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ24",
+      "title": "Разделить проектирование и написание сложного кода — P3",
+      "line": 370,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ25",
+      "title": "Строить ансамбль по совместимости и дополнительной информации — P2",
+      "line": 378,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ26",
+      "title": "Переносить удачный компонент между ветками — P3",
+      "line": 386,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ27",
+      "title": "Проверить несколько независимых начал при одном общем бюджете — P3",
+      "line": 394,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ28",
+      "title": "Оптимизировать методические инструкции вне конкурсного запуска — P3",
+      "line": 402,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ29",
+      "title": "Проверять использование доступной информации и действительность метода — P2",
+      "line": 410,
+      "has_checks": true,
+      "has_benefit_test": true
+    },
+    {
+      "id": "AQ30",
+      "title": "Проверить пользу ролевой команды только как отдельную дорогую гипотезу — P3",
+      "line": 418,
+      "has_checks": true,
+      "has_benefit_test": true
+    }
+  ]
+}

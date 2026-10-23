@@ -1,0 +1,43 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "случайное разбиение только для независимых строк",
+  "applicability_rules": [],
+  "conditions": [
+    "Проверяем перенос с прошлого на будущие периоды."
+  ],
+  "constraints": "Случайная перестановка строк и будущие значения в fit недопустимы.",
+  "contraindications": [
+    "Случайная перестановка строк и будущие значения в fit недопустимы."
+  ],
+  "cost": "Средняя: несколько последовательных fit; резерв на границы периодов.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверять на следующих целых периодах",
+  "id": "period_transfer",
+  "method_id": "period_transfer",
+  "minimum_experiment": "Один причинный holdout; проверить max(time_fit) < min(time_validation).",
+  "missing_references": [],
+  "observations": "Все периоды test идут после train",
+  "references": [
+    "api_sklearn_model_selection_TimeSeriesSplit"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_model_selection_TimeSeriesSplit",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "перенос",
+    "на",
+    "следующий",
+    "период",
+    "/",
+    "temporal",
+    "validation"
+  ],
+  "title": "Перенос на следующий период / temporal validation",
+  "version": 2
+}

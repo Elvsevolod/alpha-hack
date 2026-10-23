@@ -1,0 +1,18 @@
+{
+  "scope": "Synthetic, no real task labels, no training; current feedback_reports with MetricSpec and FeedbackPolicy",
+  "class_slice_semantics": {
+    "actual_class_A_f1": 0.8,
+    "reported_true_A_slice_score": 1.0,
+    "status": "confirmed_distinct_semantics"
+  },
+  "small_class_family_suppression": {
+    "scope": "external_validation",
+    "data_version": "synthetic",
+    "protocol_hash": "synthetic-protocol",
+    "policy_hash": "21f68490d3f4c44f1915ea73729e8d936e20cbed2efa13debba5af7290781f3a",
+    "report_id": "classes",
+    "status": "suppressed",
+    "reason": "minimum_support_or_complementary_disclosure"
+  },
+  "conclusion": "Global primary Macro F1 was not identified as faulty. Class-conditioned slice is not ordinary per-class F1; family suppression is a deliberate privacy rule."
+}

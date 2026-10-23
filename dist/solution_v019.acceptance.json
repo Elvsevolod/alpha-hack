@@ -1,0 +1,69 @@
+{
+  "schema": "alpha-knowledge-integration-acceptance-1",
+  "version_tag": "v019",
+  "archive": "solution_v019.zip",
+  "bytes": 94679680,
+  "sha256": "64e21229e270a616670484e4f62da44d3fdaf4a0a16124e8b8d385c9a2971cab",
+  "base_version": "v016",
+  "knowledge_release": "ml_knowledge_v003",
+  "knowledge_corpus": "a43e4842fb3899b2e61a1803204d6d1f25090679a63ed5f33f740efeab24979e",
+  "status": "knowledge_integration_targeted_acceptance_passed",
+  "full_plan_acceptance": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "real_qwen_calls": 0,
+  "token_savings_remeasured": false,
+  "checks": {
+    "linux_suite": {
+      "passed": 376,
+      "skipped": 1,
+      "report": "../outputs/knowledge_integration/linux_final_tests.log"
+    },
+    "skipped_schema_test_in_exact_environment": {
+      "passed": true,
+      "report": "../outputs/knowledge_integration/schema_exact.log"
+    },
+    "final_affected_tests": {
+      "passed": 49,
+      "overlaps_linux_suite": true,
+      "report": "../outputs/knowledge_integration/final_affected_tests.log"
+    },
+    "exact_offline_scenarios": {
+      "passed": 12,
+      "total": 12,
+      "report": "../outputs/knowledge_integration/exact/REPORT.json"
+    },
+    "final_zip_clean_runs": {
+      "passed": 3,
+      "total": 3,
+      "mock_api_only": true,
+      "report": "../outputs/knowledge_integration/clean_archive_v019/REPORT.json"
+    },
+    "source_binding": {
+      "passed": true,
+      "report": "../outputs/knowledge_integration/BINDING_AUDIT.json"
+    },
+    "dependency_audit": {
+      "passed": true,
+      "report": "../outputs/knowledge_integration/DEPENDENCY_AUDIT.json"
+    }
+  },
+  "limitations": [
+    "Full corpus completeness is not established; 400 unresolved documentation expansions remain.",
+    "Historical packet sufficiency 32/40 is unchanged.",
+    "24-run comparative live acceptance was not run.",
+    "Real Qwen behavior, final request token savings and model quality gains are not established."
+  ],
+  "documentation": "../outputs/knowledge_integration/REVIEW_AND_TESTS.md",
+  "evidence_sha256": {
+    "outputs/knowledge_integration/REVIEW_AND_TESTS.md": "9c52587623a7ffb8a4825f8a6ae00d8d490da29eeb8a13021d584fdc2d484ddd",
+    "outputs/knowledge_integration/BINDING_AUDIT.json": "107ea28b8b71aba3ad8f7875874f0ebd5e517dab3573dfe905bb276a0df60db9",
+    "outputs/knowledge_integration/source_binding.json": "085a2f4092e0e34e0a4f82a98980a11eaa5434e4dba3756fd0363f1d6b434804",
+    "outputs/knowledge_integration/DEPENDENCY_AUDIT.json": "8a2f0be80b3a884ff244ce88017a34a137bcd47926b36577cf9f6246d5453aa5",
+    "outputs/knowledge_integration/linux_final_tests.log": "cc98e8534d796c1de8ca34b35d02dd018418ca6bf07445b535b178a7362ec7f4",
+    "outputs/knowledge_integration/final_affected_tests.log": "95708c1a086e6ec08c44fd097dffc9c05772bb3efb90b43949c96f0baa95f45b",
+    "outputs/knowledge_integration/schema_exact.log": "c431d43a01a65896ea7e5cd2462b29ec9dba508d4d75eda4c3013ee81bd75b4e",
+    "outputs/knowledge_integration/clean_archive_v019/REPORT.json": "39a2740b000d0f4308af8d5cca1680429e4f98249c338c25acd4406bec76f7b9",
+    "outputs/knowledge_integration/exact/REPORT.json": "b2f6c6645f696fbc1fd6ecdb25a602b19e0ad96e111edd4455f07603961994dc"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "scope": "read-only retrieval probe; integrity verification deliberately omitted for this probe, not acceptance",
+  "queries": [
+    {
+      "query": "classification tabular random extra_trees",
+      "top_methods": [
+        "method:forest",
+        "method:refit",
+        "method:automl"
+      ]
+    },
+    {
+      "query": "classification class_imbalance macro f1 duplicate conflicting labels",
+      "top_methods": [
+        "method:rare_classes",
+        "method:threshold",
+        "method:task_contract"
+      ]
+    },
+    {
+      "query": "regression missing temporal extra_trees",
+      "top_methods": [
+        "method:period_transfer",
+        "method:native_nan",
+        "method:forest"
+      ]
+    },
+    {
+      "query": "covariate shift duplicate label noise temporal group",
+      "top_methods": [
+        "method:period_transfer",
+        "method:group_transfer",
+        "method:ranking"
+      ]
+    }
+  ]
+}

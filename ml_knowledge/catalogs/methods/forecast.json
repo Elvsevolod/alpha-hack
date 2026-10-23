@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "календарные признаки; сезонный наивный прогноз",
+  "applicability_rules": [],
+  "conditions": [
+    "Подтверждены время, горизонт и идентификатор ряда."
+  ],
+  "constraints": "Не использовать будущий target или лаги соседнего ряда; коротким рядам нужен fallback.",
+  "contraindications": [
+    "Не использовать будущий target или лаги соседнего ряда; коротким рядам нужен fallback."
+  ],
+  "cost": "Средняя/высокая по числу рядов и горизонтам.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Наивная опора, причинные лаги, statsmodels",
+  "id": "forecast",
+  "method_id": "forecast",
+  "minimum_experiment": "Причинный naive baseline и один SARIMAX на временном holdout.",
+  "missing_references": [],
+  "observations": "Есть время, горизонт и независимые ряды",
+  "references": [
+    "api_statsmodels_tsa_statespace_sarimax_SARIMAX"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_statsmodels_tsa_statespace_sarimax_SARIMAX",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "прогноз",
+    "/",
+    "causal",
+    "lag",
+    "features"
+  ],
+  "title": "Прогноз / causal lag features",
+  "version": 2
+}

@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml12",
+  "method_id": "hard_case_ml12",
+  "version": 1,
+  "title": "Изменились доли классов",
+  "observations": "меняется частота предсказываемых классов между периодами или источниками при относительно устойчивых признаках внутри класса.",
+  "hypothesis": "симулировать сдвиг prior внутри fit и сравнить обычное правило с регуляризованной коррекцией; после выбора заморозить правило.",
+  "diagnostic": "на размеченных частях fit проверить устойчивость `p(x|y)`, обусловленность confusion matrix и изменчивость по периодам. Частоты argmax на test не равны частотам истинных меток.",
+  "minimum_experiment": "симулировать сдвиг prior внутри fit и сравнить обычное правило с регуляризованной коррекцией; после выбора заморозить правило.",
+  "acceptance": "допущения, устойчивость и цена ошибки коррекции документированы; внешние доли классов не угадываются по публичному оригиналу данных.",
+  "constraints": "BBSE не решает произвольный concept drift. Оценка поправки на test требует отдельного разрешённого контракта и сейчас не входит в fit-only обучение.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "меняется частота предсказываемых классов между периодами или источниками при относительно устойчивых признаках внутри класса."
+  ],
+  "contraindications": [
+    "BBSE не решает произвольный concept drift. Оценка поправки на test требует отдельного разрешённого контракта и сейчас не входит в fit-only обучение."
+  ],
+  "cost": "средняя",
+  "implementation_path": "custom",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "label_shift"
+  ],
+  "research_sources": [
+    "https://proceedings.mlr.press/v80/lipton18a.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "label_shift",
+  "routing_priority": 0
+}

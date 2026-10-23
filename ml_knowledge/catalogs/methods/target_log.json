@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "исходная шкала и устойчивый objective",
+  "applicability_rules": [],
+  "conditions": [
+    "Область таргета допускает log1p и обратное преобразование."
+  ],
+  "constraints": "Основную метрику считать в исходной шкале; отрицательные/неопределённые значения проверять.",
+  "contraindications": [
+    "Основную метрику считать в исходной шкале; отрицательные/неопределённые значения проверять."
+  ],
+  "cost": "Низкая добавочная стоимость.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить log1p с обратным преобразованием",
+  "id": "target_log",
+  "method_id": "target_log",
+  "minimum_experiment": "Сравнить исходный target и log1p при идентичной модели и split.",
+  "missing_references": [],
+  "observations": "Положительный таргет с тяжёлым хвостом",
+  "references": [
+    "api_sklearn_compose_TransformedTargetRegressor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_compose_TransformedTargetRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "логарифм",
+    "таргета",
+    "/",
+    "target",
+    "transform"
+  ],
+  "title": "Логарифм таргета / target transform",
+  "version": 2
+}

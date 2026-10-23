@@ -1,0 +1,1354 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="TabularPredictor.fit" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://auto.gluon.ai/api/autogluon.tabular.TabularPredictor.fit.html" />
+<meta property="og:site_name" content="AutoGluon" />
+<meta property="og:image" content="https://auto.gluon.ai/dev/_static/autogluon-logo.jpg" />
+<meta property="og:image:alt" content="AutoGluon Logo" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@autogluon">
+<meta property="og:title" content="AutoGluon: Fast and Accurate ML in 3 Lines of Code">
+<meta property="og:description" content="With just a few lines of code, you can train and deploy high-accuracy machine learning and deep learning models on image, text, time series, and tabular data.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XDS99SP0C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-6XDS99SP0C');
+    </script>
+    <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="TabularPredictor.fit_extra" href="autogluon.tabular.TabularPredictor.fit_extra.html" /><link rel="prev" title="TabularPredictor.features" href="autogluon.tabular.TabularPredictor.features.html" />
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>TabularPredictor.fit - AutoGluon 1.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a34711e1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">AutoGluon 1.3.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/autogluon.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/autogluon-w.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tabular/tabular-quick-start.html">Tabular Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal-quick-start.html">Multimodal Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/timeseries/forecasting-quick-start.html">Time Series Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/tabular/index.html">Tabular</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tabular</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-essentials.html">Essentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-indepth.html">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/how-it-works.html">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-feature-engineering.html">Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/tabular/tabular-multimodal.html">Tabular + Text + Images</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/tabular/advanced/index.html">Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-multilabel.html">Multilabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-kaggle.html">Kaggle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-gpu.html">GPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-metric.html">Custom Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-model.html">Custom Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-custom-model-advanced.html">Custom Models Advanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/tabular/advanced/tabular-deployment.html">Deployment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/multimodal/index.html">Multimodal</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Multimodal</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/index.html">Multimodal Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Multimodal Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/beginner_multimodal.html">AutoMM for Image + Text + Tabular - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal_ner.html">AutoMM for Entity Extraction with Text and Image - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/multimodal_prediction/multimodal_text_tabular.html">AutoMM for Text + Tabular - Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/index.html">Object Detection</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Object Detection</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/quick_start/index.html">Object Detection Quick Start</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Object Detection Quick Start</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/quick_start/quick_start_coco.html">AutoMM Detection - Quick Start on a Tiny COCO Format Dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/advanced/index.html">Object Detection Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Object Detection Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/advanced/finetune_coco.html">AutoMM Detection - Finetune on COCO Format Dataset with Customized Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/index.html">Object Detection Data Preparation</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Object Detection Data Preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/convert_data_to_coco_format.html">Convert Data to COCO Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_pothole.html">AutoMM Detection - Prepare Pothole Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_watercolor.html">AutoMM Detection - Prepare Watercolor Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_coco17.html">AutoMM Detection - Prepare COCO2017 Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/prepare_voc.html">AutoMM Detection - Prepare Pascal VOC Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/multimodal/object_detection/data_preparation/voc_to_coco.html">AutoMM Detection - Convert VOC Format Dataset to COCO Format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/image_prediction/index.html">Image Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Image Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_prediction/beginner_image_cls.html">AutoMM for Image Classification - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_prediction/clip_zeroshot.html">Zero-Shot Image Classification with CLIP</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/image_segmentation/index.html">Image Segmentation</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Image Segmentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/image_segmentation/beginner_semantic_seg.html">AutoMM for Semantic Segmentation - Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/text_prediction/index.html">Text Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Text Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/beginner_text.html">AutoMM for Text - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/ner.html">AutoMM for Named Entity Recognition - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/chinese_ner.html">AutoMM for Named Entity Recognition in Chinese - Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/text_prediction/multilingual_text.html">AutoMM for Text - Multilingual Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/document_prediction/index.html">Document Prediction</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Document Prediction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/document_prediction/document_classification.html">AutoMM for Scanned Document Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/document_prediction/pdf_classification.html">Classifying PDF Documents with AutoMM</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/index.html">Semantic Matching</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Semantic Matching</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/image2image_matching.html">Image-to-Image Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/image_text_matching.html">Image-Text Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/text2text_matching.html">Text-to-Text Semantic Matching with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/text_semantic_search.html">Text Semantic Search with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/semantic_matching/zero_shot_img_txt_matching.html">Image-Text Semantic Matching with AutoMM - Zero-Shot</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/index.html">Advanced Topics</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Advanced Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/problem_types_and_metrics.html">AutoMM Problem Types And Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/hyperparameter_optimization.html">Hyperparameter Optimization in AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/continuous_training.html">Continuous Training with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/customization.html">Customize AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/model_distillation.html">Knowledge Distillation in AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/efficient_finetuning_basic.html">Single GPU Billion-scale Model Training via Parameter-Efficient Finetuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/few_shot_learning.html">Few Shot Learning with AutoMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/focal_loss.html">Handling Class Imbalance with AutoMM - Focal Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/presets.html">AutoMM Presets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/multimodal/advanced_topics/tensorrt.html">Faster Prediction with TensorRT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/timeseries/index.html">Time Series</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of Time Series</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-quick-start.html">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-indepth.html">In Depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-chronos.html">Forecasting with Chronos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-model-zoo.html">Model Zoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/timeseries/forecasting-metrics.html">Metrics</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tutorials/timeseries/advanced/index.html">Advanced</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of Advanced</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/timeseries/advanced/forecasting-custom-model.html">Custom Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/cloud_fit_deploy/index.html">Cloud Training and Deployment</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of Cloud Training and Deployment</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/autogluon-cloud.html">AutoGluon Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/autopilot-autogluon.html">AutoGluon Tabular on SageMaker AutoPilot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/cloud-aws-lambda-deployment.html">Deploy AutoGluon Models on Serverless Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/cloud_fit_deploy/cloud-aws-sagemaker-train-deploy.html">Cloud Training and Deployment with Amazon SageMaker</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cheatsheet.html">Cheat Sheets</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://auto.gluon.ai/stable/versions.html">Versions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../whats_new/index.html">What's New</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of What's New</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.3.1.html">Version 1.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.3.0.html">Version 1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.2.0.html">Version 1.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.1.1.html">Version 1.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.1.0.html">Version 1.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v1.0.0.html">Version 1.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.3.html">Version 0.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.2.html">Version 0.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.1.html">Version 0.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.8.0.html">Version 0.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.7.0.html">Version 0.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.2.html">Version 0.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.1.html">Version 0.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.6.0.html">Version 0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.5.2.html">Version 0.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.5.1.html">Version 0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.3.html">Version 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.2.html">Version 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.1.html">Version 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new/v0.4.0.html">Version 0.4.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/autogluon/autogluon">GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tabular/tabular-faq.html">Tabular FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/multimodal/multimodal-faq.html">Multimodal FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/timeseries/forecasting-faq.html">Time Series FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="autogluon.tabular.TabularPredictor.html">TabularPredictor</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of TabularPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.calibrate_decision_threshold.html">TabularPredictor.calibrate_decision_threshold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.clone.html">TabularPredictor.clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.clone_for_deployment.html">TabularPredictor.clone_for_deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.compile.html">TabularPredictor.compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.delete_models.html">TabularPredictor.delete_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.disk_usage.html">TabularPredictor.disk_usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.disk_usage_per_file.html">TabularPredictor.disk_usage_per_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.distill.html">TabularPredictor.distill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.evaluate.html">TabularPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.evaluate_predictions.html">TabularPredictor.evaluate_predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.feature_importance.html">TabularPredictor.feature_importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.features.html">TabularPredictor.features</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">TabularPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_extra.html">TabularPredictor.fit_extra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_pseudolabel.html">TabularPredictor.fit_pseudolabel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_summary.html">TabularPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.fit_weighted_ensemble.html">TabularPredictor.fit_weighted_ensemble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.info.html">TabularPredictor.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.leaderboard.html">TabularPredictor.leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.learning_curves.html">TabularPredictor.learning_curves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load.html">TabularPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load_data_internal.html">TabularPredictor.load_data_internal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.load_log.html">TabularPredictor.load_log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_failures.html">TabularPredictor.model_failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_hyperparameters.html">TabularPredictor.model_hyperparameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_info.html">TabularPredictor.model_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_names.html">TabularPredictor.model_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.model_refit_map.html">TabularPredictor.model_refit_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.persist.html">TabularPredictor.persist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.plot_ensemble_model.html">TabularPredictor.plot_ensemble_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict.html">TabularPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_from_proba.html">TabularPredictor.predict_from_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_multi.html">TabularPredictor.predict_multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_oof.html">TabularPredictor.predict_oof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba.html">TabularPredictor.predict_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba_multi.html">TabularPredictor.predict_proba_multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.predict_proba_oof.html">TabularPredictor.predict_proba_oof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.refit_full.html">TabularPredictor.refit_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.save.html">TabularPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.save_space.html">TabularPredictor.save_space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.set_decision_threshold.html">TabularPredictor.set_decision_threshold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.set_model_best.html">TabularPredictor.set_model_best</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.simulation_artifact.html">TabularPredictor.simulation_artifact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.transform_features.html">TabularPredictor.transform_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.transform_labels.html">TabularPredictor.transform_labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.tabular.TabularPredictor.unpersist.html">TabularPredictor.unpersist</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.core.TabularDataset.html">TabularDataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.tabular.models.html">Tabular Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.html">MultiModalPredictor</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of MultiModalPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.dump_model.html">MultiModalPredictor.dump_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.evaluate.html">MultiModalPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.export_onnx.html">MultiModalPredictor.export_onnx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.extract_embedding.html">MultiModalPredictor.extract_embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.fit.html">MultiModalPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.fit_summary.html">MultiModalPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.get_num_gpus.html">MultiModalPredictor.get_num_gpus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.list_supported_models.html">MultiModalPredictor.list_supported_models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.load.html">MultiModalPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.optimize_for_inference.html">MultiModalPredictor.optimize_for_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.predict.html">MultiModalPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.predict_proba.html">MultiModalPredictor.predict_proba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.save.html">MultiModalPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.set_num_gpus.html">MultiModalPredictor.set_num_gpus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.multimodal.MultiModalPredictor.set_verbosity.html">MultiModalPredictor.set_verbosity</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.html">TimeSeriesPredictor</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of TimeSeriesPredictor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.evaluate.html">TimeSeriesPredictor.evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.feature_importance.html">TimeSeriesPredictor.feature_importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.fit.html">TimeSeriesPredictor.fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.fit_summary.html">TimeSeriesPredictor.fit_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.info.html">TimeSeriesPredictor.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.leaderboard.html">TimeSeriesPredictor.leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.load.html">TimeSeriesPredictor.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.make_future_data_frame.html">TimeSeriesPredictor.make_future_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.model_names.html">TimeSeriesPredictor.model_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.persist.html">TimeSeriesPredictor.persist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.plot.html">TimeSeriesPredictor.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.predict.html">TimeSeriesPredictor.predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.refit_full.html">TimeSeriesPredictor.refit_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.save.html">TimeSeriesPredictor.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesPredictor.unpersist.html">TimeSeriesPredictor.unpersist</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.html">TimeSeriesDataFrame</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of TimeSeriesDataFrame</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.assign.html">TimeSeriesDataFrame.assign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.convert_frequency.html">TimeSeriesDataFrame.convert_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.copy.html">TimeSeriesDataFrame.copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.dropna.html">TimeSeriesDataFrame.dropna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.fill_missing_values.html">TimeSeriesDataFrame.fill_missing_values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_data_frame.html">TimeSeriesDataFrame.from_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_iterable_dataset.html">TimeSeriesDataFrame.from_iterable_dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_path.html">TimeSeriesDataFrame.from_path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.from_pickle.html">TimeSeriesDataFrame.from_pickle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.get_model_inputs_for_scoring.html">TimeSeriesDataFrame.get_model_inputs_for_scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.infer_frequency.html">TimeSeriesDataFrame.infer_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.num_timesteps_per_item.html">TimeSeriesDataFrame.num_timesteps_per_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.slice_by_time.html">TimeSeriesDataFrame.slice_by_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.slice_by_timestep.html">TimeSeriesDataFrame.slice_by_timestep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.sort_index.html">TimeSeriesDataFrame.sort_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.split_by_time.html">TimeSeriesDataFrame.split_by_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.to_data_frame.html">TimeSeriesDataFrame.to_data_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.timeseries.TimeSeriesDataFrame.train_test_split.html">TimeSeriesDataFrame.train_test_split</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.features.html">Feature Generators</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.html">FeatureMetadata</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of FeatureMetadata</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.add_special_types.html">FeatureMetadata.add_special_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.from_df.html">FeatureMetadata.from_df</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_feature_type_raw.html">FeatureMetadata.get_feature_type_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_feature_types_special.html">FeatureMetadata.get_feature_types_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_features.html">FeatureMetadata.get_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_group_map_raw.html">FeatureMetadata.get_type_group_map_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_group_map_special_from_type_map_special.html">FeatureMetadata.get_type_group_map_special_from_type_map_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.get_type_map_special.html">FeatureMetadata.get_type_map_special</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.join_metadata.html">FeatureMetadata.join_metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.join_metadatas.html">FeatureMetadata.join_metadatas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.keep_features.html">FeatureMetadata.keep_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.print_feature_metadata_full.html">FeatureMetadata.print_feature_metadata_full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.remove_features.html">FeatureMetadata.remove_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.rename_features.html">FeatureMetadata.rename_features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.to_dict.html">FeatureMetadata.to_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data.html">FeatureMetadata.verify_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data_subset.html">FeatureMetadata.verify_data_subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogluon.common.features.feature_metadata.FeatureMetadata.verify_data_superset.html">FeatureMetadata.verify_data_superset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autogluon.common.space.html">Search Spaces</a></li>
+</ul>
+
+</div></div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/api/autogluon.tabular.TabularPredictor.fit.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="tabularpredictor-fit">
+<h1>TabularPredictor.fit<a class="headerlink" href="#tabularpredictor-fit" title="Link to this heading">¶</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="autogluon.tabular.TabularPredictor.fit">
+<span class="sig-prename descclassname"><span class="pre">TabularPredictor.</span></span><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'infer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_limit_batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_weighted_ensemble</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_full_last_level_weighted_ensemble</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_weighted_ensemble_additionally</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_stacking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calibrate_decision_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'sequential'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'parallel'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sequential'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">AbstractCallback</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="autogluon.tabular.TabularPredictor.html#autogluon.tabular.TabularPredictor" title="autogluon.tabular.predictor.predictor.TabularPredictor"><span class="pre">TabularPredictor</span></a></span></span><a class="reference internal" href="../_modules/autogluon/tabular/predictor/predictor.html#TabularPredictor.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autogluon.tabular.TabularPredictor.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Fit models to predict a column of a data table (label) based on the other columns (features).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> or str) – Table of the training data as a pandas DataFrame.
+If str is passed, <cite>train_data</cite> will be loaded using the str value as the file path.</p></li>
+<li><p><strong>tuning_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> or str, optional) – Another dataset containing validation data reserved for tuning processes such as early stopping and hyperparameter tuning.
+This dataset should be in the same format as <cite>train_data</cite>.
+If str is passed, <cite>tuning_data</cite> will be loaded using the str value as the file path.
+Note: final model returned may be fit on <cite>tuning_data</cite> as well as <cite>train_data</cite>. Do not provide your evaluation test data here!
+In particular, when <cite>num_bag_folds</cite> &gt; 0 or <cite>num_stack_levels</cite> &gt; 0, models will be trained on both <cite>tuning_data</cite> and <cite>train_data</cite>.
+If <cite>tuning_data = None</cite>, <cite>fit()</cite> will automatically hold out some random validation examples from <cite>train_data</cite>.</p></li>
+<li><p><strong>time_limit</strong> (<em>int</em><em>, </em><em>default = None</em>) – Approximately how long <cite>fit()</cite> should run for (wallclock time in seconds).
+If not specified, <cite>fit()</cite> will run until all models have completed training, but will not repeatedly bag models unless <cite>num_bag_sets</cite> is specified.</p></li>
+<li><p><strong>presets</strong> (<em>list</em><em> or </em><em>str</em><em> or </em><em>dict</em><em>, </em><em>default =</em><em> [</em><em>'medium_quality'</em><em>]</em>) – <p>List of preset configurations for various arguments in <cite>fit()</cite>. Can significantly impact predictive accuracy, memory-footprint, and inference latency of trained models, and various other properties of the returned <cite>predictor</cite>.
+It is recommended to specify presets and avoid specifying most other <cite>fit()</cite> arguments or model hyperparameters prior to becoming familiar with AutoGluon.
+As an example, to get the most accurate overall predictor (regardless of its efficiency), set <cite>presets=’best_quality’</cite>.
+To get good quality with minimal disk usage, set <cite>presets=[‘good_quality’, ‘optimize_for_deployment’]</cite>
+Any user-specified arguments in <cite>fit()</cite> will override the values used by presets.
+If specifying a list of presets, later presets will override earlier presets if they alter the same argument.
+For precise definitions of the provided presets, see file: <cite>autogluon/tabular/configs/presets_configs.py</cite>.
+Users can specify custom presets by passing in a dictionary of argument values as an element to the list.</p>
+<p>Available Presets: [‘best_quality’, ‘high_quality’, ‘good_quality’, ‘medium_quality’, ‘experimental_quality’, ‘optimize_for_deployment’, ‘interpretable’, ‘ignore_text’]</p>
+<p>It is recommended to only use one <cite>quality</cite> based preset in a given call to <cite>fit()</cite> as they alter many of the same arguments and are not compatible with each-other.</p>
+<dl>
+<dt>In-depth Preset Info:</dt><dd><dl>
+<dt>best_quality={‘auto_stack’: True, ‘dynamic_stacking’: ‘auto’, ‘hyperparameters’: ‘zeroshot’}</dt><dd><p>Best predictive accuracy with little consideration to inference time or disk usage. Achieve even better results by specifying a large time_limit value.
+Recommended for applications that benefit from the best possible model accuracy.</p>
+</dd>
+<dt>high_quality={‘auto_stack’: True, ‘dynamic_stacking’: ‘auto’, ‘hyperparameters’: ‘zeroshot’, ‘refit_full’: True, ‘set_best_to_refit_full’: True, ‘save_bag_folds’: False}</dt><dd><p>High predictive accuracy with fast inference. ~8x faster inference and ~8x lower disk usage than <cite>best_quality</cite>.
+Recommended for applications that require reasonable inference speed and/or model size.</p>
+</dd>
+<dt>good_quality={‘auto_stack’: True, ‘dynamic_stacking’: ‘auto’, ‘hyperparameters’: ‘light’, ‘refit_full’: True, ‘set_best_to_refit_full’: True, ‘save_bag_folds’: False}</dt><dd><p>Good predictive accuracy with very fast inference. ~4x faster inference and ~4x lower disk usage than <cite>high_quality</cite>.
+Recommended for applications that require fast inference speed.</p>
+</dd>
+<dt>medium_quality={‘auto_stack’: False}</dt><dd><p>Medium predictive accuracy with very fast inference and very fast training time. ~20x faster training than <cite>good_quality</cite>.
+This is the default preset in AutoGluon, but should generally only be used for quick prototyping, as <cite>good_quality</cite> results in significantly better predictive accuracy and faster inference time.</p>
+</dd>
+<dt>experimental_quality={‘auto_stack’: True, ‘dynamic_stacking’: ‘auto’, ‘hyperparameters’: ‘experimental’, ‘fit_strategy’: ‘parallel’, ‘num_gpus’: 0}</dt><dd><p>This preset acts as a testing ground for cutting edge features and models which could later be added to the <cite>best_quality</cite> preset in future releases.
+Recommended when <cite>best_quality</cite> was already being used and the user wants to push performance even further.</p>
+</dd>
+<dt>optimize_for_deployment={‘keep_only_best’: True, ‘save_space’: True}</dt><dd><p>Optimizes result immediately for deployment by deleting unused models and removing training artifacts.
+Often can reduce disk usage by ~2-4x with no negatives to model accuracy or inference speed.
+This will disable numerous advanced functionality, but has no impact on inference.
+This will make certain functionality less informative, such as <cite>predictor.leaderboard()</cite> and <cite>predictor.fit_summary()</cite>.</p>
+<blockquote>
+<div><p>Because unused models will be deleted under this preset, methods like <cite>predictor.leaderboard()</cite> and <cite>predictor.fit_summary()</cite> will no longer show the full set of models that were trained during <cite>fit()</cite>.</p>
+</div></blockquote>
+<p>Recommended for applications where the inner details of AutoGluon’s training is not important and there is no intention of manually choosing between the final models.
+This preset pairs well with the other presets such as <cite>good_quality</cite> to make a very compact final model.
+Identical to calling <cite>predictor.delete_models(models_to_keep=’best’, dry_run=False)</cite> and <cite>predictor.save_space()</cite> directly after <cite>fit()</cite>.</p>
+</dd>
+<dt>interpretable={‘auto_stack’: False, ‘hyperparameters’: ‘interpretable’}</dt><dd><p>Fits only interpretable rule-based models from the imodels package.
+Trades off predictive accuracy for conciseness.</p>
+</dd>
+<dt>ignore_text={‘_feature_generator_kwargs’: {‘enable_text_ngram_features’: False, ‘enable_text_special_features’: False, ‘enable_raw_text_features’: False}}</dt><dd><p>Disables automated feature generation when text features are detected.
+This is useful to determine how beneficial text features are to the end result, as well as to ensure features are not mistaken for text when they are not.
+Ignored if <cite>feature_generator</cite> was also specified.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>hyperparameters</strong> (<em>str</em><em> or </em><em>dict</em><em>, </em><em>default = 'default'</em>) – <p>Determines the hyperparameters used by the models.
+If <cite>str</cite> is passed, will use a preset hyperparameter configuration.</p>
+<blockquote>
+<div><dl>
+<dt>Valid <cite>str</cite> options: [‘default’, ‘zeroshot’, ‘light’, ‘very_light’, ‘toy’, ‘multimodal’]</dt><dd><p>’default’: Default AutoGluon hyperparameters intended to get strong accuracy with reasonable disk usage and inference time. Used in the ‘medium_quality’ preset.
+‘zeroshot’: A powerful model portfolio learned from TabRepo’s ensemble simulation on 200 datasets. Contains ~100 models and is used in ‘best_quality’ and ‘high_quality’ presets.
+‘light’: Results in smaller models. Generally will make inference speed much faster and disk usage much lower, but with worse accuracy. Used in the ‘good_quality’ preset.
+‘very_light’: Results in much smaller models. Behaves similarly to ‘light’, but in many cases with over 10x less disk usage and a further reduction in accuracy.
+‘toy’: Results in extremely small models. Only use this when prototyping, as the model quality will be severely reduced.
+‘multimodal’: [EXPERIMENTAL] Trains a multimodal transformer model alongside tabular models. Requires that some text columns appear in the data and GPU.</p>
+<blockquote>
+<div><p>When combined with ‘best_quality’ <cite>presets</cite> option, this can achieve extremely strong results in multimodal data tables that contain columns with text in addition to numeric/categorical columns.</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>Reference <cite>autogluon/tabular/configs/hyperparameter_configs.py</cite> for information on the hyperparameters associated with each preset.</p>
+</div></blockquote>
+<dl>
+<dt>Keys are strings that indicate which model types to train.</dt><dd><dl class="simple">
+<dt>Stable model options include:</dt><dd><p>’GBM’ (LightGBM)
+‘CAT’ (CatBoost)
+‘XGB’ (XGBoost)
+‘RF’ (random forest)
+‘XT’ (extremely randomized trees)
+‘KNN’ (k-nearest neighbors)
+‘LR’ (linear regression)
+‘NN_TORCH’ (neural network implemented in Pytorch)
+‘FASTAI’ (neural network with FastAI backend)
+‘AG_AUTOMM’ (<cite>MultimodalPredictor</cite> from <cite>autogluon.multimodal</cite>. Supports Tabular, Text, and Image modalities. GPU is required.)</p>
+</dd>
+<dt>Experimental model options include:</dt><dd><p>’FT_TRANSFORMER’ (Tabular Transformer, GPU is recommended. Does not scale well to &gt;100 features.)
+‘FASTTEXT’ (FastText. Note: Has not been tested for a long time.)
+‘TABPFN’ (TabPFN. Does not scale well to &gt;100 features or &gt;1000 rows, and does not support regression. Extremely slow inference speed.)
+‘AG_TEXT_NN’ (Multimodal Text+Tabular model, GPU is required. Recommended to instead use its successor, ‘AG_AUTOMM’.)
+‘AG_IMAGE_NN’ (Image model, GPU is required. Recommended to instead use its successor, ‘AG_AUTOMM’.)</p>
+</dd>
+</dl>
+<p>If a certain key is missing from hyperparameters, then <cite>fit()</cite> will not train any models of that type. Omitting a model key from hyperparameters is equivalent to including this model key in <cite>excluded_model_types</cite>.
+For example, set <cite>hyperparameters = { ‘NN_TORCH’:{…} }</cite> if say you only want to train (PyTorch) neural networks and no other types of models.</p>
+</dd>
+<dt>Values = dict of hyperparameter settings for each model type, or list of dicts.</dt><dd><p>Each hyperparameter can either be a single fixed value or a search space containing many possible values.
+Unspecified hyperparameters will be set to default values (or default search spaces if <cite>hyperparameter_tune_kwargs=’auto’</cite>).
+Caution: Any provided search spaces will error if <cite>hyperparameter_tune_kwargs=None</cite> (Default).
+To train multiple models of a given type, set the value to a list of hyperparameter dictionaries.</p>
+<blockquote>
+<div><p>For example, <cite>hyperparameters = {‘RF’: [{‘criterion’: ‘gini’}, {‘criterion’: ‘entropy’}]}</cite> will result in 2 random forest models being trained with separate hyperparameters.</p>
+</div></blockquote>
+</dd>
+<dt>Advanced functionality: Bring your own model / Custom model support</dt><dd><p>AutoGluon fully supports custom models. For a detailed tutorial on creating and using custom models with AutoGluon, refer to <a class="reference external" href="https://auto.gluon.ai/stable/tutorials/tabular/advanced/tabular-custom-model.html">https://auto.gluon.ai/stable/tutorials/tabular/advanced/tabular-custom-model.html</a></p>
+</dd>
+<dt>Advanced functionality: Custom stack levels</dt><dd><p>By default, AutoGluon reuses the same models and model hyperparameters at each level during stack ensembling.
+To customize this behaviour, create a hyperparameters dictionary separately for each stack level, and then add them as values to a new dictionary, with keys equal to the stack level.</p>
+<blockquote>
+<div><p>Example: <cite>hyperparameters = {1: {‘RF’: rf_params1}, 2: {‘CAT’: [cat_params1, cat_params2], ‘NN_TORCH’: {}}}</cite>
+This will result in a stack ensemble that has one custom random forest in level 1 followed by two CatBoost models with custom hyperparameters and a default neural network in level 2, for a total of 4 models.</p>
+</div></blockquote>
+<p>If a level is not specified in <cite>hyperparameters</cite>, it will default to using the highest specified level to train models. This can also be explicitly controlled by adding a ‘default’ key.</p>
+</dd>
+<dt>Default:</dt><dd><dl>
+<dt>hyperparameters = {</dt><dd><p>‘NN_TORCH’: {},
+‘GBM’: [</p>
+<blockquote>
+<div><p>{‘extra_trees’: True, ‘ag_args’: {‘name_suffix’: ‘XT’}},
+{},
+{</p>
+<blockquote>
+<div><p>”learning_rate”: 0.03,
+“num_leaves”: 128,
+“feature_fraction”: 0.9,
+“min_data_in_leaf”: 3,
+“ag_args”: {“name_suffix”: “Large”, “priority”: 0, “hyperparameter_tune_kwargs”: None},</p>
+</div></blockquote>
+<p>},</p>
+</div></blockquote>
+<p>],
+‘CAT’: {},
+‘XGB’: {},
+‘FASTAI’: {},
+‘RF’: [</p>
+<blockquote>
+<div><p>{‘criterion’: ‘gini’, ‘ag_args’: {‘name_suffix’: ‘Gini’, ‘problem_types’: [‘binary’, ‘multiclass’]}},
+{‘criterion’: ‘entropy’, ‘ag_args’: {‘name_suffix’: ‘Entr’, ‘problem_types’: [‘binary’, ‘multiclass’]}},
+{‘criterion’: ‘squared_error’, ‘ag_args’: {‘name_suffix’: ‘MSE’, ‘problem_types’: [‘regression’]}},</p>
+</div></blockquote>
+<p>],
+‘XT’: [</p>
+<blockquote>
+<div><p>{‘criterion’: ‘gini’, ‘ag_args’: {‘name_suffix’: ‘Gini’, ‘problem_types’: [‘binary’, ‘multiclass’]}},
+{‘criterion’: ‘entropy’, ‘ag_args’: {‘name_suffix’: ‘Entr’, ‘problem_types’: [‘binary’, ‘multiclass’]}},
+{‘criterion’: ‘squared_error’, ‘ag_args’: {‘name_suffix’: ‘MSE’, ‘problem_types’: [‘regression’]}},</p>
+</div></blockquote>
+<p>],
+‘KNN’: [</p>
+<blockquote>
+<div><p>{‘weights’: ‘uniform’, ‘ag_args’: {‘name_suffix’: ‘Unif’}},
+{‘weights’: ‘distance’, ‘ag_args’: {‘name_suffix’: ‘Dist’}},</p>
+</div></blockquote>
+<p>],</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+<dt>Details regarding the hyperparameters you can specify for each model are provided in the following files:</dt><dd><dl>
+<dt>NN: <cite>autogluon.tabular.models.tabular_nn.hyperparameters.parameters</cite></dt><dd><p>Note: certain hyperparameter settings may cause these neural networks to train much slower.</p>
+</dd>
+<dt>GBM: <cite>autogluon.tabular.models.lgb.hyperparameters.parameters</cite></dt><dd><p>See also the lightGBM docs: <a class="reference external" href="https://lightgbm.readthedocs.io/en/latest/Parameters.html">https://lightgbm.readthedocs.io/en/latest/Parameters.html</a></p>
+</dd>
+<dt>CAT: <cite>autogluon.tabular.models.catboost.hyperparameters.parameters</cite></dt><dd><p>See also the CatBoost docs: <a class="reference external" href="https://catboost.ai/docs/concepts/parameter-tuning.html">https://catboost.ai/docs/concepts/parameter-tuning.html</a></p>
+</dd>
+<dt>XGB: <cite>autogluon.tabular.models.xgboost.hyperparameters.parameters</cite></dt><dd><p>See also the XGBoost docs: <a class="reference external" href="https://xgboost.readthedocs.io/en/latest/parameter.html">https://xgboost.readthedocs.io/en/latest/parameter.html</a></p>
+</dd>
+<dt>FASTAI: <cite>autogluon.tabular.models.fastainn.hyperparameters.parameters</cite></dt><dd><p>See also the FastAI docs: <a class="reference external" href="https://docs.fast.ai/tabular.learner.html">https://docs.fast.ai/tabular.learner.html</a></p>
+</dd>
+<dt>RF: See sklearn documentation: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a></dt><dd><p>Note: Hyperparameter tuning is disabled for this model.</p>
+</dd>
+<dt>XT: See sklearn documentation: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html</a></dt><dd><p>Note: Hyperparameter tuning is disabled for this model.</p>
+</dd>
+<dt>KNN: See sklearn documentation: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</a></dt><dd><p>Note: Hyperparameter tuning is disabled for this model.</p>
+</dd>
+<dt>LR: <cite>autogluon.tabular.models.lr.hyperparameters.parameters</cite></dt><dd><p>Note: Hyperparameter tuning is disabled for this model.
+Note: ‘penalty’ parameter can be used for regression to specify regularization method: ‘L1’ and ‘L2’ values are supported.</p>
+</dd>
+<dt>Advanced functionality: Custom AutoGluon model arguments</dt><dd><dl>
+<dt>These arguments are optional and can be specified in any model’s hyperparameters.</dt><dd><p>Example: <cite>hyperparameters = {‘RF’: {…, ‘ag_args’: {‘name_suffix’: ‘CustomModelSuffix’, ‘disable_in_hpo’: True}}</cite></p>
+</dd>
+<dt>ag_args: Dictionary of customization options related to meta properties of the model such as its name, the order it is trained, the problem types it is valid for, and the type of HPO it utilizes.</dt><dd><dl class="simple">
+<dt>Valid keys:</dt><dd><p>name: (str) The name of the model. This overrides AutoGluon’s naming logic and all other name arguments if present.
+name_main: (str) The main name of the model. Example: ‘RandomForest’.
+name_prefix: (str) Add a custom prefix to the model name. Unused by default.
+name_suffix: (str) Add a custom suffix to the model name. Unused by default.
+priority: (int) Determines the order in which the model is trained. Larger values result in the model being trained earlier. Default values range from 100 (KNN) to 0 (custom), dictated by model type. If you want this model to be trained first, set priority = 999.
+problem_types: (list) List of valid problem types for the model. <cite>problem_types=[‘binary’]</cite> will result in the model only being trained if <cite>problem_type</cite> is ‘binary’.
+disable_in_hpo: (bool) If True, the model will only be trained if <cite>hyperparameter_tune_kwargs=None</cite>.
+valid_stacker: (bool) If False, the model will not be trained as a level 2 or higher stacker model.
+valid_base: (bool) If False, the model will not be trained as a level 1 (base) model.
+hyperparameter_tune_kwargs: (dict) Refer to <a class="reference internal" href="#autogluon.tabular.TabularPredictor.fit" title="autogluon.tabular.TabularPredictor.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TabularPredictor.fit()</span></code></a> hyperparameter_tune_kwargs argument. If specified here, will override global HPO settings for this model.</p>
+</dd>
+</dl>
+<p>Reference the default hyperparameters for example usage of these options.</p>
+</dd>
+<dt>ag_args_fit: Dictionary of model fit customization options related to how and with what constraints the model is trained. These parameters affect stacker fold models, but not stacker models themselves.</dt><dd><p>Clarification: <cite>time_limit</cite> is the internal time in seconds given to a particular model to train, which is dictated in part by the <cite>time_limit</cite> argument given during <cite>predictor.fit()</cite> but is not the same.
+Valid keys:</p>
+<blockquote>
+<div><p>stopping_metric: (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">autogluon.core.metrics.Scorer</span></code>, default=None) The metric to use for early stopping of the model. If None, model will decide.
+max_memory_usage_ratio: (float, default=1.0) The ratio of memory usage relative to the default to allow before early stopping or killing the model. Values greater than 1.0 will be increasingly prone to out-of-memory errors.
+max_time_limit_ratio: (float, default=1.0) The ratio of the provided time_limit to use during model <cite>fit()</cite>. If <cite>time_limit=10</cite> and <cite>max_time_limit_ratio=0.3</cite>, time_limit would be changed to 3. Does not alter max_time_limit or min_time_limit values.
+max_time_limit: (float, default=None) Maximum amount of time to allow this model to train for (in sec). If the provided time_limit is greater than this value, it will be replaced by max_time_limit.
+min_time_limit: (float, default=0) Allow this model to train for at least this long (in sec), regardless of the time limit it would otherwise be granted.</p>
+<blockquote>
+<div><p>If <cite>min_time_limit &gt;= max_time_limit</cite>, time_limit will be set to min_time_limit.
+If <cite>min_time_limit=None</cite>, time_limit will be set to None and the model will have no training time restriction.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>num_cpus<span class="classifier">(int or str, default=’auto’)</span></dt><dd><p>How many CPUs to use during model fit.
+If ‘auto’, model will decide.</p>
+</dd>
+<dt>num_gpus<span class="classifier">(int or str, default=’auto’)</span></dt><dd><p>How many GPUs to use during model fit.
+If ‘auto’, model will decide. Some models can use GPUs but don’t by default due to differences in model quality.
+Set to 0 to disable usage of GPUs.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>ag_args_ensemble: Dictionary of hyperparameters shared by all models that control how they are ensembled, if bag mode is enabled.</dt><dd><dl>
+<dt>Valid keys:</dt><dd><dl>
+<dt>use_orig_features: [True, False, “never”], default True</dt><dd><p>Whether a stack model will use the original features along with the stack features to train (akin to skip-connections).
+If True, will use the original data features.
+If False, will discard the original data features and only use stack features, except when no stack features exist (such as in layer 1).
+If “never”, will always discard the original data features. Will be skipped in layer 1.</p>
+</dd>
+<dt>valid_stacker<span class="classifier">bool, default True</span></dt><dd><p>If True, will be marked as valid to include as a stacker model.
+If False, will only be fit as a base model (layer 1) and will not be fit in stack layers (layer 2+).</p>
+</dd>
+<dt>max_base_models<span class="classifier">int, default 0</span></dt><dd><p>Maximum number of base models whose predictions form the features input to this stacker model.
+If more than <cite>max_base_models</cite> base models are available, only the top <cite>max_base_models</cite> models with highest validation score are used.
+If 0, the logic is skipped.</p>
+</dd>
+<dt>max_base_models_per_type<span class="classifier">int | str, default “auto”</span></dt><dd><p>Similar to <cite>max_base_models</cite>. If more than <cite>max_base_models_per_type</cite> of any particular model type are available,
+only the top <cite>max_base_models_per_type</cite> of that type are used. This occurs before the <cite>max_base_models</cite> filter.
+If “auto”, the value will be adaptively set based on the number of training samples.</p>
+<blockquote>
+<div><p>More samples will lead to larger values, starting at 1 with &lt;1000 samples, increasing up to 12 at &gt;=50000 samples.</p>
+</div></blockquote>
+<p>If 0, the logic is skipped.</p>
+</dd>
+<dt>num_folds: (int, default=None) If specified, the number of folds to fit in the bagged model.</dt><dd><p>If specified, overrides any other value used to determine the number of folds such as predictor.fit <cite>num_bag_folds</cite> argument.</p>
+</dd>
+<dt>max_sets: (int, default=None) If specified, the maximum sets to fit in the bagged model.</dt><dd><p>The lesser of <cite>max_sets</cite> and the predictor.fit <cite>num_bag_sets</cite> argument will be used for the given model.
+Useful if a particular model is expensive relative to others and you want to avoid repeated bagging of the expensive model while still repeated bagging the cheaper models.</p>
+</dd>
+<dt>save_bag_folds: (bool, default=True)</dt><dd><p>If True, bagged models will save their fold models (the models from each individual fold of bagging). This is required to use bagged models for prediction.
+If False, bagged models will not save their fold models. This means that bagged models will not be valid models during inference.</p>
+<blockquote>
+<div><p>This should only be set to False when planning to call <cite>predictor.refit_full()</cite> or when <cite>refit_full</cite> is set and <cite>set_best_to_refit_full=True</cite>.
+Particularly useful if disk usage is a concern. By not saving the fold models, bagged models will use only very small amounts of disk space during training.
+In many training runs, this will reduce peak disk usage by &gt;10x.</p>
+</div></blockquote>
+</dd>
+<dt>fold_fitting_strategy: (AbstractFoldFittingStrategy default=auto) Whether to fit folds in parallel or in sequential order.</dt><dd><p>If parallel_local, folds will be trained in parallel with evenly distributed computing resources. This could bring 2-4x speedup compared to SequentialLocalFoldFittingStrategy, but could consume much more memory.
+If sequential_local, folds will be trained in sequential.
+If auto, strategy will be determined by OS and whether ray is installed or not. MacOS support for parallel_local is unstable, and may crash if enabled.</p>
+</dd>
+<dt>num_folds_parallel: (int or str, default=’auto’) Number of folds to be trained in parallel if using ParallelLocalFoldFittingStrategy. Consider lowering this value if you encounter either out of memory issue or CUDA out of memory issue(when trained on gpu).</dt><dd><p>if ‘auto’, will try to train all folds in parallel.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>feature_metadata</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">autogluon.tabular.FeatureMetadata</span></code> or str, default = ‘infer’) – The feature metadata used in various inner logic in feature preprocessing.
+If ‘infer’, will automatically construct a FeatureMetadata object based on the properties of <cite>train_data</cite>.
+In this case, <cite>train_data</cite> is input into <code class="xref py py-meth docutils literal notranslate"><span class="pre">autogluon.tabular.FeatureMetadata.from_df()</span></code> to infer <cite>feature_metadata</cite>.
+If ‘infer’ incorrectly assumes the dtypes of features, consider explicitly specifying <cite>feature_metadata</cite>.</p></li>
+<li><p><strong>infer_limit</strong> (<em>float</em><em>, </em><em>default = None</em>) – The inference time limit in seconds per row to adhere to during fit.
+If infer_limit=0.05 and infer_limit_batch_size=1000, AutoGluon will avoid training models that take longer than 50 ms/row to predict when given a batch of 1000 rows to predict (must predict 1000 rows in no more than 50 seconds).
+If bagging is enabled, the inference time limit will be respected based on estimated inference speed of <cite>_FULL</cite> models after refit_full is called, NOT on the inference speed of the bagged ensembles.
+The inference times calculated for models are assuming <cite>predictor.persist(‘all’)</cite> is called after fit.
+If None, no limit is enforced.
+If it is impossible to satisfy the constraint, an exception will be raised.</p></li>
+<li><p><strong>infer_limit_batch_size</strong> (<em>int</em><em>, </em><em>default = None</em>) – The batch size to use when predicting in bulk to estimate per-row inference time.
+Must be an integer greater than 0.
+If None and <cite>infer_limit</cite> is specified, will default to 10000.
+It is recommended to set to 10000 unless you must satisfy an online-inference scenario.
+Small values, especially <cite>infer_limit_batch_size=1</cite>, will result in much larger per-row inference times and should be avoided if possible.
+Refer to <cite>infer_limit</cite> for more details on how this is used.
+If specified when <cite>infer_limit=None</cite>, the inference time will be logged during training but will not be limited.</p></li>
+<li><p><strong>fit_weighted_ensemble</strong> (<em>bool</em><em>, </em><em>default = True</em>) – If True, a WeightedEnsembleModel will be fit in each stack layer.
+A weighted ensemble will often be stronger than an individual model while being very fast to train.
+It is recommended to keep this value set to True to maximize predictive quality.</p></li>
+<li><p><strong>fit_full_last_level_weighted_ensemble</strong> (<em>bool</em><em>, </em><em>default = True</em>) – If True, the WeightedEnsembleModel of the last stacking level will be fit with all (successful) models from all previous layers as base models.
+If stacking is disabled, settings this to True or False makes no difference because the WeightedEnsembleModel L2 always uses all models from L1.
+It is recommended to keep this value set to True to maximize predictive quality.</p></li>
+<li><p><strong>full_weighted_ensemble_additionally</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, AutoGluon will fit two WeightedEnsembleModels after training all stacking levels. Setting this to True, simulates calling
+<cite>fit_weighted_ensemble()</cite> after calling <cite>fit()</cite>. Has no affect if <cite>fit_full_last_level_weighted_ensemble</cite> is False and does not fit an additional
+WeightedEnsembleModel if stacking is disabled.</p></li>
+<li><p><strong>dynamic_stacking</strong> (<em>bool</em><em> | </em><em>str</em><em>, </em><em>default = False</em>) – If True and <cite>num_stack_levels</cite> &gt; 0, AutoGluon will dynamically determine whether to use stacking or not by first validating AutoGluon’s stacking
+behavior. This is done to avoid so-called stacked overfitting that can make traditional multi-layer stacking, as used in AutoGluon, fail drastically
+and produce unreliable validation scores.
+It is recommended to keep this value set to True or “auto” when using stacking,
+as long as it is unknown whether the data is affected by stacked overfitting.
+If it is known that the data is unaffected by stacked overfitting, then setting this value to False is expected to maximize predictive quality.
+If enabled, by default, AutoGluon performs dynamic stacking by spending 25% of the provided time limit for detection and all remaining
+time for fitting AutoGluon. This can be adjusted by specifying <cite>ds_args</cite> with different parameters to <cite>fit()</cite>.
+If “auto”, will be set to <cite>not use_bag_holdout</cite>.
+See the documentation of <cite>ds_args</cite> for more information.</p></li>
+<li><p><strong>calibrate_decision_threshold</strong> (<em>bool</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – If True, will automatically calibrate the decision threshold at the end of fit for calls to <cite>.predict</cite> based on the evaluation metric.
+If “auto”, will be set to True if <cite>eval_metric.needs_class=True</cite> and <cite>problem_type=”binary”</cite>.
+By default, the decision threshold is <cite>0.5</cite>, however for some metrics such as <cite>f1</cite> and <cite>balanced_accuracy</cite>,
+scores can be significantly improved by choosing a threshold other than <cite>0.5</cite>.
+Only valid for <cite>problem_type=’binary’</cite>. Ignored for all other problem types.</p></li>
+<li><p><strong>num_cpus</strong> (<em>int</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – The total amount of cpus you want AutoGluon predictor to use.
+Auto means AutoGluon will make the decision based on the total number of cpus available and the model requirement for best performance.
+Users generally don’t need to set this value</p></li>
+<li><p><strong>num_gpus</strong> (<em>int</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – The total amount of gpus you want AutoGluon predictor to use.
+Auto means AutoGluon will make the decision based on the total number of gpus available and the model requirement for best performance.
+Users generally don’t need to set this value</p></li>
+<li><p><strong>fit_strategy</strong> (<em>Literal</em><em>[</em><em>&quot;sequential&quot;</em><em>, </em><em>&quot;parallel&quot;</em><em>]</em><em>, </em><em>default = &quot;sequential&quot;</em>) – <p>The strategy used to fit models.
+If “sequential”, models will be fit sequentially. This is the most stable option with the most readable logging.
+If “parallel”, models will be fit in parallel with ray, splitting available compute between them.</p>
+<blockquote>
+<div><p>Note: “parallel” is experimental and may run into issues. It was first added in version 1.2.0.</p>
+</div></blockquote>
+<p>For machines with 16 or more CPU cores, it is likely that “parallel” will be faster than “sequential”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.2.0.</span></p>
+</div>
+</p></li>
+<li><p><strong>memory_limit</strong> (<em>float</em><em> | </em><em>str</em><em>, </em><em>default = &quot;auto&quot;</em>) – The total amount of memory in GB you want AutoGluon predictor to use. “auto” means AutoGluon will use all available memory on the system
+(that is detectable by psutil).
+Note that this is only a soft limit! AutoGluon uses this limit to skip training models that are expected to require too much memory or stop
+training a model that would exceed the memory limit. AutoGluon does not guarantee the enforcement of this limit (yet). Nevertheless, we expect
+AutoGluon to abide by the limit in most cases or, at most, go over the limit by a small margin.
+For most virtualized systems (e.g., in the cloud) and local usage on a server or laptop, “auto” is ideal for this parameter. We recommend manually
+setting the memory limit (and any other resources) on systems with shared resources that are controlled by the operating system (e.g., SLURM and
+cgroups). Otherwise, AutoGluon might wrongly assume more resources are available for fitting a model than the operating system allows,
+which can result in model training failing or being very inefficient.</p></li>
+<li><p><strong>callbacks</strong> (<em>list</em><em>[</em><em>AbstractCallback</em><em>]</em><em>, </em><em>default = None</em>) – <p>:::{warning}
+Callbacks are an experimental feature and may change in future releases without warning.
+Callback support is preliminary and targeted towards developers.
+:::
+A list of callback objects inheriting from <cite>autogluon.core.callbacks.AbstractCallback</cite>.
+These objects will be called before and after each model fit within trainer.
+They have the ability to skip models or early stop the training process.
+They can also theoretically change the entire logical flow of the trainer code by interacting with the passed <cite>trainer</cite> object.
+For more details, refer to <cite>AbstractCallback</cite> source code.
+If None, no callback objects will be used.</p>
+<p>[Note] Callback objects can be mutated in-place by the fit call if they are stateful.
+Ensure that you avoid reusing a mutated callback object between multiple fit calls.</p>
+<p>[Note] Callback objects are deleted from trainer at the end of the fit call. They will not impact operations such as <cite>refit_full</cite> or <cite>fit_extra</cite>.</p>
+</p></li>
+<li><p><strong>**kwargs</strong> – <dl>
+<dt>auto_stack<span class="classifier">bool, default = False</span></dt><dd><p>Whether AutoGluon should automatically utilize bagging and multi-layer stack ensembling to boost predictive accuracy.
+Set this = True if you are willing to tolerate longer training times in order to maximize predictive accuracy!
+Automatically sets <cite>num_bag_folds</cite> and <cite>num_stack_levels</cite> arguments based on dataset properties.
+Note: Setting <cite>num_bag_folds</cite> and <cite>num_stack_levels</cite> arguments will override <cite>auto_stack</cite>.
+Note: This can increase training time (and inference time) by up to 20x, but can greatly improve predictive performance.</p>
+</dd>
+<dt>num_bag_folds<span class="classifier">int, default = None</span></dt><dd><p>Number of folds used for bagging of models. When <cite>num_bag_folds = k</cite>, training time is roughly increased by a factor of <cite>k</cite> (set = 0 to disable bagging).
+Disabled by default (0), but we recommend values between 5-10 to maximize predictive performance.
+Increasing num_bag_folds will result in models with lower bias but that are more prone to overfitting.
+<cite>num_bag_folds = 1</cite> is an invalid value, and will raise a ValueError.
+Values &gt; 10 may produce diminishing returns, and can even harm overall results due to overfitting.
+To further improve predictions, avoid increasing <cite>num_bag_folds</cite> much beyond 10 and instead increase <cite>num_bag_sets</cite>.</p>
+</dd>
+<dt>num_bag_sets<span class="classifier">int, default = None</span></dt><dd><p>Number of repeats of kfold bagging to perform (values must be &gt;= 1). Total number of models trained during bagging = <cite>num_bag_folds * num_bag_sets</cite>.
+Defaults to 1 when unspecified. Value is ignored if <cite>num_bag_folds&lt;=2</cite>.
+Values greater than 1 will result in superior predictive performance, especially on smaller problems and with stacking enabled (reduces overall variance).
+Be warned: This will drastically increase overall runtime, and if using a time limit, can very commonly lead to worse performance.
+It is recommended to increase this value only as a last resort, as it is the least computationally efficient method to improve performance.</p>
+</dd>
+<dt>num_stack_levels<span class="classifier">int, default = None</span></dt><dd><p>Number of stacking levels to use in stack ensemble. Roughly increases model training time by factor of <cite>num_stack_levels+1</cite> (set = 0 to disable stack ensembling).
+Disabled by default (0), but we recommend <cite>num_stack_levels=1</cite> to maximize predictive performance.
+To prevent overfitting, <cite>num_bag_folds &gt;= 2</cite> must also be set or else a ValueError will be raised.</p>
+</dd>
+<dt>delay_bag_sets<span class="classifier">bool, default = False</span></dt><dd><p>Controls when repeats of kfold bagging are executed in AutoGluon when under a time limit.
+We suggest sticking to <cite>False</cite> to avoid overfitting.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>If True, AutoGluon delays repeating kfold bagging until after evaluating all models</dt><dd><p>from <cite>hyperparameters</cite>, if there is enough time. This allows AutoGluon to explore
+more hyperparameters to obtain a better final performance but it may lead to
+more overfitting.</p>
+</dd>
+<dt>If False, AutoGluon repeats kfold bagging immediately after evaluating each model.</dt><dd><p>Thus, AutoGluon might evaluate fewer models with less overfitting.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>holdout_frac<span class="classifier">float, default = None</span></dt><dd><p>Fraction of train_data to holdout as tuning data for optimizing hyperparameters (ignored unless <cite>tuning_data = None</cite>, ignored if <cite>num_bag_folds != 0</cite> unless <cite>use_bag_holdout == True</cite>).
+Default value (if None) is selected based on the number of rows in the training data. Default values range from 0.2 at 2,500 rows to 0.01 at 250,000 rows.
+Default value is doubled if <cite>hyperparameter_tune_kwargs</cite> is set, up to a maximum of 0.2.
+Disabled if <cite>num_bag_folds &gt;= 2</cite> unless <cite>use_bag_holdout == True</cite>.</p>
+</dd>
+<dt>use_bag_holdout<span class="classifier">bool | str, default = False</span></dt><dd><p>If True, a <cite>holdout_frac</cite> portion of the data is held-out from model bagging.
+This held-out data is only used to score models and determine weighted ensemble weights.
+Enable this if there is a large gap between score_val and score_test in stack models.
+Note: If <cite>tuning_data</cite> was specified, <cite>tuning_data</cite> is used as the holdout data.
+Disabled if not bagging.
+If “auto”, will be set to True if the training data has &gt;= 1000000 rows, else it will be set to False.</p>
+</dd>
+<dt>hyperparameter_tune_kwargs<span class="classifier">str or dict, default = None</span></dt><dd><p>Hyperparameter tuning strategy and kwargs (for example, how many HPO trials to run).
+If None, then hyperparameter tuning will not be performed.
+You can either choose to provide a preset</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Valid preset values:</dt><dd><p>’auto’: Performs HPO via bayesian optimization search on NN_TORCH and FASTAI models, and random search on other models using local scheduler.
+‘random’: Performs HPO via random search using local scheduler.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Or provide a dict to specify searchers and schedulers</dt><dd><dl>
+<dt>Valid keys:</dt><dd><p>’num_trials’: How many HPO trials to run
+‘scheduler’: Which scheduler to use</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Valid values:</dt><dd><p>’local’: Local scheduler that schedule trials FIFO</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>’searcher’: Which searching algorithm to use</dt><dd><p>’local_random’: Uses the ‘random’ searcher
+‘random’: Perform random search
+‘auto’: Perform bayesian optimization search on NN_TORCH and FASTAI models. Perform random search on other models.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>The ‘scheduler’ and ‘searcher’ key are required when providing a dict.
+An example of a valid dict:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>hyperparameter_tune_kwargs = {</dt><dd><p>‘num_trials’: 5,
+‘scheduler’ : ‘local’,
+‘searcher’: ‘auto’,</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+<dt>feature_prune_kwargs: dict, default = None</dt><dd><p>Performs layer-wise feature pruning via recursive feature elimination with permutation feature importance.
+This fits all models in a stack layer once, discovers a pruned set of features, fits all models in the stack layer
+again with the pruned set of features, and updates input feature lists for models whose validation score improved.
+If None, do not perform feature pruning. If empty dictionary, perform feature pruning with default configurations.
+For valid dictionary keys, refer to <code class="xref py py-class docutils literal notranslate"><span class="pre">autogluon.core.utils.feature_selection.FeatureSelector</span></code> and
+<cite>autogluon.core.trainer.abstract_trainer.AbstractTabularTrainer._proxy_model_feature_prune</cite> documentation.
+To force all models to work with the pruned set of features, set force_prune=True in the dictionary.</p>
+</dd>
+<dt>ag_args<span class="classifier">dict, default = None</span></dt><dd><p>Keyword arguments to pass to all models (i.e. common hyperparameters shared by all AutoGluon models).
+See the <cite>ag_args</cite> argument from “Advanced functionality: Custom AutoGluon model arguments” in the <cite>hyperparameters</cite> argument documentation for valid values.
+Identical to specifying <cite>ag_args</cite> parameter for all models in <cite>hyperparameters</cite>.
+If a key in <cite>ag_args</cite> is already specified for a model in <cite>hyperparameters</cite>, it will not be altered through this argument.</p>
+</dd>
+<dt>ag_args_fit<span class="classifier">dict, default = None</span></dt><dd><p>Keyword arguments to pass to all models.
+See the <cite>ag_args_fit</cite> argument from “Advanced functionality: Custom AutoGluon model arguments” in the <cite>hyperparameters</cite> argument documentation for valid values.
+Identical to specifying <cite>ag_args_fit</cite> parameter for all models in <cite>hyperparameters</cite>.
+If a key in <cite>ag_args_fit</cite> is already specified for a model in <cite>hyperparameters</cite>, it will not be altered through this argument.</p>
+</dd>
+<dt>ag_args_ensemble<span class="classifier">dict, default = None</span></dt><dd><p>Keyword arguments to pass to all models.
+See the <cite>ag_args_ensemble</cite> argument from “Advanced functionality: Custom AutoGluon model arguments” in the <cite>hyperparameters</cite> argument documentation for valid values.
+Identical to specifying <cite>ag_args_ensemble</cite> parameter for all models in <cite>hyperparameters</cite>.
+If a key in <cite>ag_args_ensemble</cite> is already specified for a model in <cite>hyperparameters</cite>, it will not be altered through this argument.</p>
+</dd>
+<dt>ds_args<span class="classifier">dict, see below for default</span></dt><dd><p>Keyword arguments for dynamic stacking, only used if <cite>dynamic_stacking=True</cite>. These keyword arguments control the behavior of dynamic stacking
+and determine how AutoGluon tries to detect stacked overfitting. To detect stacked overfitting, AutoGluon will fit itself (so called sub-fits)
+on a subset (for holdout) or multiple subsets (for repeated cross-validation) and use the predictions of AutoGluon on the validation data to
+detect stacked overfitting. The sub-fits stop and stacking will be disabled if any sub-fit shows stacked overfitting.
+Allowed keys and values are:</p>
+<blockquote>
+<div><dl class="simple">
+<dt><cite>detection_time_frac</cite><span class="classifier">float in (0,1), default = 1/4</span></dt><dd><p>Determines how much of the original training time is used for detecting stacked overfitting.
+When using (repeated) cross-validation, each sub-fit will be fit for <cite>1/n_splits * detection_time_frac * time_limit</cite>.
+If no time limit is given to AutoGluon, this parameter is ignored and AutoGluon is fit without a time limit in the sub-fit.</p>
+</dd>
+<dt><cite>validation_procedure</cite>: str, default = ‘holdout’</dt><dd><dl class="simple">
+<dt>Determines the validation procedure used to detect stacked overfitting. Can be either <cite>cv</cite> or <cite>holdout</cite>.</dt><dd><p>If <cite>validation_procedure=’holdout’</cite> and <cite>holdout_data</cite> is not specified (default), then <cite>holdout_frac</cite> determines the holdout data.
+If <cite>validation_procedure=’holdout’</cite> and <cite>holdout_data</cite> is specified, then the provided <cite>holdout_data</cite> is used for validation.
+If <cite>validation_procedure=’cv’</cite>, <cite>n_folds</cite> and <cite>n_repeats</cite> determine the kind cross-validation procedure.</p>
+</dd>
+</dl>
+</dd>
+<dt><cite>holdout_frac</cite><span class="classifier">float in (0,1), default = 1/9</span></dt><dd><p>Determines how much of the original training data is used for the holdout data during holdout validation.
+Ignored if <cite>holdout_data</cite> is not None.</p>
+</dd>
+<dt><cite>n_folds</cite><span class="classifier">int in [2, +inf), default = 2</span></dt><dd><p>Number of folds to use for cross-validation.</p>
+</dd>
+<dt><cite>n_repeats</cite><span class="classifier">int [1, +inf), default = 1</span></dt><dd><p>Number of repeats to use for repeated cross-validation. If set to 1, performs 1-repeated cross-validation which is equivalent to
+cross-validation without repeats.</p>
+</dd>
+<dt><cite>memory_safe_fits</cite><span class="classifier">bool, default = True</span></dt><dd><p>If True, AutoGluon runs each sub-fit in a ray-based subprocess to avoid memory leakage that exist due to Python’s lackluster
+garbage collector.</p>
+</dd>
+<dt><cite>clean_up_fits</cite><span class="classifier">bool, default = True</span></dt><dd><p>If True, AutoGluon will remove all saved information from sub-fits from disk.
+If False, the sub-fits are kept on disk and <cite>self._sub_fits</cite> will store paths to the sub-fits, which can be loaded just like any other
+predictor from disk using <cite>TabularPredictor.load()</cite>.</p>
+</dd>
+<dt><cite>enable_ray_logging</cite><span class="classifier">bool, default = True</span></dt><dd><p>If True, will log the dynamic stacking sub-fit when ray is used (<cite>memory_safe_fits=True</cite>).
+Note that because of how ray works, this may cause extra unwanted logging in the main fit process after dynamic stacking completes.</p>
+</dd>
+<dt><cite>enable_callbacks</cite><span class="classifier">bool, default = False</span></dt><dd><p>If True, will perform a deepcopy on the specified user callbacks and enable them during the DyStack call.
+If False, will not include callbacks in the DyStack call.</p>
+</dd>
+<dt><cite>holdout_data</cite>: str or <code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>, default = None</dt><dd><p>Another dataset containing validation data reserved for detecting stacked overfitting. This dataset should be in the same format as
+<cite>train_data</cite>. If str is passed, <cite>holdout_data</cite> will be loaded using the str value as the file path.
+If <cite>holdout_data</cite> is not None, the sub-fit is fit on all of <cite>train_data</cite> and the full fit is fit on all of <cite>train_data</cite> and
+<cite>holdout_data</cite> combined.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>included_model_types<span class="classifier">list, default = None</span></dt><dd><p>To only include listed model types for training during <cite>fit()</cite>.
+Models that are listed in <cite>included_model_types</cite> but not in <cite>hyperparameters</cite> will be ignored.
+Reference <cite>hyperparameters</cite> documentation for what models correspond to each value.
+Useful when only a subset of model needs to be trained and the <cite>hyperparameters</cite> dictionary is difficult or time-consuming.</p>
+<blockquote>
+<div><p>Example: To include both ‘GBM’ and ‘FASTAI’ models, specify <cite>included_model_types=[‘GBM’, ‘FASTAI’]</cite>.</p>
+</div></blockquote>
+</dd>
+<dt>excluded_model_types<span class="classifier">list, default = None</span></dt><dd><p>Banned subset of model types to avoid training during <cite>fit()</cite>, even if present in <cite>hyperparameters</cite>.
+Reference <cite>hyperparameters</cite> documentation for what models correspond to each value.
+Useful when a particular model type such as ‘KNN’ or ‘custom’ is not desired but altering the <cite>hyperparameters</cite> dictionary is difficult or time-consuming.</p>
+<blockquote>
+<div><p>Example: To exclude both ‘KNN’ and ‘custom’ models, specify <cite>excluded_model_types=[‘KNN’, ‘custom’]</cite>.</p>
+</div></blockquote>
+</dd>
+<dt>refit_full<span class="classifier">bool or str, default = False</span></dt><dd><p>Whether to retrain all models on all of the data (training + validation) after the normal training procedure.
+This is equivalent to calling <cite>predictor.refit_full(model=refit_full)</cite> after fit.
+If <cite>refit_full=True</cite>, it will be treated as <cite>refit_full=’all’</cite>.
+If <cite>refit_full=False</cite>, refitting will not occur.
+Valid str values:</p>
+<blockquote>
+<div><p><cite>all</cite>: refits all models.
+<cite>best</cite>: refits only the best model (and its ancestors if it is a stacker model).
+<cite>{model_name}</cite>: refits only the specified model (and its ancestors if it is a stacker model).</p>
+</div></blockquote>
+<dl>
+<dt>For bagged models:</dt><dd><p>Reduces a model’s inference time by collapsing bagged ensembles into a single model fit on all of the training data.
+This process will typically result in a slight accuracy reduction and a large inference speedup.
+The inference speedup will generally be between 10-200x faster than the original bagged ensemble model.</p>
+<blockquote>
+<div><p>The inference speedup factor is equivalent to (k * n), where k is the number of folds (<cite>num_bag_folds</cite>) and n is the number of finished repeats (<cite>num_bag_sets</cite>) in the bagged ensemble.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>The runtime is generally 10% or less of the original fit runtime.</dt><dd><p>The runtime can be roughly estimated as 1 / (k * n) of the original fit runtime, with k and n defined above.</p>
+</dd>
+</dl>
+</dd>
+<dt>For non-bagged models:</dt><dd><p>Optimizes a model’s accuracy by retraining on 100% of the data without using a validation set.
+Will typically result in a slight accuracy increase and no change to inference time.
+The runtime will be approximately equal to the original fit runtime.</p>
+</dd>
+</dl>
+<p>This process does not alter the original models, but instead adds additional models.
+If stacker models are refit by this process, they will use the refit_full versions of the ancestor models during inference.
+Models produced by this process will not have validation scores, as they use all of the data for training.</p>
+<blockquote>
+<div><p>Therefore, it is up to the user to determine if the models are of sufficient quality by including test data in <cite>predictor.leaderboard(test_data)</cite>.
+If the user does not have additional test data, they should reference the original model’s score for an estimate of the performance of the refit_full model.</p>
+<blockquote>
+<div><p>Warning: Be aware that utilizing refit_full models without separately verifying on test data means that the model is untested, and has no guarantee of being consistent with the original model.</p>
+</div></blockquote>
+</div></blockquote>
+<p>The time taken by this process is not enforced by <cite>time_limit</cite>.</p>
+</dd>
+<dt>save_bag_folds<span class="classifier">bool, default = True</span></dt><dd><p>If True, will save the bagged fold models to disk.
+If False, will not save the bagged fold models, only keeping their metadata and out-of-fold predictions.</p>
+<blockquote>
+<div><p>Note: The bagged models will not be available for prediction, only use this if you intend to call <cite>refit_full</cite>.
+The purpose of setting it to False is that it greatly decreases the peak disk usage of the predictor during the fit call when bagging.
+Note that this makes refit_full slightly more likely to crash in scenarios where the dataset is large relative to available system memory.
+This is because by default, refit_full will fall back to cloning the first fold of the bagged model in case it lacks memory to refit.
+However, if <cite>save_bag_folds=False</cite>, this fallback isn’t possible, as there is not fold model to clone because it wasn’t saved.
+In this scenario, refit will raise an exception for <cite>save_bag_folds=False</cite>, but will succeed if <cite>save_bag_folds=True</cite>.</p>
+</div></blockquote>
+<p>Final disk usage of predictor will be identical regardless of the setting after <cite>predictor.delete_models(models_to_keep=”best”, dry_run=False)</cite> is called post-fit.</p>
+</dd>
+<dt>set_best_to_refit_full<span class="classifier">bool, default = False</span></dt><dd><p>If True, will change the default model that Predictor uses for prediction when model is not specified to the refit_full version of the model that exhibited the highest validation score.
+Only valid if <cite>refit_full</cite> is set.</p>
+</dd>
+<dt>keep_only_best<span class="classifier">bool, default = False</span></dt><dd><dl class="simple">
+<dt>If True, only the best model and its ancestor models are saved in the outputted <cite>predictor</cite>. All other models are deleted.</dt><dd><p>If you only care about deploying the most accurate predictor with the smallest file-size and no longer need any of the other trained models or functionality beyond prediction on new data, then set: <cite>keep_only_best=True</cite>, <cite>save_space=True</cite>.
+This is equivalent to calling <cite>predictor.delete_models(models_to_keep=’best’, dry_run=False)</cite> directly after <cite>fit()</cite>.</p>
+</dd>
+<dt>If used with <cite>refit_full</cite> and <cite>set_best_to_refit_full</cite>, the best model will be the refit_full model, and the original bagged best model will be deleted.</dt><dd><p><cite>refit_full</cite> will be automatically set to ‘best’ in this case to avoid training models which will be later deleted.</p>
+</dd>
+</dl>
+</dd>
+<dt>save_space<span class="classifier">bool, default = False</span></dt><dd><dl class="simple">
+<dt>If True, reduces the memory and disk size of predictor by deleting auxiliary model files that aren’t needed for prediction on new data.</dt><dd><p>This is equivalent to calling <cite>predictor.save_space()</cite> directly after <cite>fit()</cite>.</p>
+</dd>
+</dl>
+<p>This has NO impact on inference accuracy.
+It is recommended if the only goal is to use the trained model for prediction.
+Certain advanced functionality may no longer be available if <cite>save_space=True</cite>. Refer to <cite>predictor.save_space()</cite> documentation for more details.</p>
+</dd>
+<dt>feature_generator<span class="classifier"><a class="reference internal" href="autogluon.features.html#autogluon.features.generators.AbstractFeatureGenerator" title="autogluon.features.generators.AbstractFeatureGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">autogluon.features.generators.AbstractFeatureGenerator</span></code></a>, default = <a class="reference internal" href="autogluon.features.html#autogluon.features.generators.AutoMLPipelineFeatureGenerator" title="autogluon.features.generators.AutoMLPipelineFeatureGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">autogluon.features.generators.AutoMLPipelineFeatureGenerator</span></code></a></span></dt><dd><p>The feature generator used by AutoGluon to process the input data to the form sent to the models. This often includes automated feature generation and data cleaning.
+It is generally recommended to keep the default feature generator unless handling an advanced use-case.
+To control aspects of the default feature generation process, you can pass in an <code class="xref py py-class docutils literal notranslate"><span class="pre">AutoMLPipelineFeatureGenerator</span></code> object constructed using some of these kwargs:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>enable_numeric_features<span class="classifier">bool, default True</span></dt><dd><p>Whether to keep features of ‘int’ and ‘float’ raw types.
+These features are passed without alteration to the models.
+Appends IdentityFeatureGenerator(infer_features_in_args=dict(valid_raw_types=[‘int’, ‘float’]))) to the generator group.</p>
+</dd>
+<dt>enable_categorical_features<span class="classifier">bool, default True</span></dt><dd><p>Whether to keep features of ‘object’ and ‘category’ raw types.
+These features are processed into memory optimized ‘category’ features.
+Appends CategoryFeatureGenerator() to the generator group.</p>
+</dd>
+<dt>enable_datetime_features<span class="classifier">bool, default True</span></dt><dd><p>Whether to keep features of ‘datetime’ raw type and ‘object’ features identified as ‘datetime_as_object’ features.
+These features will be converted to ‘int’ features representing milliseconds since epoch.
+Appends DatetimeFeatureGenerator() to the generator group.</p>
+</dd>
+<dt>enable_text_special_features<span class="classifier">bool, default True</span></dt><dd><p>Whether to use ‘object’ features identified as ‘text’ features to generate ‘text_special’ features such as word count, capital letter ratio, and symbol counts.
+Appends TextSpecialFeatureGenerator() to the generator group.</p>
+</dd>
+<dt>enable_text_ngram_features<span class="classifier">bool, default True</span></dt><dd><p>Whether to use ‘object’ features identified as ‘text’ features to generate ‘text_ngram’ features.
+Appends TextNgramFeatureGenerator(vectorizer=vectorizer) to the generator group.</p>
+</dd>
+<dt>enable_raw_text_features<span class="classifier">bool, default False</span></dt><dd><p>Whether to keep the raw text features.
+Appends IdentityFeatureGenerator(infer_features_in_args=dict(required_special_types=[‘text’])) to the generator group.</p>
+</dd>
+<dt>vectorizer<span class="classifier">CountVectorizer, default CountVectorizer(min_df=30, ngram_range=(1, 3), max_features=10000, dtype=np.uint8)</span></dt><dd><p>sklearn CountVectorizer object to use in TextNgramFeatureGenerator.
+Only used if <cite>enable_text_ngram_features=True</cite>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>unlabeled_data<span class="classifier">pd.DataFrame, default = None</span></dt><dd><p>[Experimental Parameter] UNUSED.
+Collection of data without labels that we can use to pretrain on.
+This is the same schema as train_data, except without the labels.
+Currently, unlabeled_data is not used by any model.</p>
+</dd>
+<dt>verbosity<span class="classifier">int</span></dt><dd><p>If specified, overrides the existing <cite>predictor.verbosity</cite> value.</p>
+</dd>
+<dt>raise_on_model_failure: bool, default = False</dt><dd><dl class="simple">
+<dt>If True, will raise on any exception during model training.</dt><dd><p>This is useful when using a debugger during development to identify the cause of model failures.
+This should only be used for debugging.</p>
+</dd>
+<dt>If False, will try to skip to the next model if an exception occurred during model training.</dt><dd><p>This is the default logic and is a core principle of AutoGluon’s design.</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.0.</span></p>
+</div>
+</dd>
+<dt>raise_on_no_models_fitted: bool, default = True</dt><dd><p>If True, will raise a RuntimeError if no models were successfully fit during <cite>fit()</cite>.</p>
+</dd>
+<dt>calibrate: bool or str, default = ‘auto’</dt><dd><p>Note: It is recommended to use [‘auto’, False] as the values and avoid True.
+If ‘auto’ will automatically set to True if the problem_type and eval_metric are suitable for calibration.
+If True and the problem_type is classification, temperature scaling will be used to calibrate the Predictor’s estimated class probabilities
+(which may improve metrics like log_loss) and will train a scalar parameter on the validation set.
+If True and the problem_type is quantile regression, conformalization will be used to calibrate the Predictor’s estimated quantiles
+(which may improve the prediction interval coverage, and bagging could further improve it) and will compute a set of scalar parameters on the validation set.</p>
+</dd>
+<dt>test_data<span class="classifier">str or <code class="xref py py-class docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>, default = None</span></dt><dd><p>Table of the test data.
+If str is passed, <cite>test_data</cite> will be loaded using the str value as the file path.
+NOTE: This test_data is NEVER SEEN by the model during training and, if specified, is only used for logging purposes (i.e. for learning curve generation).
+This test_data should be treated the same way test data is used in predictor.leaderboard.</p>
+</dd>
+<dt>learning_curves<span class="classifier">bool or dict, default = None</span></dt><dd><dl>
+<dt>If bool and is True, default learning curve hyperparameter ag_args will be initialized for each of the models included in the ensemble.</dt><dd><p>By default, learning curves will include eval_metric scores specified in fit call arguments.
+This can be overwritten as shown below.</p>
+</dd>
+<dt>If dict, user can pass learning_curves parameters to be initialized as ag_args in the following format:</dt><dd><dl>
+<dt>learning_curves = {</dt><dd><dl class="simple">
+<dt>“metrics”: str or list(str) or Scorer or list(Scorer):</dt><dd><p>autogluon metric scorer(s) to be calculated at each iteration, represented as Scorer object(s) or scorer name(s) (str)</p>
+</dd>
+</dl>
+<p>”use_error”: bool : whether to use error or score format for metrics listed above</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="autogluon.tabular.TabularPredictor.html#autogluon.tabular.TabularPredictor" title="autogluon.tabular.TabularPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TabularPredictor</span></code></a> object. Returns self.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">autogluon.tabular</span><span class="w"> </span><span class="kn">import</span> <span class="n">TabularDataset</span><span class="p">,</span> <span class="n">TabularPredictor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span> <span class="o">=</span> <span class="n">TabularDataset</span><span class="p">(</span><span class="s1">&#39;https://autogluon.s3.amazonaws.com/datasets/Inc/train.csv&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;class&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictor</span> <span class="o">=</span> <span class="n">TabularPredictor</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">TabularDataset</span><span class="p">(</span><span class="s1">&#39;https://autogluon.s3.amazonaws.com/datasets/Inc/test.csv&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">leaderboard</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">leaderboard</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">test_data</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">label</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">perf</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">evaluate_predictions</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To maximize predictive performance, use the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eval_metric</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span>  <span class="c1"># set this to the metric you ultimately care about</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time_limit</span> <span class="o">=</span> <span class="mi">3600</span>  <span class="c1"># set as long as you are willing to wait (in sec)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictor</span> <span class="o">=</span> <span class="n">TabularPredictor</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">eval_metric</span><span class="o">=</span><span class="n">eval_metric</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">presets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;best_quality&#39;</span><span class="p">],</span> <span class="n">time_limit</span><span class="o">=</span><span class="n">time_limit</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="autogluon.tabular.TabularPredictor.fit_extra.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">TabularPredictor.fit_extra</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="autogluon.tabular.TabularPredictor.features.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">TabularPredictor.features</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, All authors. Licensed under Apache 2.0.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">TabularPredictor.fit</a><ul>
+<li><a class="reference internal" href="#autogluon.tabular.TabularPredictor.fit"><code class="docutils literal notranslate"><span class="pre">TabularPredictor.fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=bb516dca"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/custom.js?v=2c80e45e"></script>
+    </body>
+</html>

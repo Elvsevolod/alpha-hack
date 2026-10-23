@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-21",
+  "read_only": true,
+  "local_dotenv_generation_settings": {
+    "OPENAI_MODEL": "qwen/qwen3.8-27b",
+    "AGENT_CONTEXT_TOKENS": "262144",
+    "AGENT_OUTPUT_TOKENS": "8192",
+    "OPENAI_EXTRA_BODY": {
+      "temperature": 0.2,
+      "reasoning": {
+        "enabled": false
+      }
+    }
+  },
+  "inherited_generation_settings": {},
+  "entrypoint_loads_dotenv_with_override": false,
+  "archive_version": "v014",
+  "archive": "dist/solution_v014.zip",
+  "archive_embeds_dotenv": false,
+  "source_matches": {
+    "automl_agent/qwen.py": {
+      "sha256": "1e1772b48b07c16391ab3180021aed981d675d773114dd1680b7efae93a3ced6",
+      "matches_archive_embedded_manifest": true
+    },
+    "automl_agent/context_memory.py": {
+      "sha256": "9ec715404ad4945d5fd7c34332281b8634ae15dd942c2b4923e14d79282d065c",
+      "matches_archive_embedded_manifest": false
+    },
+    "context_compressor/transport.py": {
+      "sha256": "912c344dd2ce86df511d892157e5ed939bc88111531b61285ed81c320f703706",
+      "matches_archive_embedded_manifest": true
+    },
+    "solution.py": {
+      "sha256": "1ee36a68eb31b2905a5516d59c12fdbb5d6c315e53160c2476ca1f4391c37a42",
+      "matches_archive_embedded_manifest": true
+    }
+  },
+  "source_defaults": {
+    "model": "qwen/qwen3.8-27b",
+    "context_tokens": 262144,
+    "output_tokens": 8192,
+    "extra_body": {},
+    "request_timeout_cap_seconds": 300,
+    "response_truncation_next_cap": 32768
+  },
+  "request_history_roles": [
+    "system",
+    "user"
+  ],
+  "preserved_reasoning_history_is_sent": false,
+  "live_calls_made_for_this_research": 0,
+  "limitations": [
+    "No live server probe; configured settings do not prove upstream application.",
+    "Archive source comparison uses embedded manifest, no model or agent executed.",
+    "No API key, private base URL, or access-bearing URL is included."
+  ]
+}

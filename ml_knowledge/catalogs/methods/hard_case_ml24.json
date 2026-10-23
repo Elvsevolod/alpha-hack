@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml24",
+  "method_id": "hard_case_ml24",
+  "version": 1,
+  "title": "Macro F1 страдает при дисбалансе",
+  "observations": "высокая Accuracy при низкой Macro F1; редкие классы почти не предсказываются.",
+  "hypothesis": "одна модель без весов, затем `balanced` или поддерживаемые умеренные веса; менять только политику весов, затем при необходимости сложность модели.",
+  "diagnostic": "внутри fit измерить частоты, полноценные precision/recall/F1 и основные пары путаницы; отличать слабое представление от неудачного правила решения.",
+  "minimum_experiment": "одна модель без весов, затем `balanced` или поддерживаемые умеренные веса; менять только политику весов, затем при необходимости сложность модели.",
+  "acceptance": "улучшилась подтверждённая Macro F1 при корректном списке классов; результат не объясняется переименованием меток или изменением split.",
+  "constraints": "inverse-frequency может резко увеличить false positives; не все адаптеры принимают `class_weight` — у XGBoost нашего прямого адаптера его нет. Weighted F1 не заменяет macro.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "высокая Accuracy при низкой Macro F1; редкие классы почти не предсказываются."
+  ],
+  "contraindications": [
+    "inverse-frequency может резко увеличить false positives; не все адаптеры принимают `class_weight` — у XGBoost нашего прямого адаптера его нет. Weighted F1 не заменяет macro."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "class_imbalance"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.f1_score.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "class_imbalance",
+  "routing_priority": 0
+}

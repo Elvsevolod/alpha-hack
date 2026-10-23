@@ -1,0 +1,463 @@
+{
+  "date": "2026-10-21",
+  "grading": "A: specification/own service; B: primary independent measurements; C: firsthand small or incompletely controlled evidence; D: secondary or not evidence of base-model quality. Grade is scoped to the claim, not to the author's reputation.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Карта Qwen3.8-27B",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "grade": "A",
+      "origin": "Qwen, разработчик",
+      "date": "2026-08-14; проверено 2026-10-21",
+      "note": "Официальные режимы и sampling; рекомендации производителя не заменяют проверку нашего агента.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S02",
+      "title": "Официальный generation_config.json",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/generation_config.json",
+      "grade": "A",
+      "origin": "Qwen, исходный файл",
+      "date": "main на 2026-10-21",
+      "note": "Непосредственно проверены do_sample, temperature, top_p и top_k.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S03",
+      "title": "Официальный chat_template.jinja",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/chat_template.jinja",
+      "grade": "A",
+      "origin": "Qwen, исходный файл",
+      "date": "main на 2026-10-21",
+      "note": "Проверены допустимые effort, мягкие инструкции, поля истории и переключатель thinking.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S04",
+      "title": "Qwen Cloud: Qwen3.8-27B",
+      "url": "https://www.qwencloud.com/models/qwen3.8-27b",
+      "grade": "A",
+      "origin": "Разработчик сервиса",
+      "date": "проверено 2026-10-21",
+      "note": "Лимиты и синтаксис относятся к Qwen Cloud; не устанавливают возможности прокси организаторов.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S05",
+      "title": "vLLM: рецепт Qwen3.8-27B",
+      "url": "https://recipes.vllm.ai/Qwen/Qwen3.8-27B",
+      "grade": "A",
+      "origin": "Разработчики движка",
+      "date": "проверено 2026-10-21",
+      "note": "Парсер reasoning и qwen3_coder для tool calling; серверные настройки отделены от клиентских.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S06",
+      "title": "SGLang: Qwen3.8-27B",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B",
+      "grade": "A",
+      "origin": "Разработчики движка",
+      "date": "проверено 2026-10-21",
+      "note": "Поддержка движка и аппаратные ограничения; отдельные пути меняют семантику sampling.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S07",
+      "title": "Groq: Qwen3.8-27B",
+      "url": "https://console.groq.com/docs/model/qwen/qwen3.8-27b",
+      "grade": "A",
+      "origin": "Поставщик API",
+      "date": "проверено 2026-10-21",
+      "note": "Пример другого контекста и максимального ответа при том же названии модели.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S08",
+      "title": "OpenRouter: параметры API",
+      "url": "https://openrouter.ai/docs/api_reference/parameters",
+      "grade": "A",
+      "origin": "Разработчик шлюза",
+      "date": "проверено 2026-10-21",
+      "note": "Пропуск параметра оставляет серверный default; seed не гарантирует полную воспроизводимость.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S09",
+      "title": "OpenRouter: reasoning tokens",
+      "url": "https://openrouter.ai/docs/guides/best-practices/reasoning-tokens",
+      "grade": "A",
+      "origin": "Разработчик шлюза",
+      "date": "проверено 2026-10-21",
+      "note": "Различаются effort, enabled, exclude и бюджет; поддержка зависит от модели и провайдера.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S10",
+      "title": "OpenRouter: provider routing",
+      "url": "https://openrouter.ai/docs/guides/routing/provider-selection",
+      "grade": "A",
+      "origin": "Разработчик шлюза",
+      "date": "проверено 2026-10-21",
+      "note": "Неподдерживаемые параметры могут игнорироваться. Это не разрешение менять платформенный маршрут.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S11",
+      "title": "OpenRouter: каталог endpoints Qwen3.8-27B",
+      "url": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints",
+      "grade": "A",
+      "origin": "Машиночитаемые данные сервиса",
+      "date": "снимок 2026-10-21",
+      "note": "Сохранено 20 публичных endpoints; маршрут организаторов этим снимком не установлен.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S12",
+      "title": "Artificial Analysis: xhigh",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b",
+      "grade": "B",
+      "origin": "Первичная независимая оценка",
+      "date": "состояние 2026-10-21",
+      "note": "Индекс v4.3.2: 34; агрегат не равен качеству AutoML.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S13",
+      "title": "Artificial Analysis: medium",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-medium",
+      "grade": "B",
+      "origin": "Первичная независимая оценка",
+      "date": "состояние 2026-10-21",
+      "note": "Индекс v4.3.2: 28; текущие данные, не старый снимок индекса.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S14",
+      "title": "Artificial Analysis: low",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-low",
+      "grade": "B",
+      "origin": "Первичная независимая оценка",
+      "date": "состояние 2026-10-21",
+      "note": "Индекс v4.3.2: 26; сильнее сокращать reasoning не всегда выгодно.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S15",
+      "title": "Artificial Analysis: без reasoning",
+      "url": "https://artificialanalysis.ai/models/qwen3-8-27b-non-reasoning",
+      "grade": "B",
+      "origin": "Первичная независимая оценка",
+      "date": "состояние 2026-10-21",
+      "note": "Индекс v4.3.2: 20; точность отдельных простых задач может отличаться.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S16",
+      "title": "Artificial Analysis: xhigh / medium",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-vs-qwen3-8-27b-medium",
+      "grade": "B",
+      "origin": "Первичное сопоставление оценок",
+      "date": "состояние 2026-10-21",
+      "note": "Проверены AutomationBench-AA, HLE, SciCode; нет доказательства оптимальной температуры.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S17",
+      "title": "Artificial Analysis: off / medium",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-non-reasoning-vs-qwen3-8-27b-medium",
+      "grade": "B",
+      "origin": "Первичное сопоставление оценок",
+      "date": "состояние 2026-10-21",
+      "note": "Подтверждает значимый разрыв на автоматизации; не измеряет наш агент.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S18",
+      "title": "Artificial Analysis: low / medium",
+      "url": "https://artificialanalysis.ai/models/comparisons/qwen3-8-27b-low-vs-qwen3-8-27b-medium",
+      "grade": "B",
+      "origin": "Первичное сопоставление оценок",
+      "date": "состояние 2026-10-21",
+      "note": "AutomationBench-AA 30% / 40%; отдельные показатели не монотонны.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S19",
+      "title": "Veladan: FP8 и две температуры",
+      "url": "https://blog.veladan.org/2026/08/14/qwen3-8-27b-fp8-benchmarks.html",
+      "grade": "B−",
+      "origin": "Автор собственных измерений",
+      "date": "2026-08-14",
+      "note": "Контролируются модель и оборудование; число повторов между температурами различается, часть теста остановлена.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S20",
+      "title": "Veladan: четыре режима reasoning",
+      "url": "https://blog.veladan.org/2026/08/15/qwen3-8-27b-thinking-depth.html",
+      "grade": "B−",
+      "origin": "Автор собственных измерений",
+      "date": "2026-08-15",
+      "note": "Шесть наборов; NVFP4 и temperature 0.6; не сравнение оптимального sampling каждого режима.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S21",
+      "title": "Simon Willison: практическая проверка",
+      "url": "https://simonwillison.net/2026/Aug/16/qwen-38-27b/",
+      "grade": "C+",
+      "origin": "Первичный опыт с транскриптами",
+      "date": "2026-08-16",
+      "note": "Наглядный обмен времени на качество; несколько задач не образуют общий benchmark.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S22",
+      "title": "HF discussion 113: длительное thinking",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/113",
+      "grade": "C",
+      "origin": "Пользовательские наблюдения",
+      "date": "с 2026-08-16",
+      "note": "Есть короткие пробы; выводы о всех версиях Ollama/LM Studio не переносились.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S23",
+      "title": "HF discussion 173: что значит medium",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/173",
+      "grade": "C; код подтверждён A",
+      "origin": "Обсуждение шаблона",
+      "date": "2026-08-26–27",
+      "note": "Подтверждение механизма ищется в исходном шаблоне, не в статусе автора ответа.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S24",
+      "title": "HF discussion 194: стоимость effort",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/194",
+      "grade": "C+",
+      "origin": "Автор измерений на одной задаче",
+      "date": "2026-09-10",
+      "note": "3 / 4 / 17 запусков; разные размеры групп, оценка качества другой LLM.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S25",
+      "title": "HF discussion 178: семантические циклы",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/discussions/178",
+      "grade": "C+",
+      "origin": "Первичные сообщения о сбоях",
+      "date": "с 2026-08-27; ответы в сентябре",
+      "note": "BF16 и несколько стеков; штраф за повтор не устраняет любой вид зацикливания.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S26",
+      "title": "QwenLM issue 216: пустой ответ",
+      "url": "https://github.com/QwenLM/Qwen3.8/issues/216",
+      "grade": "C+",
+      "origin": "Первичные измерения и исправления автора",
+      "date": "2026-08-19; дополнения 2026-08-27 и 2026-09-05",
+      "note": "Прочитаны issue и комментарии. Закрыто ботом за неактивность; исправление этим не доказано.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S27",
+      "title": "QwenLM issue 217: недопустимый high",
+      "url": "https://github.com/QwenLM/Qwen3.8/issues/217",
+      "grade": "C+; код подтверждён A",
+      "origin": "Первичное воспроизведение интеграции",
+      "date": "2026-08; закрыто 2026-10-03",
+      "note": "Причина совместимости подтверждается текущим шаблоном; детали ошибки зависят от сервера.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S28",
+      "title": "Erfi: tuning для агентных задач",
+      "url": "https://erfi.dev/reference/qwen38-agentic-tuning/",
+      "grade": "B−",
+      "origin": "Автор собственных измерений",
+      "date": "проверено 2026-10-21",
+      "note": "Связывает измерения с задачами; вывод против малого cap относится к его распределению длин.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S29",
+      "title": "Jonidimo: один RTX 3090",
+      "url": "https://jonidimo.github.io/qwen38-3090-benchmark/benchmark.html",
+      "grade": "B−",
+      "origin": "Автор измерений с проверками",
+      "date": "2026-08-17",
+      "note": "Разбирает correctness, сохранение reasoning и MTP; охват задач ограничен.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S30",
+      "title": "Chinkeong: 175 prompts и режимы",
+      "url": "https://chinkeong.github.io/qwen-27b/index.html",
+      "grade": "B−",
+      "origin": "Автор измерений и аудита",
+      "date": "август–октябрь 2026",
+      "note": "Важные quality-прогоны выполнены greedy; не прямое доказательство превосходства официального sampler.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S31",
+      "title": "NInfer bench: README",
+      "url": "https://github.com/chupaty/ninfer-bench/blob/main/README.md",
+      "grade": "B−",
+      "origin": "Первичный отчёт автора harness",
+      "date": "сентябрь–октябрь 2026; проверено 2026-10-21",
+      "note": "75 комбинаций; смешаны base и Swift, а целевая функция учитывает время.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S32",
+      "title": "NInfer bench: методика",
+      "url": "https://github.com/chupaty/ninfer-bench/blob/main/METHODOLOGY.md",
+      "grade": "B−",
+      "origin": "Первичная методика автора",
+      "date": "проверено 2026-10-21",
+      "note": "Проверена формула loss; минимум этой функции не равен максимуму качества.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S33",
+      "title": "Murai Labs: vLLM, MTP и история",
+      "url": "https://github.com/Murai-Labs/qwen3.8-27b-rtx5090/blob/main/README.md",
+      "grade": "B−",
+      "origin": "Автор воспроизводимого исследования",
+      "date": "проверено 2026-10-21",
+      "note": "Конкретный NVFP4 checkpoint и vLLM 0.27.1; нельзя обобщать на все квантизации.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S34",
+      "title": "llama.cpp discussion 27165: описания инструментов",
+      "url": "https://github.com/ggml-org/llama.cpp/discussions/27165",
+      "grade": "B−",
+      "origin": "Первичный эксперимент с controls",
+      "date": "2026-08-16",
+      "note": "Эффект структуры tools на одном стеке; подтверждает нужность проверки схем, не магический порядок.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S35",
+      "title": "Reddit: low / medium / xhigh, SVG",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vpuh7m/qwen38_27b_reasoning_effort_lowmediumxhigh/",
+      "grade": "C+",
+      "origin": "Первичный тест, три seed",
+      "date": "2026-08-16",
+      "note": "Один визуальный prompt и LLM-оценка; полезен для оценки цены xhigh.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S36",
+      "title": "Reddit: 12 SWEmini задач",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vqlyat/qwen_38_27b_is_not_bad_but_i_struggle_a_bit_with/",
+      "grade": "C",
+      "origin": "Первичный небольшой опыт",
+      "date": "август 2026",
+      "note": "xhigh: 9/12 против 6–7/12; не строгая оценка величины эффекта.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S37",
+      "title": "Reddit: обсуждение температуры",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vr3cma/weirdly_no_one_talks_about_temperature_setting/",
+      "grade": "C",
+      "origin": "Первичные отзывы",
+      "date": "август 2026",
+      "note": "Подтверждает разногласия; не использовано как доказательство одной оптимальной температуры.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S38",
+      "title": "PieBru: FINDINGS, температурная батарея",
+      "url": "https://github.com/PieBru/Qwen-3.8-27B_Strix-Halo_gfx1151/blob/main/docs/FINDINGS.md",
+      "grade": "C+",
+      "origin": "Первичный опубликованный отчёт",
+      "date": "проверено 2026-10-21",
+      "note": "Два указанных CSV e7 не найдены в текущем results; числа не пересчитаны независимо.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S39",
+      "title": "Lobster AGI Lab: настройка и собственные тесты",
+      "url": "https://myagilab.com/articles/learn/2026-09-28-81cc49.html",
+      "grade": "C+",
+      "origin": "Первичный китайский опыт",
+      "date": "2026-09-28",
+      "note": "Смена нескольких параметров вместе; шесть задач не позволяют выбрать универсальный режим.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S40",
+      "title": "Reddit: месяц реальной работы, FP8",
+      "url": "https://www.reddit.com/r/Qwen_AI/comments/1x7u4kd/self_hosted_qwen_38_27b_for_real_work_my_1_month/",
+      "grade": "C",
+      "origin": "Первичный длительный опыт",
+      "date": "октябрь 2026",
+      "note": "Положительный отзыв о xhigh и работе с данными; нет контролируемого A/B.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S41",
+      "title": "Reddit: семь часов на одной задаче",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1x70juc/qwen38_27b_took_7_hours_on_a_task_and_didnt_make/",
+      "grade": "C",
+      "origin": "Первичный отрицательный опыт",
+      "date": "октябрь 2026",
+      "note": "Указаны low и контекст 32K; применение effort и остальные параметры не подтверждены.",
+      "accessed": "2026-10-21"
+    },
+    {
+      "id": "S42",
+      "title": "Unsloth: Qwen3.8-27B",
+      "url": "https://unsloth.ai/models/qwen3.8-27b",
+      "grade": "A для продукта; D для качества base",
+      "origin": "Разработчик квантизаций",
+      "date": "проверено 2026-10-21",
+      "note": "Сверка presets; подпись Instruct medium or low не меняет семантику нативных thinking-режимов.",
+      "accessed": "2026-10-21"
+    }
+  ],
+  "excluded_or_limited": [
+    {
+      "title": "Qwen ReadTheDocs quickstart (ответ Context7)",
+      "url": "https://qwen.readthedocs.io/en/latest/getting_started/quickstart.html",
+      "reason": "Получены примеры Qwen3-8B и Qwen3-Instruct-2507. Их sampling не выдан за рекомендацию для Qwen3.8-27B."
+    },
+    {
+      "title": "Обзор 60 веток Reddit",
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1vux9f6/i_read_60_qwen3827b_threads_and_crossreferenced/",
+      "reason": "Использован для поиска первичных ссылок; не независимая репликация упомянутых опытов."
+    },
+    {
+      "title": "OrcaRouter review",
+      "url": "https://www.orcarouter.ai/blog/qwen-3-8-27b-review",
+      "reason": "Поисковый фрагмент неверно называет нативную шкалу low/medium/high. Основные выводы взяты из первичных источников."
+    },
+    {
+      "title": "Egethropic Opium Bench",
+      "url": "https://egethropic.com/research/opium-bench/results/27b/",
+      "reason": "Исследует поведение при специальных вмешательствах, не оптимальную конфигурацию sampling для нашего AutoML."
+    },
+    {
+      "title": "Swift, ThinkingCap, Pi, uncensored, GSQ-RCO и Bonsai",
+      "url": null,
+      "reason": "Другая дообученная или преобразованная модель. Их успешные presets не подтверждают оптимум для базового endpoint."
+    },
+    {
+      "title": "vLLM PR 55420, упомянутый в комментарии issue 216",
+      "url": "https://github.com/vllm-project/vllm/pull/55420",
+      "reason": "Проверка GitHub API вернула 404. Наличие или включение исправления не объявлено подтверждённым."
+    },
+    {
+      "title": "CSV e7-temp и e7x-hard из отчёта PieBru",
+      "url": "https://github.com/PieBru/Qwen-3.8-27B_Strix-Halo_gfx1151/tree/main/results",
+      "reason": "Оба raw URL вернули 404; в доступном списке results файлов нет. Сохраняется только статус отчёта автора."
+    }
+  ]
+}

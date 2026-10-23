@@ -1,0 +1,1 @@
+{"added":0,"failures":[{"reason":"ImportError: {{ fullname }}","status":"unavailable","symbol":"{{ fullname }}"},{"reason":"ImportError: {{ module }}.{{ objname }}","status":"unavailable","symbol":"{{ module }}.{{ objname }}"}],"requested":["{{ fullname }}","{{ module }}.{{ objname }}"]}

@@ -1,0 +1,19 @@
+{
+  "review_date": "2026-10-20",
+  "kind": "Document consistency review, not agent tests or ML experiments",
+  "requirements_rows": 40,
+  "requirement_statuses": [
+    "неоднозначно",
+    "отсутствует",
+    "подтверждено"
+  ],
+  "test_matrix_rows": 27,
+  "implementation_stages": 8,
+  "external_references": 49,
+  "balanced_code_fences": true,
+  "markdown_table_issues": [],
+  "missing_local_links": [],
+  "original_inputs_changed": [],
+  "report_sha256": "f6e78363b2b4de5a7ae7c79ef17ece89a2fe32bf58abbf23edb306c4f0fa2fa6",
+  "agent_training_or_tests_executed": false
+}

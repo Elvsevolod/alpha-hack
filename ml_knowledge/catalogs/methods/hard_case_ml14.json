@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml14",
+  "method_id": "hard_case_ml14",
+  "version": 1,
+  "title": "Новые категории на предсказании",
+  "observations": "Категория predict отсутствует на fit либо число уникальных значений растёт.",
+  "hypothesis": "поддерживаемый unknown-safe one-hot или нативная обработка; при редких категориях сравнить объединение редких уровней, выученное на fit.",
+  "diagnostic": "отдельно посчитать незнакомые и пропущенные значения; проверить устойчивость словаря и одинаковое кодирование при save/load.",
+  "minimum_experiment": "поддерживаемый unknown-safe one-hot или нативная обработка; при редких категориях сравнить объединение редких уровней, выученное на fit.",
+  "acceptance": "новая категория не вызывает исключения и не меняет число/порядок признаков; строковые уровни согласованы с сохранённой моделью.",
+  "constraints": "нельзя независимо перекодировать категории train и test или предполагать новые возможности автоматического recoding XGBoost. Не обучать словарь заново на test.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "Категория predict отсутствует на fit либо число уникальных значений растёт."
+  ],
+  "contraindications": [
+    "нельзя независимо перекодировать категории train и test или предполагать новые возможности автоматического recoding XGBoost. Не обучать словарь заново на test."
+  ],
+  "cost": "низкая",
+  "implementation_path": "ready",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_preprocessing_OneHotEncoder"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "unknown_categories"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.OneHotEncoder.html",
+    "https://raw.githubusercontent.com/dmlc/xgboost/v2.1.4/doc/tutorials/categorical.rst"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "unknown_categories",
+  "routing_priority": 0
+}

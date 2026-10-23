@@ -1,0 +1,4513 @@
+{
+  "scope": "diagnostics, not resolved omissions; no inventory item removed",
+  "inventory_sha256": "bb7382ccc1f038e0dd260fdb0b8f02f90fbe0da54e2d8666c2fe7fc43e54a446",
+  "complete": false,
+  "unresolved_expansions": 400,
+  "by_kind": {
+    "autoattribute": 9,
+    "autoclass": 38,
+    "autofunction": 17,
+    "automethod": 58,
+    "automodule": 17,
+    "autosummary": 89,
+    "generated_output": 52,
+    "include": 52,
+    "include_option": 8,
+    "substitution": 60
+  },
+  "by_library": {
+    "autogluon.tabular": {
+      "complete": false,
+      "in_scope": 6660,
+      "included": 6657,
+      "included_fraction": 0.9995495495495496,
+      "out_of_scope": 937,
+      "unavailable": 3,
+      "unresolved_expansions": 0
+    },
+    "catboost": {
+      "complete": false,
+      "error": 33,
+      "in_scope": 2325,
+      "included": 2288,
+      "included_fraction": 0.9840860215053764,
+      "out_of_scope": 28594,
+      "unavailable": 4,
+      "unresolved_expansions": 49
+    },
+    "category-encoders": {
+      "complete": true,
+      "in_scope": 719,
+      "included": 719,
+      "included_fraction": 1.0,
+      "out_of_scope": 1207,
+      "unresolved_expansions": 0
+    },
+    "feature-engine": {
+      "complete": true,
+      "in_scope": 1904,
+      "included": 1904,
+      "included_fraction": 1.0,
+      "out_of_scope": 133,
+      "unresolved_expansions": 0
+    },
+    "flaml": {
+      "complete": false,
+      "in_scope": 1454,
+      "included": 1451,
+      "included_fraction": 0.9979367262723521,
+      "out_of_scope": 391,
+      "unavailable": 3,
+      "unresolved_expansions": 0
+    },
+    "imbalanced-learn": {
+      "complete": false,
+      "error": 5,
+      "in_scope": 448,
+      "included": 442,
+      "included_fraction": 0.9866071428571429,
+      "out_of_scope": 116,
+      "unavailable": 1,
+      "unresolved_expansions": 7
+    },
+    "lightautoml": {
+      "complete": false,
+      "error": 2,
+      "in_scope": 12899,
+      "included": 12894,
+      "included_fraction": 0.9996123730521745,
+      "out_of_scope": 165,
+      "unavailable": 3,
+      "unresolved_expansions": 2
+    },
+    "lightgbm": {
+      "complete": true,
+      "in_scope": 503,
+      "included": 503,
+      "included_fraction": 1.0,
+      "out_of_scope": 496,
+      "unresolved_expansions": 0
+    },
+    "numpy": {
+      "complete": false,
+      "error": 22,
+      "in_scope": 24225,
+      "included": 24201,
+      "included_fraction": 0.9990092879256965,
+      "out_of_scope": 1144,
+      "unavailable": 2,
+      "unresolved_expansions": 73
+    },
+    "optuna": {
+      "complete": false,
+      "error": 2,
+      "in_scope": 1363,
+      "included": 1337,
+      "included_fraction": 0.9809244314013206,
+      "out_of_scope": 176,
+      "unavailable": 24,
+      "unresolved_expansions": 2
+    },
+    "pandas": {
+      "complete": true,
+      "in_scope": 43251,
+      "included": 43251,
+      "included_fraction": 1.0,
+      "out_of_scope": 1158,
+      "unresolved_expansions": 0
+    },
+    "scikit-learn": {
+      "complete": false,
+      "error": 6,
+      "in_scope": 3996,
+      "included": 3990,
+      "included_fraction": 0.9984984984984985,
+      "out_of_scope": 585,
+      "unresolved_expansions": 31
+    },
+    "scipy": {
+      "complete": false,
+      "error": 23,
+      "in_scope": 8009,
+      "included": 7986,
+      "included_fraction": 0.997128230740417,
+      "out_of_scope": 1999,
+      "unresolved_expansions": 49
+    },
+    "statsmodels": {
+      "complete": false,
+      "error": 29,
+      "in_scope": 14499,
+      "included": 14455,
+      "included_fraction": 0.9969653079522726,
+      "out_of_scope": 1200,
+      "unavailable": 15,
+      "unresolved_expansions": 37
+    },
+    "torch": {
+      "complete": false,
+      "error": 32,
+      "in_scope": 112639,
+      "included": 112601,
+      "included_fraction": 0.9996626390504177,
+      "out_of_scope": 12149,
+      "unavailable": 6,
+      "unresolved_expansions": 140
+    },
+    "xgboost": {
+      "complete": false,
+      "error": 4,
+      "in_scope": 1161,
+      "included": 1151,
+      "included_fraction": 0.9913867355727821,
+      "out_of_scope": 1186,
+      "unavailable": 6,
+      "unresolved_expansions": 10
+    }
+  },
+  "unresolved": [
+    {
+      "document": "doc_scikit-learn_123d1441ce4fd5ff",
+      "kind": "include",
+      "library": "scikit-learn",
+      "path": "doc/developers/advanced_installation.rst",
+      "target": "doc/min_dependency_substitutions.rst"
+    },
+    {
+      "document": "doc_scikit-learn_185fc63a0740bab8",
+      "kind": "include_option",
+      "library": "scikit-learn",
+      "path": "doc/install.rst",
+      "target": "class-label=tab-6"
+    },
+    {
+      "document": "doc_scikit-learn_185fc63a0740bab8",
+      "kind": "include_option",
+      "library": "scikit-learn",
+      "path": "doc/install.rst",
+      "target": "sync=package-manager-conda"
+    },
+    {
+      "document": "doc_scikit-learn_185fc63a0740bab8",
+      "kind": "include",
+      "library": "scikit-learn",
+      "path": "doc/install.rst",
+      "target": "doc/min_dependency_table.rst"
+    },
+    {
+      "document": "doc_scikit-learn_2562474bea3e859a",
+      "kind": "generated_output",
+      "library": "scikit-learn",
+      "path": "doc/modules/learning_curve.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "automodule",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ fullname }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "autofunction",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ module }}.{{ objname }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "autoclass",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ module }}.{{ objname }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ fullname }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ meth }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ module }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ objname | escape | underline(line=\"=\") }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ objname }}"
+    },
+    {
+      "document": "doc_scikit-learn_d2e46b2b59615e97",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/base.rst",
+      "target": "{{ objtype }}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{attributes}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{examples}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{extended_summary}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{index}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{methods}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{notes}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{other_parameters}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{parameters}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{raises}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{references}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{returns}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{see_also}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{summary}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{warnings}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{warns}}"
+    },
+    {
+      "document": "doc_scikit-learn_70e81477edb80738",
+      "kind": "substitution",
+      "library": "scikit-learn",
+      "path": "doc/templates/numpydoc_docstring.rst",
+      "target": "{{yields}}"
+    },
+    {
+      "document": "doc_scikit-learn_41035b42425db925",
+      "kind": "generated_output",
+      "library": "scikit-learn",
+      "path": "doc/visualizations.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_catboost_53d22b6296f44369",
+      "kind": "substitution",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage-installation/arcadia__build-from-sources__intro.md",
+      "target": "{{ yatool__link }}"
+    },
+    {
+      "document": "doc_catboost_acc47a36a1c95d9b",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/calc-model__options.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_253aaffe93be98cb",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/cli-regular-settings.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/format-for-multimple-files.md"
+    },
+    {
+      "document": "doc_catboost_253aaffe93be98cb",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/cli-regular-settings.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-internal__desc__possbile-values.md"
+    },
+    {
+      "document": "doc_catboost_253aaffe93be98cb",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/cli-regular-settings.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_253aaffe93be98cb",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/cli-regular-settings.md",
+      "target": "catboost/docs/en/_includes/work_src/_includes/work_src/reusage/graph__where_is_used.md"
+    },
+    {
+      "document": "doc_catboost_edc0d4b4e34a7168",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/python-reference_pool_quantized.md",
+      "target": "catboost/docs/en/_includes/_includes/work_src/reusage/python__per_floa_feature_quantization__description-format__intro-and-format.md"
+    },
+    {
+      "document": "doc_catboost_6638964c959fe468",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/applying__models.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/applying_models.md"
+    },
+    {
+      "document": "doc_catboost_6638964c959fe468",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/applying__models.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/yandex-specific-methods.md"
+    },
+    {
+      "document": "doc_catboost_458d5cabd0d431d8",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/cli-installation.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/arcadia_users_step.md"
+    },
+    {
+      "document": "doc_catboost_51303fd53674d8ce",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/_includes/work_src/reusage/calc-model__options.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_58fa26c53ab55327",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/contacts.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/contacts.md"
+    },
+    {
+      "document": "doc_catboost_58fa26c53ab55327",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/contacts.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/gulin.md"
+    },
+    {
+      "document": "doc_catboost_92520444e42c6f57",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/educational-materials-videos.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/video.md"
+    },
+    {
+      "document": "doc_catboost_1358f2d56c434489",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/feature-analysis-graph.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/feature-analysis-graph.md"
+    },
+    {
+      "document": "doc_catboost_e5f0b240c6f650d1",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_column-descfile.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/type-of-cd-to-use__desc.md"
+    },
+    {
+      "document": "doc_catboost_e5f0b240c6f650d1",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_column-descfile.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/column_types.md"
+    },
+    {
+      "document": "doc_catboost_e5f0b240c6f650d1",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_column-descfile.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-input-data/table-descriptions__full.md"
+    },
+    {
+      "document": "doc_catboost_e5f0b240c6f650d1",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_column-descfile.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/yt_tables.md"
+    },
+    {
+      "document": "doc_catboost_089a0dfc1d2152c4",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_group-weights.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/type-of-group-weight-to-use__desc.md"
+    },
+    {
+      "document": "doc_catboost_089a0dfc1d2152c4",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_group-weights.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/yt_tables_group_weights.md"
+    },
+    {
+      "document": "doc_catboost_79e9b83b23d2ced9",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/input-data_values-file.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/internal-input-data_values-file.md"
+    },
+    {
+      "document": "doc_catboost_7ab9a468df02d54a",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/parameter-tuning.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/one-hot-encoding-features__internal.md"
+    },
+    {
+      "document": "doc_catboost_944e9c4bd4314502",
+      "kind": "substitution",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/python-reference_catboostclassifier_fit.md",
+      "target": "{{ [catboost.CatBoost](../concepts/python-reference_catboost.md), catboost.CatBoostClassifier](../concepts/python-reference_catboostclassifier.md) }}"
+    },
+    {
+      "document": "doc_catboost_024136d23b9bc470",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/python-reference_pool.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_319a6afc213e03e6",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/python-reference_utils_quantize.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_d98ce57b6a516deb",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/r-reference_catboost-get_object_importance.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-only-internal__desc__full.md"
+    },
+    {
+      "document": "doc_catboost_ee6f27e596d0a3c7",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/r-reference_catboost-load_pool.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-only-internal__desc__full.md"
+    },
+    {
+      "document": "doc_catboost_ee6f27e596d0a3c7",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/r-reference_catboost-load_pool.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_catboost_78c6636adbcaf7c6",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/r-reference_catboost-predict.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-only-internal__desc__full.md"
+    },
+    {
+      "document": "doc_catboost_f6ad21db77b10c0b",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/r-reference_catboost-staged_predict.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-only-internal__desc__full.md"
+    },
+    {
+      "document": "doc_catboost_ca0d93e116b6369f",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/concepts/tutorials.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/bootcamp-task.md"
+    },
+    {
+      "document": "doc_catboost_373d5abdd2c9e800",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/features/categorical-features.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/one-hot-encoding-features__internal.md"
+    },
+    {
+      "document": "doc_catboost_1f6587888f35af94",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/features/training-on-gpu.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/gpu-training.md"
+    },
+    {
+      "document": "doc_catboost_8e3e5576a1a9c71f",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/build-environment-setup-for-ya-make.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/arcadia_users_step.md"
+    },
+    {
+      "document": "doc_catboost_959a9bf2251b4cd0",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/cli-installation-make-install.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_aee43ed725a2cb6c",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/cli-installation-multi-node-installation.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_d98def583d46b633",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-a-wheel-package.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_3bc039b85824a30c",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-from-source-linux-macos-using-ya-make.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_c518cab56730ec74",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-from-source.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_c09574926dd57e78",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-from-source-windows-using-ya-make.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_f8a201bca9934a47",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-from-source.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_a24b47aff3172083",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/python-installation-method-build-from-source.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/note__use-outside-arcadia.md"
+    },
+    {
+      "document": "doc_catboost_50a0aa20378989ec",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/installation/r-installation-github-installation.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/arcadia_users_step.md"
+    },
+    {
+      "document": "doc_catboost_d5a5fac3eae5dcc5",
+      "kind": "substitution",
+      "library": "catboost",
+      "path": "catboost/docs/en/references/querycrossentropy.md",
+      "target": "{{\\bar p_i}}"
+    },
+    {
+      "document": "doc_catboost_d5a5fac3eae5dcc5",
+      "kind": "substitution",
+      "library": "catboost",
+      "path": "catboost/docs/en/references/querycrossentropy.md",
+      "target": "{{\\bar p_{i}}"
+    },
+    {
+      "document": "doc_catboost_0c519ad8573658b8",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/references/training-parameters/input.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/format-for-multimple-files.md"
+    },
+    {
+      "document": "doc_catboost_0c519ad8573658b8",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/references/training-parameters/input.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/files-internal__desc__possbile-values.md"
+    },
+    {
+      "document": "doc_catboost_0c519ad8573658b8",
+      "kind": "include",
+      "library": "catboost",
+      "path": "catboost/docs/en/references/training-parameters/input.md",
+      "target": "catboost/docs/en/yandex_specific/_includes/reusage-formats/internal-cd-desc.md"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "automodule",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBClassifier"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBClassifierModel"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBRegressor"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBRegressorModel"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBRanker"
+    },
+    {
+      "document": "doc_xgboost_3506c958c8bcc0ff",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/python/python_api.rst",
+      "target": "xgboost.spark.SparkXGBRankerModel"
+    },
+    {
+      "document": "doc_xgboost_6e06991df7c4afa5",
+      "kind": "generated_output",
+      "library": "xgboost",
+      "path": "doc/tutorials/feature_interaction_constraint.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_xgboost_1deaacbfa2d1b48c",
+      "kind": "autoclass",
+      "library": "xgboost",
+      "path": "doc/tutorials/ray.rst",
+      "target": "xgboost_ray.RayParams"
+    },
+    {
+      "document": "doc_xgboost_79dbca00c587e92c",
+      "kind": "include_option",
+      "library": "xgboost",
+      "path": "doc/tutorials/saving_model.rst",
+      "target": "code=json"
+    },
+    {
+      "document": "doc_imbalanced-learn_7b3ed02bc73dc06b",
+      "kind": "substitution",
+      "library": "imbalanced-learn",
+      "path": "README.rst",
+      "target": "{{\\^i}}"
+    },
+    {
+      "document": "doc_imbalanced-learn_29860708a08fade9",
+      "kind": "substitution",
+      "library": "imbalanced-learn",
+      "path": "doc/about.rst",
+      "target": "{{\\^i}}"
+    },
+    {
+      "document": "doc_imbalanced-learn_185fc63a0740bab8",
+      "kind": "include",
+      "library": "imbalanced-learn",
+      "path": "doc/install.rst",
+      "target": "doc/min_dependency_table.rst"
+    },
+    {
+      "document": "doc_imbalanced-learn_80cc97332aa5b83b",
+      "kind": "substitution",
+      "library": "imbalanced-learn",
+      "path": "doc/references/metrics.rst",
+      "target": "{{\"sensitivity\", \"specificity\"}}"
+    },
+    {
+      "document": "doc_imbalanced-learn_14a541f9e8deef11",
+      "kind": "automodule",
+      "library": "imbalanced-learn",
+      "path": "doc/references/utils.rst",
+      "target": "imblearn.utils.estimator_checks"
+    },
+    {
+      "document": "doc_imbalanced-learn_14a541f9e8deef11",
+      "kind": "autosummary",
+      "library": "imbalanced-learn",
+      "path": "doc/references/utils.rst",
+      "target": "imblearn.utils.estimator_checks.parametrize_with_checks"
+    },
+    {
+      "document": "doc_imbalanced-learn_14a541f9e8deef11",
+      "kind": "substitution",
+      "library": "imbalanced-learn",
+      "path": "doc/references/utils.rst",
+      "target": "{{'over-sampling', 'under-sampling', 'clean-sampling'}}"
+    },
+    {
+      "document": "doc_statsmodels_fbf7ee90f2fae6ae",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/anova.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_b83b53d2e790a152",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/api.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_statsmodels_f0260fe650db3e24",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/contingency_tables.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_c9d98016bb7d7278",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/contrasts.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_500346fc8ff286d1",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/datasets/index.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_82ff2a56c09792bb",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/dev/internal.rst",
+      "target": "statsmodels.base.model.ResultMixin"
+    },
+    {
+      "document": "doc_statsmodels_d1620826de75047b",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/discretemod.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_6c333b54d873c571",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/duration.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_6c718796326a5c6b",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/emplike.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_1b4e37b71ae0e10e",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/example_formulas.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_45f43b0756fceef7",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/gam.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_22fcd284c8d873b2",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/gee.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_a0eb3bb64d97813d",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/gettingstarted.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_40f64ecf244ce1cc",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/glm.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_cb82eda10483d551",
+      "kind": "automodule",
+      "library": "statsmodels",
+      "path": "docs/source/graphics.rst",
+      "target": "statsmodels.graphics"
+    },
+    {
+      "document": "doc_statsmodels_cb82eda10483d551",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/graphics.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_statsmodels_4eec6cec5f6fab15",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/index.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_a8d403f40e7188cd",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/iolib.rst",
+      "target": "statsmodels.iolib.summary2.Summary"
+    },
+    {
+      "document": "doc_statsmodels_238b81e30db0a4b9",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/missing.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_be4a0db0e8113446",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/mixed_linear.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_dd2b7206b36bb4c3",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/optimization.rst",
+      "target": "statsmodels.base.optimizer.Optimizer"
+    },
+    {
+      "document": "doc_statsmodels_b9a303442c74f59a",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/regression.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_e578615d4e6488c6",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/release/version0.13.0.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_2f6e7691c13dbfa9",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/release/version0.6.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_statsmodels_dacb118c95c7b6f3",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/rlm.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.anova_nistcertified.anova_oneway"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.anova_nistcertified.anova_ols"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.try_catdata.cat2dummy"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.try_catdata.groupsstats_dummy"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.try_catdata.labelmeanfilter"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.try_catdata.labelmeanfilter_nd"
+    },
+    {
+      "document": "doc_statsmodels_1f050d40fe76ac3c",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/sandbox.rst",
+      "target": "statsmodels.sandbox.regression.try_catdata.labelmeanfilter_str"
+    },
+    {
+      "document": "doc_statsmodels_e2d3df84ad9bc1cf",
+      "kind": "substitution",
+      "library": "statsmodels",
+      "path": "docs/source/statespace.rst",
+      "target": "{{prefix}}"
+    },
+    {
+      "document": "doc_statsmodels_4b8feab9d806a3d2",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/stats.rst",
+      "target": "statsmodels.sandbox.stats.multicomp.catstack"
+    },
+    {
+      "document": "doc_statsmodels_4b8feab9d806a3d2",
+      "kind": "autosummary",
+      "library": "statsmodels",
+      "path": "docs/source/stats.rst",
+      "target": "statsmodels.stats.proportion.power_binom_tost"
+    },
+    {
+      "document": "doc_statsmodels_18e159c566cba5e0",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/tsa.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_statsmodels_12468d5bcbb2c10d",
+      "kind": "generated_output",
+      "library": "statsmodels",
+      "path": "docs/source/vector_ar.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_optuna_39d56e0a18df72df",
+      "kind": "include",
+      "library": "optuna",
+      "path": "docs/source/reference/visualization/index.rst",
+      "target": "docs/source/reference/visualization/generated/index.rst"
+    },
+    {
+      "document": "doc_optuna_b5ddc68202e58c91",
+      "kind": "include",
+      "library": "optuna",
+      "path": "docs/source/reference/visualization/matplotlib/index.rst",
+      "target": "docs/source/reference/visualization/matplotlib/generated/index.rst"
+    },
+    {
+      "document": "doc_torch_c5346e4c5b048b69",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/autograd.rst",
+      "target": "torch.autograd.function.once_differentiable"
+    },
+    {
+      "document": "doc_torch_c5346e4c5b048b69",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/autograd.rst",
+      "target": "torch.autograd.profiler.parse_nvprof_trace"
+    },
+    {
+      "document": "doc_torch_c5346e4c5b048b69",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/autograd.rst",
+      "target": "torch.autograd.profiler_util.Interval"
+    },
+    {
+      "document": "doc_torch_c5346e4c5b048b69",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/autograd.rst",
+      "target": "torch.autograd.graph.Node.next_functions"
+    },
+    {
+      "document": "doc_torch_3475290e1e51afc9",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/backends.rst",
+      "target": "torch.backends.cuda.SDPAParams"
+    },
+    {
+      "document": "doc_torch_3475290e1e51afc9",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/backends.rst",
+      "target": "torch.backends.xeon"
+    },
+    {
+      "document": "doc_torch_62e8dc91f6402269",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/bottleneck.rst",
+      "target": "torch.utils.bottleneck"
+    },
+    {
+      "document": "doc_torch_fa1840d691e1cc17",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/cuda.rst",
+      "target": "torch.cuda.reset_max_memory_reserved"
+    },
+    {
+      "document": "doc_torch_4af0cfe979cc0a2d",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/elastic/agent.rst",
+      "target": "torch.distributed.elastic.agent"
+    },
+    {
+      "document": "doc_torch_069d266488a0211f",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/events.rst",
+      "target": "torch.distributed.elastic.events.record"
+    },
+    {
+      "document": "doc_torch_069d266488a0211f",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/events.rst",
+      "target": "torch.distributed.elastic.events.get_logging_handler"
+    },
+    {
+      "document": "doc_torch_069d266488a0211f",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/elastic/events.rst",
+      "target": "torch.distributed.elastic.events.api.EventMetadataValue"
+    },
+    {
+      "document": "doc_torch_9c520a534af12097",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/metrics.rst",
+      "target": "torch.distributed.elastic.metrics.configure"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.api.build(rank, store)"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.dynamic_rendezvous.DynamicRendezvousHandler()"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.create_backend"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.etcd_rendezvous_backend.EtcdRendezvousBackend"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.etcd_rendezvous.EtcdRendezvousHandler"
+    },
+    {
+      "document": "doc_torch_f88b86b4e82b5eef",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/elastic/rendezvous.rst",
+      "target": "torch.distributed.elastic.rendezvous.etcd_store.EtcdStore"
+    },
+    {
+      "document": "doc_torch_2f7060104112b98d",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/elastic/subprocess_handler.rst",
+      "target": "torch.distributed.elastic.multiprocessing.subprocess_handler.handlers"
+    },
+    {
+      "document": "doc_torch_2f7060104112b98d",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/subprocess_handler.rst",
+      "target": "torch.distributed.elastic.multiprocessing.subprocess_handler.handlers.get_subprocess_handler"
+    },
+    {
+      "document": "doc_torch_922279a681c8f444",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/elastic/timer.rst",
+      "target": "torch.distributed.elastic.timer.debug_info_logging"
+    },
+    {
+      "document": "doc_torch_922279a681c8f444",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/elastic/timer.rst",
+      "target": "torch.distributed.elastic.timer.debug_info_logging.log_debug_info_for_expired_timers"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.dynamic_shapes"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.Constraint"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.module"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.buffers"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.named_buffers"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.parameters"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.named_parameters"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.run_decompositions"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.graph_signature.replace_all_uses"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.graph_signature.get_replace_hook"
+    },
+    {
+      "document": "doc_torch_393265b724e73524",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/export.rst",
+      "target": "torch.export.experimental"
+    },
+    {
+      "document": "doc_torch_ae8558cac034fa23",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/fx.experimental.rst",
+      "target": "torch.fx.experimental.symbolic_shapes.ShapeEnv"
+    },
+    {
+      "document": "doc_torch_ae8558cac034fa23",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/fx.experimental.rst",
+      "target": "torch.fx.experimental.symbolic_shapes.lru_cache"
+    },
+    {
+      "document": "doc_torch_ae8558cac034fa23",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/fx.experimental.rst",
+      "target": "torch.fx.experimental.symbolic_shapes.resolve_unbacked_bindings"
+    },
+    {
+      "document": "doc_torch_ae8558cac034fa23",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/fx.experimental.rst",
+      "target": "torch.fx.experimental.symbolic_shapes.is_accessor_node"
+    },
+    {
+      "document": "doc_torch_3332aed3693b2aa2",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/jit_utils.rst",
+      "target": "torch.utils.jit"
+    },
+    {
+      "document": "doc_torch_1f978d839945b533",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/library.rst",
+      "target": "torch.library.set_kernel_enabled"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{\\text{{input}}"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{\\text{{other}}"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{alpha}}"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{input}}"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{other}}"
+    },
+    {
+      "document": "doc_torch_4ee8c580fd98c87d",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/masked.rst",
+      "target": "{{out}}"
+    },
+    {
+      "document": "doc_torch_c3c5de10d09fd71d",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/mtia.rst",
+      "target": "torch.mtia.init"
+    },
+    {
+      "document": "doc_torch_6c63946598576afa",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/multiprocessing.rst",
+      "target": "torch.multiprocessing.join"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "autoattribute",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.names"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.rename"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.rename_"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.refine_names"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.align_as"
+    },
+    {
+      "document": "doc_torch_d449fb9d78108ef2",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/named_tensor.rst",
+      "target": "torch.align_to"
+    },
+    {
+      "document": "doc_torch_0b1f9979bab6f1fe",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/nn.attention.rst",
+      "target": "torch.nn.attention.flex_attention"
+    },
+    {
+      "document": "doc_torch_0b1f9979bab6f1fe",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/nn.attention.rst",
+      "target": "torch.nn.attention.bias"
+    },
+    {
+      "document": "doc_torch_27a7dc23126ad1cd",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/package.rst",
+      "target": "torch.package.__init__"
+    },
+    {
+      "document": "doc_torch_a16517ac87f2f260",
+      "kind": "include",
+      "library": "torch",
+      "path": "docs/source/quantization-backend-configuration.rst",
+      "target": "docs/source/scripts/quantization_backend_configs/default_backend_config.txt"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.pt2e"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.pt2e.representation"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_weight_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_histogram_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_per_channel_weight_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_dynamic_quant_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.observer.default_float_qparams_observer"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_weight_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_per_channel_weight_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_histogram_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_fused_act_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_fused_wt_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.quantization.fake_quantize.default_fused_per_channel_wt_fake_quant"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.nn.intrinsic.qat.update_bn_stats"
+    },
+    {
+      "document": "doc_torch_f898c703e6ec6a04",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/quantization-support.rst",
+      "target": "torch.ao.nn.intrinsic.qat.freeze_bn_stats"
+    },
+    {
+      "document": "doc_torch_15abe9d1bfb75253",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/rpc.rst",
+      "target": "torch.distributed.rpc.WorkerInfo"
+    },
+    {
+      "document": "doc_torch_15abe9d1bfb75253",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/rpc.rst",
+      "target": "torch.distributed.rpc.RpcBackendOptions"
+    },
+    {
+      "document": "doc_torch_15abe9d1bfb75253",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/rpc.rst",
+      "target": "torch.distributed.rpc.PyRRef(RRef)"
+    },
+    {
+      "document": "doc_torch_aad10d5d1d877aff",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/signal.rst",
+      "target": "torch.signal"
+    },
+    {
+      "document": "doc_torch_ac8a98da7ddc50cd",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/sparse.rst",
+      "target": "torch.Tensor.row_indices"
+    },
+    {
+      "document": "doc_torch_ac8a98da7ddc50cd",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/sparse.rst",
+      "target": "torch.Tensor.ccol_indices"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.TypedStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.UntypedStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.DoubleStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.FloatStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.HalfStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.LongStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.IntStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.ShortStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.CharStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.ByteStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.BoolStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.BFloat16Storage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.ComplexDoubleStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.ComplexFloatStorage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.QUInt8Storage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.QInt8Storage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.QInt32Storage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.QUInt4x2Storage"
+    },
+    {
+      "document": "doc_torch_0bedf5b2cc9d4ff0",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/storage.rst",
+      "target": "torch.QUInt2x4Storage"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "autoclass",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.SummaryWriter"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.__init__"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_scalar"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_scalars"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_histogram"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_image"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_images"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_figure"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_video"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_audio"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_text"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_graph"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_embedding"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_pr_curve"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_custom_scalars"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_mesh"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.add_hparams"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.flush"
+    },
+    {
+      "document": "doc_torch_4ad90c179cd81791",
+      "kind": "automethod",
+      "library": "torch",
+      "path": "docs/source/tensorboard.rst",
+      "target": "torch.utils.tensorboard.writer.close"
+    },
+    {
+      "document": "doc_torch_967575aaa8d32b05",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/tensors.rst",
+      "target": "torch.Tensor.index_reduce"
+    },
+    {
+      "document": "doc_torch_3b044155ca447927",
+      "kind": "automodule",
+      "library": "torch",
+      "path": "docs/source/torch.ao.ns._numeric_suite.rst",
+      "target": "torch.ao.ns._numeric_suite"
+    },
+    {
+      "document": "doc_torch_440042d681ebb708",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/torch.ao.ns._numeric_suite_fx.rst",
+      "target": "torch.ao.ns.fx.utils.compute_sqnr(x, y)"
+    },
+    {
+      "document": "doc_torch_440042d681ebb708",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/torch.ao.ns._numeric_suite_fx.rst",
+      "target": "torch.ao.ns.fx.utils.compute_normalized_l2_error(x, y)"
+    },
+    {
+      "document": "doc_torch_440042d681ebb708",
+      "kind": "autofunction",
+      "library": "torch",
+      "path": "docs/source/torch.ao.ns._numeric_suite_fx.rst",
+      "target": "torch.ao.ns.fx.utils.compute_cosine_similarity(x, y)"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "autoattribute",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "torch.default_generator"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "autosummary",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "torch.sym_ite"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{\\text{{base}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{\\text{{end}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{\\text{{input}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{\\text{{other}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{\\text{{start}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{alpha}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{heaviside}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{i+1}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{input}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{other}}"
+    },
+    {
+      "document": "doc_torch_0523c49da499f8c9",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "docs/source/torch.rst",
+      "target": "{{out}}"
+    },
+    {
+      "document": "doc_torch_12b623761b14b733",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "torch/csrc/jit/operator_upgraders/README.md",
+      "target": "{{\"aten::linspace\",\n    {{12,\n      \"linspace_0_11\",\n      \"aten::linspace(Scalar start, Scalar end, int? steps=None, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor\"}}"
+    },
+    {
+      "document": "doc_torch_12b623761b14b733",
+      "kind": "substitution",
+      "library": "torch",
+      "path": "torch/csrc/jit/operator_upgraders/README.md",
+      "target": "{{8,\n      \"linspace_0_7\",\n      \"aten::linspace(Scalar start, Scalar end, int? steps=None, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor\"}}"
+    },
+    {
+      "document": "doc_lightautoml_2ff101b3128964f9",
+      "kind": "autosummary",
+      "library": "lightautoml",
+      "path": "docs/pages/modules/automl.rst",
+      "target": "lightautoml.automl.presets.text_presets.TabularNLPAutoML"
+    },
+    {
+      "document": "doc_lightautoml_10ffd155b6013591",
+      "kind": "autosummary",
+      "library": "lightautoml",
+      "path": "docs/pages/modules/ml_algo.tuning.rst",
+      "target": "lightautoml.ml_algo.tuning.optuna.DLOptunaTuner"
+    },
+    {
+      "document": "doc_numpy_38e658fbb42805a1",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/TESTS.rst",
+      "target": "numpy.testing.extbuild.build_and_import_extension"
+    },
+    {
+      "document": "doc_numpy_38e658fbb42805a1",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/TESTS.rst",
+      "target": "numpy.test"
+    },
+    {
+      "document": "doc_numpy_a41419f0032d2cb5",
+      "kind": "substitution",
+      "library": "numpy",
+      "path": "doc/source/dev/depending_on_numpy.rst",
+      "target": "{{ pin_compatible('numpy') }}"
+    },
+    {
+      "document": "doc_numpy_b1671af59a6d582b",
+      "kind": "include_option",
+      "library": "numpy",
+      "path": "doc/source/f2py/advanced.rst",
+      "target": "literal="
+    },
+    {
+      "document": "doc_numpy_3dc253f6c7a9286b",
+      "kind": "include_option",
+      "library": "numpy",
+      "path": "doc/source/f2py/python-usage.rst",
+      "target": "literal="
+    },
+    {
+      "document": "doc_numpy_5cf31592524365e8",
+      "kind": "include_option",
+      "library": "numpy",
+      "path": "doc/source/license.rst",
+      "target": "literal="
+    },
+    {
+      "document": "doc_numpy_b4c165bc383d4e34",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/arrays.dtypes.rst",
+      "target": "numpy.dtype.type"
+    },
+    {
+      "document": "doc_numpy_b4c165bc383d4e34",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/arrays.dtypes.rst",
+      "target": "numpy.dtype.__setstate__"
+    },
+    {
+      "document": "doc_numpy_227e96034920d4a1",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/arrays.ndarray.rst",
+      "target": "numpy.ndarray.__complex__"
+    },
+    {
+      "document": "doc_numpy_10047db1abc3cce4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/arrays.scalars.rst",
+      "target": "numpy.generic.__setstate__"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.todict"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_distribution"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_subpackage"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_subpackage"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_data_files"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_data_dir"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_include_dirs"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_headers"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_extension"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_library"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_scripts"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_installed_library"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.add_npy_pkg_config"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.paths"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_config_cmd"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_build_temp_dir"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.have_f77c"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.have_f90c"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_version"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.make_svn_version_py"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.make_config_py"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "automethod",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.misc_util.get_info"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.ccompiler"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.ccompiler_opt"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.cpuinfo.cpu"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.core.Extension"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.exec_command"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.log.set_verbosity"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.system_info.get_info"
+    },
+    {
+      "document": "doc_numpy_83b440d8b82f25e4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils.rst",
+      "target": "numpy.distutils.system_info.get_standard_file"
+    },
+    {
+      "document": "doc_numpy_c4bf812ccfce301f",
+      "kind": "automodule",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils/misc_util.rst",
+      "target": "numpy.distutils.misc_util"
+    },
+    {
+      "document": "doc_numpy_efeedcfe9eada22f",
+      "kind": "include_option",
+      "library": "numpy",
+      "path": "doc/source/reference/distutils_guide.rst",
+      "target": "start-line=6"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.data"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.mask"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.recordmask"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.fill_value"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.baseclass"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.sharedmask"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autoattribute",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.numpy::ma.MaskedArray.hardmask"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.MaskedArray.T"
+    },
+    {
+      "document": "doc_numpy_ab38c598e51fdbc4",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/maskedarray.baseclass.rst",
+      "target": "numpy.ma.MaskedArray.set_fill_value"
+    },
+    {
+      "document": "doc_numpy_141ff8dc565b411e",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/reference/random/new-or-different.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.sqrt"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.log"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.log2"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.logn"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.log10"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.power"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.arccos"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.arcsin"
+    },
+    {
+      "document": "doc_numpy_e7c57b4260282383",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.emath.rst",
+      "target": "numpy.emath.arctanh"
+    },
+    {
+      "document": "doc_numpy_a951a453bc03890e",
+      "kind": "autosummary",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.ma.rst",
+      "target": "numpy.ma.MaskedArray.set_fill_value"
+    },
+    {
+      "document": "doc_numpy_ec7d835f99cd0bdb",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.polynomials.classes.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_numpy_fa46ae4ec5fb5631",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.polynomials.rst",
+      "target": "ipython"
+    },
+    {
+      "document": "doc_numpy_7c73a7893d2a9ff3",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/reference/routines.statistics.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_numpy_4687cc76af8fb20b",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/TESTS.rst",
+      "target": "numpy.testing.extbuild.build_and_import_extension"
+    },
+    {
+      "document": "doc_numpy_4687cc76af8fb20b",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/TESTS.rst",
+      "target": "numpy.test"
+    },
+    {
+      "document": "doc_numpy_4687cc76af8fb20b",
+      "kind": "include_option",
+      "library": "numpy",
+      "path": "doc/source/reference/testing.rst",
+      "target": "start-line=6"
+    },
+    {
+      "document": "doc_numpy_4687cc76af8fb20b",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/source/reference/testing.rst",
+      "target": "numpy.testing.extbuild.build_and_import_extension"
+    },
+    {
+      "document": "doc_numpy_4687cc76af8fb20b",
+      "kind": "autofunction",
+      "library": "numpy",
+      "path": "doc/source/reference/testing.rst",
+      "target": "numpy.test"
+    },
+    {
+      "document": "doc_numpy_1f6719a24b072732",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/user/absolute_beginners.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_numpy_e8d6cd944e614415",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/user/how-to-partition.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_numpy_6907314258032adb",
+      "kind": "generated_output",
+      "library": "numpy",
+      "path": "doc/source/user/quickstart.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_4a072a66a7771f6a",
+      "kind": "include",
+      "library": "scipy",
+      "path": "doc/source/dev/contributor/pep8.rst",
+      "target": "doc/source/dev/contributor/<isonum.txt>"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.RelativeRiskResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.BinomTestResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.TukeyHSDResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.DunnettResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.PearsonRResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.FitResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.OddsRatioResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.TtestResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.ECDFResult"
+    },
+    {
+      "document": "doc_scipy_e903b4ae58a0d7e3",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats._result_classes.rst",
+      "target": "scipy.stats._result_classes.EmpiricalDistributionFunction"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.RelativeRiskResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.BinomTestResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.TukeyHSDResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.DunnettResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.PearsonRResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.FitResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.OddsRatioResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.TtestResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.ECDFResult"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "autosummary",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "scipy.stats._result_classes.EmpiricalDistributionFunction"
+    },
+    {
+      "document": "doc_scipy_28e2ed5dee1565a7",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/reference/stats.rst",
+      "target": "{{M \\choose n}}"
+    },
+    {
+      "document": "doc_scipy_146e8c99a6bce8a5",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/fft.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_b1aea8af1c2bf489",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/1D.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_2f1e36d858954a8b",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/ND_regular_grid.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_eb1f1a6d68e8ac49",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/ND_unstructured.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_c978a3a180392606",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/extrapolation_examples.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_7c0468e625d2c178",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/smoothing_splines.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_65391a42525786f9",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/interpolate/splines_and_polynomials.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_f18201b0fae01727",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/linalg.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_201934c745c0133f",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/ndimage.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_107fc83db674a656",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/optimize.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "{{\\mathbb{C}}"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "{{\\mathbb{N}}"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "{{\\mathbb{R}}"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "{{\\mathbb{Z}}"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "{{\\mathbb{j}}"
+    },
+    {
+      "document": "doc_scipy_76d0be0c96d39f6d",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/signal.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_667f87d7b745d31e",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/spatial.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_0d886ad1ced124f3",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/special.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_b0c1bb443f3dcbf6",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_fbaaa6449651ac5c",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/continuous_nct.rst",
+      "target": "{{\\nu ,-\\mu }}"
+    },
+    {
+      "document": "doc_scipy_fbaaa6449651ac5c",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/continuous_nct.rst",
+      "target": "{{\\nu ,\\mu }}"
+    },
+    {
+      "document": "doc_scipy_fbaaa6449651ac5c",
+      "kind": "substitution",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/continuous_nct.rst",
+      "target": "{{j=0}}"
+    },
+    {
+      "document": "doc_scipy_0752ebb79d5632eb",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/sampling.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_3e8e12c823638a72",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/sampling_dau.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_8982dcbb10e942e7",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/sampling_hinv.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_b785c7a64e3f8b45",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/sampling_pinv.rst",
+      "target": "plot"
+    },
+    {
+      "document": "doc_scipy_f240023249511633",
+      "kind": "generated_output",
+      "library": "scipy",
+      "path": "doc/source/tutorial/stats/sampling_srou.rst",
+      "target": "plot"
+    }
+  ],
+  "errored_or_unavailable_items": [
+    {
+      "id": "doc/developers/advanced_installation.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "001d8e01ae6560f2c57cce2b6b15ee5de1b9af0b859dd4f56371a8789bb83747",
+      "status": "error"
+    },
+    {
+      "id": "doc/install.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "471acce0f0a3005f72cfd0cd186cc6801f07bcead694b46be6c8ed7065618160",
+      "status": "error"
+    },
+    {
+      "id": "doc/modules/learning_curve.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "fac40f0b3a8d9561eb659d1670730d201c57609261b513abf7826521b6819ea0",
+      "status": "error"
+    },
+    {
+      "id": "doc/templates/base.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "dd0b85cf1e49066134b4dda64ca5901f401ad6350452826b6d1b33331bf4ad5f",
+      "status": "error"
+    },
+    {
+      "id": "doc/templates/numpydoc_docstring.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "575f46e5eca9ff8474cdb78276d569eb2c8639ab3cd5b8a1b2f85dd7289107aa",
+      "status": "error"
+    },
+    {
+      "id": "doc/visualizations.rst",
+      "library": "scikit-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "63996dbd4e77548519a86d443ba79a310a07263cd7a4d5ac558f9591190bc481",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/_includes/work_src/reusage-installation/arcadia__build-from-sources__intro.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "09ccb4214665200720959b0a0999c6d2bb6f3d60dfb1e0c190337363b8847ce3",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/_includes/work_src/reusage/calc-model__options.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "eb8bdf4fc9ba0e43f1e5c542a270f19b1de85e1715bcbf92d98c49336f3d5200",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/_includes/work_src/reusage/cli-regular-settings.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "4ac38bb3781f78d2f1d71ae642037e89f242a7dde3e43bd34fbbe5b31eddd174",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/_includes/work_src/reusage/python-reference_pool_quantized.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f03d32843b3e89a74f04c426d845e6eb2c069d385f26f9c02a0537277bd1a8e2",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/applying__models.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "043398586a1cad2683ea45818f3776c4285f47220ab9a3adc2087f08ab3c4699",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/cli-installation.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ab8ecaaaaa3370e5ece3ca2bd50f5f239b04006ba1b182e5e554697a5316f14b",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/contacts.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b1d6314b0c209cdee1f2e854879b462fcb6169762d4450085147e8f3bb7cf2de",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/educational-materials-videos.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "bc427862a77a3efb8d72c4c6815b64a54667f7095254deed633907a3c28c4c3c",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/feature-analysis-graph.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "66a9d9d8851893b690d89d3e9ee4e2e64d46c63cbf06ed88aa36f5db3860c2cf",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/input-data_column-descfile.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ac97b07cf1d3d7f950b7706b5453d96824278cb516e3a7520cf530ce85f56fdf",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/input-data_group-weights.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "392530ab5a828090f9a93550751b99708f1386260095ecf9a6813cbe3757335f",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/input-data_values-file.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "9cc1451cdf6a0ab6fe943b3ccc443c136348e4bfd473863433bdfb752ed6c36d",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/parameter-tuning.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c07a66cb35b2d9885fd332d2bf52441ff74b8de4f47636371615aa32116b5c57",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/python-reference_catboostclassifier_fit.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d183a3ea98b10d4280d1dc26922b88a41f7c0b97212abd259795d5d06c7ac293",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/python-reference_pool.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "842c762e1d5039100f2317af7cd4b5b3e78fa4dc91f4235a9c690a8b103fe38c",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/python-reference_utils_quantize.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f18abd60ce70c620d65848c4bcd996c0c98758c37b2a3316a8f3a8c04047af4a",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/r-reference_catboost-get_object_importance.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "96fc88ff524c87e6fe91753a4bfc91eef07163445c08b45539a6aa4c525e97b9",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/r-reference_catboost-load_pool.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f83075dcb3f6aa304e36a058774e346493c764845faa26d3a1e4a0310ce8349c",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/r-reference_catboost-predict.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3aaebd1e411001ec018a719b85ba33cffa2164d2d867619d9518951a2ccdd3b7",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/r-reference_catboost-staged_predict.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "170a24da0735270d0e6b8fed9bfaf2c1837ff07c160a0e90228864f72ef82d88",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/concepts/tutorials.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "0db4cc3e8b15f76991151f80eff7db51b51177565acac79e659191579bf83037",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/features/categorical-features.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3243db2844a1aa139b2be360867c40d58c6145a29cc2e1660a2659b89ba3fd2e",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/features/training-on-gpu.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "8e9fc779432655b2b00c5bcf8246c8b9cd53ea8cfd0f10b5c99a0031248372b0",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/build-environment-setup-for-ya-make.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "884b3b6b7fba7ce418abd2072ee422fd80107525df3e25ffb959d019608489c9",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/cli-installation-make-install.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "639cd8b65efa6e01ed49fccd5e931956220cbe7adf814755a3bd74eeaf1f4825",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/cli-installation-multi-node-installation.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c68ce431f94d9f9e38c693b3a5da314aebb69142379ade004e87fb1ecdcf51f2",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/python-installation-method-build-a-wheel-package.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "9655ee55de0fcf27adbbead28daa6bd96c2acf833b9081521808e10e709125ab",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/python-installation-method-build-from-source-linux-macos-using-ya-make.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "044212c826548c449e6150d147598f8c663163ebe2ebb8137ea964cf8ec8b593",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/python-installation-method-build-from-source-windows-using-ya-make.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "94646a9d7d53a3d351d8128899d9764fd88f4e65c9e21123d199e12d1721c988",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/python-installation-method-build-from-source.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1d1035263b9114998d59c6172ce1bf24ddf6edeeb7a4549645edd17db816c5ba",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/installation/r-installation-github-installation.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "7cacf4d5b14670a9a33d5c2d27f5302bca175d82e4d3ea5c324a46833646bf5b",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/references/querycrossentropy.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "36a6af02e68f3bc4eea15a91a8e40684131e5ee677c52e5629e1ee69b0c7772e",
+      "status": "error"
+    },
+    {
+      "id": "catboost/docs/en/references/training-parameters/input.md",
+      "library": "catboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "56ba8bae4eb790761713e1e0378de537b7606accd9a3bc7fa0f679c97339057f",
+      "status": "error"
+    },
+    {
+      "id": "module:catboost.widget",
+      "library": "catboost",
+      "reason": "ModuleNotFoundError: No module named 'traitlets'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:catboost.widget.callbacks",
+      "library": "catboost",
+      "reason": "ModuleNotFoundError: No module named 'traitlets'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:catboost.widget.ipythonwidget",
+      "library": "catboost",
+      "reason": "ModuleNotFoundError: No module named 'traitlets'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:catboost.widget.metrics_plotter",
+      "library": "catboost",
+      "reason": "ModuleNotFoundError: No module named 'traitlets'",
+      "status": "unavailable"
+    },
+    {
+      "id": "doc/python/python_api.rst",
+      "library": "xgboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "4752904618f8e4b6c2d601239abd6c3d80256180b1a979886f8d1de9ba1c453e",
+      "status": "error"
+    },
+    {
+      "id": "doc/tutorials/feature_interaction_constraint.rst",
+      "library": "xgboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "208f0197fac5677da286de35e58fc222a53db3981771ab9dcb1113dad36bddbf",
+      "status": "error"
+    },
+    {
+      "id": "doc/tutorials/ray.rst",
+      "library": "xgboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b776cff61edef945473a015de13f8c2721b4123976cbef0f9422b6fb7819ec5e",
+      "status": "error"
+    },
+    {
+      "id": "doc/tutorials/saving_model.rst",
+      "library": "xgboost",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "bb2140dd5f9fbc48acd61887b88c420673c6cec5a56efdb434daed4536a16b66",
+      "status": "error"
+    },
+    {
+      "id": "module:xgboost.spark",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:xgboost.spark.core",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:xgboost.spark.data",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:xgboost.spark.estimator",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:xgboost.spark.params",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:xgboost.spark.utils",
+      "library": "xgboost",
+      "reason": "ImportError: pyspark package needs to be installed to use this module",
+      "status": "unavailable"
+    },
+    {
+      "id": "README.rst",
+      "library": "imbalanced-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "a0332ca2204198250831df5fe2d8a08eeef83318ecce9329435f9669de1913eb",
+      "status": "error"
+    },
+    {
+      "id": "doc/about.rst",
+      "library": "imbalanced-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "0c382f9a28895a4cb5620da7fdd8f0130aaae9b60026c8d44fc52127f2e47010",
+      "status": "error"
+    },
+    {
+      "id": "doc/install.rst",
+      "library": "imbalanced-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "196afde9b88b00eb3c595037ec6aa7dec9ede5448b7a36d8984cc2c4dc03f2e7",
+      "status": "error"
+    },
+    {
+      "id": "doc/references/metrics.rst",
+      "library": "imbalanced-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "2c526de04c1701cbd012aa046f9f05c098ce92f83566df656f07cfd08b5f5d6f",
+      "status": "error"
+    },
+    {
+      "id": "doc/references/utils.rst",
+      "library": "imbalanced-learn",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d9a91b667d06d24cab8537dcbf65d352d7cc2fe1171165f4a0501f0c9a409368",
+      "status": "error"
+    },
+    {
+      "id": "module:imblearn.utils.estimator_checks",
+      "library": "imbalanced-learn",
+      "reason": "ModuleNotFoundError: No module named 'pytest'",
+      "status": "unavailable"
+    },
+    {
+      "id": "docs/source/anova.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "22d492db39bc767e4645c125b81b4ff04715ac8d59124e1d1b2ba7d144caaca4",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/api.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ae8732875a094e793cf620152236e8a977d41a2bcf4bec8835b72d7aba8a51d3",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/contingency_tables.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "e011ad8eaba26269158eb05c034c22d068eb4ec3554fc9978410e6c0c78365a5",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/contrasts.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "efdd172a3318a1565bd805f2be9b9269862cc49c07486c9f43142d72343d186d",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/datasets/index.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "2fa328d4c1ea835558332342d894b867ba5b2767676ce3f046efff5fb77838cb",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/dev/internal.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "51dda6897b051ad7ed452d8c074ca445bdf235eb68e2b149530b2124cd9d535d",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/discretemod.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b1193586fdb39454002b3678265e25261bba0c0aa3f4c9f6c2207fd894fafc07",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/duration.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "7d49dfbdc4038ea9504f4071dbb933d82960ad9f9eec4b0f8abaa0ccb92963db",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/emplike.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "39013a53a8826c2c9c1beda4adc87873a516bfeafe9f37f5c7b1a85616e1ba56",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/example_formulas.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1286749417319766364de4e99a119ff0dedcc4af91d257886adcc345020bca1c",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/gam.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "540d45f3fcbd4ac54a37eedac81c736093981dcd9014ff955543336e0a18f3b9",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/gee.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "6b22b6be224fdaac6ce64867d8239a79725eea0466671fd3057bb8d6e0eeeb7f",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/gettingstarted.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "6e3226b0179792fd2079d93275d9b065fc10e0e47a051b37a1721e3927cee023",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/glm.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "6a89c3edce7dbcac19aeca0ae61f3b399af25e59c25f26a079e7f973d4b34a75",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/graphics.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "38e5d74bae8d8b5f09d385b6e259481e2a375257af19ac5f9b830a9db967535e",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/index.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "96bd63aa6ef7b58fb52cbd37681ad5183957dcd38e00f35131942ddb5177fcef",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/iolib.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d0839da0c2ea46d049708c43137d0c3f4959526eaf51e35266526988b6a6e8f2",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/missing.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "03b7a7b597c82f686c41c737fceeb965f90d063c3bdb45b68807d5d09e7b6de2",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/mixed_linear.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3a1e4003c613cb61a66e801e9d63e4251aef26fd9ddd85328a261f3a6b3a4929",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/optimization.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d694bf4d8b62d3f5d60e8325b241ea5cbd2beb5bfb3a60d3cc5f0e4f77209c8e",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/regression.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ff25712ad6c70feb14350c59fea00332fa9fa9ca3bf66d999ba9c9da43cef3e7",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/release/version0.13.0.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "20ef72aad774f3521ca208675b7a8f9951e2f06bb9295361a47a06bad4be382b",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/release/version0.6.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3a0ff36d2841c39f04e84e76eb69597e4338837ae5fbd3ba2533d5029097bbc1",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/rlm.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "90c6142c00b73eed264a01746de27be2047bdf99efcd59612b622c172f612dce",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/sandbox.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "455b0e4fdccc0e22c28ced112942444aa58d94eb25fa70e66219a0cfc7d41d28",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/statespace.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "2fc278ebe2a9fe2c0c347f58c157758cf6c3c5039c40bc802d0f95f87fc9fbd8",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/stats.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "44899d1b14c2442e98c2639b567f367e2a456e93f918a1344e1d93b253d97a57",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/tsa.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d4577a69b70db71f8953b71123097ffda73b91e6012abbcdd2b23806d27f9842",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/vector_ar.rst",
+      "library": "statsmodels",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ec4870fd57635c033a3e35c66e18cc1453ab13917068ade3ca34bf2e6f1888d8",
+      "status": "error"
+    },
+    {
+      "id": "module:statsmodels.compat.pytest",
+      "library": "statsmodels",
+      "reason": "ModuleNotFoundError: No module named '_pytest'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.bspline",
+      "library": "statsmodels",
+      "reason": "ModuleNotFoundError: No module named 'models'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.distributions.examples.ex_fitfr",
+      "library": "statsmodels",
+      "reason": "AttributeError: 'gamma_gen' object has no attribute 'fit_fr'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.distributions.examples.matchdist",
+      "library": "statsmodels",
+      "reason": "AttributeError: module 'scipy.stats' has no attribute 'frechet_r'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.mle",
+      "library": "statsmodels",
+      "reason": "ValueError: Line 1: Not a Matrix Market file. Missing banner.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.panel.panelmod",
+      "library": "statsmodels",
+      "reason": "ImportError: cannot import name 'Panel' from 'pandas' (/usr/local/lib/python3.12/site-packages/pandas/__init__.py)",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.regression.example_kernridge",
+      "library": "statsmodels",
+      "reason": "TypeError: slice indices must be integers or None or have an __index__ method",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.regression.ols_anova_original",
+      "library": "statsmodels",
+      "reason": "FileNotFoundError: dftest3.data not found.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.regression.runmnl",
+      "library": "statsmodels",
+      "reason": "FileNotFoundError: TableF23-2.txt not found.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.stats.ex_newtests",
+      "library": "statsmodels",
+      "reason": "AttributeError: 'DataFrame' object has no attribute 'dtype'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.tools.try_mctools",
+      "library": "statsmodels",
+      "reason": "ValueError: unknown special directive",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.tsa.example_arma",
+      "library": "statsmodels",
+      "reason": "TypeError: 'ARIMAResultsWrapper' object is not subscriptable",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.sandbox.tsa.try_var_convolve",
+      "library": "statsmodels",
+      "reason": "AttributeError: module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.stats.libqsturng.make_tbls",
+      "library": "statsmodels",
+      "reason": "ImportError: we do not want to import this",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:statsmodels.tools.eval_measures",
+      "library": "statsmodels",
+      "reason": "TypeError: '<' not supported between instances of 'function' and 'function'",
+      "status": "unavailable"
+    },
+    {
+      "id": "docs/source/reference/visualization/index.rst",
+      "library": "optuna",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "af6d597fb750a99e65bb15d1beee1873fa5498d91720a7050af0546c1b26f6df",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/reference/visualization/matplotlib/index.rst",
+      "library": "optuna",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "294fcb07c113b9f3926ae3ec26c61760e2857c7c9e16197c1e40f4a30786e109",
+      "status": "error"
+    },
+    {
+      "id": "module:optuna.integration.allennlp",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `allennlp`.\nPlease run `pip install optuna-integration[allennlp]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.botorch",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `botorch`.\nPlease run `pip install optuna-integration[botorch]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.catboost",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `catboost`.\nPlease run `pip install optuna-integration[catboost]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.chainer",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `chainer`.\nPlease run `pip install optuna-integration[chainer]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.chainermn",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `chainermn`.\nPlease run `pip install optuna-integration[chainermn]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.cma",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `cma`.\nPlease run `pip install optuna-integration[cma]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.dask",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `dask`.\nPlease run `pip install optuna-integration[dask]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.fastaiv2",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `fastaiv2`.\nPlease run `pip install optuna-integration[fastaiv2]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.keras",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `keras`.\nPlease run `pip install optuna-integration[keras]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.lightgbm",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `lightgbm`.\nPlease run `pip install optuna-integration[lightgbm]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.mlflow",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `mlflow`.\nPlease run `pip install optuna-integration[mlflow]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.mxnet",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `mxnet`.\nPlease run `pip install optuna-integration[mxnet]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.pytorch_distributed",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `pytorch_distributed`.\nPlease run `pip install optuna-integration[pytorch_distributed]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.pytorch_ignite",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `pytorch_ignite`.\nPlease run `pip install optuna-integration[pytorch_ignite]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.pytorch_lightning",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `pytorch_lightning`.\nPlease run `pip install optuna-integration[pytorch_lightning]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.shap",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `shap`.\nPlease run `pip install optuna-integration[shap]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.sklearn",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `sklearn`.\nPlease run `pip install optuna-integration[sklearn]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.skorch",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `skorch`.\nPlease run `pip install optuna-integration[skorch]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.tensorboard",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `tensorboard`.\nPlease run `pip install optuna-integration[tensorboard]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.tensorflow",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `tensorflow`.\nPlease run `pip install optuna-integration[tensorflow]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.tfkeras",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `tfkeras`.\nPlease run `pip install optuna-integration[tfkeras]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.wandb",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `wandb`.\nPlease run `pip install optuna-integration[wandb]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.integration.xgboost",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nCould not find `optuna-integration` for `xgboost`.\nPlease run `pip install optuna-integration[xgboost]`.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:optuna.multi_objective",
+      "library": "optuna",
+      "reason": "ModuleNotFoundError: \nThe features in `optuna.multi_objective` were integrated with the\nsingle objective optimization API and `optuna.multi_objective` were\ndeleted at v4.0.0. Please update your code based on the migration guide\nat https://github.com/optuna/optuna/discussions/5573\nor downgrade your Optuna version.",
+      "status": "unavailable"
+    },
+    {
+      "id": "docs/source/autograd.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "41f3ff345da765dfd3b295cd2fd692dfceec9080519bedf610da289fecfabd91",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/backends.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "bbac7455bd91317cc00fd0f957ef731a8b2265b2952866a82a099789a7b4d081",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/bottleneck.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f1acf89329669b3b17915a697162b258386a867d25cb25565c9fb270a8cf7d0b",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/cuda.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "77c452a5e7aa70858b1053c1279b794b6ecca72dd93336e85d40cb6c4bba5c21",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/agent.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c5ce2a81bfce70c92ad63a821b3df520dee217b8f4f022fbc5318ca7dadafd86",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/events.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "5653bcc74a533c85fcc2d3964141e8428fd45eab1a6ecabeaa548495fe0f9947",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/metrics.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3322fbe7bc2f5079db7758bf527a72a9f19aa66777353627119099ba00d3ff6a",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/rendezvous.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "fcad1e353358820050330e325ae118053b5a6f3c25b8189839208611a2df9dec",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/subprocess_handler.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1b80217970f7b9e17c2e43330f01c78b12a186eb806432d5ee82f290aba80e31",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/elastic/timer.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ce09f810d5901138552f7233ac74cdd9eb1adc0cba14962caa50fdbb79e6c90c",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/export.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "4719689835d0d0464c477c4fe48de8522dc50081c305aa16ebf141d961c48caa",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/fx.experimental.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "0230edea56372435ab19f2ea77b148a50a838746050362ec17afaac7e25e4076",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/jit_utils.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "0fbbf333a7ca35cdfc3308596844f33b384528096d4cf8057c12fa83bec84232",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/library.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1adc3b00ec1affc039930887e7b1f982072d81086446f080ba518a454161aa93",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/masked.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f504fa10811fc9f7512ee388171d758eff66a9fe425bafd1f8e0c45d453575bc",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/mtia.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c8076c75ce7df4cfd62dfdc6545f3f2dc8c9837ace126c225df8f9d50fa91794",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/multiprocessing.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b849e5ffdfe0a33b31e5e036cb926db54a2cd3f175e2adddb49f91a273960664",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/named_tensor.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c36824b89205129ef703958c814b438f2bc681e6ebf1b3163ff0b2b35b3d935d",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/nn.attention.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "577eba768bcf823ffc5875d9234411643ea303f4e304ff06e60ea28af62a0364",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/package.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "da7ec52dfff3181a28b5d8c8cff0b2fa0a514d9ff41dc5062ef74794b31be82b",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/quantization-backend-configuration.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1461e5db9f66da538f852c0ebfcb0e016abf4c84020e849cf496613de3eb3869",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/quantization-support.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "8c769d874627569c878313b62fa43211890999535f1effed2c83ce1c67386f72",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/rpc.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ef04ae4f556ee677dd5f9db9d3781197f6de1d9a28017435d125978a9572e0ab",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/signal.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ad3453ac888d4449fda2f7b94364ef2f80582b567a6641712f356bac033ba422",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/sparse.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "17b95f1a6c55ae55700f2d8644e17d9871aa4fd653a97e27278bd394cc1bba39",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/storage.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "9aa90f2d562f47309371f0d2dd092a72c7e0abbeffc85f5f5a52059b8f498773",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/tensorboard.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "20d880d623376b5fa0378726ab0360509154c9b1b2ef6fabdb0f538cc2bb66d5",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/tensors.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3609df2b740a372178468c0b48adb0421ddffc1bb569978b31c19e7386e2ec2b",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/torch.ao.ns._numeric_suite.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "705744811927c33668945bd642c71e02cca53d1f4c79aefa5a23decf698cb8a4",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/torch.ao.ns._numeric_suite_fx.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "a2a8595e4e2c5dfe5bfdceaa9b97ce6da766215e84b3a78d7dd5e5a20d37efa8",
+      "status": "error"
+    },
+    {
+      "id": "docs/source/torch.rst",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "391bec23b226a8ce64b2b1101dd0cfd401e3feae958f3af13a87ea6207722835",
+      "status": "error"
+    },
+    {
+      "id": "torch/csrc/jit/operator_upgraders/README.md",
+      "library": "torch",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "e69bfc4b8c0b746ead044ae6c925c48b4efbe80e41dd66f3a469f42bb7388fa4",
+      "status": "error"
+    },
+    {
+      "id": "module:torch.distributed.elastic.rendezvous.etcd_rendezvous",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'etcd'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:torch.distributed.elastic.rendezvous.etcd_rendezvous_backend",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'etcd'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:torch.distributed.elastic.rendezvous.etcd_store",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'etcd'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:torch.utils.tensorboard",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'tensorboard'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:torch.utils.tensorboard.summary",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'tensorboard'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:torch.utils.tensorboard.writer",
+      "library": "torch",
+      "reason": "ModuleNotFoundError: No module named 'tensorboard'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:autogluon.tabular.models.fastainn.callbacks",
+      "library": "autogluon.tabular",
+      "reason": "ModuleNotFoundError: No module named 'fastai'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:autogluon.tabular.models.fastainn.fastai_helpers",
+      "library": "autogluon.tabular",
+      "reason": "ModuleNotFoundError: No module named 'fastai'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:autogluon.tabular.models.fastainn.imports_helper",
+      "library": "autogluon.tabular",
+      "reason": "ModuleNotFoundError: No module named 'fastai'",
+      "status": "unavailable"
+    },
+    {
+      "id": "docs/pages/modules/automl.rst",
+      "library": "lightautoml",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "5fe7dc77fb98d9b748e52c55bb42de149a945bee9daa062b8262b24f52d4a7ed",
+      "status": "error"
+    },
+    {
+      "id": "docs/pages/modules/ml_algo.tuning.rst",
+      "library": "lightautoml",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "645392cab7afd2f8bbc0803955a52d96e0717b7be9f568115aae59d6adc12e66",
+      "status": "error"
+    },
+    {
+      "id": "module:lightautoml.addons.hypex",
+      "library": "lightautoml",
+      "reason": "ImportError: hypex is not installed. Please install it using 'pip install lightautoml[hypex]'.",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:lightautoml.automl.presets.image_presets",
+      "library": "lightautoml",
+      "reason": "PackageNotFoundError: No package metadata was found for PyWavelets",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:lightautoml.automl.presets.text_presets",
+      "library": "lightautoml",
+      "reason": "PackageNotFoundError: No package metadata was found for fasttext-numpy2",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:flaml.automl.nlp.huggingface.data_collator",
+      "library": "flaml",
+      "reason": "ModuleNotFoundError: No module named 'transformers'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:flaml.automl.spark.metrics",
+      "library": "flaml",
+      "reason": "ModuleNotFoundError: No module named 'pyspark'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:flaml.automl.time_series.tcn",
+      "library": "flaml",
+      "reason": "ModuleNotFoundError: No module named 'pytorch_lightning'",
+      "status": "unavailable"
+    },
+    {
+      "id": "doc/TESTS.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "4b28a86a3408b06f18245142c2b6e5eb23ad5effed3b5cf7f26ddb042f6ca924",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/dev/depending_on_numpy.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "24f63b36e5cc0dcd85c2e96a949185ab78ff9cfb68e437fe4219f06b26fc9e86",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/f2py/advanced.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "72508b567cb447cd1c21a93e7300a049125e5ce81a6b4acb8591ef7e0847e21d",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/f2py/python-usage.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "4c718c6679034080fd67558d7c29a248cdf99f1eec978f4aff193b0622583dcc",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/license.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "563953e4bf6aba42f430420da7494dce2747f60d56e82ca165e24dfaf766d256",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/arrays.dtypes.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "991e6b22a36f430bdb1ba7b0289f5c67711d705be68405a0f5845063e6a32f4e",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/arrays.ndarray.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "97f846bdd3c87d08c351999d46652802e4572f1f31ca785a0403e86d6cf99bf7",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/arrays.scalars.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "75ac9d8ed8518da4252c56ab4ac926ad249574d72b67aa541dc899989dd4aa53",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/distutils.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "7ef0c8f26a2a34f188aa5535b1d483156f0eedeee4a0057e4750c2d5deb42afc",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/distutils/misc_util.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "6e25e4f272130c21a6b14c8d4fed8c9ce39859ef4f8183fbbc7ce54d865f9ecd",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/distutils_guide.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "65c0f6206dd787c81be45ae3983ac0eab5ae78692f156b8b7e708a997e69b311",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/maskedarray.baseclass.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b42aaf3ecb2acc468aa1416158bc88c518c18b0fc37e8e695cf11d303024ab85",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/random/new-or-different.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "30402b6d4a0f4048fc96d682e4ff7ff7aef8431247b4a8db39f73c60fface12e",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/routines.emath.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "f78e6a8512f0551d3af06421b8c3ccac73e9434a73617332d5ef23fcd50fc69a",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/routines.ma.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d0ffb8985a8cc76995b8adb57c10c88f4158893679e2870c25a23890aa14e9fd",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/routines.polynomials.classes.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "15b53c2af31512fc21979cc8e5eed28efb651c892c2771a22a5aa4e1adefd71e",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/routines.polynomials.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "dd3df1ac9976ff4b33d2f3ec14ea7ae63a35243e4fc7c13d194d6966cbf6dfb6",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/routines.statistics.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "cc69781a02d89a40f9d4d6ba6998e5b9764fcd6b835cbdb34036f50e2f9f44db",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/testing.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c71a9227843a24aff397282bf926e437a48e832a850fabc0a9e4214118e51e46",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/user/absolute_beginners.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "1e97539ceb6f697ad0ca5e590b724f91ea735caf149d0477320a8b68ab658286",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/user/how-to-partition.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ab6327aaab4098d1000bda099af6a11683fde424386a0a362dbc4d37b4712791",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/user/quickstart.rst",
+      "library": "numpy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "564070243a2eaa5220a60b60149be4013ff434d0893f08ee8cee55d9db0c3480",
+      "status": "error"
+    },
+    {
+      "id": "module:numpy.core.cversions",
+      "library": "numpy",
+      "reason": "ModuleNotFoundError: No module named 'code_generators'",
+      "status": "unavailable"
+    },
+    {
+      "id": "module:numpy.core.umath_tests",
+      "library": "numpy",
+      "reason": "RuntimeError: cannot load _umath_tests module.",
+      "status": "unavailable"
+    },
+    {
+      "id": "doc/source/dev/contributor/pep8.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b8aef8bb565f5bc69823ff519dbef269172c537a632b41ac11f8df104d91e03d",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/stats._result_classes.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "bd1af695c21c661ee5e616e8cd38b9787ad22624d39ef24c64cf0b2ffea551e4",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/reference/stats.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "df87180f37c45e1235dd9fcb8b7f8198ef4f42a3792fc48ef8429eb4eeae57ff",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/fft.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "68faf63d036cdf4d03cba9fbb453a22c5204e68244cb53932b3aada123144996",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/1D.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "75416807351ecf6fd234d738f8f2549d27d7c083637d51862734297cd1c77463",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/ND_regular_grid.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "a1993e7e8a0af17aed5d54dfef4e2d189b695474d94996777304a6b4af3d84f4",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/ND_unstructured.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "8bf4e39a3a59d8a1f39ec23b826cf1f2283b75a9d4e190ce730abd51022b3008",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/extrapolation_examples.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "0a426474ab2c574a03ed4e0e4b6ce319acfb5e230491a227e6b32ef5a80f8caa",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/smoothing_splines.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "6605af39dcb033d54cff7a6b1ecb6d9f016cfa8d95bc5a7aaa4ceed6cfe6966e",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/interpolate/splines_and_polynomials.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "a5b1564bb75aea0abf2088a3b105238730afd03711c6f3a4f688afa0ceb4174b",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/linalg.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "d8d43eaca7e9548721f611f16452d6a66f8b98986293e50fdc3de1a0514b240d",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/ndimage.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "b82b47f7d45033486f0cadbfe658013b686ab4c50e51084f2b15a7e33c078d2b",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/optimize.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ba2b1fabf8628eaf4a01b636ad01e374ade0c2763920f82dbbc72ddba7fe595b",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/signal.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "ba7ee3406951b3591f76660394fe9c8a8ed962f922c5763757ef42e4729db9fa",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/spatial.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "01c34953a441f7cc9d8e2eb0d15ac856445ed24aadee5d48a8fab442cfad9a48",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/special.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "9dc6e0cac3b1a1efde30954b413d906240d74fc0de73e2df2ab97273fddababc",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "3f50f5cfce5a1eb1cd33556e2792d004812e779d7a62dccb8299b04befc38fbf",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/continuous_nct.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "86351f2f0c9e0fad3b18e57dc351267e85bc054429222aba42230aaaf2d4d58c",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/sampling.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "7190093c348d68344f36294fc2876ff4ba88b3d744c5613eb752f1b05bd6bd0e",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/sampling_dau.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "17761ba23598ba426ea79d03e57b71ddd2476ffbac5b31b167d26fd75edca9cb",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/sampling_hinv.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "2cfc9b19dda84cb245984f1c7809d6e497131ce6c7f61ba85a59c3c7e4858fc4",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/sampling_pinv.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "c4c4f3ede377e20f5c194f6ff77b36be9737a20c6697af74ef2443e105dd329a",
+      "status": "error"
+    },
+    {
+      "id": "doc/source/tutorial/stats/sampling_srou.rst",
+      "library": "scipy",
+      "reason": "unresolved_document_expansion; partial text retained",
+      "source_sha256": "9aa538b22c6fcf605c604bb45326181b228df132b23dae7e368212ca77549eaa",
+      "status": "error"
+    }
+  ],
+  "next_actions": [
+    {
+      "kinds": [
+        "include"
+      ],
+      "action": "Locate exact-release missing files or documented generation inputs; private yandex_specific files remain unavailable unless an official public exact-version replacement is established."
+    },
+    {
+      "kinds": [
+        "automethod",
+        "autoclass",
+        "autofunction",
+        "automodule",
+        "autoattribute",
+        "autosummary"
+      ],
+      "action": "Resolve contextual Sphinx object names and static/installed objects; preserve errors for unavailable optional modules. Do not import extra runtime packages or substitute a newer API."
+    },
+    {
+      "kinds": [
+        "substitution",
+        "include_option"
+      ],
+      "action": "Distinguish literal template source from rendered public sections; implement exact generator/substitution behavior with source provenance."
+    },
+    {
+      "kinds": [
+        "generated_output"
+      ],
+      "action": "Collect exact-release published output or build-time execution evidence. The current corpus retains the source examples, but does not claim generated output was recovered."
+    }
+  ],
+  "counts_note": "Expansion diagnostics may overlap and may include conservative parser findings. Included inventory items include aliases/source units, not unique documents."
+}

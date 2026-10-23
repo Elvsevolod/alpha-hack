@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml44",
+  "method_id": "hard_case_ml44",
+  "version": 1,
+  "title": "Мало независимых объектов при большом числе признаков",
+  "observations": "`p` сопоставимо с числом независимых групп или превышает его; сложные модели дают резкий разрыв train/внутренней оценки.",
+  "hypothesis": "Ridge/Logistic/ElasticNet с ограниченной регуляризацией; при необходимости fit-only снижение размерности как отдельная гипотеза.",
+  "diagnostic": "эффективный объём считать по независимым единицам, а не по повторным строкам. Проверить стабильность признаков/результатов на фиксированных внутренних splits.",
+  "minimum_experiment": "Ridge/Logistic/ElasticNet с ограниченной регуляризацией; при необходимости fit-only снижение размерности как отдельная гипотеза.",
+  "acceptance": "преимущество над простой регуляризованной опорой сохраняется при разумных внутренних повторениях; неопределённость и число независимых объектов видны.",
+  "constraints": "feature selection и scaling должны переобучаться внутри каждого внутреннего split. Сотни проб на малой validation создают иллюзию уверенного победителя.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "`p` сопоставимо с числом независимых групп или превышает его; сложные модели дают резкий разрыв train/внутренней оценки."
+  ],
+  "contraindications": [
+    "feature selection и scaling должны переобучаться внутри каждого внутреннего split. Сотни проб на малой validation создают иллюзию уверенного победителя."
+  ],
+  "cost": "средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_linear_model_Ridge",
+    "api_sklearn_linear_model_LogisticRegression"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "small_sample"
+  ],
+  "research_sources": [
+    "https://jmlr.csail.mit.edu/papers/v11/cawley10a.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "small_sample",
+  "routing_priority": 0
+}

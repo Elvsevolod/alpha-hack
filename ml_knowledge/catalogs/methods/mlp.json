@@ -1,0 +1,42 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "линейная модель; бустинг",
+  "applicability_rules": [],
+  "conditions": [
+    "Ограниченная dense-матрица и масштабирование на fit."
+  ],
+  "constraints": "MLPClassifier.fit в scikit-learn 1.5.2 не принимает sample_weight; не скачивать веса.",
+  "contraindications": [
+    "MLPClassifier.fit в scikit-learn 1.5.2 не принимает sample_weight; не скачивать веса."
+  ],
+  "cost": "Средняя/высокая: dense-память, параметры и эпохи.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Проверить небольшую MLP с регуляризацией",
+  "id": "mlp",
+  "method_id": "mlp",
+  "minimum_experiment": "Небольшая MLP; проверить реальное обучение, loss и конечные предсказания без sample_weight.",
+  "missing_references": [],
+  "observations": "Есть бюджет и ограниченное числовое представление",
+  "references": [
+    "api_sklearn_neural_network_MLPClassifier"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_neural_network_MLPClassifier",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "компактная",
+    "нейросеть",
+    "/",
+    "mlp",
+    "from",
+    "scratch"
+  ],
+  "title": "Компактная нейросеть / MLP from scratch",
+  "version": 2
+}

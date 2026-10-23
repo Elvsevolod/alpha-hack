@@ -1,0 +1,2 @@
+-r data_for_participants/requirements.txt
+pytest==8.3.5

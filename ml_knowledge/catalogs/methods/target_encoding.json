@@ -1,0 +1,60 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "CatBoost; ограниченный one-hot",
+  "applicability_rules": [
+    {
+      "field": "validation",
+      "op": "not_in",
+      "reason": "Random cross-fitting does not preserve temporal/group boundaries.",
+      "value": [
+        "temporal",
+        "time",
+        "group",
+        "grouped",
+        "temporal_group"
+      ]
+    }
+  ],
+  "conditions": [
+    "Есть категории высокой кардинальности; схема внутреннего encoding согласована с валидацией."
+  ],
+  "constraints": "Обычный случайный cross-fitting не сохраняет временные и групповые границы автоматически.",
+  "contraindications": [
+    "Обычный случайный cross-fitting не сохраняет временные и групповые границы автоматически."
+  ],
+  "cost": "Средняя: дополнительные внутренние folds.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить cross-fitted encoding с one-hot",
+  "id": "target_encoding",
+  "method_id": "target_encoding",
+  "minimum_experiment": "Сравнить encoding с one-hot; отдельно проверить, что для каждого fit-fold отсутствует его собственный таргет.",
+  "missing_references": [],
+  "observations": "Высокая кардинальность категорий",
+  "references": [
+    "api_sklearn_preprocessing_TargetEncoder",
+    "api_category_encoders_TargetEncoder"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_preprocessing_TargetEncoder",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    },
+    {
+      "reference_id": "api_category_encoders_TargetEncoder",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "кодирование",
+    "таргетом",
+    "/",
+    "target",
+    "encoding"
+  ],
+  "title": "Кодирование таргетом / target encoding",
+  "version": 3
+}

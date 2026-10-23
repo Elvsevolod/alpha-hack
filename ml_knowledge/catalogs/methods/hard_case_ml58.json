@@ -1,0 +1,38 @@
+{
+  "id": "hard_case_ml58",
+  "method_id": "hard_case_ml58",
+  "version": 1,
+  "title": "Ансамбль и stacking дают красивый, но нечестный результат",
+  "observations": "сильные модели ошибаются по-разному; метамодель обучена на их in-sample прогнозах или веса подобраны на внешней validation.",
+  "hypothesis": "сначала равновесный blend совместимых моделей; обучаемые веса/stacking — только на честных внутренних OOF/holdout прогнозах с нужными границами.",
+  "diagnostic": "совпадение протоколов, row keys, шкал таргета и порядка классов; происхождение каждого прогноза для обучения метамодели.",
+  "minimum_experiment": "сначала равновесный blend совместимых моделей; обучаемые веса/stacking — только на честных внутренних OOF/holdout прогнозах с нужными границами.",
+  "acceptance": "весь ансамбль, включая стоимость refit членов, помещается в бюджет; преимущество проверено как у одного полного кандидата, метамодель не видела оцениваемые метки при обучении.",
+  "constraints": "`prefit` не создаёт OOF автоматически; нельзя усреднять строковые метки, лог-прогноз одной модели с исходной шкалой другой или планы разных validation hashes.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "сильные модели ошибаются по-разному; метамодель обучена на их in-sample прогнозах или веса подобраны на внешней validation."
+  ],
+  "contraindications": [
+    "`prefit` не создаёт OOF автоматически; нельзя усреднять строковые метки, лог-прогноз одной модели с исходной шкалой другой или планы разных validation hashes."
+  ],
+  "cost": "средняя/высокая",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_ensemble_RandomForestClassifier"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "ensemble"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.StackingClassifier.html",
+    "https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "ensemble",
+  "routing_priority": 0
+}

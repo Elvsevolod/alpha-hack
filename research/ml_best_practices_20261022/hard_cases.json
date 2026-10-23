@@ -1,0 +1,1843 @@
+{
+  "format": "ml-hard-cases-research-v1",
+  "created": "2026-10-22",
+  "status": "prepared_not_integrated",
+  "runtime_registered": false,
+  "source_document": "docs/ml_hard_cases.md",
+  "contract_note": "Research schema only. Not valid method_refs/reference_ids/evidence_refs for current Qwen runtime; integration needs versioned corpus conversion and verification. All proposals require fit-only learning and capability checks.",
+  "cases": [
+    {
+      "id": "case:ML01",
+      "version": 1,
+      "title": "Неясно, что представляет собой независимое наблюдение",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "несколько строк могут относиться к одному клиенту, зданию, сессии или запросу; название ID этого не устанавливает.",
+      "diagnostic": "сопоставить task/dictionary, кратности подтверждённых entity-полей и момент использования модели. Отделить повторное измерение объекта от случайно одинаковых признаков.",
+      "minimum_experiment": "обосновать случайную, групповую или временную опору; если есть сомнение, провести дополнительный стресс-тест внутри fit и оформить предложение контроллеру.",
+      "constraints": "не придумывать entity-ID из удобной комбинации полей и не менять внешний split ради лучшего score. При недостатке сведений сохранить неопределённость явно.",
+      "acceptance": "сформулирован конкретный вопрос переноса и причина схемы; совпадение split с будущим применением подтверждается доступной информацией, а не качеством модели.",
+      "evidence": "[S02 — Cross-validation](https://scikit-learn.org/1.5/modules/cross_validation.html).",
+      "source_ids": [
+        "S02"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/cross_validation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML02",
+      "version": 1,
+      "title": "Тест относится к будущему периоду",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая для схемы, средняя для повторов",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "минимальный период test больше максимального периода train либо задача прямо прогнозная. У нас это `Year_Factor` 1–5 → 6.",
+      "diagnostic": "установить смысл и порядок периода; проверить, что поздние наблюдения не попадают в обучение ранних прогнозов. Уточнить горизонт и доступность экзогенных признаков.",
+      "minimum_experiment": "временной holdout; внутри fit — несколько доступных исторических отсечек с тем же горизонтом, если хватает периодов.",
+      "constraints": "простая сортировка строк не делает случайный split временным. Контрольный период не переоткрывать для выбора лагов и параметров.",
+      "acceptance": "для каждого оценочного блока все обучающие наблюдения и обученные статистики относятся к разрешённой истории; метрика посчитана на нужном горизонте.",
+      "evidence": "[S30 — TimeSeriesSplit 1.5.2](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html).",
+      "source_ids": [
+        "S30"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML03",
+      "version": 1,
+      "title": "Нужно обобщать на новые группы или географические области",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "повторные измерения пациентов, клиентов, устройств либо плотные пространственные соседства могут завышать оценку по строкам.",
+      "diagnostic": "проверить подтверждённую сущность группы и пересечение групп. Для пространства обосновать блоки/буфер масштабом применения; одинаковый штат сам по себе не всегда нужная группа.",
+      "minimum_experiment": "непересекающиеся группы; при дисбалансе проверить возможность стратификации по группам. Пространственные блоки требуют явного контракта/подготовки.",
+      "constraints": "нельзя разделить зависимую группу ради присутствия редкого класса во всех folds. В 1.5.2 не использовать новые параметры `GroupKFold(shuffle=...)`.",
+      "acceptance": "пересечение групп равно нулю на всех уровнях; покрытие классов и число независимых групп отражены в отчёте.",
+      "evidence": "[S40 — GroupKFold](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.GroupKFold.html), [S25 — StratifiedGroupKFold](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html).",
+      "source_ids": [
+        "S40",
+        "S25"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.GroupKFold.html",
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML04",
+      "version": 1,
+      "title": "Новые группы одновременно появляются в будущем",
+      "priority": "P1",
+      "implementation_path": "protocol",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "нужно предсказывать для ранее не встречавшихся клиентов в следующем месяце; временная и объектная зависимости действуют одновременно.",
+      "diagnostic": "явно определить оба ограничения и их смысл. В текущем агенте один enum `random/group/temporal` не выражает полный совместный контракт.",
+      "minimum_experiment": "сначала спроектировать внешние и внутренние маски: обучение раньше оценки и допустимое пересечение сущностей согласно постановке; проверить все преобразования на тех же границах.",
+      "constraints": "не объявлять выбор только `group` или только `temporal` полноценным решением. История известного клиента допустима для одной постановки и запрещена для другой.",
+      "acceptance": "контракт поддерживает совместные инварианты; HPO, encoding, калибровка и refit не создают обходной случайный split.",
+      "evidence": "[S02 — смысл схем проверки](https://scikit-learn.org/1.5/modules/cross_validation.html); совместный протокол — проектное расширение.",
+      "source_ids": [
+        "S02"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/cross_validation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML05",
+      "version": 1,
+      "title": "Много точных или близких дублей",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая для точных, потенциально высокая для близких",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "высокая точность на случайной внутренней оценке, одинаковые признаки в разных частях, низкое число уникальных feature-векторов.",
+      "diagnostic": "считать дубли без ID и таргета; отдельно частоты групп, конфликты меток и пересечения частей. Хеш использовать как ускоритель с точным подтверждением совпадений.",
+      "minimum_experiment": "сравнить обычную и групповую стресс-проверку внутри fit; при необходимости проверить перевзвешивание повторов. Для near-duplicate задать обоснованную метрику расстояния и ограничить стоимость.",
+      "constraints": "дубли не обязательно ошибка; удаление меняет целевое распределение. Для реального теста с повторными объектами полностью grouped-проверка может быть слишком пессимистичной.",
+      "acceptance": "вывод разделяет перенос на виденные/новые наборы признаков и не утверждает тождество событий по совпавшему вектору.",
+      "evidence": "[S01 — информация, доступная при оценке](https://scikit-learn.org/1.5/common_pitfalls.html); стратегия дублей — проектная гипотеза.",
+      "source_ids": [
+        "S01"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/common_pitfalls.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML06",
+      "version": 1,
+      "title": "ID выглядит очень предсказательным или пересекается между файлами",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "последовательный ID кодирует порядок сбора или источник; у нашей классификации все test ID встречаются в train.",
+      "diagnostic": "проверить роль по контракту, уникальность внутри каждого файла и область действия ключа. Совпадение локальных счётчиков не означает один объект.",
+      "minimum_experiment": "сохранить ID для выравнивания выхода и исключить из признаков согласно постановке; исследовать реальные разрешённые временные/групповые поля отдельно.",
+      "constraints": "нельзя присоединять метки train к test по такому ID, восстанавливать скрытые ответы из внешнего оригинала или нарушать заданные роли.",
+      "acceptance": "модель не использует запрещённые ID; предсказания связаны с неизменяемыми row keys и возвращены в исходном порядке.",
+      "evidence": "локальные `TaskSpec`, `Candidate interface`, словари и task; это вывод о нашем контракте, не универсальный запрет любого идентификатора в ML.",
+      "source_ids": [],
+      "source_urls": [],
+      "local_contract_evidence": true,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML07",
+      "version": 1,
+      "title": "Признак раскрывает результат или появляется после него",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "почти детерминированная связь с таргетом, результат процедуры после события, дублирующая метка или подозрительная дата завершения.",
+      "diagnostic": "установить момент доступности признака и происхождение. Сильная корреляция сама по себе не доказывает утечку; годовая погода в нашей регрессии разрешена постановкой.",
+      "minimum_experiment": "исключать только подтверждённо недоступные/запрещённые поля через согласованные роли; сравнение с разрешённой моделью выполнять при прежней оценке.",
+      "constraints": "не «восстанавливать» удалённую бинарную `label` UNSW; не отбрасывать сильный законный признак лишь потому, что score высокий.",
+      "acceptance": "каждый используемый признак доступен в заявленный момент предсказания; основания исключений сохранены.",
+      "evidence": "[S01 — Data leakage](https://scikit-learn.org/1.5/common_pitfalls.html).",
+      "source_ids": [
+        "S01"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/common_pitfalls.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML08",
+      "version": 1,
+      "title": "Метки появляются с задержкой",
+      "priority": "P1",
+      "implementation_path": "protocol",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "дефолт, возврат, диагноз или завершение события известны через недели после строки признаков; формально прошлые строки ещё не размечены на дату прогноза.",
+      "diagnostic": "отличать event time, feature availability и label availability; выяснить, какие метки реально существовали к каждой отсечке.",
+      "minimum_experiment": "временной backtest с задержкой доступности меток; удалить из обучающей истории незавершённые outcomes по подтверждённому правилу.",
+      "constraints": "нельзя трактовать незавершённый случай как отрицательный или угадывать срок созревания метки. Текущий простой temporal enum не описывает произвольную задержку.",
+      "acceptance": "ни одна обучающая метка не поступает из будущего относительно оцениваемого решения; число незавершённых случаев и правило обработки известны.",
+      "evidence": "[S30 — временные границы](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html); модель задержки требует отдельного контракта.",
+      "source_ids": [
+        "S30"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML09",
+      "version": 1,
+      "title": "Пересекающиеся окна и горизонты создают утечку",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "соседние строки используют перекрывающиеся интервалы измерений или таргет за будущий интервал, пересекающий границу train/оценки.",
+      "diagnostic": "записать фактические интервалы исходной информации и target horizon, а не только timestamp строки. Посчитать допустимый промежуток по смыслу задачи.",
+      "minimum_experiment": "внутри fit проверить разбиение с необходимым gap/исключением перекрывающихся интервалов; для внешней схемы потребуется поддержка контроллера.",
+      "constraints": "`gap` в числе строк не всегда соответствует времени; безусловный «большой embargo» может выбросить большую часть данных и не решить неверный горизонт.",
+      "acceptance": "обучающие окна и используемые метки не пересекают запрещённую область; размер gap обоснован и воспроизводим.",
+      "evidence": "[S30 — TimeSeriesSplit и gap](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html).",
+      "source_ids": [
+        "S30"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML10",
+      "version": 1,
+      "title": "Честный split оставляет класс без обучающих примеров",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "редкий класс целиком принадлежит одной группе/позднему периоду или исчезает при внутреннем разбиении.",
+      "diagnostic": "проверить покрытие классов по разрешённым агрегатам до обучения и число независимых примеров, а не только общее количество строк.",
+      "minimum_experiment": "уменьшить число внутренних folds или использовать допустимый holdout; при структурной невозможности явно указать ограничение постановки и выбрать законный fallback.",
+      "constraints": "не переносить будущие строки назад ради класса, не удалять неудобную метку из основной метрики и не оценивать отсутствующий класс как выученный.",
+      "acceptance": "список классов фиксирован; отсутствующее покрытие отражено в статусе, предсказания имеют корректную форму, неизвестные сочетания не скрыты случайным split.",
+      "evidence": "[S25 — ограничения групповой стратификации](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html).",
+      "source_ids": [
+        "S25"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.StratifiedGroupKFold.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML11",
+      "version": 1,
+      "title": "Признаки train и test заметно различаются",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "иные диапазоны, частоты категорий, доли пропусков; модель легко различает источник строки.",
+      "diagnostic": "сначала простые разрешённые feature-only агрегаты, затем при необходимости внутренняя симуляция доменов на fit. Отличие `p(x)` не доказывает сохранность `p(y|x)`.",
+      "minimum_experiment": "сравнить устойчивое представление, ограничение сложности и корректный исторический/domain holdout. Диагностическую модель train-vs-test обучать на тестовых признаках нельзя при действующем строгом fit-only правиле.",
+      "constraints": "importance weighting требует предпосылок и поддержки контракта; крайние веса уменьшают эффективный размер данных. Не подгонять preprocessing на test.",
+      "acceptance": "улучшение проверено на законной симуляции переноса, а не только по снижению различимости train/test; причины остаются гипотезами.",
+      "evidence": "[S19 — какие допущения нужны при shift](https://proceedings.mlr.press/v80/lipton18a.html); рекомендуемая диагностика — проектная.",
+      "source_ids": [
+        "S19"
+      ],
+      "source_urls": [
+        "https://proceedings.mlr.press/v80/lipton18a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML12",
+      "version": 1,
+      "title": "Изменились доли классов",
+      "priority": "P1",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "меняется частота предсказываемых классов между периодами или источниками при относительно устойчивых признаках внутри класса.",
+      "diagnostic": "на размеченных частях fit проверить устойчивость `p(x|y)`, обусловленность confusion matrix и изменчивость по периодам. Частоты argmax на test не равны частотам истинных меток.",
+      "minimum_experiment": "симулировать сдвиг prior внутри fit и сравнить обычное правило с регуляризованной коррекцией; после выбора заморозить правило.",
+      "constraints": "BBSE не решает произвольный concept drift. Оценка поправки на test требует отдельного разрешённого контракта и сейчас не входит в fit-only обучение.",
+      "acceptance": "допущения, устойчивость и цена ошибки коррекции документированы; внешние доли классов не угадываются по публичному оригиналу данных.",
+      "evidence": "[S19 — BBSE](https://proceedings.mlr.press/v80/lipton18a.html).",
+      "source_ids": [
+        "S19"
+      ],
+      "source_urls": [
+        "https://proceedings.mlr.press/v80/lipton18a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML13",
+      "version": 1,
+      "title": "Может меняться сама связь признаков с таргетом",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "новые режимы работы, оборудование или правила процесса; качество на поздних размеченных периодах fit хуже раннего.",
+      "diagnostic": "сравнить внутренние исторические оценки, признаки и покрытие; отделить изменение состава объектов от изменения связи при похожих признаках.",
+      "minimum_experiment": "сравнить всю историю с ограниченным окном или fit-only временными весами; проверить не один cutoff, если данных достаточно.",
+      "constraints": "по одному неразмеченному test нельзя установить `p(y|x)` или дату смены режима. Уменьшение истории может лишить редкие классы покрытия.",
+      "acceptance": "улучшение воспроизводится на допустимых прошлых переходах и не объясняется только удобной отсечкой; полный refit воспроизводит правило окна.",
+      "evidence": "[S20 — историческая проверка переноса](https://otexts.com/fpp3/toolbox.html); правило окна — проверяемая проектная гипотеза.",
+      "source_ids": [
+        "S20"
+      ],
+      "source_urls": [
+        "https://otexts.com/fpp3/toolbox.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML14",
+      "version": 1,
+      "title": "Новые категории на предсказании",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "категория test отсутствует на fit; число уникальных значений растёт; в нашем `state` это подтверждено.",
+      "diagnostic": "отдельно посчитать незнакомые и пропущенные значения; проверить устойчивость словаря и одинаковое кодирование при save/load.",
+      "minimum_experiment": "поддерживаемый unknown-safe one-hot или нативная обработка; при редких категориях сравнить объединение редких уровней, выученное на fit.",
+      "constraints": "нельзя независимо перекодировать категории train и test или предполагать новые возможности автоматического recoding XGBoost. Не обучать словарь заново на test.",
+      "acceptance": "новая категория не вызывает исключения и не меняет число/порядок признаков; строковые уровни согласованы с сохранённой моделью.",
+      "evidence": "[S37 — OneHotEncoder 1.5.2](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.OneHotEncoder.html), [S11 — XGBoost 2.1.4](https://raw.githubusercontent.com/dmlc/xgboost/v2.1.4/doc/tutorials/categorical.rst).",
+      "source_ids": [
+        "S37",
+        "S11"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.OneHotEncoder.html",
+        "https://raw.githubusercontent.com/dmlc/xgboost/v2.1.4/doc/tutorials/categorical.rst"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML15",
+      "version": 1,
+      "title": "Обучение собрано из нерепрезентативной подвыборки",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "train получен из одного канала/центра/условия отбора; тест включает другие центры или более трудные объекты.",
+      "diagnostic": "установить механизм выборки по документации и признаки источника; сравнить поддержку и размеры независимых групп.",
+      "minimum_experiment": "внутри fit оставить источник целиком на оценку; сравнить регуляризацию, устойчивые признаки и разумные веса только при подтверждённом механизме отбора.",
+      "constraints": "отсутствие поддержки нельзя исправить весами; наблюдаемое различие не устанавливает причинную схему отбора. Доменные labels и target prevalence из внешних наборов не использовать.",
+      "acceptance": "отчёт указывает, для каких источников есть проверка переноса, а для каких качество неизвестно; средняя метрика не выдаётся за гарантию каждому домену.",
+      "evidence": "[S02 — проверка на независимых группах](https://scikit-learn.org/1.5/modules/cross_validation.html).",
+      "source_ids": [
+        "S02"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/cross_validation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML16",
+      "version": 1,
+      "title": "Тест выходит за диапазон обучающих признаков",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "площади, температуры, нагрузки или временной индекс превосходят наблюдавшиеся значения; дерево может продолжать крайнее постоянное значение.",
+      "diagnostic": "доли выхода за fit-диапазон по разрешённым агрегатам и исторические проверки похожего переноса. Различать выход по одному столбцу и отсутствие поддержки совместной комбинации.",
+      "minimum_experiment": "сравнить бустинг с регуляризованным линейным/сплайновым компонентом и физически оправданными преобразованиями; параметры экстраполяции задавать явно.",
+      "constraints": "экстраполяция линейной модели тоже может быть неверной; нельзя обучаться на скрытом продолжении ряда или автоматически обрезать тестовые значения.",
+      "acceptance": "гипотеза помогает на внутренней имитации выхода за диапазон и не ухудшает общий целевой критерий сверх принятого допуска.",
+      "evidence": "[S36 — SplineTransformer](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html), [S22 — свойства ансамблей](https://scikit-learn.org/1.5/modules/ensemble.html).",
+      "source_ids": [
+        "S36",
+        "S22"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html",
+        "https://scikit-learn.org/1.5/modules/ensemble.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML17",
+      "version": 1,
+      "title": "Есть обычные числовые пропуски",
+      "priority": "P2",
+      "implementation_path": "ready",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "неполные числовые поля; нет подтверждённой причины немедленно выбирать сложный восстановитель.",
+      "diagnostic": "доли и совместные шаблоны NaN на fit, поддержка NaN моделью и ограничения категорий; проверить полностью пустые столбцы.",
+      "minimum_experiment": "одна и та же модель с native NaN либо медианой; затем индикаторы; модельный импьютер — отдельная ограниченная гипотеза при наличии предсказуемых зависимостей.",
+      "constraints": "восстановление не должно читать таргеты внешней оценки; точность восстановления искусственно скрытых ячеек не гарантирует роста конечной метрики.",
+      "acceptance": "полезность измерена на целевой задаче, схема неизменна, фактические итерации/вспомогательные fit и полная стоимость зафиксированы.",
+      "evidence": "[S21 — Imputation](https://scikit-learn.org/1.5/modules/impute.html), [S39 — native NaN](https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html).",
+      "source_ids": [
+        "S21",
+        "S39"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/impute.html",
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML18",
+      "version": 1,
+      "title": "Сам факт отсутствия значения может быть информативен",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "поле заполняют для определённых типов объектов или после особой процедуры; например, рейтинг доступен не всем зданиям.",
+      "diagnostic": "изучить связь пропусков с разрешёнными признаками, периодом и внутренними ошибками на fit. Статистическое различие не устанавливает механизм MNAR.",
+      "minimum_experiment": "простая импутация с индикатором против той же модели без индикатора; отдельно native NaN, если подходит семейству.",
+      "constraints": "индикатор может кодировать источник сбора и потерять переносимость; при смене процесса заполнения высокое внутреннее качество может не сохраниться.",
+      "acceptance": "индикатор стабильно улучшает целевую метрику на законных внутренних переходах; новые NaN после fit обрабатываются определённо.",
+      "evidence": "[S31 — MissingIndicator](https://scikit-learn.org/1.5/modules/generated/sklearn.impute.MissingIndicator.html).",
+      "source_ids": [
+        "S31"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.impute.MissingIndicator.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML19",
+      "version": 1,
+      "title": "Меняются блоки доступных измерений",
+      "priority": "P1",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "сразу несколько датчиков отсутствуют в одном периоде/центре; между train и test существенно меняются доли NaN.",
+      "diagnostic": "сгруппировать шаблоны пропуска и время/источник по fit-only агрегатам; оценить, какие признаки доступны совместно.",
+      "minimum_experiment": "сравнить устойчивый базовый набор с полным; внутри fit провести реалистичную стресс-проверку отключения блока датчиков, сохранив правило оценки.",
+      "constraints": "случайное независимое маскирование ячеек может не моделировать реальное отключение блока. Разделённые модели по маскам требуют достаточной поддержки и бюджета.",
+      "acceptance": "эффект проверен на разумных сценариях недоступности и основном критерии; маски не подбираются по внешним ошибкам или скрытым меткам.",
+      "evidence": "[S21 — ограничения восстановления](https://scikit-learn.org/1.5/modules/impute.html); блоковая стресс-проверка — проектный дизайн.",
+      "source_ids": [
+        "S21"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/impute.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML20",
+      "version": 1,
+      "title": "Столбец пустой или почти пустой на fit",
+      "priority": "P2",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "восстановитель удаляет столбец или на predict впервые появляется непустое значение; очень мало опоры для обучения зависимости.",
+      "diagnostic": "проверить форму после fit/transform/save/load и заданное поведение пустой колонки; рассчитать число наблюдаемых значений.",
+      "minimum_experiment": "сохранить фиксированную схему с согласованным заполнением; сравнить исключение почти пустого признака только как отдельную ablation-гипотезу.",
+      "constraints": "в нашем 1.5.2 нельзя механически включать `IterativeImputer(keep_empty_features=True)` и объявлять итерации состоявшимися: текущий проект отдельно обходит известный проблемный путь. Проверять реальные вспомогательные fit.",
+      "acceptance": "количество и порядок признаков постоянны, новый non-NaN не ломает обработку; не заявлено восстановление того, для чего нет обучающей информации.",
+      "evidence": "локальные `FeatureMatrix`, `Candidate interface`; [S21 — документация пропусков](https://scikit-learn.org/1.5/modules/impute.html).",
+      "source_ids": [
+        "S21"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/impute.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML21",
+      "version": 1,
+      "title": "Пропуски закодированы нулями, строками или особыми числами",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "`0`, `-999`, `unknown`, `-` или пустая строка могут обозначать отсутствие измерения, реальное значение или отдельную категорию.",
+      "diagnostic": "читать словарь и сравнивать допустимую область. У нашей регрессии нулевой `year_built` требует проверки, а `service='-'` означает отсутствие сервиса.",
+      "minimum_experiment": "создать явное, подтверждённое словарём преобразование; при неоднозначности сравнить сохранение значения и отдельный флаг только внутри fit.",
+      "constraints": "глобальная замена всех нулей на NaN разрушает нулевые потоки, счётчики и физически допустимые значения; недопустимо подменять неизвестное предположением.",
+      "acceptance": "каждая замена объяснена семантикой поля, число изменённых значений измерено, преобразование одинаково на fit и predict.",
+      "evidence": "локальные словари; [S44 — предобработка](https://scikit-learn.org/1.5/modules/preprocessing.html).",
+      "source_ids": [
+        "S44"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/preprocessing.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML22",
+      "version": 1,
+      "title": "Обучающие таргеты частично отсутствуют",
+      "priority": "P1",
+      "implementation_path": "protocol",
+      "relative_cost": "низкая для выявления",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "в train есть пустые метки, незавершённые события или только положительные размеченные примеры.",
+      "diagnostic": "определить, является отсутствие метки ошибкой файла, разрешённой неразмеченной выборкой, цензурированием или PU-постановкой.",
+      "minimum_experiment": "сначала разрешить постановку и роль строк. Для обычного supervised-контракта получить явное правило обработки либо остановить неподдержанную задачу.",
+      "constraints": "не заполнять таргет медианой/частым классом, не считать неразмеченное отрицательным и не вводить self-training без разрешённого контракта.",
+      "acceptance": "каждый обучающий outcome имеет установленный смысл; отсутствующие таргеты не были незаметно превращены в искусственную истину.",
+      "evidence": "локальный `TaskSpec` и валидация ролей; [S43 — различие постановок](https://scikit-learn.org/1.5/modules/multiclass.html).",
+      "source_ids": [
+        "S43"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/multiclass.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML23",
+      "version": 1,
+      "title": "Типы, бесконечности, парсинг и несовпадающая схема",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "числовая колонка стала строковой, `inf` после деления, различия имени/порядка колонок, дубликаты заголовков, потеря индекса.",
+      "diagnostic": "проверить CSV, схему, dictionary и конечность до запуска дорогой модели; проследить row keys после сортировки и join.",
+      "minimum_experiment": "минимальное чтение и один fit/predict/save/load на допустимом фрагменте; арифметику отношений проверить на нуле и пропуске.",
+      "constraints": "`nan_to_num` без анализа может превратить бесконечность в огромное число и скрыть ошибку. Нельзя чинить схему независимым построением признаков на test.",
+      "acceptance": "единая фиксированная схема, все строки и ключи сохранены; предупреждения парсинга объяснены, конечный CSV соответствует контракту.",
+      "evidence": "локальный prediction contract; [S01 — согласованность preprocessing](https://scikit-learn.org/1.5/common_pitfalls.html).",
+      "source_ids": [
+        "S01"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/common_pitfalls.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML24",
+      "version": 1,
+      "title": "Macro F1 страдает при дисбалансе",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "высокая Accuracy при низкой Macro F1; редкие классы почти не предсказываются.",
+      "diagnostic": "внутри fit измерить частоты, полноценные precision/recall/F1 и основные пары путаницы; отличать слабое представление от неудачного правила решения.",
+      "minimum_experiment": "одна модель без весов, затем `balanced` или поддерживаемые умеренные веса; менять только политику весов, затем при необходимости сложность модели.",
+      "constraints": "inverse-frequency может резко увеличить false positives; не все адаптеры принимают `class_weight` — у XGBoost нашего прямого адаптера его нет. Weighted F1 не заменяет macro.",
+      "acceptance": "улучшилась подтверждённая Macro F1 при корректном списке классов; результат не объясняется переименованием меток или изменением split.",
+      "evidence": "[S28 — F1 и усреднение](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.f1_score.html).",
+      "source_ids": [
+        "S28"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.f1_score.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML25",
+      "version": 1,
+      "title": "Самый редкий класс представлен десятками примеров",
+      "priority": "P1",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "65 примеров `Worms` во всём публичном train; во внутреннем holdout может остаться лишь несколько независимых случаев.",
+      "diagnostic": "число уникальных feature-групп и покрытие на каждом внутреннем split; отдельно вариативность recall и false positives по остальным классам.",
+      "minimum_experiment": "короткая заранее выбранная серия внутренних повторов/OOF; сравнить простые веса и регуляризацию, сохранив одинаковые splits для конкурентов.",
+      "constraints": "многократная выборка seed до удобного результата переобучает оценку. Малый внешний срез нельзя восстанавливать; OOF-прогнозы тоже не полностью независимы для статистических выводов.",
+      "acceptance": "указан support и разброс; мелкий выигрыш не объявлен устойчивым при отсутствии свидетельств. Подробные строки/метки не отправляются в Qwen.",
+      "evidence": "[S24 — per-class диагностика](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.precision_recall_fscore_support.html), [S17 — selection bias](https://jmlr.csail.mit.edu/papers/v11/cawley10a.html).",
+      "source_ids": [
+        "S24",
+        "S17"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.precision_recall_fscore_support.html",
+        "https://jmlr.csail.mit.edu/papers/v11/cawley10a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML26",
+      "version": 1,
+      "title": "Одинаковые признаки имеют разные метки",
+      "priority": "P1",
+      "implementation_path": "custom",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "точные дубли вектора признаков размечены разными классами; у нас подтверждено 1458 таких групп.",
+      "diagnostic": "точное сравнение без ID/таргета, размеры и распределение меток по группам; проверить, не утрачено ли поле времени/контекста при подготовке данных.",
+      "minimum_experiment": "сравнить регуляризованную модель, сохранение всех повторов и осторожное fit-only перевзвешивание групп; оценить перенос на новые/повторные группы отдельно внутри fit.",
+      "constraints": "нельзя назначать «правильный» класс большинством и вычищать остальные метки без основания. По конфликтам нельзя назвать численный потолок Macro F1 для скрытого теста.",
+      "acceptance": "модель не переобучается на произвольные локальные ID; улучшение измерено без использования оцениваемой метки в обработке группы.",
+      "evidence": "локальный точный профиль; [S17 — устойчивость оценки](https://jmlr.csail.mit.edu/papers/v11/cawley10a.html). Причина конфликта остаётся гипотезой.",
+      "source_ids": [
+        "S17"
+      ],
+      "source_urls": [
+        "https://jmlr.csail.mit.edu/papers/v11/cawley10a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML27",
+      "version": 1,
+      "title": "Многоклассовому Macro F1 недостаточно обычного argmax",
+      "priority": "P2",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "вероятностная модель различает редкий класс, но argmax почти никогда его не выбирает; веса улучшают recall ценой избыточных false positives.",
+      "diagnostic": "получить внутренние OOF/holdout вероятности с фиксированным порядком классов и оценить полноценный Macro F1 на всём внутреннем наборе.",
+      "minimum_experiment": "сравнить argmax с небольшим регуляризованным набором class offsets, например `argmax(log(p_k + eps) + b_k)`, обучая `b` только внутри fit; сохранять исходный argmax как опору.",
+      "constraints": "независимые бинарные пороги могут дать несколько/ноль классов. Малые редкие классы легко переобучить; встроенный threshold текущего агента поддерживает только бинарный случай.",
+      "acceptance": "каждый объект получает ровно одну допустимую метку; правило и offsets заморожены до внешней оценки и воспроизводятся после refit.",
+      "evidence": "[S05 — обучение и решение](https://scikit-learn.org/1.5/modules/classification_threshold.html). Приведённое многоклассовое правило — проектная гипотеза, не готовый рецепт из этого бинарного руководства.",
+      "source_ids": [
+        "S05"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/classification_threshold.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML28",
+      "version": 1,
+      "title": "Хорошие вероятности и хорошие метки требуют разных решений",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "Log Loss/Brier и F1 меняются в разные стороны; переуверенные вероятности или вывод меток при требуемых вероятностях.",
+      "diagnostic": "установить scoring и output type; внутри fit проверить надежность вероятностей и класс-порядок, отдельно оценить метрики меток.",
+      "minimum_experiment": "для вероятностной цели — поддерживаемая калибровка на независимых внутренних прогнозах; для F1 — сравнение правила решения. Бинарный готовый путь отделить от custom multiclass.",
+      "constraints": "калибровка не гарантирует роста Macro F1; isotonic требует достаточных данных. Нельзя выдавать бинарные 0/1 как откалиброванные вероятности и подбирать правило на внешних метках.",
+      "acceptance": "улучшена именно основная метрика; вероятности конечны, нормированы и согласованы с классами, обучающая часть калибратора корректна.",
+      "evidence": "[S04 — Probability calibration](https://scikit-learn.org/1.5/modules/calibration.html).",
+      "source_ids": [
+        "S04"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/calibration.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML29",
+      "version": 1,
+      "title": "Хочется применить SMOTE ко всем редким классам",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "мало minority-примеров, но пространство содержит категории, счётчики, тяжёлые хвосты или конфликтующие дубли.",
+      "diagnostic": "допустимость расстояния, число соседей после каждого внутреннего split, семантика синтетических точек и поддержка адаптера.",
+      "minimum_experiment": "сначала веса/ограниченный random oversampling; SMOTE пробовать только на подходящем числовом представлении и внутри обучающих folds. Смешанные категории требуют отдельного проверенного пути.",
+      "constraints": "SMOTE до split создаёт утечку; дробные значения флагов/категорий могут быть бессмысленны. Resampling не устраняет отсутствие информации или конфликт меток и увеличивает стоимость.",
+      "acceptance": "оценочная выборка сохраняет естественное распределение; проверены конечная метрика, размер после resampling и пик памяти.",
+      "evidence": "[S07 — resampling leakage](https://imbalanced-learn.org/stable/common_pitfalls.html), [S35 — особенности oversampling](https://imbalanced-learn.org/stable/over_sampling.html). Исполнимый API — только локальной версии 0.12.4.",
+      "source_ids": [
+        "S07",
+        "S35"
+      ],
+      "source_urls": [
+        "https://imbalanced-learn.org/stable/common_pitfalls.html",
+        "https://imbalanced-learn.org/stable/over_sampling.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML30",
+      "version": 1,
+      "title": "В тесте может встретиться неизвестный класс",
+      "priority": "P1",
+      "implementation_path": "protocol",
+      "relative_cost": "низкая для постановки",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "task допускает новые типы событий или отказ от классификации; закрытый список классов не соответствует реальному процессу.",
+      "diagnostic": "установить, есть ли в задании open-set/reject-класс, формат отказа и соответствующая метрика. Низкая уверенность сама по себе не доказывает новый класс.",
+      "minimum_experiment": "только при явном контракте моделировать неизвестные классы на fit с отдельным правилом отказа; иначе сохранять заданный closed-set выход.",
+      "constraints": "нельзя добавлять `Unknown` в CSV или объявлять новый тип атаки по неразмеченному test, если схема содержит десять классов.",
+      "acceptance": "выход строго соответствует разрешённым меткам; open-set качество не заявлено без отдельной проверяемой постановки.",
+      "evidence": "локальный контракт и [S43 — классификационные постановки](https://scikit-learn.org/1.5/modules/multiclass.html).",
+      "source_ids": [
+        "S43"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/multiclass.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML31",
+      "version": 1,
+      "title": "Multilabel перепутан с multiclass",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "объект может иметь несколько меток одновременно; task требует несколько бинарных выходов, но модель делает один argmax.",
+      "diagnostic": "форму таргета, macro/micro/sample усреднение, частоты меток и долю полностью нулевых строк; разбиение должно сохранять допустимое покрытие.",
+      "minimum_experiment": "независимые бинарные модели как опора; внутренние пороги по меткам только при разрешённой форме выхода и достаточном support.",
+      "constraints": "сумма вероятностей по независимым меткам не обязана равняться единице. Корреляционные chains требуют внутреннего предотвращения leakage; готовый бинарный postprocessor не равен multilabel-пути.",
+      "acceptance": "размерность, порядок и домен каждой метки верны; оценка использует заданный способ усреднения без скрытого исключения редких выходов.",
+      "evidence": "[S43 — Multiclass and multioutput](https://scikit-learn.org/1.5/modules/multiclass.html).",
+      "source_ids": [
+        "S43"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/multiclass.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML32",
+      "version": 1,
+      "title": "Несколько целей разной природы или шкалы",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "несколько регрессионных/классификационных целей, разные классы и дисбаланс, одна крупная шкала доминирует суммарную потерю.",
+      "diagnostic": "подтвердить агрегирование метрики, веса целей и общий смысл разбиения; проверить доступность всех целей только в train.",
+      "minimum_experiment": "независимая модель каждой цели как воспроизводимая опора, затем совместная модель/преобразование только при поддержке и явной гипотезе.",
+      "constraints": "нельзя нормировать метрику по своему усмотрению, смешивать порядок классов целей или использовать истинную соседнюю цель на predict. Teacher forcing требует честного внутреннего пути.",
+      "acceptance": "каждая цель имеет собственную согласованную форму, все output columns сохранены; общий score рассчитан ровно по контракту.",
+      "evidence": "[S43 — multioutput](https://scikit-learn.org/1.5/modules/multiclass.html), [S03 — агрегирование метрик](https://scikit-learn.org/1.5/modules/model_evaluation.html).",
+      "source_ids": [
+        "S43",
+        "S03"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/multiclass.html",
+        "https://scikit-learn.org/1.5/modules/model_evaluation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML33",
+      "version": 1,
+      "title": "RMSE определяется редкими большими ошибками",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "высокий разброс таргета, крупная доля SSE у хвоста; хорошие средние/медианные ошибки при слабой RMSE.",
+      "diagnostic": "внутри fit анализировать сумму квадратов ошибок по заранее выбранным диапазонам и допустимым признакам; отделять хвост таргета от хвоста остатков.",
+      "minimum_experiment": "ограниченно сравнить обучение в исходной шкале, другую регуляризацию и согласованное представление; log-target — самостоятельная ветка, не обязательный старт.",
+      "constraints": "верхний 1% таргета не всегда даёт самые большие ошибки обученной модели; удаление дорогих объектов искусственно облегчает задачу.",
+      "acceptance": "общий RMSE улучшен в исходных единицах; дополнительная диагностика не заменяет основной критерий и не читает закрытые срезы.",
+      "evidence": "[S29 — RMSE](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.root_mean_squared_error.html).",
+      "source_ids": [
+        "S29"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.root_mean_squared_error.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML34",
+      "version": 1,
+      "title": "После log-target обратное преобразование даёт смещённый прогноз",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "log-loss обучения уменьшается, но исходная RMSE ухудшается или большие значения систематически занижены.",
+      "diagnostic": "область `log1p`, хвост исходных ошибок и различие `E[exp(Z)|x]` с `exp(E[Z|x])`. Проверить, что inverse выполнен один раз.",
+      "minimum_experiment": "исходный таргет против log1p при сопоставимой модели; коррекцию обратного преобразования оценивать только на внутренних прогнозах fit, отдельно от обучения исходной модели.",
+      "constraints": "один глобальный smearing factor может не подходить при гетероскедастичности. В текущем прямом адаптере есть `expm1`, отдельная обучаемая коррекция требует custom-пути.",
+      "acceptance": "исходная метрика и стабильность прогноза лучше опоры; коррекция заморожена до внешней оценки и сохранена при refit.",
+      "evidence": "[S20 — Bias adjustments](https://otexts.com/fpp3/toolbox.html).",
+      "source_ids": [
+        "S20"
+      ],
+      "source_urls": [
+        "https://otexts.com/fpp3/toolbox.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML35",
+      "version": 1,
+      "title": "Положительная величина или счётчик требует корректного домена",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "отрицательные предсказания физически невозможны; таргет — число событий, сумма, удельный показатель либо интенсивность.",
+      "diagnostic": "отличить счётчик от непрерывной положительной величины; установить exposure/единицы и основной scoring.",
+      "minimum_experiment": "сравнить обычную регрессию с поддерживаемым подходящим objective/link; ограничение неотрицательности проверить отдельно. Для rates учесть exposure только при его корректном смысле.",
+      "constraints": "`site_eui` не счётчик; Poisson не становится лучшим только из-за положительности. Нельзя округлять rate как count или заменять RMSE девиансом.",
+      "acceptance": "предсказание в допустимом домене и исходных единицах; преимущество проверено целевой метрикой, а objective поддерживается конкретным адаптером.",
+      "evidence": "[S32 — PoissonRegressor](https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.PoissonRegressor.html).",
+      "source_ids": [
+        "S32"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.PoissonRegressor.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML36",
+      "version": 1,
+      "title": "Таргет состоит из массы нулей и положительной части",
+      "priority": "P2",
+      "implementation_path": "custom",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "отсутствие спроса/затрат и положительные величины образуют разные режимы; обычная регрессия плохо описывает границу.",
+      "diagnostic": "нули должны быть реальными, а не пропусками; внутри fit исследовать частоту нулей по времени и support положительных значений.",
+      "minimum_experiment": "одна обычная модель как опора, затем двухчастная модель `P(y>0|x) * E[y|y>0,x]` для цели условного среднего, если это соответствует loss.",
+      "constraints": "hard gate по порогу может ухудшить RMSE; оценка положительной части только на истинно положительных объектах не оценивает весь pipeline. Экспозиция и censoring требуют отдельного смысла.",
+      "acceptance": "полный прогноз оценён на всех внутренних наблюдениях, обе части обучены без leakage и помещаются в финальный бюджет.",
+      "evidence": "[S03 — соответствие функции потерь и оценки](https://scikit-learn.org/1.5/modules/model_evaluation.html). Двухчастная модель — проектная гипотеза, не встроенный рецепт агента.",
+      "source_ids": [
+        "S03"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/model_evaluation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML37",
+      "version": 1,
+      "title": "Разброс ошибки зависит от объекта",
+      "priority": "P2",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "остатки растут с площадью/нагрузкой, разная вариативность у типов зданий, асимметричные хвосты.",
+      "diagnostic": "использовать внутренние out-of-sample остатки и проверять изменения разброса отдельно от смещения среднего; не делать вывод по in-sample остаткам.",
+      "minimum_experiment": "для RMSE улучшать условное среднее через признаки/модель; для MAE/квантильного задания сравнить подходящий квантиль. Условия объединённых loss фиксировать явно.",
+      "constraints": "inverse-variance weighting меняет целевой риск; интервальная модель не обязана улучшить точечный RMSE. Гетероскедастичность не разрешает пересчитать метрику на удобной шкале.",
+      "acceptance": "улучшение целевой точечной или квантильной метрики подтверждено в нужной постановке; тип оценки не подменён.",
+      "evidence": "[S33 — QuantileRegressor](https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.QuantileRegressor.html).",
+      "source_ids": [
+        "S33"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.QuantileRegressor.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML38",
+      "version": 1,
+      "title": "Кажется, что выбросы нужно удалить",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "редкие экстремумы, необычные комбинации, высокий anomaly score; они могут быть ошибкой измерения или важной частью задачи.",
+      "diagnostic": "проверить единицы, допустимые физические диапазоны, качество записи и вклад во внутренние ошибки; различать аномалию и подтверждённую порчу.",
+      "minimum_experiment": "сравнить сохранение наблюдений, ограниченную робастную обработку признака и другой objective; удалять только по заранее обоснованному правилу.",
+      "constraints": "вырезание хвоста таргета особенно опасно для RMSE; anomaly detector не является арбитром правильности метки. Оценочную выборку не чистить по увиденным ошибкам.",
+      "acceptance": "правило не использует скрытые outcomes и переносится на predict; общая целевая метрика посчитана на исходной неизменной оценке.",
+      "evidence": "[S23 — Outlier vs novelty detection](https://scikit-learn.org/1.5/modules/outlier_detection.html).",
+      "source_ids": [
+        "S23"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/outlier_detection.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML39",
+      "version": 1,
+      "title": "Деревьям трудно продолжать гладкую зависимость за границей",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "новый масштаб нагрузки/площади или следующий временной режим; ошибки систематичны в крайних областях.",
+      "diagnostic": "отделить гладкий физический эффект от случайной корреляции. Внутри fit организовать честное удержание крайнего диапазона или прошлого перехода.",
+      "minimum_experiment": "бустинг против Ridge/сплайна, затем при необходимости residual-модель с честным внутренним построением и простым blend.",
+      "constraints": "произвольное добавление линейного тренда по анонимному `Year_Factor` не доказывает перенос. Residual features из модели, обученной на тех же целевых строках, требуют осторожной OOF-схемы для метамодели.",
+      "acceptance": "модель помогает на соответствующем внутреннем переносе и обычной оценке; правило экстраполяции и признаки зафиксированы.",
+      "evidence": "[S36 — SplineTransformer и extrapolation](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html).",
+      "source_ids": [
+        "S36"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML40",
+      "version": 1,
+      "title": "Единицы, отношения и нормированные таргеты",
+      "priority": "P1",
+      "implementation_path": "custom",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "площадь в ft², осадки в inches, таргет уже «на единицу площади», два столбца года в разных шкалах, отношения потоков с нулевым знаменателем.",
+      "diagnostic": "выписать размерности и смысл каждого производного признака; различать градусо-сутки и температуру, направление ветра и градусы температуры.",
+      "minimum_experiment": "небольшой физически согласованный набор отношений/контрастов с явным поведением при нуле и NaN; один набор на ablation.",
+      "constraints": "нельзя считать возраст как `Year_Factor-year_built` без соответствия шкал; нельзя ещё раз делить `site_eui` на площадь или незаметно менять единицы выхода.",
+      "acceptance": "все формулы размерностно осмысленны, конечны и одинаковы на fit/predict; метрика использует исходные единицы задания.",
+      "evidence": "локальные task/dictionary; это предметная проверка и проектные признаки, а не универсальные рецепты из библиотечной документации.",
+      "source_ids": [],
+      "source_urls": [],
+      "local_contract_evidence": true,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML41",
+      "version": 1,
+      "title": "Категории высокой кардинальности",
+      "priority": "P2",
+      "implementation_path": "ready",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "много редких уровней, one-hot резко увеличивает размер матрицы, регуляризованная модель запоминает локальные значения.",
+      "diagnostic": "число уровней и их поддержка на fit; отличить настоящую категорию от запрещённого идентификатора. Проверить новые категории и ограничения памяти.",
+      "minimum_experiment": "CatBoost с поддерживаемой обработкой категорий против ограниченного sparse one-hot или корректного cross-fitted encoding; изменить одно представление при сопоставимом бюджете.",
+      "constraints": "нативная обработка категорий не снимает внешние временные/групповые границы. Выученные кодировки требуют того же отображения после сохранения модели.",
+      "acceptance": "качество и стоимость лучше простой опоры; редкие/неизвестные уровни обработаны определённо, категории не построены на test.",
+      "evidence": "[S08 — категории CatBoost](https://catboost.ai/en/docs/features/categorical-features), [S41 — механизм ordered statistics](https://arxiv.org/abs/1706.09516).",
+      "source_ids": [
+        "S08",
+        "S41"
+      ],
+      "source_urls": [
+        "https://catboost.ai/en/docs/features/categorical-features",
+        "https://arxiv.org/abs/1706.09516"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML42",
+      "version": 1,
+      "title": "Target encoding кажется сильным, но может видеть собственный таргет",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "высокая кардинальность, удивительно хорошая train-оценка, mean target по категориям посчитан до внутреннего split.",
+      "diagnostic": "для каждой кодируемой обучающей строки установить, какие метки участвовали в её значении; проверить внешние и внутренние границы.",
+      "minimum_experiment": "обычный sklearn cross-fitting только для допустимой независимой схемы; для групп/времени — custom-кодирование с соответствующими внутренними границами и приором, обученным на доступной истории.",
+      "constraints": "в sklearn 1.5.2 `cv` — int, нельзя передать произвольный splitter по примеру новой версии. `fit().transform()` отличается от `fit_transform`; CatBoost также не исправляет неверный внешний split.",
+      "acceptance": "ни одна обучающая кодировка не использует собственную/запрещённую метку; на predict применяется только замороженная допустимая статистика.",
+      "evidence": "[S06 — TargetEncoder 1.5.2](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.TargetEncoder.html).",
+      "source_ids": [
+        "S06"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.TargetEncoder.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML43",
+      "version": 1,
+      "title": "Много коррелированных, повторных или константных признаков",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "погодные столбцы сильно связаны, матрица плохо обусловлена, вычислительная стоимость высока, важности нестабильны.",
+      "diagnostic": "константы, точные дубли столбцов и корреляции изучать на fit; отделять избыточность для линейной модели от полезных альтернативных разбиений дерева.",
+      "minimum_experiment": "сначала регуляризация/удаление технических дублей; затем ограниченная ablation-группа или компактный базис. Список колонок фиксировать после fit.",
+      "constraints": "высокая попарная корреляция не доказывает отсутствие дополнительного сигнала. Отбор по всем обучающим данным до внутреннего CV создаёт утечку оценивания.",
+      "acceptance": "сокращение сохраняет/улучшает основной критерий и снижает стоимость; преобразование воспроизводится на test без повторного отбора.",
+      "evidence": "[S01 — утечки feature selection](https://scikit-learn.org/1.5/common_pitfalls.html), [S44 — представления признаков](https://scikit-learn.org/1.5/modules/preprocessing.html).",
+      "source_ids": [
+        "S01",
+        "S44"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/common_pitfalls.html",
+        "https://scikit-learn.org/1.5/modules/preprocessing.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML44",
+      "version": 1,
+      "title": "Мало независимых объектов при большом числе признаков",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "`p` сопоставимо с числом независимых групп или превышает его; сложные модели дают резкий разрыв train/внутренней оценки.",
+      "diagnostic": "эффективный объём считать по независимым единицам, а не по повторным строкам. Проверить стабильность признаков/результатов на фиксированных внутренних splits.",
+      "minimum_experiment": "Ridge/Logistic/ElasticNet с ограниченной регуляризацией; при необходимости fit-only снижение размерности как отдельная гипотеза.",
+      "constraints": "feature selection и scaling должны переобучаться внутри каждого внутреннего split. Сотни проб на малой validation создают иллюзию уверенного победителя.",
+      "acceptance": "преимущество над простой регуляризованной опорой сохраняется при разумных внутренних повторениях; неопределённость и число независимых объектов видны.",
+      "evidence": "[S17 — переобучение выбора модели](https://jmlr.csail.mit.edu/papers/v11/cawley10a.html).",
+      "source_ids": [
+        "S17"
+      ],
+      "source_urls": [
+        "https://jmlr.csail.mit.edu/papers/v11/cawley10a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML45",
+      "version": 1,
+      "title": "Разреженная матрица внезапно стала плотной",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая для проверки, высокая при ошибке",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "OOM после one-hot/TF-IDF, память растёт как `n_rows * n_features`, scaler центрирует sparse-матрицу.",
+      "diagnostic": "формат, dtype, число ненулевых значений и все операции, способные вызвать `toarray`/dense concatenate; учесть копии и параллельные fit.",
+      "minimum_experiment": "сохранить sparse-путь, ограничить словарь и использовать подходящую линейную модель; измерить пик памяти на пилоте без изменения оценочного смысла.",
+      "constraints": "оценка только размера исходного CSV не отражает память pipeline. Масштабирование с центрированием разреженного представления может уплотнить его; готовый адаптер проверять отдельно.",
+      "acceptance": "реальный пик памяти и итоговый refit укладываются в лимит, форма/индексы сохранены, авария не замаскирована молчаливым урезанием данных.",
+      "evidence": "[S34 — RobustScaler и sparse](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.RobustScaler.html), [S26 — TF-IDF](https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).",
+      "source_ids": [
+        "S34",
+        "S26"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.RobustScaler.html",
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML46",
+      "version": 1,
+      "title": "Текст короткий, шумный или похож на код",
+      "priority": "P2",
+      "implementation_path": "ready",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "описания, артикулы, ошибки и названия содержат опечатки; обычная числовая модель игнорирует важную строковую информацию.",
+      "diagnostic": "подтвердить роль текста, долю пустых значений, длину и язык. Категория вроде `proto` не должна автоматически становиться длинным естественным текстом.",
+      "minimum_experiment": "ограниченный TF-IDF word против char/char_wb с регуляризованной линейной моделью; словарь и IDF учить на fit.",
+      "constraints": "pretrained-embeddings запрещены нашим кейсом; не требовать токенизаторов/весов из сети. Ограничить n-grams/число признаков и не уплотнять матрицу.",
+      "acceptance": "непустой текстовый сигнал и целевая метрика лучше простой опоры, unknown-токены безопасны, время преобразования и refit измерены.",
+      "evidence": "[S26 — TfidfVectorizer 1.5.2](https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).",
+      "source_ids": [
+        "S26"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML47",
+      "version": 1,
+      "title": "Смешаны текст, категории и числовые признаки",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "одна модальность доминирует размерностью или разные полезные признаки теряются в едином неудачном представлении.",
+      "diagnostic": "изучить объявленные роли, missingness и стоимость отдельных ветвей; проверить, какие mixed-комбинации доступны адаптеру.",
+      "minimum_experiment": "отдельные табличная и текстовая опоры, затем поддерживаемое объединение или простой согласованный blend; вклад каждой ветви измерить ablation.",
+      "constraints": "нельзя предполагать, что FLAML/AutoGluon текущего адаптера принимают все текстовые преобразования. Конкатенация строк по ID без проверки row keys может переставить объекты.",
+      "acceptance": "сочетание даёт дополнительный сигнал при допустимой памяти и одинаковой схеме; порядок вероятностей/целей сохранён.",
+      "evidence": "[S12 — AutoGluon 1.3.1](https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html); реальные ограничения — `compatibility.py` нашего проекта.",
+      "source_ids": [
+        "S12"
+      ],
+      "source_urls": [
+        "https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML48",
+      "version": 1,
+      "title": "Циклические признаки представлены обычным числом",
+      "priority": "P2",
+      "implementation_path": "custom",
+      "relative_cost": "низкая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "направления 359° и 1°, час 23 и 0 или месяц 12 и 1 ошибочно выглядят далеко друг от друга.",
+      "diagnostic": "подтвердить период и единицы, проверить особые значения/NaN. Направление ветра не температура; анонимный код года не сезонный цикл.",
+      "minimum_experiment": "сравнить исходное представление с `sin(2πx/P)` и `cos(2πx/P)` либо периодическим базисом; изменять одну группу признаков.",
+      "constraints": "не назначать цикличность по одному названию столбца; пропуск сохранять индикатором/допустимой обработкой, а не превращать в север/полночь.",
+      "acceptance": "граничные значения представлены согласованно, произвольный сдвиг фазы не ломает смысл, целевая метрика улучшена.",
+      "evidence": "локальные единицы направления ветра; [S36 — периодический spline-базис](https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html). Sin/cos — проектное представление.",
+      "source_ids": [
+        "S36"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.SplineTransformer.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML49",
+      "version": 1,
+      "title": "Нужны взаимодействия, но полный перебор слишком велик",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "эффект признака зависит от типа объекта/масштаба; линейная опора не улавливает отношения трафика или погодных условий и назначения здания.",
+      "diagnostic": "найти небольшое число осмысленных взаимодействий на fit и проверить альтернативное объяснение; учитывать sample size редких комбинаций.",
+      "minimum_experiment": "ограниченный бустинг как опора для взаимодействий; отдельно небольшой физически обоснованный набор отношений/произведений в custom-transformer.",
+      "constraints": "полный полиномиальный перебор, бесконечные деления и таргетные агрегаты до split создают стоимость и переобучение. Статистики редкой комбинации требуют сглаживания.",
+      "acceptance": "добавлена одна объяснимая группа, есть выигрыш или отказ по измеренной причине, схему можно повторить в frozen refit.",
+      "evidence": "[S15 — свойства табличных задач](https://arxiv.org/abs/2207.08815), [S10 — управление сложностью деревьев](https://lightgbm.readthedocs.io/en/v4.6.0/Parameters-Tuning.html).",
+      "source_ids": [
+        "S15",
+        "S10"
+      ],
+      "source_urls": [
+        "https://arxiv.org/abs/2207.08815",
+        "https://lightgbm.readthedocs.io/en/v4.6.0/Parameters-Tuning.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML50",
+      "version": 1,
+      "title": "Прогноз многошаговый, а оценка сделана на один шаг",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "на test надо сразу выдать несколько будущих периодов; рекурсивный pipeline использует значения, которых при реальном прогнозе нет.",
+      "diagnostic": "горизонт, частоту, шаги, известность лагов и способ обновления истории. Проверить полный путь предсказания без подставления истинных будущих таргетов.",
+      "minimum_experiment": "seasonal/last-value naive, затем один поддерживаемый временной метод или лаговая модель на таком же горизонте; несколько исторических origins внутри fit при достаточной истории.",
+      "constraints": "one-step teacher forcing не оценивает рекурсивный multi-step. Нерегулярные интервалы нельзя считать регулярными только после сортировки.",
+      "acceptance": "каждый тестовый шаг построен из действительно доступной информации; метрика соответствует полному горизонту и заданному агрегированию.",
+      "evidence": "[S20 — rolling-origin и horizon](https://otexts.com/fpp3/toolbox.html).",
+      "source_ids": [
+        "S20"
+      ],
+      "source_urls": [
+        "https://otexts.com/fpp3/toolbox.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML51",
+      "version": 1,
+      "title": "Панель: много рядов, разная история, новые сущности",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "множество клиентов/товаров с отдельными рядами, пропущенные даты, неодинаковая длина и cold start.",
+      "diagnostic": "уникальность `(entity,time)`, частоту и доступную историю каждой сущности; выяснить, какие сущности новые и как оценка взвешивает ряды.",
+      "minimum_experiment": "глобальная лаговая опора и простой fallback для короткой/новой истории; локальные модели только при достаточной поддержке и бюджете.",
+      "constraints": "лаги строить внутри сущности, без переноса последней строки соседнего ряда. Совместный перенос на новые группы в будущем требует расширения протокола, описанного в ML04.",
+      "acceptance": "каждый entity получает прогноз нужного горизонта, cold-start путь определён, малые ряды не потеряны и агрегированная метрика верна.",
+      "evidence": "локальные `forecasting.py` и контракты; [S30 — временные границы](https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html).",
+      "source_ids": [
+        "S30"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML52",
+      "version": 1,
+      "title": "Будущие экзогенные признаки могут быть неизвестны",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "низкая для проверки",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "модель использует фактическую погоду, цену, остатки или план, которые могут быть известны только после начала горизонта.",
+      "diagnostic": "для каждого поля установить, это известный календарь/план, прогноз другого процесса или фактическое будущее измерение; следовать точному task.",
+      "minimum_experiment": "сравнить разрешённый известный набор с дополнительными экзогенными признаками только при подтверждённой доступности; при необходимости отдельно моделировать их прогноз внутри fit.",
+      "constraints": "наша регрессия прямо разрешает фактическую годовую погоду. Нельзя автоматически запрещать её или автоматически разрешать такое же поле в другой прогнозной задаче.",
+      "acceptance": "заявленный момент предсказания совместим с каждым используемым признаком; нет скрытой подстановки future actuals.",
+      "evidence": "локальный task регрессии; [S01 — availability и leakage](https://scikit-learn.org/1.5/common_pitfalls.html).",
+      "source_ids": [
+        "S01"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/common_pitfalls.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML53",
+      "version": 1,
+      "title": "Прерывистый спрос и короткие сезонные ряды",
+      "priority": "P2",
+      "implementation_path": "custom",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "длинные последовательности нулей, редкие всплески, истории меньше нескольких сезонных циклов.",
+      "diagnostic": "нулевой спрос против отсутствующей записи, exposure, длина и число ненулевых событий; оценить, есть ли данные для оценки сезонности.",
+      "minimum_experiment": "нулевая/простая историческая опора, затем ограниченная глобальная или двухчастная модель; полноценный многошаговый backtest внутри fit.",
+      "constraints": "процентные ошибки при нуле могут быть неопределёнными; нельзя менять основную метрику или утверждать установленный сезонный период по двум всплескам. Специализированный метод не считать доступным без реализации.",
+      "acceptance": "выигрыш измерен относительно сильной простой опоры на полном горизонте, а не только на ненулевых строках; все ряды сохранены.",
+      "evidence": "[S03 — смысл ошибок](https://scikit-learn.org/1.5/modules/model_evaluation.html); проектный сценарий, отдельного готового intermittent-рецепта не проверено.",
+      "source_ids": [
+        "S03"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/model_evaluation.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML54",
+      "version": 1,
+      "title": "Ranking перепутан с классификацией строк",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "есть query/group и релевантность, а задача оценивает порядок объектов внутри запроса; случайный split разрывает запрос.",
+      "diagnostic": "подтвердить группировку, gain/cutoff/усреднение, допустимую релевантность и состав доступных кандидатов; проверить сортировку с переносом row keys.",
+      "minimum_experiment": "поддерживаемый LGBMRanker на целых запросах, фиксированный NDCG-контракт и возврат scores в исходном порядке.",
+      "constraints": "высокая строковая Accuracy не гарантирует хороший ranking. Нельзя обучать на части запроса и оценивать на его оставшихся строках, если требуется перенос на новые запросы; нельзя менять gain удобным образом.",
+      "acceptance": "размеры групп и целые запросы сохранены; NDCG считается по контракту, scores конечны и корректно выровнены.",
+      "evidence": "[S09 — LambdaRank](https://lightgbm.readthedocs.io/en/v4.6.0/Advanced-Topics.html), [S38 — ndcg_score](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.ndcg_score.html).",
+      "source_ids": [
+        "S09",
+        "S38"
+      ],
+      "source_urls": [
+        "https://lightgbm.readthedocs.io/en/v4.6.0/Advanced-Topics.html",
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.ndcg_score.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML55",
+      "version": 1,
+      "title": "Поиск застрял в одном семействе и перебирает параметры",
+      "priority": "P2",
+      "implementation_path": "ready",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "несколько сопоставимых попыток без улучшения, близкие параметры и повторные чтения одной справки.",
+      "diagnostic": "отличить недостаточную настройку от неверного представления, протокола, метрики или отсутствующего сигнала; прочитать уже сохранённые результаты.",
+      "minimum_experiment": "выбрать одну другую причину ошибки: представление, семейство, веса, обработку хвоста либо simple ensemble. Для перспективного семейства — ограниченный random/TPE-поиск внутри fit, без вложенных оптимизаторов.",
+      "constraints": "число попыток само по себе не показатель глубины исследования; широкая сетка второстепенных параметров съедает бюджет. Плато не разрешает переоткрыть control.",
+      "acceptance": "каждый новый запуск проверяет отличимую гипотезу и даёт измеримое свидетельство; нет заявленного выигрыша по одной неподтверждённой разнице.",
+      "evidence": "[S18 — Random search](https://www.jmlr.org/papers/v13/bergstra12a.html), [S13 — Optuna](https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html).",
+      "source_ids": [
+        "S18",
+        "S13"
+      ],
+      "source_urls": [
+        "https://www.jmlr.org/papers/v13/bergstra12a.html",
+        "https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML56",
+      "version": 1,
+      "title": "Дешёвый пилот неверно ранжирует модели",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая/средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "малая подвыборка меняет долю редких классов, групп и масштабы обработки; на полном fit порядок моделей другой.",
+      "diagnostic": "выяснить цель пилота: совместимость/стоимость или качество. Проверить покрытие, размер представления и нелинейность масштабирования.",
+      "minimum_experiment": "небольшой осмысленный пилот для fit/predict/save/load и стоимости; перспективное направление подтвердить полноценным сопоставимым запуском, если бюджет позволяет.",
+      "constraints": "`pilot` не равен завершённому кандидату. Pruning не должен объявлять медленно стартующее семейство бесполезным только по несопоставимой промежуточной шкале.",
+      "acceptance": "прогноз полного времени и памяти имеет запас и фактическую опору; качество семейства не отвергнуто по отсутствующему/нерепрезентативному результату.",
+      "evidence": "[S13 — pruning и промежуточные оценки](https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html); статус пилота — локальный контракт.",
+      "source_ids": [
+        "S13"
+      ],
+      "source_urls": [
+        "https://optuna.readthedocs.io/en/v4.2.1/tutorial/10_key_features/003_efficient_optimization_algorithms.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML57",
+      "version": 1,
+      "title": "Таймаут, OOM или слишком дорогой preprocessing",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "низкая для решения, зависит от повтора",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "worker убит, закончилось время/память, итоговый fit не успевает после многочисленных вспомогательных fit.",
+      "diagnostic": "установить технический этап сбоя, реальные время/пик памяти и оставшийся общий бюджет; учесть ensemble/calibration/imputer/inner folds.",
+      "minimum_experiment": "уменьшить реально ограничивающий параметр: глубину/листья/итерации, признаки, число внутренних попыток или объём вспомогательных моделей; повторить с явным меньшим bound.",
+      "constraints": "название «лёгкая модель» не ограничивает ресурсы. Технический сбой не означает плохое предсказательное качество; нельзя молча снижать охват test или сбрасывать дедлайн.",
+      "acceptance": "есть пригодный CSV, измеренный резерв контроль/refit и объяснение следующего более дешёвого варианта; общий бюджет не нарушен.",
+      "evidence": "[S10 — стоимость бустинга](https://lightgbm.readthedocs.io/en/v4.6.0/Parameters-Tuning.html), локальные budget/resource contracts.",
+      "source_ids": [
+        "S10"
+      ],
+      "source_urls": [
+        "https://lightgbm.readthedocs.io/en/v4.6.0/Parameters-Tuning.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML58",
+      "version": 1,
+      "title": "Ансамбль и stacking дают красивый, но нечестный результат",
+      "priority": "P1",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя/высокая",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "сильные модели ошибаются по-разному; метамодель обучена на их in-sample прогнозах или веса подобраны на внешней validation.",
+      "diagnostic": "совпадение протоколов, row keys, шкал таргета и порядка классов; происхождение каждого прогноза для обучения метамодели.",
+      "minimum_experiment": "сначала равновесный blend совместимых моделей; обучаемые веса/stacking — только на честных внутренних OOF/holdout прогнозах с нужными границами.",
+      "constraints": "`prefit` не создаёт OOF автоматически; нельзя усреднять строковые метки, лог-прогноз одной модели с исходной шкалой другой или планы разных validation hashes.",
+      "acceptance": "весь ансамбль, включая стоимость refit членов, помещается в бюджет; преимущество проверено как у одного полного кандидата, метамодель не видела оцениваемые метки при обучении.",
+      "evidence": "[S27 — StackingClassifier](https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.StackingClassifier.html), [S12 — AutoGluon ensembles/refit](https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html).",
+      "source_ids": [
+        "S27",
+        "S12"
+      ],
+      "source_urls": [
+        "https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.StackingClassifier.html",
+        "https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML59",
+      "version": 1,
+      "title": "Одного seed достаточно только для повтора конкретного запуска",
+      "priority": "P2",
+      "implementation_path": "mixed",
+      "relative_cost": "средняя",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "небольшой выигрыш меняется при случайности обучения, числе потоков, версии или устройстве; сравниваются разные splits.",
+      "diagnostic": "фиксировать отдельно data/split hash, training seed, версии, ресурсы и код. Для парного сравнения использовать одинаковые условия.",
+      "minimum_experiment": "небольшая заранее выбранная серия внутри fit для финальных перспективных направлений; сохранять все результаты и технические отказы, а не только лучший seed.",
+      "constraints": "seed не гарантирует одинаковый результат на CPU/GPU и разных версиях. Внешнюю validation нельзя бесконечно переиспользовать для выбора удачной случайности; min_delta не является доверительным интервалом.",
+      "acceptance": "заявленное качество имеет измеренный разброс и границы применимости; воспроизводимость конкретного артефакта отделена от устойчивости метода.",
+      "evidence": "[S14 — PyTorch reproducibility](https://raw.githubusercontent.com/pytorch/pytorch/v2.5.1/docs/source/notes/randomness.rst), [S17 — selection bias](https://jmlr.csail.mit.edu/papers/v11/cawley10a.html).",
+      "source_ids": [
+        "S14",
+        "S17"
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/pytorch/pytorch/v2.5.1/docs/source/notes/randomness.rst",
+        "https://jmlr.csail.mit.edu/papers/v11/cawley10a.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    },
+    {
+      "id": "case:ML60",
+      "version": 1,
+      "title": "Хороший кандидат теряется при control, refit или записи ответа",
+      "priority": "P1",
+      "implementation_path": "ready",
+      "relative_cost": "высокая, нужен резерв",
+      "runtime_registered": false,
+      "heuristic_status": "project_hypothesis_not_universal_rule",
+      "signals": "исследование заняло весь бюджет; финальный fit снова запускает HPO, меняет препроцессор/порог или переставляет тестовые строки.",
+      "diagnostic": "измерить полный граф финализации и поддерживать пригодный промежуточный результат; сверить frozen pipeline, training rows, классы и условия сохранения.",
+      "minimum_experiment": "завершение через контроллер: заморозка финалистов → закрытый контроль по политике → refit с фиксированными правилами → CSV; техническую доставку проверять из чистой поставки.",
+      "constraints": "рефит не становится новым исследованием по validation/control. Нельзя переносить метрики другого ZIP, mock-запуска или неполного пилота на текущий финальный артефакт.",
+      "acceptance": "CSV существует рядом с task, имеет точную схему, количество/порядок строк и допустимые конечные значения; фактические control/refit статусы и оставшийся бюджет сохранены.",
+      "evidence": "локальные completion/publication и `alpha-submission-zip`; [S12 — refit как отдельная стоимость](https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html).",
+      "source_ids": [
+        "S12"
+      ],
+      "source_urls": [
+        "https://auto.gluon.ai/1.3.1/tutorials/tabular/tabular-indepth.html"
+      ],
+      "local_contract_evidence": false,
+      "global_constraints": [
+        "fit_only_learning",
+        "immutable_external_protocol",
+        "no_protected_label_access",
+        "capability_check_required",
+        "shared_deadline_and_refit_reserve"
+      ]
+    }
+  ],
+  "supplementary_topics": [
+    {
+      "title": "When to test tabular neural networks",
+      "source_ids": [
+        "S45",
+        "S46",
+        "S47"
+      ],
+      "status": "Existing supported MLP path first; TabM/RealMLP require own implementation and CPU/time verification, no pretrained weights or extra dependencies"
+    }
+  ]
+}

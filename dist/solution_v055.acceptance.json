@@ -1,0 +1,33 @@
+{
+  "archive": "solution_v055.zip",
+  "sha256": "5a2f079f1415b6d3d7a5f95b44389fe9a57a8be869e5156749bac25c697227ef",
+  "bytes": 95019190,
+  "base": "solution_v054.zip",
+  "runtime_changed": [
+    "automl_agent/controller.py"
+  ],
+  "runtime_added_lines": 2,
+  "status": "technical_checks_passed_fresh_autonomous_live_pending",
+  "change": "Validate the effective custom PipelineSpec and compatibility after controller changes its engine. Do not allow the incoming default direct engine to bypass custom holdout restrictions or retain an incompatible optimizer owner.",
+  "original_reproducer_failed": true,
+  "original_reproducer": "outputs/quality_goal_20261023/custom_effective_contract_before.log",
+  "exact_affected_tests_passed": 33,
+  "exact_additional_related_paths_passed": 3,
+  "independent_pure_cases_passed": 15,
+  "independent_review": "outputs/quality_goal_20261023/REVIEW_CUSTOM_EFFECTIVE_CONTRACT.md",
+  "clean_exact_archive_entry_cases_passed": 4,
+  "default_seconds": 10800,
+  "default_cpu": 7,
+  "default_memory_mb": 28000,
+  "global_debug_candidate_call_llm_time_caps": null,
+  "new_paid_requests_for_change": 0,
+  "archive_checks": "outputs/quality_goal_20261023/V055_ARCHIVE_CHECKS.json",
+  "exact_entry": "outputs/quality_goal_20261023/v055_exact_entry/REPORT.json",
+  "full_same_archive_autonomous_pair_accepted": false,
+  "actual_public_trace_metric_leak_observed": false,
+  "scope": "Confirmed admission bypass; no claim that a saved public model actually leaked labels or that this fixes a measured score.",
+  "quality_advantage_established": false,
+  "promoted": false,
+  "uploaded": false,
+  "utc": "2026-10-22T22:52:53.790661+00:00"
+}

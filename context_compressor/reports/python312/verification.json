@@ -1,0 +1,299 @@
+{
+  "created_at_utc": "2026-10-21T14:01:39.109781+00:00",
+  "builder_version": "context-compressor/1",
+  "scope": "standalone_offline_not_integrated_acceptance",
+  "host": {
+    "platform": "macOS-15.7.3-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "available_logical_cpus": 12,
+    "cpu_limit_enforced": false,
+    "ram_limit_enforced": false,
+    "required_subsystem_profile": {
+      "cpu": 4,
+      "ram_gb": 10
+    },
+    "resource_profile_acceptance": "unconfirmed_without_a_fixed_resource_limited_host"
+  },
+  "tests": {
+    "run": 63,
+    "failures": 0,
+    "errors": 0,
+    "skipped": [
+      {
+        "test": "test_serialized_schemas_validate_both_routes_and_all_note_transports (context_compressor.tests.test_pressure_transport.PressureTransportTests.test_serialized_schemas_validate_both_routes_and_all_note_transports)",
+        "reason": "Optional schema validation requires the organizer's jsonschema dependency"
+      }
+    ],
+    "successful": true
+  },
+  "live_api_calls": 0,
+  "server_token_savings": "unconfirmed",
+  "final_B0_B1_N_comparison": "pending_finished_common_B0_and_integration",
+  "integrated_6cpu_5gib_parallel_three_hour_rehearsal": "pending_integration",
+  "source_sha256": {
+    "ACCEPTANCE_PROTOCOL.json": "60795645887f1e558528ca8cdea5293120b5a6032e6e6116ad961384e5371313",
+    "README.md": "2bad7e988f822e013f1d9ae93e97957ae9c3e95ccb48c5915ed7e424550f9183",
+    "__init__.py": "65bab8ea3cd5b04d5971a868f74779159f62c850931afd56ed8507cf26ca56ed",
+    "assembler.py": "c9b0653121cb253d0be763f65c5d0580a12afab0c2a1d0efcc21919bea061575",
+    "contracts.py": "0c23ae118b77177cf867688b313d16baf78e51bb7859c71c72e44ef089d5ceff",
+    "core.py": "27ebb0b703af965b2265e824aa94460c3684abc52d127703d1903224165e0961",
+    "store.py": "2ad533f8bdd6d584c4661eb2491e60970752ddf458c15547a92db29c5d7dc420",
+    "tests/__init__.py": "45135ae6dd79360ff3cdccc7ed4b99b1272752d6b9f97c3dd276f4ac892fd751",
+    "tests/fixtures/SOURCE_MANIFEST.json": "c4589878042136b379660b10d38a00e312ed16ce18a8957146fd5c87bdb6c774",
+    "tests/fixtures/controller_schemas.json": "6b2468e8446162aa43dffffe3535199551e8a81cf766b768e510d11615272cd5",
+    "tests/helpers.py": "84f03c3e7ed87bbb1fae5b2d0af39fbd834ed2342b626163286b00ff4e602b23",
+    "tests/scenarios.py": "80e5a489c33f31fe6dcc1121ad202d57b340d6459db4ee7a25db6f8a63809397",
+    "tests/test_boundaries.py": "41ec1d1abd4042e4697c8329cdeb7709b7c3a08473d74f97b15ec5067431a257",
+    "tests/test_core.py": "5a9b56aad2125a7f372a5e76f0aa6404b238038e548f14cf44f07f2faa85dd7d",
+    "tests/test_delivery.py": "fc0fff33b1d9a13648c1396e659c3cfaba84445c79a520270a669fa3e80dde35",
+    "tests/test_discovery.py": "9490dfdd81e1dcb96637c633f6192cd9585fad38ab439a7ecac11db64dc52b97",
+    "tests/test_pressure_transport.py": "9e759ac159bcae7c179a27ae465ed87f420911459246788c3e99f6442d88dfd5",
+    "transport.py": "d81466b2c60e1c5d9a13cae56bc8682ef1f7a8c01c588791ae8a5f6e874b35ee",
+    "verify.py": "7eedd25a28c82e20afb429c723873fd1fb5aa2518ca67547e51ec23b24a279e7"
+  },
+  "pressure": [
+    {
+      "status": "passed_scripted_offline",
+      "transport": "native",
+      "cycles": [
+        {
+          "cycle": 1,
+          "request_id": "211f6477b3e54c74bd9e1a3a70ffa62d",
+          "snapshot_id": "b546b9d8a11446d5ae9482aaef0b9993",
+          "request_sha256": "f1d26973c7f08b2bd8035a2cf95a37ab2e3a2295ec06a06b9f53f3a689578b26",
+          "before_wire_bytes": 141001,
+          "after_wire_bytes": 67803,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-8",
+            "experiment-9",
+            "experiment-10",
+            "experiment-11",
+            "experiment-12",
+            "experiment-13",
+            "experiment-14",
+            "experiment-15",
+            "experiment-16",
+            "experiment-17",
+            "experiment-18",
+            "experiment-19"
+          ],
+          "max_record_seq": 47,
+          "observation_id": "2f130a1216747478366d2218d6d09624ff0d009754bc81b2403681d740e719bc",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        },
+        {
+          "cycle": 2,
+          "request_id": "454df7c7a27e4a79b0f94e2344ee9644",
+          "snapshot_id": "a33e05563c724ef2968b5db0d4bbbbee",
+          "request_sha256": "e2990f21c55abd1e42358587c703414e6ba26f19196d5d025f6921457770b5b1",
+          "before_wire_bytes": 141540,
+          "after_wire_bytes": 68332,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-28",
+            "experiment-29",
+            "experiment-30",
+            "experiment-31",
+            "experiment-32",
+            "experiment-33",
+            "experiment-34",
+            "experiment-35",
+            "experiment-36",
+            "experiment-37",
+            "experiment-38",
+            "experiment-39"
+          ],
+          "max_record_seq": 90,
+          "observation_id": "3fc30fcd95f9ecf72d8160b0070d2bb778959deabac74b654d59f88cfa5245d8",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        },
+        {
+          "cycle": 3,
+          "request_id": "91c21f8f158c4a9b8b8f59c2bda781ab",
+          "snapshot_id": "85454a7d50ab4250bd03815b863bf51b",
+          "request_sha256": "f389bf0029628a3e429007beb68c0db638c2435a89d8daa34113afda393502ee",
+          "before_wire_bytes": 141550,
+          "after_wire_bytes": 68342,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-48",
+            "experiment-49",
+            "experiment-50",
+            "experiment-51",
+            "experiment-52",
+            "experiment-53",
+            "experiment-54",
+            "experiment-55",
+            "experiment-56",
+            "experiment-57",
+            "experiment-58",
+            "experiment-59"
+          ],
+          "max_record_seq": 133,
+          "observation_id": "77eb41513c742395fd68f0fc43c0eb0497821c8505cc3b56b6a22f65a03ceff2",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        }
+      ],
+      "actual_reductions_on_distinct_steps": 3,
+      "channel_failures": 1,
+      "restarts": 1,
+      "comparison_after_third": {
+        "left_id": "experiment-1",
+        "right_id": "experiment-2",
+        "protocol": "protocol-v1",
+        "evaluation_scope": "full",
+        "score_delta": 0.001000000000000112,
+        "status": "confirmed_comparison"
+      },
+      "old_failure_discovery_reads": 2,
+      "original_deadline_preserved": true,
+      "live_qwen_behavior": "not_tested"
+    },
+    {
+      "status": "passed_scripted_offline",
+      "transport": "json",
+      "cycles": [
+        {
+          "cycle": 1,
+          "request_id": "ade283b62b734c74a90a2f2ecaf7ffb0",
+          "snapshot_id": "f96341f5da894f238f24e2c4677b2558",
+          "request_sha256": "718f978c6c16192583564f41726c4bf676a519e2d150dd03f995a7ca71877fe5",
+          "before_wire_bytes": 120669,
+          "after_wire_bytes": 47471,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-8",
+            "experiment-9",
+            "experiment-10",
+            "experiment-11",
+            "experiment-12",
+            "experiment-13",
+            "experiment-14",
+            "experiment-15",
+            "experiment-16",
+            "experiment-17",
+            "experiment-18",
+            "experiment-19"
+          ],
+          "max_record_seq": 47,
+          "observation_id": "2f130a1216747478366d2218d6d09624ff0d009754bc81b2403681d740e719bc",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        },
+        {
+          "cycle": 2,
+          "request_id": "b38ffbe3cc8b4bc098fccd37c1e174ef",
+          "snapshot_id": "383d294e712148a48fdda0f9eb1dffa5",
+          "request_sha256": "0399ee60c824d40c29a1a6a40ad046bc574724fa0bb3ee40c43b8d155b5b79b6",
+          "before_wire_bytes": 121208,
+          "after_wire_bytes": 48000,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-28",
+            "experiment-29",
+            "experiment-30",
+            "experiment-31",
+            "experiment-32",
+            "experiment-33",
+            "experiment-34",
+            "experiment-35",
+            "experiment-36",
+            "experiment-37",
+            "experiment-38",
+            "experiment-39"
+          ],
+          "max_record_seq": 90,
+          "observation_id": "3fc30fcd95f9ecf72d8160b0070d2bb778959deabac74b654d59f88cfa5245d8",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        },
+        {
+          "cycle": 3,
+          "request_id": "dea65e4d395f4bbb96a93093c6c16d84",
+          "snapshot_id": "2fce9970e6ef4b84afc592049976389f",
+          "request_sha256": "da4406f3574f85031ba5be0dbac8e013f470db2dde1c7b11ec6dc0e91b9b8a01",
+          "before_wire_bytes": 121219,
+          "after_wire_bytes": 48011,
+          "attempts": 2,
+          "stage": 1,
+          "selected_ids": [
+            "experiment-0",
+            "experiment-1",
+            "experiment-2",
+            "experiment-48",
+            "experiment-49",
+            "experiment-50",
+            "experiment-51",
+            "experiment-52",
+            "experiment-53",
+            "experiment-54",
+            "experiment-55",
+            "experiment-56",
+            "experiment-57",
+            "experiment-58",
+            "experiment-59"
+          ],
+          "max_record_seq": 133,
+          "observation_id": "77eb41513c742395fd68f0fc43c0eb0497821c8505cc3b56b6a22f65a03ceff2",
+          "intent_note_id": "a429ec8147c2a441910ec9b4399eb474ed496d88c6e20d8005e12b8ced5244c5"
+        }
+      ],
+      "actual_reductions_on_distinct_steps": 3,
+      "channel_failures": 1,
+      "restarts": 1,
+      "comparison_after_third": {
+        "left_id": "experiment-1",
+        "right_id": "experiment-2",
+        "protocol": "protocol-v1",
+        "evaluation_scope": "full",
+        "score_delta": 0.001000000000000112,
+        "status": "confirmed_comparison"
+      },
+      "old_failure_discovery_reads": 2,
+      "original_deadline_preserved": true,
+      "live_qwen_behavior": "not_tested"
+    }
+  ],
+  "wide_preflight": {
+    "native": {
+      "overhead_bytes": 44779,
+      "wire_bytes": 51259,
+      "core_bytes": 3622,
+      "observations_bytes": 1754,
+      "response_reserve": 32768,
+      "conservative_size": 84027,
+      "safety_margin": 8192,
+      "budget": 131072
+    },
+    "json": {
+      "overhead_bytes": 24447,
+      "wire_bytes": 30928,
+      "core_bytes": 3622,
+      "observations_bytes": 1754,
+      "response_reserve": 32768,
+      "conservative_size": 63696,
+      "safety_margin": 8192,
+      "budget": 131072
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "status": "Research artifacts verified, no efficacy claim",
+  "idea_count": 46,
+  "groups": {
+    "time": 8,
+    "hpo": 8,
+    "agent": 30
+  },
+  "all_ideas_have_checks_and_benefit_test": true,
+  "relative_links_valid": true,
+  "repositories": 27,
+  "retrieved_files": 41,
+  "repositories_with_code": 24,
+  "local_source_drift_since_snapshot": [],
+  "qwen_calls": 0,
+  "new_training_runs": 0,
+  "runtime_source_edits_by_this_task": 0,
+  "note": "Document validation only; not agent tests, live acceptance, or ML quality validation",
+  "documents": [
+    {
+      "path": "Исследование_качества_агентных_систем.md",
+      "bytes": 46686,
+      "words": 3472,
+      "sha256": "503e138a62d7141f17d1c065a204cab91cfe400f0a296a02c0e83b95f8927572"
+    },
+    {
+      "path": "План_повышения_качества_агента.md",
+      "bytes": 98010,
+      "words": 6966,
+      "sha256": "b7b32dd199740c6b21caf7a6f1b10f5557667472529d3c850f0f1d5f591f10cb"
+    },
+    {
+      "path": "research/agent_quality_20261022/EXPERIMENTS.md",
+      "bytes": 34703,
+      "words": 2655,
+      "sha256": "ee5892533602129f2f83d89c1643f9aeb0bff49ff0c32d8b6ff3963fde6fdbf4"
+    },
+    {
+      "path": "research/agent_quality_20261022/SOURCES.md",
+      "bytes": 41298,
+      "words": 1705,
+      "sha256": "d367baa07d709e121825f548d5a28571eca97027d72d7dda351bdb43b148be25"
+    }
+  ]
+}

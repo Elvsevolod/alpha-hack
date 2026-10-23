@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "линейная опора; деревья",
+  "applicability_rules": [],
+  "conditions": [
+    "Предполагается гладкая нелинейность числовых признаков."
+  ],
+  "constraints": "Число узлов и выходных колонок ограничено; не строить сплайны по validation.",
+  "contraindications": [
+    "Число узлов и выходных колонок ограничено; не строить сплайны по validation."
+  ],
+  "cost": "Средняя: ширина базиса × число признаков.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "SplineTransformer плюс Ridge",
+  "id": "smooth",
+  "method_id": "smooth",
+  "minimum_experiment": "Один SplineTransformer с небольшим n_knots плюс Ridge.",
+  "missing_references": [],
+  "observations": "Возможны гладкие нелинейные числовые эффекты",
+  "references": [
+    "api_sklearn_preprocessing_SplineTransformer"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_preprocessing_SplineTransformer",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "гладкие",
+    "зависимости",
+    "/",
+    "additive",
+    "spline"
+  ],
+  "title": "Гладкие зависимости / additive spline",
+  "version": 2
+}

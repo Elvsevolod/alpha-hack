@@ -1,0 +1,4 @@
+interface:
+  display_name: "Архив решения «Альфа»"
+  short_description: "Плоские ZIP до 100 МБ с исходным requirements.txt"
+  default_prompt: "Используй $alpha-submission-zip, чтобы сохранить новую нумерованную версию плоского ZIP с solution.py и исходным requirements.txt и проверить запуск по baseline.py."

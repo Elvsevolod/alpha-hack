@@ -1,0 +1,12 @@
+{
+  "version_tag": "v008",
+  "status": "validated_local_release",
+  "archive": "solution_v008.zip",
+  "bytes": 1839912,
+  "sha256": "be7b6cb42c5d81042b9b57b3d49a3ae65adeb744d5b7575b19b71c0ebdd85a88",
+  "manifest": "solution_v008.manifest.json",
+  "acceptance": "solution_v008.acceptance.json",
+  "acceptance_sha256": "2ad0a2d48f68fa7c7acde2e8a3fed3b6ab727f4b4fb9c7331a039d5f30cfc058",
+  "documentation": "../IMPLEMENTATION_STATUS.md",
+  "submitted_to_platform": false
+}

@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-22",
+  "sources": [
+    {
+      "id": "P01",
+      "title": "AIRA-dojo: AI Research Agents for Machine Learning",
+      "url": "https://arxiv.org/html/2507.02554v1",
+      "evidence": "Controlled memory/operator/search ablations; proxy generalization gap; 24h H200 environment",
+      "limit": "Not Qwen 27B, CPU 3h, or this contest"
+    },
+    {
+      "id": "P02",
+      "title": "MLE-STAR",
+      "url": "https://arxiv.org/html/2506.15692v2",
+      "evidence": "Targeted block refinement, external model retrieval, ensemble and leakage ablations",
+      "limit": "Google article Lite 64% differs from later abstract full 44%; report uses versioned Table 4, no blended headline"
+    },
+    {
+      "id": "P03",
+      "title": "MLE-bench",
+      "url": "https://arxiv.org/html/2410.07095v3",
+      "evidence": "Scaffold comparison, pass@k vs pass@1, time/compute and contamination limits",
+      "limit": "Oracle pass@k is not implementable validation selection and uses more compute"
+    },
+    {
+      "id": "P04",
+      "title": "Executable Code Actions Elicit Better LLM Agents (CodeAct)",
+      "url": "https://arxiv.org/abs/2402.01030",
+      "evidence": "Code as compositional action space with execution feedback",
+      "limit": "General action benchmarks do not prove unrestricted shell improves this ML agent"
+    },
+    {
+      "id": "P05",
+      "title": "GEPA",
+      "url": "https://arxiv.org/abs/2507.19457",
+      "evidence": "Reflective prompt optimization using traces and measured task feedback",
+      "limit": "Different tasks/backbones; prompt optimizer is not a contest-time ML optimizer"
+    },
+    {
+      "id": "P06",
+      "title": "Towards a Science of Scaling Agent Systems",
+      "url": "https://arxiv.org/abs/2512.08296",
+      "evidence": "Architecture comparison under standardized token budgets; task-dependent coordination overhead",
+      "limit": "Non-ML benchmarks; no transfer of percentages to this contest"
+    },
+    {
+      "id": "P07",
+      "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+      "url": "https://arxiv.org/abs/2310.01798",
+      "evidence": "Limits of intrinsic self-correction without external feedback",
+      "limit": "2023 reasoning results are a caution, not proof about current Qwen"
+    },
+    {
+      "id": "E01",
+      "title": "Effective context engineering",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "evidence": "Just-in-time context, structured notes, compaction",
+      "limit": "Engineering observations, no controlled ML effect for our agent"
+    },
+    {
+      "id": "E02",
+      "title": "Writing effective tools for agents",
+      "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "evidence": "Tool ergonomics, meaningful bounded outputs, evaluation",
+      "limit": "Do not replace deterministic tools with hidden LLM reasoning"
+    },
+    {
+      "id": "E03",
+      "title": "Multi-agent research system",
+      "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "evidence": "Parallel research and substantial token overhead",
+      "limit": "Web research is not sequential CPU ML training"
+    },
+    {
+      "id": "E04",
+      "title": "SWE-agent ACI",
+      "url": "https://github.com/SWE-agent/SWE-agent/blob/3ea751c087f32b16e039a2233dd6eefecef325d5/docs/background/aci.md",
+      "evidence": "Lint gate, bounded file viewer, succinct search",
+      "limit": "SWE patches not ML quality"
+    }
+  ],
+  "context7_libraries": [
+    "/langchain-ai/langgraph",
+    "/huggingface/smolagents",
+    "/stanfordnlp/dspy"
+  ],
+  "status": "Research only; no Qwen calls, no runtime changes, no quality experiment performed"
+}

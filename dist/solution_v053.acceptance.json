@@ -1,0 +1,184 @@
+{
+  "archive": "dist/solution_v053.zip",
+  "sha256": "37c91a2e35c95e296d74d11618c88a5d1bac5c64c29516059c8515cbaeecf1d8",
+  "bytes": 95019141,
+  "root_entries": 224,
+  "runtime_entries": 53,
+  "changed_runtime_from_v052": [
+    "automl_agent/qwen.py",
+    "context_compressor/transport.py"
+  ],
+  "requirements_identical": true,
+  "all_embedded_python_compile": true,
+  "actual_api_credential_literal_absent": true,
+  "test_tools_packaged": false,
+  "quality_advantage_established": false,
+  "fresh_v053_autonomous_live": false,
+  "base": "solution_v052.zip",
+  "status": "focused_exact_tests_and_clean_entry_passed_fresh_autonomous_live_pending",
+  "workspace_matches_archive": true,
+  "technical_changes": [
+    "Select only index0 of a complete native response, validate existing schema/permissions, never queue remaining calls or notes",
+    "Decode a JSONstring exactly once only for schema-declared nullableRunSourceRef, keep IDs/version/scope and subsequent validation unchanged"
+  ],
+  "stock_default_seconds": 10800,
+  "test_caps_in_archive": false,
+  "exact_affected_tests_passed": 58,
+  "exact_clean_entry": {
+    "archive_sha256": "37c91a2e35c95e296d74d11618c88a5d1bac5c64c29516059c8515cbaeecf1d8",
+    "command": [
+      "python",
+      "solution.py",
+      "task.md"
+    ],
+    "organizer_requests": 0,
+    "cases": [
+      {
+        "case": "unset",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "empty",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "whitespace",
+        "exit_code": 0,
+        "calls": 3,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "native"
+        ],
+        "passed": true
+      },
+      {
+        "case": "json_fallback",
+        "exit_code": 0,
+        "calls": 4,
+        "limits": {
+          "cpu": 7,
+          "max_calls": null,
+          "max_candidates": null,
+          "max_debug": null,
+          "max_llm_seconds": null,
+          "memory_mb": 28000,
+          "seconds": 10800,
+          "stagnation": 3
+        },
+        "state": "completed",
+        "control": "completed",
+        "refit": "completed",
+        "csv_valid": true,
+        "efforts": [
+          "xhigh",
+          "xhigh",
+          "xhigh",
+          "medium"
+        ],
+        "transports": [
+          "json",
+          "native",
+          "json",
+          "json"
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "independent_review": {
+    "confirmed_open_findings": 0,
+    "pure_final_tests_passed": 33,
+    "controller_fixture_deselected": 1,
+    "restart_pure_verified": true,
+    "report": "../outputs/quality_goal_20261023/REVIEW_NATIVE_FIRST_OPERATION.md"
+  },
+  "actual_recorded_responses": {
+    "audit_total_complete_native_responses": 6,
+    "multiple_responses": 4,
+    "all_original_cases_retained": true,
+    "first_only_initial_criterion_passed": false,
+    "first_only_initial_result": "3admitted/1source-stringrejected; preservedfailed01",
+    "final_combination_controller_admission_passed": 4,
+    "final_replay": "../outputs/quality_goal_20261023/native_first_replay_02/REPORT.json",
+    "actual_source_read_and_bad_scope_version_rejected": true,
+    "extra_paid_requests": 0,
+    "training_executed": false
+  },
+  "same_archive_full_pair_acceptance": false,
+  "candidate_promoted": false,
+  "uploaded": false,
+  "inherited_acceptance": "solution_v052.acceptance.json"
+}

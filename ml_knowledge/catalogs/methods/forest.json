@@ -1,0 +1,42 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "бустинг; линейная модель",
+  "applicability_rules": [],
+  "conditions": [
+    "Проверяется нелинейная гипотеза на табличных признаках."
+  ],
+  "constraints": "Глубина, число деревьев и CPU ограничены общим бюджетом.",
+  "contraindications": [
+    "Глубина, число деревьев и CPU ограничены общим бюджетом."
+  ],
+  "cost": "Средняя/высокая; оценивать память всех деревьев.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить RandomForest/ExtraTrees с опорой",
+  "id": "forest",
+  "method_id": "forest",
+  "minimum_experiment": "Обучить небольшой ансамбль и сравнить стоимость и метрику с линейной опорой.",
+  "missing_references": [],
+  "observations": "Возможны нелинейные взаимодействия",
+  "references": [
+    "api_sklearn_ensemble_ExtraTreesRegressor"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_ensemble_ExtraTreesRegressor",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "леса",
+    "/",
+    "random",
+    "forest",
+    "extra",
+    "trees"
+  ],
+  "title": "Леса / random forest extra trees",
+  "version": 2
+}

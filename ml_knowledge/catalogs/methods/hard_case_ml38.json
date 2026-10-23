@@ -1,0 +1,37 @@
+{
+  "id": "hard_case_ml38",
+  "method_id": "hard_case_ml38",
+  "version": 1,
+  "title": "Кажется, что выбросы нужно удалить",
+  "observations": "редкие экстремумы, необычные комбинации, высокий anomaly score; они могут быть ошибкой измерения или важной частью задачи.",
+  "hypothesis": "сравнить сохранение наблюдений, ограниченную робастную обработку признака и другой objective; удалять только по заранее обоснованному правилу.",
+  "diagnostic": "проверить единицы, допустимые физические диапазоны, качество записи и вклад во внутренние ошибки; различать аномалию и подтверждённую порчу.",
+  "minimum_experiment": "сравнить сохранение наблюдений, ограниченную робастную обработку признака и другой objective; удалять только по заранее обоснованному правилу.",
+  "acceptance": "правило не использует скрытые outcomes и переносится на predict; общая целевая метрика посчитана на исходной неизменной оценке.",
+  "constraints": "вырезание хвоста таргета особенно опасно для RMSE; anomaly detector не является арбитром правильности метки. Оценочную выборку не чистить по увиденным ошибкам.",
+  "conditions": [
+    "Confirmed task; fit-only learning; unchanged external protocol.",
+    "редкие экстремумы, необычные комбинации, высокий anomaly score; они могут быть ошибкой измерения или важной частью задачи."
+  ],
+  "contraindications": [
+    "вырезание хвоста таргета особенно опасно для RMSE; anomaly detector не является арбитром правильности метки. Оценочную выборку не чистить по увиденным ошибкам."
+  ],
+  "cost": "низкая/средняя",
+  "implementation_path": "mixed",
+  "runtime_status": "unverified",
+  "references": [
+    "api_sklearn_metrics_mean_squared_error"
+  ],
+  "missing_references": [],
+  "applicability_rules": [],
+  "tags": [
+    "outliers"
+  ],
+  "research_sources": [
+    "https://scikit-learn.org/1.5/modules/outlier_detection.html"
+  ],
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "evidence_policy": "Research synthesis, not measured quality. API references establish capabilities only; check pinned version and concrete adapter.",
+  "routing_signal": "outliers",
+  "routing_priority": 0
+}

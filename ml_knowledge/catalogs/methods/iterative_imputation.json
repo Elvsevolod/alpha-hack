@@ -1,0 +1,41 @@
+{
+  "acceptance": "Основная метрика и стоимость по сохранённой selection_policy",
+  "alternatives": "медиана; нативные NaN; деревья",
+  "applicability_rules": [],
+  "conditions": [
+    "Есть наблюдаемые числовые предикторы и бюджет вспомогательных fit."
+  ],
+  "constraints": "Не использовать таргет задачи; полностью пустые столбцы обрабатывать отдельно; проверять реальные итерации.",
+  "contraindications": [
+    "Не использовать таргет задачи; полностью пустые столбцы обрабатывать отдельно; проверять реальные итерации."
+  ],
+  "cost": "Высокая: число столбцов × итерации × стоимость восстановителя.",
+  "evidence_policy": "API properties are exact quotations/signatures of supporting sections. This recommendation is a project hypothesis, not a measured or universal improvement.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "Сравнить BayesianRidge-импутацию с тем же пайплайном",
+  "id": "iterative_imputation",
+  "method_id": "iterative_imputation",
+  "minimum_experiment": "Два прохода BayesianRidge на fit; зафиксировать n_iter_, реальные auxiliary fits и конечность результата.",
+  "missing_references": [],
+  "observations": "Есть информативные числовые признаки и пропуски",
+  "references": [
+    "api_sklearn_impute_IterativeImputer"
+  ],
+  "review_status": "project_hypothesis_with_exact_source_links",
+  "supporting_sections": [
+    {
+      "reference_id": "api_sklearn_impute_IterativeImputer",
+      "required_verification": "exact_source_quote_and_version",
+      "semantic_scope": "API capability supporting the proposed experiment; no general performance claim"
+    }
+  ],
+  "tags": [
+    "модельное",
+    "восстановление",
+    "/",
+    "iterative",
+    "imputation"
+  ],
+  "title": "Модельное восстановление / iterative imputation",
+  "version": 2
+}
