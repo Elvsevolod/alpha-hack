@@ -43,6 +43,10 @@ class MetricSpec(Contract):
     def maximize(self) -> bool:
         return self.name not in {"rmse", "mse", "mae", "mape", "log_loss"}
 
+    @property
+    def requires_probabilities(self) -> bool:
+        return self.name in {"roc_auc", "log_loss", "average_precision"}
+
 
 class OutputSpec(Contract):
     columns: list[str] = Field(min_length=1)
@@ -70,7 +74,10 @@ class TaskSpec(Contract):
     classes: dict[str, list[str | int | float]] = Field(default_factory=dict)
     source_hash: str
     evidence: dict[str, list[str]] = Field(default_factory=dict)
-    explicit_validation: Literal["random", "group", "temporal", "temporal_group"] | None = None
+    explicit_validation: Literal["random", "group", "temporal", "temporal_group"] | None = Field(
+        default=None,
+        description="Set only when a cited task or organizer text explicitly prescribes this validation protocol; otherwise leave null for automatic inference.",
+    )
     feature_constraints: dict[str, dict[str, Any]] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -121,6 +128,8 @@ class TaskSpec(Contract):
             raise ValueError("Numeric task requires a supported regression metric")
         if classification and self.output.prediction_type not in {"labels", "probabilities"}:
             raise ValueError("Classification requires labels or probabilities")
+        if self.metric.requires_probabilities and self.output.prediction_type != "probabilities":
+            raise ValueError("Probability metrics require probability output")
         if not set(self.feature_constraints) <= set(self.feature_columns):
             raise ValueError("Unknown feature constraint")
         return self
@@ -505,6 +514,26 @@ class DatasetReportArgs(Contract):
     max_chars: int = Field(default=6000, ge=2000, le=12000)
 
 
+class DiagnosticReportArgs(Contract):
+    kind: Literal["distributions", "confusion_matrix", "residuals"]
+    columns: list[str] = Field(default_factory=list, max_length=3)
+    scope: Literal["fit", "validation_features", "test_features"] = "fit"
+    include_target: bool = False
+    experiment_id: str | None = None
+    budget_seconds: float = Field(default=60, ge=5, le=300)
+    knowledge_gap: str | None = None
+
+    @model_validator(mode="after")
+    def diagnostic_arguments(self):
+        if len(set(self.columns)) != len(self.columns):
+            raise ValueError("Diagnostic columns must be distinct")
+        if self.kind != "distributions" and not self.experiment_id:
+            raise ValueError("Model diagnostics require experiment_id")
+        if self.kind == "distributions" and self.experiment_id is not None:
+            raise ValueError("Distributions do not use experiment_id")
+        return self
+
+
 class ReviseValidationArgs(Contract):
     proposed_strategy: Literal["random", "group", "temporal", "temporal_group"]
     rationale: str = Field(min_length=1)
@@ -595,6 +624,7 @@ class RunReadArgs(Contract):
 TOOL_API_VERSION = 2
 TOOL_SCHEMAS = {
     "get_dataset_report": DatasetReportArgs, "revise_validation": ReviseValidationArgs,
+    "get_diagnostic_report": DiagnosticReportArgs,
     "search_knowledge": KnowledgeSearchArgs, "list_knowledge": KnowledgeListArgs, "read_knowledge": KnowledgeReadArgs,
     "search_run_records": RunSearchArgs, "list_run_records": RunListArgs, "read_run_records": RunReadArgs,
     "train_model": TrainArgs, "run_automl": TrainArgs, "tune_model": TrainArgs,
@@ -603,6 +633,7 @@ TOOL_SCHEMAS = {
 
 TOOL_DESCRIPTIONS = {
     "get_dataset_report": "Compute one permitted data report; target analysis and arbitrary slices use fit only.",
+    "get_diagnostic_report": "Return numeric diagnostics and optional PNG: distributions for up to three permitted columns, or confusion_matrix/residuals for a completed direct/Optuna experiment. Model diagnostics train a bounded fit-inner copy; budget includes fit and rendering. No external labels.",
     "revise_validation": "State-changing action: may re-evaluate candidates and apply a new active validation protocol in this call, without further confirmation. Metric, roles and closed control cannot change.",
     "search_knowledge": "Search one collection. Ranked candidates are not confirmed answers; read evidence next. Exact symbol, FTS5 BM25 or lexical matching.",
     "list_knowledge": "Browse a filtered catalog, without claiming a search match.",
@@ -623,5 +654,5 @@ class ToolCommand(Contract):
     operation_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,100}$")
     # The three legacy names are private executor compatibility only. Neither
     # public transport advertises or accepts them.
-    tool: Literal["get_dataset_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge", "search_run_records", "list_run_records", "read_run_records", "train_model", "run_automl", "tune_model", "build_ensemble", "run_custom_experiment", "finish", "inspect_dataset", "get_reference", "analyze_experiments"] = Field(json_schema_extra={"enum": list(TOOL_SCHEMAS)})
+    tool: Literal["get_dataset_report", "get_diagnostic_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge", "search_run_records", "list_run_records", "read_run_records", "train_model", "run_automl", "tune_model", "build_ensemble", "run_custom_experiment", "finish", "inspect_dataset", "get_reference", "analyze_experiments"] = Field(json_schema_extra={"enum": list(TOOL_SCHEMAS)})
     arguments: dict[str, Any]

@@ -7,7 +7,7 @@ import uuid
 
 from .contracts import (B_MIN, OUTPUT_RESERVE, SAFETY_MARGIN, BudgetExceeded,
                         ContextError, PreparedRequest, Snapshot, canonical,
-                        identifier, size, text_hash)
+                        identifier, size, text_hash, image_descriptor)
 from .core import make_snapshot, validate_core
 from .store import ContextStore
 from .transport import Transport
@@ -28,7 +28,7 @@ def _context(snapshot: Snapshot, stage: int, now: float):
     if stage == 2 and profile:
         profile = {"summary": profile["summary"], "read": profile["read"]}
     selected = [card["record_id"] for card in cards]
-    return {"core": core, "observations": json.loads(snapshot.observations_json),
+    result = {"core": core, "observations": json.loads(snapshot.observations_json),
             "history": cards, "history_details": [json.loads(value) for value in snapshot.details] if stage == 0 else [],
             "known_failures": failures, "profile": profile,
             "compaction": {"snapshot_id": snapshot.snapshot_id, "stage": stage,
@@ -39,6 +39,10 @@ def _context(snapshot: Snapshot, stage: int, now: float):
                            "exclusions": {"max_record_seq": snapshot.max_record_seq,
                                           "count": snapshot.history_count - len(selected),
                                           "rule": "permitted records at/below snapshot seq, excluding selected_ids; enumerate with excluded_ids(request_id)"}}}
+    if snapshot.images_json != "[]":
+        result["visual_diagnostics"] = {"artifacts": [image_descriptor(item) for item in json.loads(snapshot.images_json)],
+            "image_included": stage < 2, "omission_reason": None if stage < 2 else "text_only_compaction"}
+    return result
 
 
 class ContextCompressor:
@@ -53,15 +57,15 @@ class ContextCompressor:
         if type(budget) is not int or budget < required:
             raise BudgetExceeded(f"Unsupported budget: require >= {required}; response reserve is never reduced")
 
-    def preflight(self, snapshot: Snapshot, *, budget=B_MIN, now=None):
-        """Check the minimum request in BOTH transports before starting research."""
+    def preflight(self, snapshot: Snapshot, *, budget=B_MIN, now=None, modes=("native", "json")):
+        """Check the minimum request in the selected transports before research."""
         self._budget(budget)
         now = time.time() if now is None else now
         context = _context(snapshot, 3, now)
         if size(context["observations"]) > 8192:
             raise BudgetExceeded("Observation batch exceeds its protected 8192-byte budget")
         result = {}
-        for mode in ("native", "json"):
+        for mode in modes:
             overhead = self.transport.overhead_bytes(mode)
             if overhead > 49152:
                 raise BudgetExceeded(f"{mode} instructions/schemas/framing exceed 49152 bytes: {overhead}")
@@ -102,7 +106,7 @@ class ContextCompressor:
             context = _context(snapshot, stage, now)
             if size(context["observations"]) > 8192:
                 raise BudgetExceeded("Protected observation batch exceeds 8192 bytes")
-            wire = self.transport.render(context, mode)
+            wire = self.transport.render(context, mode, images=json.loads(snapshot.images_json) if stage < 2 else [])
             wire_bytes = len(wire.encode("utf-8"))
             estimate = wire_bytes + self.transport.response_reserve
             trace.append(canonical({"stage": stage, "wire_bytes": wire_bytes, "conservative_size": estimate,

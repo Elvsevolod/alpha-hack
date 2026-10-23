@@ -10,13 +10,13 @@ from typing import Callable
 
 from .contracts import (AccessDenied, BUILDER_VERSION, CORE_LIMITS, ContextError,
                         Snapshot, Source, bounded, canonical, digest, finite,
-                        identifier, read_ref, size)
+                        identifier, read_ref, size, image_descriptor, validate_image)
 from .store import ContextStore
 
 
 KINDS = {"regression", "classification", "multioutput_regression", "multioutput_classification",
          "multilabel", "forecasting", "ranking"}
-METRICS = {"rmse", "mse", "mae", "r2", "f1", "accuracy", "roc_auc", "log_loss", "average_precision", "ndcg", "map"}
+METRICS = {"rmse", "mse", "mae", "mape", "r2", "f1", "accuracy", "balanced_accuracy", "roc_auc", "log_loss", "average_precision", "ndcg", "map"}
 COLLECTIONS = ("targets", "id_columns", "feature_columns", "categorical_columns", "text_columns",
                "series_columns", "classes", "feature_constraints", "evidence")
 REQUIRED_FLAGS = {"worker_network_allowed": False, "credential_environment_allowed": False,
@@ -48,7 +48,7 @@ def _task_projection(task, task_hash):
     metric = dict(task["metric"])
     if metric.get("name") not in METRICS:
         raise ContextError("Unsupported metric; do not silently shorten its meaning")
-    maximize = metric["name"] not in {"rmse", "mse", "mae", "log_loss"}
+    maximize = metric["name"] not in {"rmse", "mse", "mae", "mape", "log_loss"}
     if "maximize" in metric and metric["maximize"] is not maximize:
         raise ContextError("Metric direction contradicts its confirmed name")
     for key, value in list(metric.items()):
@@ -331,6 +331,19 @@ def make_snapshot(store: ContextStore) -> Snapshot:
         maximum, count = store.db.execute(f"SELECT coalesce(max(seq),0),count(*) FROM cc_records WHERE {clause}", params).fetchone()
         cards = _select_records(store, state["current_work"], core["research_note"], maximum)
         observations = store.pending_fragments()
+        images = []
+        for image in (store.get_meta("diagnostic_images") or [])[:1]:
+            if image.get("operation_id") not in {item["operation_id"] for item in observations}:
+                continue
+            validate_image(image)
+            if image["data_version"] != state["identity"]["data_hash"] or image["protocol_hash"] != state["identity"]["protocol_hash"]:
+                continue
+            store._check_scope(image["scope"])
+            source = store.db.execute("SELECT scope,origin FROM cc_sources WHERE source_id=? AND version=? AND section=''",
+                (image["source_id"], image["source_version"])).fetchone()
+            if not source or source["scope"] != image["scope"] or source["origin"] != "get_diagnostic_report":
+                raise AccessDenied("Image has no permitted published diagnostic source")
+            images.append(image)
         # Whole experiment JSONs dominated the prompt and could end mid-field.
         # Only controller-created, bounded summaries are inlined automatically.
         details, sources = [], []
@@ -354,6 +367,7 @@ def make_snapshot(store: ContextStore) -> Snapshot:
             if row:
                 profile = {**profile, **json.loads(row[0])}
         manifest = {"core_sha256": digest(core), "observation_ids": [x["observation_id"] for x in observations],
+                    "images": [image_descriptor(image) for image in images],
                     "observations_sha256": digest(observations),
                     "candidate_ids": [x["record_id"] for x in cards],
                     "sources": sources, "history_count": count,
@@ -363,4 +377,4 @@ def make_snapshot(store: ContextStore) -> Snapshot:
     return Snapshot(snapshot_id, canonical(core), canonical(observations), tuple(canonical(x) for x in cards),
                     tuple(canonical(store.route(x)) for x in details), canonical(store.route(failures)), canonical(store.route(profile)), maximum,
                     count, core["current_work"]["observation_queue"]["pending"], manifest["created_at"],
-                    time.perf_counter() - started, len(details) + len(observations))
+                    time.perf_counter() - started, len(details) + len(observations), canonical(images))

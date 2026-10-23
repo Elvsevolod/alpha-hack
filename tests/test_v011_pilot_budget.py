@@ -27,8 +27,10 @@ def test_pilot_has_its_own_phase_reserves_on_small_and_large_data(tmp_path, monk
         spec = c.make_spec(args, "pilot_budget_regression")
         original = c.executor.run
         observed = []
+        full_attempts = []
         def inspect(directory, request, seconds):
             if directory.name != "pilot":
+                full_attempts.append(directory)
                 return {"status": "timeout", "error": "Controlled stop after the real pilot; no full-data model needed"}
             phases = request["context"]["phase_estimates"]
             assert phases["selected_fit_seconds"] + phases["prediction_seconds"] + phases["publication_seconds"] < seconds
@@ -49,8 +51,18 @@ def test_pilot_has_its_own_phase_reserves_on_small_and_large_data(tmp_path, monk
         # Under shared CPU load the measured extrapolation can already reject
         # the full attempt. Both paths preserve the successful real pilot and
         # protect finalization; this test must not require a particular speed.
-        assert ("Controlled stop" in outcome.error or
-            "Measured pilot leaves insufficient candidate fit and complete finalization reserve" in outcome.error)
+        if full_attempts:
+            assert "Controlled stop" in outcome.error
+        else:
+            diagnostic = outcome.training_summary["diagnostic"]
+            assert diagnostic["category"] == "budget_admission"
+            assert diagnostic["scope"] == "fit_only_no_external_metric"
+            assert diagnostic["reason"] in {"pilot_completed_candidate_rejected", "pilot_completed_candidate_window_exhausted"}
+            assert diagnostic["pilot_seconds"] > 0 and diagnostic["finalization_reserve_seconds"] > 0
+            if diagnostic["reason"] == "pilot_completed_candidate_rejected":
+                assert diagnostic["candidate_fit_seconds_required"] > diagnostic["candidate_window_seconds_remaining"]
+                assert diagnostic["candidate_fit_shortfall_seconds"] > 0
+        assert outcome.score is None
     finally:
         c.close()
 
@@ -72,10 +84,14 @@ def test_autogluon_actual_training_seed_and_finite_model_policy(tabular, tmp_pat
     summary = pipeline.fit(X, y, {"strategy": "random", "cpu": 1, "budget_seconds": 35, "workdir": str(tmp_path)})
     evidence = summary.budget["targets"][task.targets[0]]
     assert evidence["training_seed"] == 73
-    assert summary.budget["selected_fit_rows"] < len(X)
+    assert summary.budget["selected_fit_rows"] == len(X)
+    assert 0 < len(pipeline.training_keys) < len(X)
+    assert set(pipeline.training_keys).isdisjoint(pipeline.inner_split["validation_keys"])
+    assert set(pipeline.training_keys) | set(pipeline.inner_split["validation_keys"]) == set(X.index)
     assert evidence["completed_learners"] == ["GBM", "CAT", "XGB"]
     assert evidence["stop_reason"] == "engine_space_exhausted"
     predictor = pipeline.models[task.targets[0]][1]
+    assert predictor.model_best == pipeline.selected[task.targets[0]]["refitted_model"]
     info = predictor.info()["model_info"]
     actual = [record["hyperparameters"] for record in info.values()]
     assert any(parameters.get("seed_value") == 73 for parameters in actual)

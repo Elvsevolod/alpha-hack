@@ -28,6 +28,21 @@ def explicit_fixture_semantic_channel(monkeypatch):
             'status':'proposed', 'task_spec':spec,
             'evidence':{field:['task','inventory'] for field in spec}}
     monkeypatch.setattr(QwenClient, 'resolve', resolve)
+    original_critique = QwenClient.critique
+    def critique(client, request, reserve_seconds):
+        path = client.journal.directory.parent.parent / 'task_spec.json'
+        if not path.is_file():
+            return original_critique(client, request, reserve_seconds)
+        return {'review_id': request['review_id'], 'verdict': 'approve',
+            'evaluation_scope': 'research_validation',
+            'comparator_id': next((item['experiment_id'] for item in request['comparators']
+                if item['status'] == 'completed' and item['scope'] != 'pilot' and item['score'] is not None), None),
+            'evidence_assessment': 'Offline fixture hypothesis.',
+            'comparison_assessment': 'Fixed fixture protocol.',
+            'leakage_assessment': 'Existing fit-only fixture execution.',
+            'cost_assessment': 'Bounded offline test.',
+            'falsification_assessment': 'Fixture metric and execution checks.', 'revision_requests': []}
+    monkeypatch.setattr(QwenClient, 'critique', critique)
 
 
 @pytest.fixture

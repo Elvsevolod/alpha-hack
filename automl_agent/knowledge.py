@@ -238,6 +238,21 @@ class AgentKnowledge:
         if self.packet is None:
             raise ValueError("Knowledge packet is missing from the decision snapshot")
         audit = audit_request(payload, self.packet)
+        # Keep the actual wire hash/size from the immutable standalone auditor.
+        if any(isinstance(message.get("content"), list) for message in payload.get("messages", [])):
+            from context_compressor.contracts import text_context
+            encoded = canonical(self.packet)
+            kept = False
+            for message in payload["messages"]:
+                content = message.get("content")
+                if isinstance(content, list):
+                    text_context(content)
+                    kept = kept or encoded in content[0]["text"]
+                elif isinstance(content, str):
+                    kept = kept or encoded in content
+            audit.update(known_constraints_preserved=kept,
+                send_allowed=kept and len(encoded) <= 6000 and len(self.packet.get("materials", [])) <= 3,
+                multimodal_text_blocks_verified=True)
         atomic_json(self.c.workdir / "knowledge_audits" / (prepared.request_id + ".json"), audit)
         if not audit["send_allowed"]:
             raise ValueError("Knowledge evidence was lost after context compression")

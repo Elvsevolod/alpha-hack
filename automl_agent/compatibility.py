@@ -73,6 +73,8 @@ def ranking_bootstrap_issue(task, train, plan):
 
 def incompatibilities(spec, task, strategy=None, capabilities=None):
     reasons = []
+    if spec.engine == "optuna" and task.kind == "forecasting":
+        reasons.append("optuna_forecasting_requires_causal_forecast_adapter; use direct until verified")
     for operation in spec.transformations:
         if operation.name in {"datetime", "log1p"} and not operation.parameters.get("columns"):
             reasons.append("frame_transformation_requires_columns: " + operation.name)

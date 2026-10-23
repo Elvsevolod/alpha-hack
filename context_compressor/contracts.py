@@ -6,10 +6,12 @@ All source ranges and byte limits use UTF-8, never Python character indices.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import base64
 import hashlib
 import json
 import math
 import re
+import struct
 from typing import Any, Mapping
 
 
@@ -27,7 +29,7 @@ TRUST = frozenset({"controller_fact", "external_data", "agent_assumption"})
 NOTE_STATUSES = ("preparing", "awaiting_evidence", "ready_to_compare", "closed")
 TOOLS = ("inspect_dataset", "get_reference", "train_model", "run_automl", "tune_model",
          "analyze_experiments", "build_ensemble", "run_custom_experiment", "finish",
-         "get_dataset_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge",
+         "get_dataset_report", "get_diagnostic_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge",
          "search_run_records", "list_run_records", "read_run_records")
 
 
@@ -57,6 +59,50 @@ def digest(value: Any) -> str:
 
 def text_hash(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def image_descriptor(image):
+    return {key: value for key, value in image.items() if key != "data_url"}
+
+
+def validate_image(image):
+    fields = {"artifact_id", "mime_type", "sha256", "bytes", "width", "height", "scope", "source_id", "source_version", "operation_id", "data_url", "data_version", "protocol_hash"}
+    if not isinstance(image, dict) or set(image) != fields or image["mime_type"] != "image/png":
+        raise ContextError("Invalid diagnostic image descriptor")
+    for key in ("artifact_id", "source_id", "source_version", "operation_id", "data_version", "protocol_hash"):
+        identifier(image[key], key)
+    if image["scope"] not in {"fit", "validation_features", "test_features"}:
+        raise AccessDenied("Diagnostic image scope is unavailable")
+    prefix = "data:image/png;base64,"
+    url = image["data_url"]
+    if not isinstance(url, str) or not url.startswith(prefix) or len(url) > 87410:
+        raise ContextError("Diagnostic images must be bounded inline PNGs")
+    try:
+        content = base64.b64decode(url[len(prefix):], validate=True)
+    except ValueError as error:
+        raise ContextError("Invalid diagnostic PNG encoding") from error
+    if len(content) < 24 or not content.startswith(b"\x89PNG\r\n\x1a\n") or len(content) > 65536:
+        raise ContextError("Invalid or oversized diagnostic PNG")
+    width, height = struct.unpack(">II", content[16:24])
+    if (any(type(image[key]) is not int for key in ("width", "height", "bytes"))
+            or not 0 < width <= 1280 or not 0 < height <= 720 or (width, height) != (image["width"], image["height"])):
+        raise ContextError("Diagnostic image dimensions changed or exceed limits")
+    if len(content) != image["bytes"] or hashlib.sha256(content).hexdigest() != image["sha256"]:
+        raise ContextError("Diagnostic image checksum changed")
+    return image
+
+
+def text_context(content):
+    if isinstance(content, list):
+        if (not 1 <= len(content) <= 2 or not isinstance(content[0], dict)
+                or set(content[0]) != {"type", "text"} or content[0]["type"] != "text"
+                or any(not isinstance(block, dict) or set(block) != {"type", "image_url"} or block["type"] != "image_url"
+                       or not isinstance(block["image_url"], dict) or set(block["image_url"]) != {"url"} for block in content[1:])):
+            raise ContextError("Unexpected multimodal context framing")
+        content = content[0]["text"]
+    if not isinstance(content, str):
+        raise ContextError("Context text is missing")
+    return json.loads(content)
 
 
 def bounded(value: str, limit: int, name: str, *, empty: bool = False) -> str:
@@ -318,6 +364,7 @@ class Snapshot:
     created_at: float
     build_seconds: float
     source_reads: int
+    images_json: str = "[]"
 
 
 @dataclass(frozen=True)

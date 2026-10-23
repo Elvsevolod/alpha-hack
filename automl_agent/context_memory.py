@@ -7,7 +7,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 
 from context_compressor import (ContextCompressor, ContextStore, Emission, ProfileCache,
-    ProfileKey, Record, REQUIRED_FLAGS, Source, SourceSlice, Transport, configure)
+    ProfileKey, Record, REQUIRED_FLAGS, Source, SourceSlice, Transport, configure, BudgetExceeded)
 
 from .contracts import ExperimentResult, ExperimentSpec, ResearchState, TOOL_SCHEMAS, LEGACY_TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand
 from .util import atomic_json, canonical, digest, redact, utf8_short
@@ -64,6 +64,9 @@ class ContextMemory:
             c.validate_evidence(args.hypothesis.evidence_refs)
         if typed.tool in {"inspect_dataset", "get_dataset_report"} and args.scope != "fit" and (args.include_target or args.predicate):
             raise ValueError("Target-based inspection and arbitrary predicates are restricted to fit")
+        if typed.tool == "get_diagnostic_report":
+            from .visual_diagnostics import DiagnosticTools
+            DiagnosticTools(c).validate(args)
         if typed.tool == "analyze_experiments" and not context_route(typed):
             if args.report_id and args.report_id not in c.plan.feedback_policy.report_ids:
                 raise ValueError("The requested external report is not registered")
@@ -94,7 +97,7 @@ class ContextMemory:
         result = operation.result or raw
         version = result.get("provenance", {}).get("result_hash", digest(result))
         scope = "reference" if operation.tool in {"get_reference", "search_knowledge", "list_knowledge", "read_knowledge"} else "registered_feedback"
-        if operation.tool in {"inspect_dataset", "get_dataset_report"}:
+        if operation.tool in {"inspect_dataset", "get_dataset_report", "get_diagnostic_report"}:
             scope = {"schema": "contract", "fit": "fit", "validation_features": "validation_features",
                 "test_features": "test_features"}.get(raw.get("scope"), "controller")
         kind = "reference" if scope == "reference" else "analysis"
@@ -123,6 +126,8 @@ class ContextMemory:
             self.store.put_source(Source("code:" + sha, "1", path.read_text(encoding="utf-8"), "code", origin="agent_code"))
         def commit(db):
             db.execute("UPDATE operations SET record=? WHERE id=?", (canonical(operation), operation.operation_id))
+            if operation.tool == "get_diagnostic_report" and raw.get("artifacts"):
+                self.store._put_meta("diagnostic_image_operation", operation.operation_id)
         indexed = []
         if operation.tool in TOOL_SCHEMAS:
             indexed = [Record("operation:" + operation.operation_id, source.source_id, source.version, scope,
@@ -155,6 +160,8 @@ class ContextMemory:
 
     def index_experiments(self):
         c = self.c
+        from .research import index_reviews
+        self.latest_research_review = index_reviews(self)
         rows = c.journal.db.execute("""SELECT spec,result FROM experiments e WHERE result IS NOT NULL
             AND NOT EXISTS (SELECT 1 FROM cc_records r JOIN cc_sources s
                 ON s.source_id=json_extract(r.payload,'$.source_id')
@@ -243,9 +250,11 @@ class ContextMemory:
         active = c.journal.get("active_hypothesis")
         work = {"baseline_id": c.journal.get("baseline_id"), "leader_id": c.journal.get("leader_id"),
             "suggested_new_operation_id": "step_" + str(counters["calls"] + 1)}
+        work["related_ids"] = [self.research_guide_id]
         latest = c.journal.db.execute("SELECT id FROM experiments WHERE result IS NOT NULL ORDER BY rowid DESC LIMIT 1").fetchone()
         if latest:
             work["latest_id"] = latest[0]
+            work["related_ids"].append(self.latest_research_review)
         last = c.journal.get("last_tool_result") or {}
         last_error = last.get("error") or (last.get("result") or {}).get("error")
         if last_error:
@@ -290,7 +299,30 @@ class ContextMemory:
             model=c.qwen.model, response_reserve=c.qwen.output_tokens, extra=c.qwen.extra,
             reference_packet=c.knowledge.select_packet(profile))
         self.compressor = ContextCompressor(self.store, transport)
+        images = []
+        image_operation = self.store.get_meta("diagnostic_image_operation")
+        if image_operation and not c.journal.get("vision_disabled"):
+            operation = c.journal.operation(image_operation)
+            from .tool_results import payload
+            from .visual_diagnostics import DiagnosticTools
+            try:
+                image = DiagnosticTools(c).image(image_operation, payload(operation.result))
+                if image:
+                    images.append(image)
+            except (OSError, ValueError):
+                c.journal.event("diagnostic_image_unavailable", {"operation_id": image_operation})
+        with self.store.transaction():
+            self.store._put_meta("diagnostic_images", images)
         snapshot = self.compressor.snapshot()
-        self.compressor.preflight(snapshot, budget=c.qwen.context_tokens)
+        for mode in (["json"] if c.qwen.transport == "json" else ["native", "json"]):
+            try:
+                self.compressor.preflight(snapshot, budget=c.qwen.context_tokens, modes=(mode,))
+                break
+            except BudgetExceeded as error:
+                if mode == "json":
+                    raise
+                c.qwen.transport = "json"
+                c.journal.put("transport", "json")
+                c.journal.event("native_fallback", {"reason": str(error)[:500], "phase": "context_preflight"})
         self.persist_note()
         return replace(snapshot, build_seconds=time.perf_counter() - started)

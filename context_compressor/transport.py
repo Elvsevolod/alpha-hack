@@ -123,6 +123,20 @@ class Transport:
 
     def _native(self):
         result = []
+        seen_descriptions = set()
+        def compact_descriptions(value):
+            if isinstance(value, dict):
+                description = value.get("description")
+                if isinstance(description, str):
+                    if description in seen_descriptions:
+                        value.pop("description")
+                    else:
+                        seen_descriptions.add(description)
+                for child in value.values():
+                    compact_descriptions(child)
+            elif isinstance(value, list):
+                for child in value:
+                    compact_descriptions(child)
         for name, original in self.schemas.items():
             # Metadata is shared by all three analyzer variants, and must not be
             # rejected by their additionalProperties:false constraints.
@@ -133,12 +147,13 @@ class Transport:
                     "operation_id": {"type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[A-Za-z0-9_-]+$"},
                     "research_note": {"anyOf": [NOTE_SCHEMA, {"type": "null"}]}})
                 variant.setdefault("required", []).append("operation_id")
+            compact_descriptions(schema)
             result.append({"type": "function", "function": {"name": name,
                 "description": original.get("description", "Execute one permitted controller action."),
                 "parameters": schema}})
         return result
 
-    def render(self, context: dict, mode: str, *, include_reference=True) -> str:
+    def render(self, context: dict, mode: str, *, include_reference=True, images=()) -> str:
         if mode not in {"native", "json"}:
             raise ContextError("Transport must be native or json")
         system = self.system
@@ -167,6 +182,13 @@ class Transport:
                    "stream_options": {"include_usage": True},
                    **json.loads(self.extra_json),
                    "messages": [{"role": "system", "content": system}, {"role": "user", "content": canonical(request)}]}
+        if images:
+            from .contracts import validate_image
+            if len(images) != 1:
+                raise ContextError("At most one diagnostic image per request")
+            image = validate_image(images[0])
+            payload["messages"][1]["content"] = [{"type": "text", "text": canonical(request)},
+                {"type": "image_url", "image_url": {"url": image["data_url"]}}]
         if mode == "native":
             payload.update(tools=self._native(), tool_choice="required", parallel_tool_calls=False)
         else:

@@ -18,6 +18,8 @@ class Publisher:
 
     def frame(self, bundle):
         task = self.dataset.task
+        if task.metric.requires_probabilities and task.output.prediction_type != "probabilities":
+            raise ValueError("Probability metrics require probability output")
         predicted = align_predictions(bundle, self.dataset.test_keys, task, self.plan.hash, "test")
         result = pd.DataFrame(index=range(len(self.dataset.test)))
         for column in task.id_columns:

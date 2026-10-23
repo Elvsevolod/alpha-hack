@@ -1,7 +1,9 @@
 """Keep complete-fit I/O distinct from sampled model work; preserve safety scaling."""
 import pytest
 
-from automl_agent.completion import measured_cost
+from types import SimpleNamespace
+
+from automl_agent.completion import candidate_measured_cost, measured_cost
 
 
 def summary():
@@ -54,6 +56,26 @@ def test_no_complete_phase_measurement_preserves_legacy_fallback(s, seconds):
 def test_legacy_selected_fit_without_row_basis_preserves_previous_formula():
     s = {'rows': 400, 'seconds': 100, 'budget': {'selected_fit_actual_seconds': 2.}}
     assert measured_cost(s, 105, 4000, 4000) == pytest.approx(7 * 10 * 1.25 + .2)
+
+
+def test_candidate_estimate_adds_bounded_hpo_but_frozen_fit_does_not():
+    summary = {'rows': 100, 'seconds': 10, 'budget': {
+        'selected_fit_actual_seconds': 2., 'selected_fit_rows': 100,
+        'targets': {'answer': {'search_seconds': 3., 'attempted_trials': 2}}}}
+    pipeline = SimpleNamespace(engine='flaml', n_trials=4, learners=[])
+    frozen = measured_cost(summary, 10, 200, 100)
+    candidate = candidate_measured_cost(summary, 10, 200, 100, pipeline)
+    assert candidate - frozen == pytest.approx(3 * 2 * 2 * 1.25)
+
+
+def test_autogluon_candidate_search_and_selected_refit_are_separate_phases():
+    summary = {'rows': 100, 'seconds': 10, 'budget': {
+        'selected_fit_actual_seconds': 4., 'selected_fit_rows': 100,
+        'targets': {'answer': {'search_seconds': 3., 'configured_learners': ['GBM', 'CAT']}}}}
+    pipeline = SimpleNamespace(engine='autogluon', n_trials=None, learners=['GBM', 'CAT', 'XGB'])
+    frozen = measured_cost(summary, 10, 200, 100)
+    candidate = candidate_measured_cost(summary, 10, 200, 100, pipeline)
+    assert candidate - frozen == pytest.approx(3 * 2 * 1.5 * 1.25)
 
 
 def test_smaller_refit_does_not_discount_observed_model_or_io_work():

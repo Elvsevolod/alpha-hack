@@ -40,6 +40,10 @@ class QwenContextError(QwenError):
     """The mandatory request cannot fit; requires stronger controller compaction."""
 
 
+class QwenImageUnsupported(QwenError):
+    """Explicit modality rejection; the same snapshot can use numeric diagnostics."""
+
+
 def request_size(payload, response_reserve):
     return len(canonical(payload).encode("utf-8")) + response_reserve
 
@@ -154,7 +158,7 @@ class QwenClient:
     def configured(self):
         return bool(self.key and self.base_url and self.model)
 
-    def _request(self, messages, tools=None, *, prepared=None):
+    def _request(self, messages, tools=None, *, prepared=None, max_seconds=None):
         if threading.current_thread() is not threading.main_thread():
             raise QwenError("Model requests require the controller main thread for deadline enforcement")
         unknown = self.journal.get('qwen_unknown_outcome')
@@ -204,6 +208,8 @@ class QwenClient:
         available = self.budget.remaining - reserve
         if self.budget.limits.max_llm_seconds is not None:
             available = min(available, self.budget.limits.max_llm_seconds - self.journal.get("llm_seconds", 0))
+        if max_seconds is not None:
+            available = min(available, max_seconds)
         timeout = max(.01, available)
         wire = prepared.wire_json.encode('utf-8') if prepared is not None else json.dumps(payload, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode('utf-8')
         import hashlib
@@ -243,6 +249,11 @@ class QwenClient:
                     raise QwenUnavailable(f"Model API returned HTTP {response.status_code}; check credentials or account budget")
                 if response.status_code in {408, 409, 429} or response.status_code >= 500:
                     raise QwenRetryableError(f"Model API returned temporary HTTP {response.status_code}")
+                if (response.status_code in {400, 422} and any(isinstance(message.get("content"), list) for message in payload["messages"])
+                        and any(term in response.text.lower() for term in ("image", "vision", "multimodal"))
+                        and any(term in response.text.lower() for term in ("not support", "unsupported", "not allowed"))):
+                    self.journal.put("vision_disabled", True)
+                    raise QwenImageUnsupported("Provider explicitly rejected image input; use numeric diagnostics")
                 if response.status_code == 413 or response.status_code in {400, 422} and any(code in response.text.lower()
                         for code in ("context_length_exceeded", "maximum context length", "context window", "too many tokens")):
                     raise QwenContextError("Provider rejected the request context size")
@@ -319,6 +330,19 @@ class QwenClient:
         message = self._request([{"role": "system", "content": system}, {"role": "user", "content": canonical(request)}])
         return parse_json_object(message.get("content") or "")
 
+    def critique(self, request, reserve_seconds):
+        from .critic import SYSTEM
+        previous = self.effort, self.reasoning_reason, self.reserve_seconds
+        self.select_reasoning("medium", "hypothesis_critic")
+        self.reserve_seconds = max(self.reserve_seconds, reserve_seconds)
+        try:
+            message = self._request([{"role": "system", "content": SYSTEM},
+                {"role": "user", "content": canonical(request)}], max_seconds=90)
+            return parse_json_object(message.get("content") or "")
+        finally:
+            self.select_reasoning(previous[0], previous[1])
+            self.reserve_seconds = previous[2]
+
     def next_command(self, system, context):
         from context_compressor.contracts import Snapshot
         if isinstance(context, Snapshot):
@@ -365,7 +389,15 @@ class QwenClient:
         for mode in modes:
             minimum_stage = 0
             while True:
-                prepared = compressor.prepare(snapshot, mode, budget=self.context_tokens, minimum_stage=minimum_stage)
+                try:
+                    prepared = compressor.prepare(snapshot, mode, budget=self.context_tokens, minimum_stage=minimum_stage)
+                except BudgetExceeded as error:
+                    if mode == "json":
+                        raise
+                    self.journal.event("native_fallback", {"reason": str(error)[:500], "phase": "context_prepare"})
+                    self.transport = "json"
+                    self.journal.put("transport", "json")
+                    break
                 try:
                     response = self._request(None, prepared=prepared)
                     command = compressor.accept_response(prepared.request_id, response, memory.validate)
@@ -380,6 +412,9 @@ class QwenClient:
                     self.journal.put("transport", mode)
                     memory.persist_note()
                     return ToolCommand.model_validate({k: v for k, v in command.as_dict().items() if k != "research_note"}), ""
+                except QwenImageUnsupported as error:
+                    memory.store.channel_error(prepared.request_id, type(error).__name__, str(error))
+                    minimum_stage = max(2, prepared.stage)
                 except QwenContextError as error:
                     emit('qwen_parse_outcome', call_id=getattr(self,'last_call_id',None), request_id=prepared.request_id,
                          accepted=False, error_type=type(error).__name__, error=str(error))

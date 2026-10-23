@@ -21,6 +21,8 @@ def align_predictions(bundle: PredictionBundle, expected_keys: list[str], task: 
         raise ValueError("Prediction keys are missing, extra, or duplicated")
     if bundle.target_names != task.targets or set(bundle.values) != set(task.targets):
         raise ValueError("Prediction target names mismatch")
+    if task.kind in {"classification", "multioutput_classification", "multilabel"} and bundle.prediction_type not in {"labels", "probabilities"}:
+        raise ValueError("Classification requires labels or probabilities")
     mapping = {key: i for i, key in enumerate(bundle.row_keys)}
     order = np.asarray([mapping[key] for key in expected_keys])
     result = {}
@@ -52,7 +54,7 @@ def align_predictions(bundle: PredictionBundle, expected_keys: list[str], task: 
             if not np.isfinite(arr).all():
                 raise ValueError("Nonfinite predictions")
         result[target] = arr
-    required_probability = task.metric.name in {"roc_auc", "log_loss", "average_precision"} or task.output.prediction_type == "probabilities"
+    required_probability = task.metric.requires_probabilities or task.output.prediction_type == "probabilities"
     if required_probability and bundle.prediction_type != "probabilities":
         raise ValueError("The task requires probabilities, not decision scores")
     if task.kind not in {"classification", "multioutput_classification", "multilabel"} and bundle.prediction_type not in {"values", "scores"}:

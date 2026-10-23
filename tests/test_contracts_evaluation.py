@@ -54,6 +54,27 @@ def test_probability_class_order_is_explicit():
     assert score_predictions(task, pd.DataFrame({"y": ["cat", "dog"]}), pred, "probabilities") < .2
 
 
+@pytest.mark.parametrize("metric", ["roc_auc", "log_loss", "average_precision"])
+def test_probability_metrics_reject_label_output(metric):
+    with pytest.raises(ValidationError, match="Probability metrics require probability output"):
+        TaskSpec(kind="classification", targets=["y"], id_columns=["id"], feature_columns=["x"],
+            metric=MetricSpec(name=metric, positive_label="dog" if metric != "log_loss" else None),
+            classes={"y": ["cat", "dog"]},
+            output=OutputSpec(columns=["id", "y"], prediction_type="labels"), source_hash="data")
+
+
+def test_publisher_guards_probability_metric_at_final_boundary(tmp_path):
+    from types import SimpleNamespace
+    from automl_agent.publication import Publisher
+
+    task = classification_task().model_copy(update={
+        "metric": MetricSpec(name="roc_auc", positive_label="dog"),
+        "output": OutputSpec(columns=["id", "y"], prediction_type="labels")})
+    publisher = Publisher(SimpleNamespace(task=task, task_path=tmp_path / "task.md"), None, tmp_path, None)
+    with pytest.raises(ValueError, match="Probability metrics require probability output"):
+        publisher.frame(None)
+
+
 @pytest.mark.parametrize("array", [[[.1, .1]], [[-1., 2.]], [[float('nan'), .5]], [[1.1, -.1]]])
 def test_invalid_probabilities(array):
     task = classification_task()

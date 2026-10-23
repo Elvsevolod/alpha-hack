@@ -1,0 +1,38 @@
+{
+  "version_tag": "v064",
+  "archive": "solution_v064.zip",
+  "sha256": "dd91b29d6356b540909807f066de9933a5b4f60e02f1c4a11347c91648d41e77",
+  "bytes": 95030485,
+  "created_at": "2026-10-23T13:07:34.454641+00:00",
+  "status": "offline_research_cycle_verified_live_quality_unmeasured",
+  "zip_checks_passed": true,
+  "changed_runtime_sources_match_archive": {
+    "automl_agent/controller.py": true,
+    "automl_agent/context_memory.py": true,
+    "automl_agent/research.py": true
+  },
+  "tests": {
+    "integration_and_contracts": 105,
+    "methods_and_dependencies": 64,
+    "total_unique_test_cases": 169,
+    "exact_archive_mock_cases": 4
+  },
+  "exact_dependency_image": "qwen-ml-agent:exact",
+  "exact_dependency_image_id": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+  "exact_archive_mock_report": "../outputs/research_learning_20261023/exact_archive/REPORT.json",
+  "constraints": {
+    "paid_api_calls": 0,
+    "dependency_changes": false,
+    "task_specific_feature_names_or_hyperparameters_added": false,
+    "global_model_weights_updated": false,
+    "submitted_to_platform": false,
+    "candidate_pointer_modified_by_this_work": false
+  },
+  "limitations": [
+    "Scripted mock verifies plumbing and evidence delivery, not spontaneous Qwen research behavior.",
+    "No fresh paid live run or comparative metric advantage established.",
+    "Full three-hour behavior not measured; original default budget remains 10800 seconds.",
+    "Generic guide is a project recommendation; the agent must check applicability and sources per task."
+  ],
+  "documentation": "../outputs/research_learning_20261023/REPORT.md"
+}

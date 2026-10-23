@@ -19,7 +19,7 @@ import time
 from typing import Callable, Iterable
 
 from .contracts import (AccessDenied, Command, ContextError, Emission, Record, SCOPES,
-                        Source, SourceSlice, bounded, canonical, digest, identifier, read_ref, size, text_hash)
+                        Source, SourceSlice, bounded, canonical, digest, identifier, read_ref, size, text_hash, text_context, validate_image)
 
 
 FILTERS = frozenset({"kind", "component", "engine", "status", "error_code", "protocol",
@@ -442,7 +442,7 @@ class ContextStore:
         messages = wire.get("messages", [])
         if len(messages) != 2 or messages[1].get("role") != "user":
             raise ContextError("Unexpected transport framing")
-        context = json.loads(messages[1]["content"])
+        context = text_context(messages[1]["content"])
         if context.get("observations") != observations:
             raise ContextError("Requested content, including provenance, must occur literally in the observation block")
         if context.get("compaction", {}).get("snapshot_id") != prepared.snapshot_id:
@@ -451,6 +451,23 @@ class ContextStore:
         if not snapshot:
             raise ContextError("Unknown decision snapshot")
         manifest = json.loads(snapshot[0])
+        expected_images = manifest.get("images", [])
+        content = messages[1]["content"]
+        image_urls = [block["image_url"]["url"] for block in content[1:]] if isinstance(content, list) else []
+        visual = context.get("visual_diagnostics")
+        if expected_images:
+            if not isinstance(visual, dict) or visual.get("artifacts") != expected_images:
+                raise ContextError("Image references differ from the immutable snapshot")
+            included = visual.get("image_included")
+            if type(included) is not bool or (included and len(image_urls) != len(expected_images)):
+                raise ContextError("Diagnostic image delivery framing changed")
+            if not included and (image_urls or prepared.stage < 2 or visual.get("omission_reason") != "text_only_compaction"):
+                raise ContextError("Diagnostic image omission is not recorded by compaction")
+            for reference, url in zip(expected_images, image_urls):
+                self._check_scope(reference["scope"])
+                validate_image({**reference, "data_url": url})
+        elif image_urls or visual:
+            raise ContextError("An unregistered image cannot be appended to a request")
         checked_core = json.loads(canonical(context.get("core")))
         checked_core["policies_resources"].pop("remaining_seconds", None)
         if (digest(checked_core) != manifest["core_sha256"]
@@ -522,7 +539,7 @@ class ContextStore:
                 if old_receipt[0] != command.operation_id or previous[0] != encoded:
                     raise ContextError("A request already accepted a different command")
                 return command
-            body = json.loads(json.loads(request["wire_json"])["messages"][1]["content"])
+            body = text_context(json.loads(request["wire_json"])["messages"][1]["content"])
             state = self.get_meta("controller_state")
             if (state["identity"] != body["core"]["identity"]
                     or state["policies_resources"]["flags"] != body["core"]["policies_resources"]["flags"]):

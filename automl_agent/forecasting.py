@@ -20,7 +20,10 @@ class ForecastPipeline:
         return tuple(str(row[c]) for c in self.series_columns) if self.series_columns else ("all",)
 
     def _time(self, X):
-        return ordered_periods(X[self.task.time_column])
+        values = X[self.task.time_column]
+        if pd.api.types.is_datetime64_any_dtype(values):
+            return pd.to_datetime(values, utc=True)
+        return ordered_periods(values)
 
     def _features(self, row, history):
         features = {}
@@ -117,8 +120,13 @@ class ForecastPipeline:
             if any(times.iloc[i] <= last_stamp for i in positions):
                 raise ValueError("Forecast contains timestamps at or before the training boundary")
             differences = [b[0] - a[0] for a, b in zip(history, history[1:])]
-            step = min(differences) if differences else None
-            if step is not None and step <= (pd.Timedelta(0) if isinstance(step, pd.Timedelta) else 0):
+            step = differences[0] if differences and all(d == differences[0] for d in differences) else None
+            if isinstance(last_stamp, pd.Timestamp):
+                frequency = pd.infer_freq(pd.DatetimeIndex([item[0] for item in history])) if len(history) >= 3 else None
+                step = None
+                if frequency is not None:
+                    step = pd.tseries.frequencies.to_offset(frequency)
+            if step is not None and last_stamp + step <= last_stamp:
                 raise ValueError("Non-increasing series time")
             requested = {times.iloc[i]: i for i in positions}
             if len(requested) != len(positions):
@@ -133,12 +141,15 @@ class ForecastPipeline:
                     if len(intermediate) > 10000:
                         raise ValueError("Forecast gap exceeds the bounded recursive horizon")
                     cursor += step
-                stamps = sorted(set(stamps) | set(intermediate))
+                grid = set(intermediate) | {cursor}
+                if not set(requested) <= grid:
+                    raise ValueError("Forecast timestamps do not follow the training frequency")
+                stamps = sorted(grid)
             classical_forecasts = {target: np.asarray(model.forecast(steps=len(stamps)))
                 for (series_key, target), model in self.models.items() if series_key == key}
             for forecast_index, stamp in enumerate(stamps):
                 position = requested.get(stamp)
-                row = X.iloc[position].copy() if position is not None else pd.Series(history[-1][2]).copy()
+                row = X.iloc[position].astype(object) if position is not None else pd.Series(history[-1][2], dtype=object)
                 row[self.task.time_column] = stamp
                 if hasattr(self, "regressor"):
                     features = pd.DataFrame([self._features(row, history)], index=["recursive"])

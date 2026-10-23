@@ -1,0 +1,18 @@
+{
+  "version_tag": "v072",
+  "archive": "solution_v072.zip",
+  "sha256": "f9d9e0bd0b6d54d50f4f983d1a3334a1cf5a5be6bc9b05460c63562ebc12be2c",
+  "bytes": 95047614,
+  "status": "combined_offline_integration_passed",
+  "offline_joint_tests_passed": 56,
+  "exact_zip_clean_cases_passed": 4,
+  "contains_visual_diagnostics": true,
+  "contains_hypothesis_critic": true,
+  "critic_source": "solution_v070.zip",
+  "visual_source": "solution_v071.zip",
+  "report": "../outputs/visual_critic_merge_20261024/REPORT.json",
+  "paid_benchmark_resumed": false,
+  "real_api_calls_this_merge": 0,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false
+}

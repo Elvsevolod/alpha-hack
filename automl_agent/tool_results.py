@@ -16,7 +16,8 @@ class ToolResult(Contract):
     observation_id: str
     evidence_ref: dict[str, str]
     status: Literal["success", "no_matches", "ambiguous", "missing_version", "unknown_id", "incompatible",
-        "technical_failure", "invalid_cursor", "budget_too_small", "interrupted", "outcome_unknown"]
+        "technical_failure", "invalid_cursor", "budget_too_small", "interrupted", "outcome_unknown",
+        "hypothesis_revision_required", "hypothesis_review_unavailable"]
     error_code: str | None = None
     provenance: dict[str, Any]
     complete: bool
@@ -84,6 +85,11 @@ class FinishData(BaseModel):
 
 class DatasetReportResult(ToolResult):
     tool: Literal["get_dataset_report"]
+    data: ReportData
+
+
+class DiagnosticReportResult(ToolResult):
+    tool: Literal["get_diagnostic_report"]
     data: ReportData
 
 
@@ -157,6 +163,7 @@ RESULT_SCHEMAS = dict(zip(("get_dataset_report", "revise_validation", "search_kn
     "run_custom_experiment", "build_ensemble", "finish"), (DatasetReportResult, ValidationRevisionResult,
     KnowledgeSearchResult, KnowledgeListResult, KnowledgeReadResult, RunSearchResult, RunListResult, RunReadResult,
     TrainResult, AutoMLResult, TuneResult, CustomResult, EnsembleResult, FinishResult)))
+RESULT_SCHEMAS["get_diagnostic_report"] = DiagnosticReportResult
 
 
 def envelope(c, operation, payload):

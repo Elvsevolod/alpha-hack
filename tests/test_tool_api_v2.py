@@ -32,8 +32,8 @@ def call(c, name, args, op):
     return result
 
 
-def test_all_fourteen_actions_share_one_public_registry_and_bounded_transports(agent):
-    assert len(TOOL_SCHEMAS) == 14 and set(TOOL_SCHEMAS) == set(RESULT_SCHEMAS)
+def test_all_fifteen_actions_share_one_public_registry_and_bounded_transports(agent):
+    assert len(TOOL_SCHEMAS) == 15 and set(TOOL_SCHEMAS) == set(RESULT_SCHEMAS)
     assert set(ToolCommand.model_json_schema()["properties"]["tool"]["enum"]) == set(TOOL_SCHEMAS)
     snapshot = agent.context_memory.snapshot(SYSTEM)
     for mode in ("native", "json"):

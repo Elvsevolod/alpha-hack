@@ -1,0 +1,144 @@
+{
+  "version": "v066",
+  "archive": "solution_v066.zip",
+  "sha256": "f0f6abfe440138f3f37e3594d4d61554f4c3738e0d951e460af479b7145721b6",
+  "bytes": 95032157,
+  "status": "offline_review_fixes_verified",
+  "technical_archive_checks_passed": true,
+  "embedded_sources_verified_after_tests": 54,
+  "python": "3.12.15",
+  "pinned_dependencies_verified": 37,
+  "image": "qwen-ml-agent:exact",
+  "image_id": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+  "full_suite": {
+    "tests": 916,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 410.405
+  },
+  "initial_full_suite_before_test_expectation_updates": {
+    "tests": 916,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 425.633
+  },
+  "components_suite": {
+    "tests": 115,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 4.922
+  },
+  "test_maintenance": {
+    "file": "tests/test_v011_pilot_budget.py",
+    "changes": [
+      "Assert structured budget admission diagnostics instead of obsolete error text.",
+      "Assert full-data AutoGluon refit while preserving separate original inner-fit/holdout row identities."
+    ],
+    "production_archive_changed": false
+  },
+  "review_regressions": {
+    "total": 76,
+    "passed_v066": 76,
+    "v064_failures": 75,
+    "v064_passing_control_cases": 1
+  },
+  "clean_archive_mock_cases_passed": 4,
+  "recovery_control_refit_passed": true,
+  "organizer_calls": 0,
+  "paid_calls": 0,
+  "submitted_to_platform": false,
+  "live_qwen_tested": false,
+  "quality_advantage_established": false,
+  "continuous_three_hour_run_demonstrated": false,
+  "preexisting_changes_preserved": true,
+  "fixes": [
+    {
+      "id": "R01",
+      "change": "MAPE и balanced_accuracy поддержаны в сжатом контексте; направление MAPE исправлено.",
+      "file": "context_compressor/core.py",
+      "line": 19,
+      "new_regressions": 4
+    },
+    {
+      "id": "R02",
+      "change": "Отрицания и противоречия учитываются в явных присваиваниях протокола, включая кавычки и несколько присваиваний.",
+      "file": "automl_agent/data.py",
+      "line": 171,
+      "new_regressions": 25
+    },
+    {
+      "id": "R03",
+      "change": "Классификация принимает только labels/probabilities до оценки и публикации; values/scores отклоняются.",
+      "file": "automl_agent/evaluation.py",
+      "line": 24,
+      "new_regressions": 12
+    },
+    {
+      "id": "R04",
+      "change": "Проверяется выбранный транспорт; JSON остаётся доступен при переполнении native. Правила системного сообщения уплотнены.",
+      "file": "automl_agent/context_memory.py",
+      "line": 298,
+      "new_regressions": 3
+    },
+    {
+      "id": "R05",
+      "change": "Завершённый baseline восстанавливается из проверенного manifest и артефактов без повторного обучения.",
+      "file": "automl_agent/controller.py",
+      "line": 358,
+      "new_regressions": 3
+    },
+    {
+      "id": "R06",
+      "change": "Неподдерживаемое переименование выходных столбцов отклоняется до подтверждения контракта.",
+      "file": "automl_agent/data.py",
+      "line": 582,
+      "new_regressions": 1
+    },
+    {
+      "id": "R07",
+      "change": "Для binary F1 до подтверждения проверяются положительный класс, принадлежность классам и бинарность.",
+      "file": "automl_agent/data.py",
+      "line": 553,
+      "new_regressions": 3
+    },
+    {
+      "id": "R08",
+      "change": "Callback FLAML для одной цели использует метрику без межцелевых весов; итоговая агрегация сохранена.",
+      "file": "automl_agent/search.py",
+      "line": 104,
+      "new_regressions": 2
+    },
+    {
+      "id": "R09",
+      "change": "Прогноз сохраняет календарную частоту. Нерегулярные ряды не получают сетку из минимальной разности дат.",
+      "file": "automl_agent/forecasting.py",
+      "line": 120,
+      "new_regressions": 19
+    },
+    {
+      "id": "R10",
+      "change": "Отсутствующий числовой блок даёт нулевые итерации и обучения импутации без исключения.",
+      "file": "automl_agent/preprocessing.py",
+      "line": 67,
+      "new_regressions": 4
+    }
+  ],
+  "limitations": [
+    "Renamed non-probability output columns remain unsupported and are rejected before freezing the contract.",
+    "Without an inferred regular frequency, future rows are treated as the provided observation sequence; no synthetic grid is inserted.",
+    "Paid/live Qwen quality and hidden platform scores have not been measured by these offline checks."
+  ],
+  "reports_directory": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/review_fixes_v064_20261023",
+  "report": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/review_fixes_v064_20261023/REPORT.md",
+  "unchanged_release_pointers": [
+    "dist/CANDIDATE.json",
+    "dist/LATEST.json"
+  ],
+  "harness_repairs": [
+    "Component subprocess test required runtime as cwd; the first run had 114 passes and 1 import-path failure, the corrected run passed all 115.",
+    "Standalone no-LLM recovery fixture initially omitted its explicit task_spec.json; added to the fixture, then recovery/control/refit completed."
+  ]
+}

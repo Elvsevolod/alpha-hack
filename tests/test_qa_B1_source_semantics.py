@@ -28,6 +28,247 @@ def test_v2_semantic_primary_metric_is_not_vetoed_by_first_regex_match(tmp_path)
     assert data.confirm_proposal(proposal,'r').metric.name=='mae'
 
 
+def test_model_validation_strategy_needs_protocol_evidence_not_column_roles(tmp_path):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier.')
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']='group'
+    reply['evidence']['explicit_validation']=['task']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+    assert not hasattr(data,'train') and data.paths=={}
+
+
+@pytest.mark.parametrize(('instruction','strategy'),[
+    ('Use a random validation split.', 'random'),
+    ('Use group-based validation.', 'group'),
+    ('Use chronological validation.', 'temporal'),
+    ('Use chronological split and group-based validation.', 'temporal_group'),
+    ('Use chronological validation. Keep query groups separate.', 'temporal_group'),
+    ('Validation on future periods follows past training periods.', 'temporal'),
+    ('Используйте валидацию на будущих периодах.', 'temporal'),
+    ('Разбейте выборку по группам.', 'group'),
+    ('Use group-based validation and do not use random validation.', 'group'),
+    ('Use group-based validation and avoid random validation.', 'group'),
+    ('Use group-based validation and never use random validation.', 'group'),
+    ('Groups must not overlap across train and validation.', 'group'),
+    ('Do not split groups across train and validation.', 'group'),
+    ('Группы не должны пересекаться между train и validation.', 'group'),
+    ('Groups must not be split across train and validation.', 'group'),
+    ('Не разделяйте группы между train и validation.', 'group'),
+    ('Prefer group-based validation.', 'group'),
+    ('Рекомендуется групповая валидация.', 'group'),
+    ('Use random validation. No random validation was used in the previous run.', 'random'),
+])
+def test_model_validation_strategy_accepts_matching_task_protocol(tmp_path,instruction,strategy):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. '+instruction)
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']=strategy
+    reply['evidence']['explicit_validation']=['task']
+    resolved=data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+    assert resolved.explicit_validation==strategy
+
+
+@pytest.mark.parametrize(('instruction','strategy'),[
+    ('Use chronological validation.', 'group'),
+    ('Use group-based validation.', 'temporal'),
+])
+def test_model_validation_strategy_rejects_protocol_mismatch(tmp_path,instruction,strategy):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. '+instruction)
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']=strategy
+    reply['evidence']['explicit_validation']=['task']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+@pytest.mark.parametrize(('instruction','strategy'),[
+    ('Do not use group-based validation.', 'group'),
+    ('Do not use chronological validation.', 'temporal'),
+    ('Group-based validation should not be used.', 'group'),
+    ('Групповая валидация не должна использоваться.', 'group'),
+    ('Group-based validation is used in the previous run.', 'group'),
+    ('Групповая валидация используется в предыдущем запуске.', 'group'),
+    ('Group-based validation follows the preprocessing pipeline used in the previous run.', 'group'),
+    ('Use group-based validation. Group-based validation should not be used.', 'group'),
+    ('Use group-based validation. You shouldn\'t use group-based validation.', 'group'),
+    ('Use group-based validation. Avoid using group-based validation.', 'group'),
+    ('Use group-based validation. You are prohibited from using group-based validation.', 'group'),
+    ('Используйте групповую валидацию. Групповую валидацию использовать нельзя.', 'group'),
+    ('Use group-based validation. Group-based validation is prohibited.', 'group'),
+    ('Use group-based validation. Group-based validation is forbidden.', 'group'),
+    ('Use group-based validation. Group-based validation is disallowed.', 'group'),
+    ('Use group-based validation. Group-based validation is banned.', 'group'),
+    ('Use group-based validation. Group-based validation is not permitted.', 'group'),
+    ('Use group-based validation. Group-based validation isn\'t allowed.', 'group'),
+    ('Use group-based validation. Group-based validation isn\'t recommended.', 'group'),
+    ('Use group-based validation. Group-based validation is discouraged.', 'group'),
+    ('Use group-based validation. Group-based validation cannot be used.', 'group'),
+    ('Use group-based validation. Group-based validation can\'t be used.', 'group'),
+    ('Use group-based validation. Group-based validation shouldn\'t be used.', 'group'),
+    ('Use group-based validation. Group-based validation mustn\'t be used.', 'group'),
+    ('Use group-based validation. Group-based validation must be avoided.', 'group'),
+    ('Use group-based validation. Group-based validation should be avoided.', 'group'),
+    ('Use group-based validation but do not use group-based validation.', 'group'),
+    ('Groups must not overlap across train and validation, and group-based validation should not be used.', 'group'),
+    ('Use group-based validation as an example in the report.', 'group'),
+    ('Use group-based validation or random validation.', 'group'),
+    ('Групповая валидация не подходит для этой задачи.', 'group'),
+    ('Groups must not overlap within the source dataset.', 'group'),
+    ('Groups must not overlap within the test dataset.', 'group'),
+    ('Группы не должны пересекаться внутри исходного набора.', 'group'),
+    ('Use random validation. Random validation isn\'t recommended.', 'random'),
+    ('Use random validation. You shouldn\'t use random validation.', 'random'),
+    ('Use random validation. You are prohibited from using random validation.', 'random'),
+    ('Use random validation. No random validation should be used.', 'random'),
+    ('Use random validation. No random validation should ever be used.', 'random'),
+    ('Use random validation. No random validation should be performed.', 'random'),
+    ('Use random validation. Random validation must not be performed.', 'random'),
+    ('Используйте случайную валидацию. Случайную валидацию использовать нельзя.', 'random'),
+    ('Use chronological validation. Chronological validation is discouraged.', 'temporal'),
+    ('Use chronological validation. You shouldn\'t use chronological validation.', 'temporal'),
+    ('Use chronological validation. You are prohibited from using chronological validation.', 'temporal'),
+    ('Use chronological validation. Chronological validation should never be used.', 'temporal'),
+    ('Use chronological validation. Chronological validation should never be performed.', 'temporal'),
+    ('Use group-based validation. Group-based validation should never be used.', 'group'),
+    ('Use group-based validation. Group-based validation must not be performed.', 'group'),
+    ('Train on past years and test on future periods.', 'temporal'),
+])
+def test_model_validation_strategy_rejects_negation_and_test_chronology_only(tmp_path,instruction,strategy):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. '+instruction)
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']=strategy
+    reply['evidence']['explicit_validation']=['task']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+@pytest.mark.parametrize(('instruction','strategy'),[
+    ('Use random validation instead of group-based validation.', 'group'),
+    ('Use group-based validation, not temporal validation.', 'temporal_group'),
+    ('Use the handbook to see that the previous run used group-based validation.', 'group'),
+])
+def test_model_validation_strategy_rejects_alternatives_and_unrelated_directives(tmp_path,instruction,strategy):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. '+instruction)
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']=strategy
+    reply['evidence']['explicit_validation']=['task']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+@pytest.mark.parametrize(('instruction','strategy'),[
+    ('Group-based validation is one option in the guide.', 'group'),
+    ('The previous run used group-based validation.', 'group'),
+    ('Group-based validation is one option. Chronological validation is another.', 'temporal_group'),
+])
+def test_model_validation_strategy_rejects_descriptive_options_and_history(tmp_path,instruction,strategy):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. '+instruction)
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']=strategy
+    reply['evidence']['explicit_validation']=['task']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+def test_descriptive_alternatives_do_not_block_a_later_direct_protocol(tmp_path):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('Possible methods include group-based or random validation. Use chronological validation.')
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']='temporal'
+    reply['evidence']['explicit_validation']=['task']
+    resolved=data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+    assert resolved.explicit_validation=='temporal'
+
+
+def test_structural_source_cannot_substitute_for_cited_protocol_text(tmp_path):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier. Use group-based validation.')
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']='group'
+    reply['evidence']['explicit_validation']=['inventory']
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+def test_arbitrary_supporting_notes_cannot_prescribe_validation(tmp_path):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier.')
+    notes=tmp_path/'analyst_notes.md'
+    notes.write_text('Use group-based validation.')
+    readme=tmp_path/'README.md'
+    readme.write_text('Use random validation.')
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']='group'
+    reply['evidence']['explicit_validation']=['description:analyst_notes.md']
+    assert data.sources['description:analyst_notes.md']['scope']=='supporting_material'
+    with pytest.raises(ValueError,match='explicit_validation'):
+        data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+
+
+def test_generic_readme_and_description_are_not_organizer_instruction_sources(tmp_path):
+    task=write_task(tmp_path)
+    (tmp_path/'README.md').write_text('General project notes.')
+    (tmp_path/'description.md').write_text('Additional analysis notes.')
+    (tmp_path/'instructions.md').write_text('General workspace instructions.')
+    (tmp_path/'rules.md').write_text('General workspace rules.')
+    data=Dataset(task,deferred=True)
+    assert data.sources['description:README.md']['scope']=='supporting_material'
+    assert data.sources['description:description.md']['scope']=='supporting_material'
+    assert data.sources['description:instructions.md']['scope']=='supporting_material'
+    assert data.sources['description:rules.md']['scope']=='supporting_material'
+
+
+def test_organizer_instruction_document_can_prescribe_validation(tmp_path):
+    task=write_task(tmp_path,temporal=True,groups=True)
+    task.write_text('The when field is the observation year; query is the group identifier.')
+    rules=tmp_path/'organizer_rules.txt'
+    rules.write_text('Use group-based validation.')
+    data=Dataset(task,deferred=True)
+    reply=proposed(data)
+    reply['task_spec']['explicit_validation']='group'
+    reply['evidence']['explicit_validation']=['description:organizer_rules.txt']
+    assert data.sources['description:organizer_rules.txt']['scope']=='organizer_instruction'
+    resolved=data.confirm_proposal(TaskResolutionProposal.model_validate(reply),'r')
+    assert resolved.explicit_validation=='group'
+
+
+def test_local_task_spec_validation_strategy_is_preserved(tmp_path):
+    task_path=write_task(tmp_path,temporal=True,groups=True)
+    spec_path=tmp_path/'task_spec.json'
+    spec=json.loads(spec_path.read_text())
+    spec['explicit_validation']='group'
+    spec_path.write_text(json.dumps(spec))
+    data=Dataset(task_path)
+    task,_=data.draft()
+    data.task=task
+    assert data.fixed['explicit_validation']=='group'
+    assert choose_validation(data).strategy=='group'
+
+
+def test_future_time_and_group_inference_remains_temporal_group_without_explicit_protocol(tmp_path):
+    task_path=write_task(tmp_path,temporal=True,groups=True)
+    data=Dataset(task_path)
+    task,_=data.draft()
+    data.task=task
+    assert task.explicit_validation is None
+    assert choose_validation(data).strategy=='temporal_group'
+
+
 def test_dictionary_semantics_available_before_dataset_activation_without_labels(tmp_path):
     task=write_task(tmp_path,temporal=True)
     dictionary=tmp_path/'nested'/'roles.csv';dictionary.parent.mkdir()

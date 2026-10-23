@@ -1,0 +1,69 @@
+{
+  "version_tag": "v067",
+  "archive": "solution_v067.zip",
+  "base": "solution_v066.zip",
+  "sha256": "8c575eae39cba2c78f1599a7d24f737df3b2587269f321d3dc37ff9ec7a7c6f7",
+  "bytes": 95033083,
+  "status": "offline_fixes_verified_live_quality_pending",
+  "technical_archive_checks_passed": true,
+  "tested_sources_match_archive": true,
+  "changed_runtime_files": [
+    "automl_agent/controller.py",
+    "automl_agent/data.py"
+  ],
+  "runtime_files": 54,
+  "full_tests": {
+    "tests": 927,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 441.822
+  },
+  "pinned_dependencies_verified": 37,
+  "python": "3.12.15",
+  "image_id": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+  "exact_archive_mock_cases_passed": 4,
+  "exact_archive_research_cases_passed": 4,
+  "stock_limit_seconds": 10800,
+  "global_test_caps_packaged": false,
+  "fixes": [
+    "deferred_contract_preserves_documented_time_role",
+    "candidate_attempt_cap_distinguished_from_global_affordability",
+    "multiclass_macro_f1_fit_only_decision_challenger"
+  ],
+  "synthetic_bootstrap_screen": {
+    "pairs": 6,
+    "mean_outer_delta": 0.0037806200323371917,
+    "worst_outer_delta": 0.0,
+    "passed": true,
+    "reference_corpus_limitation": "Both arms used the same local aaa9c1ef corpus, not the v066 fb787282 corpus. No Qwen/source query was executed; scope is bootstrap-only, not exact-archive quality."
+  },
+  "public_bootstrap_stock": {
+    "before_macro_f1": 0.6173799485958739,
+    "after_macro_f1": 0.6346404566099244,
+    "delta": 0.017260508014050546,
+    "model_calls": 0,
+    "same_control_partitions": true,
+    "before_seconds": 70.6144654750824,
+    "after_seconds": 123.34549975395203,
+    "continuous_three_hour_run": false,
+    "scope": "Public no-LLM bootstrap only; historical control reused; hidden test quality unknown"
+  },
+  "public_bootstrap_600s_delta": 0.0,
+  "paid_calls": 0,
+  "organizer_api_calls": 0,
+  "live_qwen_tested": false,
+  "quality_advantage_established": false,
+  "hidden_platform_score_measured": false,
+  "submitted_to_platform": false,
+  "candidate_pointer_unchanged": true,
+  "v066_archive_unchanged": true,
+  "preexisting_source_changes_preserved": true,
+  "report": "../outputs/v066_quality_fixes_20261023/REPORT.md",
+  "limitations": [
+    "Paired bootstrap checks do not establish whole-agent quality with Qwen.",
+    "The public control has been used before and is not a fresh independent quality estimate.",
+    "CPU=1 and memory=2048 MiB in public paired checks differ from platform resources.",
+    "The existing medium/xhigh reasoning policy is unchanged; a full latency improvement is not established."
+  ]
+}

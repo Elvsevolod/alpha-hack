@@ -25,10 +25,20 @@
     "failed": 0
   },
   "exact_archive_offline_mock": {
-    "status": "not_run",
-    "reason": "Docker client could not access the local OrbStack socket (permission denied).",
-    "v061_mock_results_carried_forward": false,
-    "organizer_api_calls": 0
+    "status": "passed",
+    "report": "../outputs/agent_quality_reaudit_20261023/v062_exact_mock_20261023/REPORT.json",
+    "run_context": "../outputs/agent_quality_reaudit_20261023/v062_exact_mock_20261023/RUN_CONTEXT.json",
+    "cases_passed": 4,
+    "cases_failed": 0,
+    "container_image": "qwen-ml-agent:exact",
+    "container_image_sha256": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+    "network_mode": "none",
+    "read_only_root": true,
+    "organizer_api_calls": 0,
+    "stock_time_limit_seconds": 10800,
+    "all_cases_control_refit_completed": true,
+    "all_cases_csv_valid": true,
+    "test_limit_overrides_enabled": false
   },
   "independent_review": {
     "status": "GO",
@@ -40,5 +50,12 @@
   "submitted_to_platform": false,
   "additional_paid_calls_allowed": false,
   "paid_calls_this_cycle": 0,
-  "latest_pointer_changed": false
+  "latest_pointer_changed": false,
+  "exact_archive_runtime_materialization": {
+    "passed": true,
+    "method": "Executed agent_bundle.materialize from the exact ZIP in a temporary directory; verified embedded member hashes and imported the extracted contracts module.",
+    "contracts_module_sha256": "876c0a96fd25590b76a48a5499bd7251554ba1972260b4b9b4f21e7e89288e8c",
+    "budget_identity_behavior_passed": true,
+    "organizer_api_calls": 0
+  }
 }

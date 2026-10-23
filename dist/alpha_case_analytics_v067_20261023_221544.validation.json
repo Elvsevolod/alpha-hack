@@ -1,0 +1,15 @@
+{
+  "archive": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/dist/alpha_case_analytics_v067_20261023_221544.zip",
+  "bytes": 150681067,
+  "sha256": "61f440fac2a99476322ad7cbf99a1489b3675cc43fb1969fca0c76abe4d2322c",
+  "members": 827,
+  "start_here": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/alpha_case_analytics_v067_20261023_221544/00_НАЧАТЬ_ЗДЕСЬ.md",
+  "manifest": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/alpha_case_analytics_v067_20261023_221544/MANIFEST.json",
+  "zip_crc_check": true,
+  "all_member_hashes_verified": true,
+  "inner_solution_unchanged": true,
+  "entry_document_links_verified": 41,
+  "original_data_csvs_included": 8,
+  "runtime_files_extracted_and_verified": 54,
+  "organizer_api_calls": 0
+}

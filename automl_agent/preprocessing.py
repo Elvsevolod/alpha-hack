@@ -64,6 +64,7 @@ class FeatureMatrix:
         self.numeric_columns = [c for c in frame if c not in self.text_columns + self.categorical_columns]
         self.empty_columns = [c for c in self.numeric_columns if frame[c].isna().all()]
         self.complete_columns = [c for c in self.numeric_columns if frame[c].notna().all()]
+        self.imputer = None
         self.numeric_scaler = None
         self.numeric_transformers = []
         self.categorical_models = {}

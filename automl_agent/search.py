@@ -62,6 +62,10 @@ class SearchPipeline:
             raise ValueError("AutoML postprocessing requires a separately verified adapter")
         started = time.monotonic()
         fit, val = inner_split(X, y, self.task, context["strategy"], self.spec.seed)
+        if self.spec.engine == "autogluon":
+            # Final refit_full is called on the original selected model, so
+            # remember only rows that model itself saw during predictor.fit.
+            self.training_keys = list(map(str, X.index[fit]))
         self.inner_split = {"fit_keys": X.index[fit].tolist(), "validation_keys": X.index[val].tolist(), "scope": "external_fit_only", "strategy": context["strategy"]}
         self.selected, self.inner_scores = {}, {}
         self.raw_feature_columns = list(X)
@@ -98,7 +102,9 @@ class SearchPipeline:
         return self.summary
 
     def _flaml_metric(self, target, original_labels):
-        task = self.task.model_copy(update={"targets": [target], "classes": {target: self.task.classes[target]} if self.task.classes else {}})
+        metric = self.task.metric.model_copy(update={"aggregation": "uniform", "target_weights": None})
+        task = self.task.model_copy(update={"targets": [target], "classes": {target: self.task.classes[target]} if self.task.classes else {},
+            "metric": metric})
 
         def metric(X_val, y_val, estimator, labels=None, X_train=None, y_train=None, *args, **kwargs):
             if task.classes:
@@ -241,8 +247,17 @@ class SearchPipeline:
         if "fit_time" in leader:
             self.budget_evidence["targets"][target]["selected_fit_actual_seconds"] = float(leader.loc[leader["model"] == best, "fit_time"].iloc[0])
         self.inner_scores[target] = {"leaderboard": json.loads(leader[["model", "score_val"]].to_json(orient="records")), "scope": "inner_fit_holdout"}
+        refit_started = time.monotonic()
+        mapping = predictor.refit_full(model=best, train_data_extra=train.iloc[val].copy(),
+            set_best_to_refit_full=True, num_cpus=context["cpu"], num_gpus=0, fit_strategy="sequential")
+        refit_seconds = time.monotonic() - refit_started
+        if not mapping or best not in mapping:
+            raise ValueError("AutoGluon did not produce the selected full-data refit")
+        self.budget_evidence["targets"][target]["selected_fit_actual_seconds"] = refit_seconds
+        self.budget_evidence["targets"][target]["inner_holdout_refit_seconds"] = refit_seconds
+        self.budget_evidence["selected_fit_rows"] = len(X)
         self.selected[target] = {"model": best, "path": str(path), "search_owner": "autogluon", "bagging": False, "stacking": False,
-            "parameters": predictor.info()["model_info"][best].get("hyperparameters", {})}
+            "refitted_model": mapping[best], "parameters": predictor.info()["model_info"][best].get("hyperparameters", {})}
         self.models[target] = ("autogluon", predictor)
         self.selected[target]["refit_policy"] = "fixed_original_model_on_train_tuning_and_permitted_extra_rows"
 

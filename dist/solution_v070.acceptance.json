@@ -1,0 +1,71 @@
+{
+  "version_tag": "v070",
+  "archive": "solution_v070.zip",
+  "sha256": "895637ff83cbf44c4f543cc41dc5e82d19ab64916e1789f29fd01053e5a5679f",
+  "bytes": 95037427,
+  "base_archive": "solution_v067.zip",
+  "status": "critic_component_verified_full_autonomous_readiness_not_established",
+  "scope": "Critic implementation in working sources; isolated v067-based ZIP excludes concurrent visual-diagnostics changes.",
+  "technical_archive_checks_passed": true,
+  "payload_audit": "../outputs/hypothesis_critic_20261023/final_payload_audit_v070.json",
+  "new_critic_tests": {
+    "passed": 27,
+    "failed": 0,
+    "report": "critic_v070_tests.xml"
+  },
+  "related_tests_before_annotation_normalization": {
+    "passed": 196,
+    "failed": 1,
+    "report": "isolated_tests.xml",
+    "inherited_failure_reproduced_without_critic": "baseline_budget_check.xml"
+  },
+  "exact_linux_mock": {
+    "passed": 4,
+    "failed": 0,
+    "critic_calls_per_case": 1,
+    "report": "docker_checks/critic_gate_v070/REPORT.json"
+  },
+  "real_api_component_tests": {
+    "passed": 2,
+    "failed": 0,
+    "preconfirmed_contracts_for_byte_identical_inputs": true,
+    "fresh_models_and_splits": true,
+    "report": "live_v070_targeted/REPORT.json"
+  },
+  "full_fresh_v070_probe": {
+    "all_passed": false,
+    "regression": "task contract unresolved within development max_calls=10 before critic",
+    "classification": "critic rejected weak and approved coherent proposal; controller deferred full candidate after pilot to protect finalization",
+    "report": "live_v070/REPORT.json"
+  },
+  "api_budget": {
+    "cap": 200,
+    "aggregate_counter_increase": 33.05451042066534,
+    "aggregate_reported_cost": 33.0545104206655,
+    "priced_requests": 40,
+    "remaining_before": 485.9374830406558,
+    "remaining_after": 452.8829726199903,
+    "account_limit": 600.0,
+    "no_request_inflight": true,
+    "ledger_closed": null,
+    "counter_matches_usage_cost": true,
+    "first_snapshot": "live/api_limits_before.json",
+    "last_snapshot": "live_v070_targeted/api_limits_after.json",
+    "ledger": "live/budget_ledger.json"
+  },
+  "production_limits": {
+    "seconds": 10800,
+    "cpu": 7,
+    "memory_mb": 28000,
+    "max_calls": null,
+    "max_candidates": null
+  },
+  "quality_advantage_established": false,
+  "full_three_hour_run_tested": false,
+  "official_runtime_live_tested": false,
+  "platform_score_measured": false,
+  "submitted_to_platform": false,
+  "global_candidate_pointer_changed_by_this_work": false,
+  "working_tree_critic_integration_present": true,
+  "documentation": "../outputs/hypothesis_critic_20261023/REPORT.md"
+}

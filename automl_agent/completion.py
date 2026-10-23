@@ -58,6 +58,34 @@ def measured_cost(summary, seconds, rows, default_rows, ensemble=False):
     return base * max(1, rows / training_rows) * 1.25 + .2
 
 
+def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
+    """Estimate one candidate fit, including HPO that frozen refits skip."""
+    frozen_fit = measured_cost(summary, seconds, rows, default_rows)
+    budget = summary.get("budget") or {}
+    targets = budget.get("targets") or {}
+    search_seconds = sum(max(0.0, float(item.get("search_seconds", 0))) for item in targets.values())
+    if not targets:
+        search_seconds = max(0.0, float(budget.get("search_seconds", 0)))
+    if not search_seconds:
+        return frozen_fit
+
+    trial_scale = 1.0
+    if pipeline.engine == "autogluon":
+        requested = pipeline.learners or ["GBM", "CAT", "XGB"]
+        planned = min(pipeline.n_trials, len(requested)) if pipeline.n_trials is not None else len(requested)
+        observed = max((len(item.get("configured_learners", [])) for item in targets.values()), default=0)
+        trial_scale = max(1.0, planned / max(1, observed))
+    elif pipeline.n_trials is not None:
+        observed = sum(int(item.get("attempted_trials", item.get("completed_trials", 0))) for item in targets.values())
+        if not observed:
+            observed = len((summary.get("inner_scores") or {}).get("trials", []))
+        trial_scale = max(1.0, pipeline.n_trials / max(1, observed))
+
+    search_rows = max(1, int(summary.get("rows", default_rows)))
+    scaled_search = search_seconds * max(1, rows / search_rows) * trial_scale * 1.25
+    return frozen_fit + scaled_search
+
+
 def estimate(controller, identifiers, rows=None, phase=None):
     c = controller
     rows = c.plan.fit if rows is None else rows
@@ -140,17 +168,21 @@ def candidate_costs(controller, pipeline, measurement=None):
     current = getattr(base, "forecast", None)
     if current is None:
         current = forecast(c, []).forecast
-    cost = lambda rows: max(measured_cost(summary, seconds, rows, len(c.plan.fit)) for summary, seconds in samples)
-    fit = cost(len(c.plan.fit))
-    control = cost(len(c.plan.fit) + len(c.plan.validation))
-    refit = cost(len(c.dataset.train))
+    frozen_cost = lambda rows: max(measured_cost(summary, seconds, rows, len(c.plan.fit)) for summary, seconds in samples)
+    candidate_fit = lambda rows: max(candidate_measured_cost(summary, seconds, rows, len(c.plan.fit), pipeline)
+        for summary, seconds in samples)
+    fit = candidate_fit(len(c.plan.fit))
+    control = frozen_cost(len(c.plan.fit) + len(c.plan.validation))
+    refit = frozen_cost(len(c.dataset.train))
     publication = max(2, (sum(base) + fit) * .1)
     proposed = {**current, "seconds": current["control"]["seconds"] + control
         + max(current["refit"]["seconds"], refit) + publication + current["safety_seconds"],
         "candidate_fit_seconds": fit, "candidate_control_seconds": control, "candidate_refit_seconds": refit,
         "control_scoring_and_publication_seconds": publication,
-        "cost_basis": "row_scaled_pilot" if measurement is not None else "measured_same_recipe",
-        "uncertainty": "custom_runtime_not_bounded_by_sample" if pipeline.engine == "custom" else "row_scaling_is_an_estimate"}
+        "cost_basis": "row_and_search_scaled_pilot" if measurement is not None else "measured_same_recipe_and_search",
+        "uncertainty": ("custom_runtime_not_bounded_by_sample" if pipeline.engine == "custom" else
+            "uncapped_trial_search_is_time_limited" if pipeline.n_trials is None and pipeline.engine in {"flaml", "optuna"} else
+            "row_and_trial_scaling_is_an_estimate")}
     return CompletionCosts([*base, fit], proposed)
 
 

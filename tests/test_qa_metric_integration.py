@@ -69,6 +69,21 @@ def test_old_metrics_remain_and_parser_distinguishes_balanced():
     assert parse_metric('Primary metric accuracy').name=='accuracy'
 
 
+def test_dataset_rejects_forged_probability_metric_label_output(tmp_path):
+    from automl_agent.data import Dataset
+
+    dataset = Dataset(write_task(tmp_path, kind="classification"), deferred=True)
+    dataset.bind({"train.csv": "train.csv", "test.csv": "test.csv", "sample_submission.csv": "sample_submission.csv"})
+    task = TaskSpec(kind="classification", targets=["answer"], id_columns=["row"],
+        feature_columns=["value", "empty", "code"], categorical_columns=["code"],
+        metric=MetricSpec(name="f1"),
+        classes={"answer": ["negative", "positive"]},
+        output=OutputSpec(columns=["row", "answer"], prediction_type="labels"), source_hash=dataset.source_hash)
+    forged = task.model_copy(update={"metric": MetricSpec(name="roc_auc", positive_label="positive")})
+    with pytest.raises(ValueError, match="Probability metrics require probability output"):
+        dataset.validate(forged)
+
+
 def test_balanced_accuracy_labels_and_probabilities():
     task=task_for('balanced_accuracy',['y'],{'y':['a','b','c']})
     y=pd.DataFrame({'y':['a','a','b','c']})

@@ -1,0 +1,74 @@
+{
+  "version_tag": "v065",
+  "archive": "solution_v065.zip",
+  "base": "solution_v062.zip",
+  "sha256": "42660839fdcaaa2025e84a63cbf973119ccc365f7d100b072a285c7903a68d8b",
+  "bytes": 95030493,
+  "flat_member_count": 225,
+  "packer_verification": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v065_zip_verification.json",
+    "exit_code": 0,
+    "python_version": "3.12.3",
+    "source_match_checked": true,
+    "zip_and_syntax_valid": true,
+    "flat_layout_checked": true,
+    "requirements_match_checked": true,
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "archive_size_limit_bytes": 100000000,
+    "dependency_policy_checked_by_packer": false,
+    "embedded_payload_checked_by_packer": false,
+    "runtime_interface_checked_by_packer": false
+  },
+  "targeted_tests": {
+    "report": "../outputs/agent_quality_reaudit_20261023/v065_test_results.json",
+    "passed": 217,
+    "failed": 0,
+    "warnings": 13
+  },
+  "exact_archive_offline_mock": {
+    "status": "passed",
+    "report": "../outputs/agent_quality_reaudit_20261023/v065_exact_mock_20261023/REPORT.json",
+    "run_context": "../outputs/agent_quality_reaudit_20261023/v065_exact_mock_20261023/RUN_CONTEXT.json",
+    "cases_passed": 4,
+    "cases_failed": 0,
+    "container_image": "qwen-ml-agent:exact",
+    "container_image_sha256": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+    "network_mode": "none",
+    "read_only_root": true,
+    "organizer_api_calls": 0,
+    "all_cases_control_refit_completed": true,
+    "all_cases_csv_valid": true
+  },
+  "research_cycle_offline_mock": {
+    "status": "passed",
+    "report": "../outputs/agent_quality_reaudit_20261023/v065_research_cycle_acceptance_4g/REPORT.json",
+    "run_context": "../outputs/agent_quality_reaudit_20261023/v065_research_cycle_acceptance_4g/RUN_CONTEXT.json",
+    "cases_passed": 4,
+    "cases_failed": 0,
+    "tasks": ["regression", "multiclass classification"],
+    "transports": ["native", "JSON"],
+    "network_mode": "none",
+    "tmpfs": "4 GiB",
+    "organizer_api_calls": 0,
+    "all_cases_read_guide_and_knowledge": true,
+    "all_cases_recorded_research_reviews": true,
+    "all_cases_control_refit_completed": true,
+    "all_cases_csv_valid": true,
+    "quality_test": false
+  },
+  "independent_review": {
+    "status": "GO",
+    "scope": "Explicit validation evidence gate and direct/negated protocol detection; research review storage and comparability.",
+    "limitations": [
+      "Research guidance to read sources once and cite read evidence remains prompt-led; read receipts are not enforced by validate_evidence.",
+      "Review conclusions remain conditional evidence and do not establish that a textual hypothesis was causal."
+    ]
+  },
+  "live_qwen_run": false,
+  "public_or_private_quality_measured": false,
+  "quality_advantage_established": false,
+  "submitted_to_platform": false,
+  "additional_paid_calls_allowed": false,
+  "paid_calls_this_cycle": 0,
+  "latest_pointer_changed": false
+}

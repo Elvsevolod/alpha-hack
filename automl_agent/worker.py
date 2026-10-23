@@ -109,6 +109,10 @@ def run_request(request, directory):
         return policy_probe(request, directory)
     extras = request.get("read_dependencies", [])
     apply_access_policy(directory, extras)
+    if request["mode"] == "visual_diagnostics":
+        from .visual_diagnostics import run_worker
+        request.setdefault("context", {})["workdir"] = str(directory)
+        return run_worker(request, directory)
     if request["mode"] == "clustering":
         from .clustering import ClusteringContract, run
         report = run(directory, ClusteringContract.model_validate(request["contract"]))

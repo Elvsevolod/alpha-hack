@@ -59,6 +59,16 @@ def test_forecast_multiple_series_causality_and_short_history(model,tmp_path):
         p.predict(pd.DataFrame({'series':['long','long'],'time':[36,36]},index=['x','y']),c)
 
 
+def test_optuna_forecasting_fails_before_pipeline_construction(tmp_path):
+    task=TaskSpec(kind='forecasting',targets=['target'],feature_columns=['series','time'],categorical_columns=['series'],
+        time_column='time',series_columns=['series'],horizon=2,metric=MetricSpec(name='rmse'),
+        output=OutputSpec(columns=['target'],prediction_type='values'),source_hash='fixture')
+    spec=PipelineSpec(engine='optuna',search_owner='optuna',model='ridge',
+        search_space={'alpha':{'type':'float','low':.1,'high':2.}})
+    with pytest.raises(ValueError,match='optuna_forecasting_requires_causal_forecast_adapter'):
+        build_pipeline(spec,task,{'strategy':'temporal'})
+
+
 def test_ranking_shuffled_groups_preserves_rows(tmp_path):
     rng=np.random.default_rng(7);n=120
     X=pd.DataFrame({'query':np.repeat(np.arange(12),10),'x':rng.normal(size=n)},index=[str(i) for i in range(n)])
