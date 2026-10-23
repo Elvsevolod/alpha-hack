@@ -304,11 +304,15 @@ class ExperimentSpec(Contract):
         pipeline = self.pipeline.model_dump(mode="json")
         if self.pipeline.engine == "custom" and self.pipeline.custom_semantic_hash:
             pipeline["custom_hash"] = pipeline["custom_module"] = self.pipeline.custom_semantic_hash
-        return digest({
+        identity = {
             "pipeline": pipeline, "task_hash": self.task_hash,
             "data": self.data_version, "validation": self.validation_hash,
             "libraries": self.library_versions, "status": self.status,
-        })
+        }
+        if self.pipeline.engine != "ensemble":
+            identity["budget_seconds"] = self.budget_seconds
+            identity["budget_mode"] = self.budget_mode
+        return digest(identity)
 
 
 class PredictionBundle(Contract):

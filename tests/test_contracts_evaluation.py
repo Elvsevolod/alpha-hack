@@ -4,7 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from automl_agent.api import prediction_bundle
-from automl_agent.contracts import ExperimentResult, FeedbackPolicy, MetricSpec, OutputSpec, PipelineSpec, PredictionBundle, SelectionPolicy, TaskSpec, ValidationPlan
+from automl_agent.contracts import ExperimentResult, ExperimentSpec, FeedbackPolicy, Hypothesis, MetricSpec, OutputSpec, PipelineSpec, PredictionBundle, SelectionPolicy, TaskSpec, ValidationPlan
 from automl_agent.evaluation import align_predictions, choose_leader, feedback_reports, score_predictions
 from automl_agent.util import digest
 
@@ -94,3 +94,23 @@ def test_feedback_support_and_complements(tabular,count,status):
 def test_nested_search_and_unknown_fields_rejected():
     with pytest.raises(ValidationError): PipelineSpec(engine="flaml",search_owner="optuna")
     with pytest.raises(ValidationError): PipelineSpec(model="ridge",download_model=True)
+
+
+def test_computation_hash_tracks_training_budget_but_not_ensemble_composition_budget():
+    hypothesis = Hypothesis(observation="fixture", expected_effect="fixture", changed_component="fixture", acceptance="fixture")
+    optuna_pipeline = PipelineSpec(engine="optuna", model="lightgbm", search_owner="optuna",
+        search_space={"num_leaves": {"type": "int", "low": 8, "high": 16}})
+    base = ExperimentSpec(experiment_id="first", hypothesis=hypothesis, pipeline=optuna_pipeline,
+        task_hash="task", data_version="data", validation_hash="validation", budget_seconds=60,
+        budget_mode="research")
+    same_computation = base.model_copy(update={"experiment_id": "second"})
+    more_budget = base.model_copy(update={"budget_seconds": 120})
+    other_mode = base.model_copy(update={"budget_mode": "full_comparison"})
+    assert base.computation_hash == same_computation.computation_hash
+    assert base.computation_hash != more_budget.computation_hash
+    assert base.computation_hash != other_mode.computation_hash
+
+    ensemble = PipelineSpec(engine="ensemble", model="uniform_average", members=["one", "two"])
+    combined = base.model_copy(update={"experiment_id": "ensemble_first", "pipeline": ensemble})
+    combined_more_budget = combined.model_copy(update={"budget_seconds": 120, "budget_mode": "full_comparison"})
+    assert combined.computation_hash == combined_more_budget.computation_hash

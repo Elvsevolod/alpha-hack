@@ -210,6 +210,10 @@ def test_repeated_computation_cannot_hide_behind_ignored_cpu_overrides(tmp_path)
         assert second["status"] == "duplicate_computation" and "Duplicate computation" in second["error"]
         assert second["existing_experiment_id"] == first["experiment"]["experiment_id"]
         assert second["computation_hash"] == controller.lookup(second["existing_experiment_id"])[0].computation_hash
-        assert controller.budget.counter("candidate_count") == 1
+        base["budget_seconds"] = 21
+        third = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_more_budget", tool="train_model", arguments=base)))
+        assert third["result"]["status"] == "completed"
+        assert third["experiment"]["budget_seconds"] > first["experiment"]["budget_seconds"]
+        assert controller.budget.counter("candidate_count") == 2
     finally:
         controller.close()
