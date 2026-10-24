@@ -66,12 +66,18 @@ def worker(request):
     import lightgbm as lgb
     from automl_agent.contracts import PipelineSpec
     from automl_agent.pipelines import make_estimator
+    from tools.reference_features import engineer, macro_f1, RatingImputer
 
     q = json.loads(Path(request).read_text())
     directory = Path(q['directory'])
-    data = pd.read_csv(directory / 'train.csv')
     split = np.load(q['split'])
     train, evaluate = split[q['train']], split[q['evaluate']]
+    data = pd.read_csv(directory / 'train.csv')
+    feature_imputer = None
+    if q.get('impute_rating'):
+        feature_imputer = RatingImputer().fit(data.iloc[train])
+        data = feature_imputer.transform(data)
+    data = engineer(data, q.get('feature_plan'))
     target = q['target']
     classification = target == 'attack_cat'
     spec = PipelineSpec.model_validate(q['spec'])
@@ -79,7 +85,7 @@ def worker(request):
     columns = [c for c in data if c not in [target, 'id']]
     if q.get('building_only'):
         columns = ['State_Factor', 'building_class', 'facility_type', 'floor_area',
-                   'year_built', 'energy_star_rating', 'ELEVATION']
+                   'year_built', 'energy_star_rating', 'ELEVATION'] + [c for c in data if c.startswith('ref_')]
     categorical = list(data[columns].select_dtypes('object').columns)
     x = data[columns].copy()
     history = q.get('history_signature')
@@ -100,23 +106,67 @@ def worker(request):
     else:
         classes, encoded = None, y
     transformed = np.log1p(encoded) if spec.target_transform == 'log1p' else encoded
+    target_mean, target_scale = 0., 1.
+    if spec.model == 'mlp' and not classification:
+        target_mean, target_scale = float(transformed.iloc[train].mean()), float(transformed.iloc[train].std())
+        transformed = (transformed - target_mean) / target_scale
+    preprocessor = None
+    if spec.model not in {'catboost', 'lightgbm'}:
+        from sklearn.compose import ColumnTransformer
+        from sklearn.preprocessing import OneHotEncoder, QuantileTransformer
+        from sklearn.impute import SimpleImputer
+        from sklearn.pipeline import Pipeline
+        numeric = [c for c in columns if c not in categorical]
+        steps = [('impute', SimpleImputer(strategy='median', keep_empty_features=True, add_indicator=True))]
+        if spec.model == 'mlp':
+            steps.append(('quantile', QuantileTransformer(n_quantiles=min(500, len(train)), output_distribution='normal', random_state=42)))
+        preprocessor = ColumnTransformer([('numeric', Pipeline(steps), numeric),
+            ('categories', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical)], sparse_threshold=0)
+        fitted_x = preprocessor.fit_transform(x.iloc[train])
+        evaluated_x = preprocessor.transform(x.iloc[evaluate])
+    else:
+        fitted_x, evaluated_x = x.iloc[train], x.iloc[evaluate]
+    stop_rows = split[q['early_stop_evaluate']] if q.get('early_stop_evaluate') else evaluate
+    stopping_x = preprocessor.transform(x.iloc[stop_rows]) if preprocessor is not None else x.iloc[stop_rows]
     started = time.monotonic()
     fit_args = {}
+    if classification and q.get('class_weight_exponent'):
+        frequency = np.bincount(encoded.iloc[train], minlength=len(classes))
+        fit_args['sample_weight'] = (frequency.max() / frequency)[encoded.iloc[train]] ** q['class_weight_exponent']
     if spec.model == 'catboost':
         fit_args['cat_features'] = categorical
-    if not q.get('final'):
-        fit_args['eval_set'] = (x.iloc[evaluate], transformed.iloc[evaluate])
+    if not q.get('final') and not q.get('fixed_iterations') and spec.model in {'catboost', 'lightgbm', 'xgboost'}:
+        fit_args['eval_set'] = (stopping_x, transformed.iloc[stop_rows])
         if spec.model == 'catboost':
             fit_args.update(early_stopping_rounds=80, use_best_model=True)
-        else:
+        elif spec.model == 'lightgbm':
+            if classification and q.get('macro_stopping'):
+                frequency = np.bincount(encoded.iloc[train], minlength=len(classes))
+                factors = (frequency.max() / frequency) ** .5
+                def evaluate_macro(y, p):
+                    return 'adjusted_macro_f1', macro_f1(y, (p * factors).argmax(axis=1), len(classes)), True
+                model.set_params(metric='None')
+                fit_args['eval_metric'] = evaluate_macro
             fit_args.update(callbacks=[lgb.early_stopping(80, verbose=False)])
-    model.fit(x.iloc[train], transformed.iloc[train], **fit_args)
+        else:
+            model.set_params(early_stopping_rounds=80)
+            fit_args.update(eval_set=[fit_args['eval_set']], verbose=False)
+    model.fit(fitted_x, transformed.iloc[train], **fit_args)
     if spec.model == 'catboost':
         iterations = int(model.tree_count_)
-    else:
+    elif spec.model == 'lightgbm':
         iterations = int(model.best_iteration_ or spec.hyperparameters['n_estimators'])
+    elif spec.model == 'xgboost':
+        iterations = int(model.best_iteration + 1) if not q.get('final') and not q.get('fixed_iterations') else int(spec.hyperparameters['n_estimators'])
+    elif spec.model == 'mlp':
+        iterations = int(model.n_iter_)
+    else:
+        iterations = int(spec.hyperparameters['n_estimators'])
     if q.get('final'):
         test = pd.read_csv(directory / 'test.csv')
+        if feature_imputer is not None:
+            test = feature_imputer.transform(test)
+        test = engineer(test, q.get('feature_plan'))
         predict_x = test[[c for c in columns if c in test]].copy()
         if history:
             predict_x = predict_x.join(history_features(data.iloc[train], test, history, target, 'Year_Factor'))
@@ -127,7 +177,11 @@ def worker(request):
                 predict_x[c] = pd.Categorical(predict_x[c], categories=vocabulary[c])
     else:
         predict_x = x.iloc[evaluate]
+    if preprocessor is not None:
+        predict_x = preprocessor.transform(predict_x)
     prediction = model.predict_proba(predict_x) if classification else model.predict(predict_x)
+    if not classification:
+        prediction = prediction * target_scale + target_mean
     if spec.target_transform == 'log1p':
         prediction = np.expm1(prediction)
     assert np.isfinite(prediction).all()
@@ -135,10 +189,14 @@ def worker(request):
     joblib.dump({'model': model, 'spec': q['spec'], 'columns': columns,
                  'categorical': categorical, 'vocabulary': vocabulary, 'classes': classes,
                  'history_signature': history,
+                 'feature_plan': q.get('feature_plan'), 'preprocessor': preprocessor,
+                 'feature_imputer': feature_imputer,
+                 'target_mean': target_mean, 'target_scale': target_scale,
                  'history_reference': data.iloc[train][history + [target, 'Year_Factor']] if history else None}, q['model'])
-    importance = dict(zip(columns, map(float, model.feature_importances_)))
+    importance = dict(zip(columns, map(float, model.feature_importances_))) if preprocessor is None and hasattr(model, 'feature_importances_') else {}
     write(q['result'], {'status': 'completed', 'iterations': iterations,
           'seconds': time.monotonic() - started, 'classes': classes,
+          'auxiliary_fits': int(feature_imputer is not None),
           'feature_importance': sorted(importance.items(), key=lambda z: -z[1])[:15]})
 
 
@@ -417,7 +475,11 @@ def predict_saved(path, frame):
     import joblib
     import numpy as np
     import pandas as pd
+    from tools.reference_features import engineer
     bundle = joblib.load(path)
+    if bundle.get('feature_imputer') is not None:
+        frame = bundle['feature_imputer'].transform(frame)
+    frame = engineer(frame, bundle.get('feature_plan'))
     x = frame[[c for c in bundle['columns'] if c in frame]].copy()
     if bundle.get('history_signature'):
         x = x.join(history_features(bundle['history_reference'], frame,
@@ -428,7 +490,11 @@ def predict_saved(path, frame):
         if bundle['spec']['model'] == 'lightgbm':
             x[c] = pd.Categorical(x[c], categories=bundle['vocabulary'][c])
     model = bundle['model']
+    if bundle.get('preprocessor') is not None:
+        x = bundle['preprocessor'].transform(x)
     p = model.predict_proba(x) if bundle['classes'] else model.predict(x)
+    if not bundle['classes']:
+        p = p * bundle.get('target_scale', 1.) + bundle.get('target_mean', 0.)
     return np.expm1(p) if bundle['spec'].get('target_transform') == 'log1p' else p
 
 

@@ -1,5 +1,7 @@
 # Решение двух примеров хакатона — 25 октября 2026
 
+Исторический отчёт о коммите `7fe947c`. Последующее исследование, новые CSV и ограничения сравнения описаны в [результатах по литературе](2026-10-25-literature-results.md). Ссылки на прежние CSV ниже закреплены за исходным коммитом.
+
 Получены обученные модели и два итоговых CSV. Это самостоятельное эталонное исследование при разработке, а не прогон автономного конкурсного агента. Управляющие API не вызывались. Использованы только предоставленные train/test, локальные зависимости и CPU; внешние метки, данные и веса не использовались.
 
 ## Что подтверждено
@@ -15,8 +17,8 @@
 
 Результаты:
 
-- [Регрессия: submission.csv](../../../data_for_participants/Регрессия/submission.csv) — 22 449 строк.
-- [Классификация: submission.csv](../../../data_for_participants/Многоклассовая%20классификация/submission.csv) — 41 166 строк.
+- [Регрессия: submission.csv](https://github.com/Elvsevolod/alpha-hack/blob/7fe947c4a5ecfc5411cc83babfe7c25ce5ccb8b6/data_for_participants/%D0%A0%D0%B5%D0%B3%D1%80%D0%B5%D1%81%D1%81%D0%B8%D1%8F/submission.csv) — 22 449 строк.
+- [Классификация: submission.csv](https://github.com/Elvsevolod/alpha-hack/blob/7fe947c4a5ecfc5411cc83babfe7c25ce5ccb8b6/data_for_participants/%D0%9C%D0%BD%D0%BE%D0%B3%D0%BE%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F/submission.csv) — 41 166 строк.
 - [Численные свидетельства, параметры и хеши](2026-10-25-reference-evidence.json).
 - [Автоматически сформированный протокол сравнения](2026-10-25-reference-generated.md).
 
