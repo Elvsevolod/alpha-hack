@@ -1,0 +1,815 @@
+{
+  "date": "2026-10-25",
+  "study": "offline expert reference, not autonomous contest agent",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.5.2",
+    "catboost": "1.2.8",
+    "lightgbm": "4.6.0"
+  },
+  "python": "3.12.7",
+  "platform": "Darwin",
+  "source_hashes": {
+    "tools/solve_participant_examples.py": "bc5200cf6f9be7de6ef4724f472975d9254a0b642d9107275718e2776cc5f3af",
+    "tools/solve_energy_history_reference.py": "cdfc04fb6c81707dfc11279b1e9f33d96d90df61dc580ff9edf612b2c06ba19d",
+    "tests/test_reference_history.py": "ec1cf64c682ad9b38c1f0a0f8e2611a94a867bf09e65646f135afd290e0ba680"
+  },
+  "tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_reference_history.py tests/test_pipelines.py",
+    "passed": 29
+  },
+  "api_calls": 0,
+  "cases": {
+    "regression": {
+      "protocol": {
+        "kind": "regression",
+        "development_reference_not_autonomous_agent": true,
+        "source_hashes": {
+          "train.csv": "096dac951cf44fade5417ddd0465c41beee3009663dbea34e8d464a4d3c7f775",
+          "test.csv": "a7c64db92a07e1a5b1e7f637bdd434da7a5e98a1676c854ec6a645c9e5827095",
+          "task.md": "33f743ead4840336856cb9db8e25867f44512231beebff927326e8580e14d9d0"
+        },
+        "split_hash": "c02db04053092bb7acf9575f5aa902535b0b70bf74aab6aea2adba8c8a7b10bf",
+        "counts": {
+          "fit": 22054,
+          "tune": 12946,
+          "control": 18308
+        },
+        "split": "fit years 1-3; tune year 4; control year 5; external year 6",
+        "duplicate_feature_rows": 327,
+        "conflicting_feature_groups": null,
+        "dummy_tune_score": 58.460385733996254,
+        "candidates": [
+          [
+            "cb6",
+            "catboost",
+            {
+              "iterations": 1200,
+              "depth": 6,
+              "learning_rate": 0.05
+            }
+          ],
+          [
+            "cb8",
+            "catboost",
+            {
+              "iterations": 1200,
+              "depth": 8,
+              "learning_rate": 0.05
+            }
+          ],
+          [
+            "lgb31",
+            "lightgbm",
+            {
+              "n_estimators": 1400,
+              "num_leaves": 31,
+              "learning_rate": 0.04,
+              "reg_lambda": 5
+            }
+          ],
+          [
+            "lgb63",
+            "lightgbm",
+            {
+              "n_estimators": 1400,
+              "num_leaves": 63,
+              "learning_rate": 0.04,
+              "reg_lambda": 5
+            }
+          ],
+          [
+            "cb8_building",
+            "catboost",
+            {
+              "iterations": 1200,
+              "depth": 8,
+              "learning_rate": 0.05
+            }
+          ],
+          [
+            "cb6_log",
+            "catboost",
+            {
+              "iterations": 1200,
+              "depth": 6,
+              "learning_rate": 0.05
+            }
+          ]
+        ],
+        "control_policy": "Select and seal on tune only; score selected recipe and first baseline once. No selection on control.",
+        "limitations": "Only one untouched forward control origin; yearly transfer uncertainty remains."
+      },
+      "summary": {
+        "status": "completed",
+        "target": "site_eui",
+        "metric": "rmse",
+        "tune_score": 41.41256935263933,
+        "control": {
+          "selected_score": 46.3153035920277,
+          "baseline_score": 50.04312262224313,
+          "selection_changed_after_control": false,
+          "bias": 10.558096826130337,
+          "mae": 27.243810411118616
+        },
+        "submission_rows": 22449,
+        "submission_sha256": "535ad099cbb80b424b468831b30790c034c321a6103451d47e8a8400f25fc98f",
+        "members": [
+          {
+            "name": "cb8_building",
+            "iterations": 1199,
+            "alpha": 0
+          },
+          {
+            "name": "lgb31",
+            "iterations": 460,
+            "alpha": 0
+          }
+        ],
+        "external_quality": "unknown: test labels unavailable",
+        "api_calls": 0
+      },
+      "selection_sealed_at_unix": 1792861320.916045,
+      "tuning_results": [
+        {
+          "name": "cb6",
+          "alpha": 0,
+          "score": 44.36847316669292,
+          "iterations": 723,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 1200,
+              "depth": 6,
+              "learning_rate": 0.05
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 4.3383005410432816
+        },
+        {
+          "name": "cb8",
+          "alpha": 0,
+          "score": 43.42570091696978,
+          "iterations": 1199,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 1200,
+              "depth": 8,
+              "learning_rate": 0.05
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 10.580955584067851
+        },
+        {
+          "name": "lgb31",
+          "alpha": 0,
+          "score": 43.35385703231087,
+          "iterations": 460,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 1400,
+              "num_leaves": 31,
+              "learning_rate": 0.04,
+              "reg_lambda": 5
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 1.4468925839755684
+        },
+        {
+          "name": "lgb63",
+          "alpha": 0,
+          "score": 43.39843094209412,
+          "iterations": 596,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 1400,
+              "num_leaves": 63,
+              "learning_rate": 0.04,
+              "reg_lambda": 5
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 2.879865000024438
+        },
+        {
+          "name": "cb8_building",
+          "alpha": 0,
+          "score": 41.67216106577835,
+          "iterations": 1199,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 1200,
+              "depth": 8,
+              "learning_rate": 0.05
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": true,
+          "fit_seconds": 6.099357708008029
+        },
+        {
+          "name": "cb6_log",
+          "alpha": 0,
+          "score": 46.610433459778626,
+          "iterations": 467,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 1200,
+              "depth": 6,
+              "learning_rate": 0.05
+            },
+            "seed": 42,
+            "target_transform": "log1p"
+          },
+          "building_only": false,
+          "fit_seconds": 2.766840249998495
+        }
+      ],
+      "verification": {
+        "rows": 22449,
+        "prediction_round_trip": true,
+        "columns": [
+          "id",
+          "site_eui"
+        ],
+        "finite_or_allowed_labels": true
+      }
+    },
+    "classification": {
+      "protocol": {
+        "kind": "classification",
+        "development_reference_not_autonomous_agent": true,
+        "source_hashes": {
+          "train.csv": "cda6241b9298322fab1ee530f6dca73c5da8777f746b6c76db780e411c9c0779",
+          "test.csv": "ce1bd44e4ab852af086f3a9773275e0c3b158346264deecdbae169e5106558c0",
+          "task.md": "7c4a2a2e96684a42a59735a5088a72b77097f1e8cc27c619bd5569442ebe297e"
+        },
+        "split_hash": "283cf28b9061ce2e8475447385a8a171d99558854531513ac862b7be006d13c3",
+        "counts": {
+          "fit": 52903,
+          "tune": 17626,
+          "control": 17141
+        },
+        "split": "stratified identical-feature groups",
+        "duplicate_feature_rows": 33442,
+        "conflicting_feature_groups": 1458,
+        "dummy_tune_score": 0.048202213322998747,
+        "candidates": [
+          [
+            "lgb31",
+            "lightgbm",
+            {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            }
+          ],
+          [
+            "lgb31_balanced",
+            "lightgbm",
+            {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3,
+              "class_weight": "balanced"
+            }
+          ],
+          [
+            "lgb63",
+            "lightgbm",
+            {
+              "n_estimators": 800,
+              "num_leaves": 63,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            }
+          ],
+          [
+            "cb6",
+            "catboost",
+            {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1
+            }
+          ],
+          [
+            "cb6_sqrt",
+            "catboost",
+            {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1,
+              "auto_class_weights": "SqrtBalanced"
+            }
+          ]
+        ],
+        "control_policy": "Select and seal on tune only; score selected recipe and first baseline once. No selection on control.",
+        "limitations": "No external labels; internal group split does not reproduce official capture-domain shift."
+      },
+      "summary": {
+        "status": "completed",
+        "target": "attack_cat",
+        "metric": "macro_f1",
+        "tune_score": 0.6310977580160808,
+        "control": {
+          "selected_score": 0.644310116763994,
+          "baseline_score": 0.5866968755629718,
+          "baseline_name": "lgb31",
+          "selection_changed_after_control": false,
+          "per_class": {
+            "Analysis": {
+              "precision": 0.4122137404580153,
+              "recall": 0.2559241706161137,
+              "f1-score": 0.3157894736842105,
+              "support": 211.0
+            },
+            "Backdoor": {
+              "precision": 0.25252525252525254,
+              "recall": 0.15822784810126583,
+              "f1-score": 0.19455252918287938,
+              "support": 158.0
+            },
+            "DoS": {
+              "precision": 0.3615349052242256,
+              "recall": 0.6543933054393305,
+              "f1-score": 0.4657534246575342,
+              "support": 1195.0
+            },
+            "Exploits": {
+              "precision": 0.7650689905591866,
+              "recall": 0.6412051125989044,
+              "f1-score": 0.697682119205298,
+              "support": 3286.0
+            },
+            "Fuzzers": {
+              "precision": 0.6836331724440544,
+              "recall": 0.8471995649809679,
+              "f1-score": 0.7566779990286547,
+              "support": 1839.0
+            },
+            "Generic": {
+              "precision": 0.9986308871851041,
+              "recall": 0.9769622287704259,
+              "f1-score": 0.9876777251184834,
+              "support": 3733.0
+            },
+            "Normal": {
+              "precision": 0.9703987112364075,
+              "recall": 0.865947888589398,
+              "f1-score": 0.9152027347830216,
+              "support": 5565.0
+            },
+            "Reconnaissance": {
+              "precision": 0.8736141906873615,
+              "recall": 0.7748279252704031,
+              "f1-score": 0.8212610734757686,
+              "support": 1017.0
+            },
+            "Shellcode": {
+              "precision": 0.547486033519553,
+              "recall": 0.8305084745762712,
+              "f1-score": 0.6599326599326599,
+              "support": 118.0
+            },
+            "Worms": {
+              "precision": 0.6875,
+              "recall": 0.5789473684210527,
+              "f1-score": 0.6285714285714286,
+              "support": 19.0
+            },
+            "accuracy": 0.8102794469400851,
+            "macro avg": {
+              "precision": 0.655260588383916,
+              "recall": 0.6584143887364133,
+              "f1-score": 0.644310116763994,
+              "support": 17141.0
+            },
+            "weighted avg": {
+              "precision": 0.8415155371190501,
+              "recall": 0.8102794469400851,
+              "f1-score": 0.8192755437034539,
+              "support": 17141.0
+            }
+          }
+        },
+        "submission_rows": 41166,
+        "submission_sha256": "c22ad4daa2ae3ab4d8f6bf6d8de7bf5c6b0fe9c20e76d4ad878ce73c32a81931",
+        "members": [
+          {
+            "name": "lgb63",
+            "iterations": 112,
+            "alpha": 0.5
+          },
+          {
+            "name": "lgb31",
+            "iterations": 173,
+            "alpha": 0.5
+          }
+        ],
+        "external_quality": "unknown: test labels unavailable",
+        "api_calls": 0
+      },
+      "selection_sealed_at_unix": 1792861996.609954,
+      "tuning_results": [
+        {
+          "name": "lgb31",
+          "alpha": 0,
+          "score": 0.5693008150227473,
+          "iterations": 173,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 8.663244957919233
+        },
+        {
+          "name": "lgb31",
+          "alpha": 0.25,
+          "score": 0.6133140017742139,
+          "iterations": 173,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 8.663244957919233
+        },
+        {
+          "name": "lgb31",
+          "alpha": 0.5,
+          "score": 0.6230933840562651,
+          "iterations": 173,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 8.663244957919233
+        },
+        {
+          "name": "lgb31_balanced",
+          "alpha": 0,
+          "score": 0.6079172701996147,
+          "iterations": 551,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3,
+              "class_weight": "balanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 23.50174491701182
+        },
+        {
+          "name": "lgb31_balanced",
+          "alpha": 0.25,
+          "score": 0.5990165433606167,
+          "iterations": 551,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3,
+              "class_weight": "balanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 23.50174491701182
+        },
+        {
+          "name": "lgb31_balanced",
+          "alpha": 0.5,
+          "score": 0.582354065710795,
+          "iterations": 551,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 31,
+              "learning_rate": 0.05,
+              "reg_lambda": 3,
+              "class_weight": "balanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 23.50174491701182
+        },
+        {
+          "name": "lgb63",
+          "alpha": 0,
+          "score": 0.5680386359463203,
+          "iterations": 112,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 63,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 9.86798787501175
+        },
+        {
+          "name": "lgb63",
+          "alpha": 0.25,
+          "score": 0.6116114201233506,
+          "iterations": 112,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 63,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 9.86798787501175
+        },
+        {
+          "name": "lgb63",
+          "alpha": 0.5,
+          "score": 0.6269158132481681,
+          "iterations": 112,
+          "spec": {
+            "model": "lightgbm",
+            "hyperparameters": {
+              "n_estimators": 800,
+              "num_leaves": 63,
+              "learning_rate": 0.05,
+              "reg_lambda": 3
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 9.86798787501175
+        },
+        {
+          "name": "cb6",
+          "alpha": 0,
+          "score": 0.49065602866420727,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 85.31564679194707
+        },
+        {
+          "name": "cb6",
+          "alpha": 0.25,
+          "score": 0.541611342387284,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 85.31564679194707
+        },
+        {
+          "name": "cb6",
+          "alpha": 0.5,
+          "score": 0.5858670227282794,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 85.31564679194707
+        },
+        {
+          "name": "cb6_sqrt",
+          "alpha": 0,
+          "score": 0.6129433936896784,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1,
+              "auto_class_weights": "SqrtBalanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 82.3020284579834
+        },
+        {
+          "name": "cb6_sqrt",
+          "alpha": 0.25,
+          "score": 0.5558365267969947,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1,
+              "auto_class_weights": "SqrtBalanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 82.3020284579834
+        },
+        {
+          "name": "cb6_sqrt",
+          "alpha": 0.5,
+          "score": 0.506246177727529,
+          "iterations": 200,
+          "spec": {
+            "model": "catboost",
+            "hyperparameters": {
+              "iterations": 200,
+              "depth": 6,
+              "learning_rate": 0.1,
+              "auto_class_weights": "SqrtBalanced"
+            },
+            "seed": 42,
+            "target_transform": "none"
+          },
+          "building_only": false,
+          "fit_seconds": 82.3020284579834
+        }
+      ],
+      "verification": {
+        "rows": 41166,
+        "prediction_round_trip": true,
+        "columns": [
+          "id",
+          "attack_cat"
+        ],
+        "finite_or_allowed_labels": true
+      }
+    }
+  },
+  "history_followup": {
+    "protocol": {
+      "hypothesis": "Earlier target values of candidate building links may help next-year transfer.",
+      "signature_is_not_verified_entity_id": true,
+      "signature": [
+        "State_Factor",
+        "facility_type",
+        "floor_area",
+        "year_built",
+        "ELEVATION"
+      ],
+      "control_already_observed_in_previous_study": true,
+      "selection_uses_only_year4": true,
+      "candidates": [
+        [
+          "history_cb8",
+          "catboost",
+          {
+            "iterations": 1600,
+            "depth": 8,
+            "learning_rate": 0.05
+          },
+          true
+        ],
+        [
+          "history_lgb31",
+          "lightgbm",
+          {
+            "n_estimators": 1600,
+            "num_leaves": 31,
+            "learning_rate": 0.04,
+            "reg_lambda": 5
+          },
+          true
+        ],
+        [
+          "history_cb8_weather",
+          "catboost",
+          {
+            "iterations": 1600,
+            "depth": 8,
+            "learning_rate": 0.05
+          },
+          false
+        ]
+      ],
+      "sources": {
+        "train.csv": "096dac951cf44fade5417ddd0465c41beee3009663dbea34e8d464a4d3c7f775",
+        "test.csv": "a7c64db92a07e1a5b1e7f637bdd434da7a5e98a1676c854ec6a645c9e5827095",
+        "task.md": "33f743ead4840336856cb9db8e25867f44512231beebff927326e8580e14d9d0"
+      },
+      "split_sha256": "c02db04053092bb7acf9575f5aa902535b0b70bf74aab6aea2adba8c8a7b10bf"
+    },
+    "summary": {
+      "status": "completed",
+      "selected": "history_lgb31",
+      "iterations": 572,
+      "tune_rmse": 39.66549949325264,
+      "original_tune_rmse": 41.41256935263933,
+      "reused_control_rmse": 52.01483964018381,
+      "control_is_new_blind_evidence": false,
+      "submission_rows": 22449,
+      "submission_sha256": "c62e956552f898ea934100dbca3fe04934010663229aeaf05ead4bd4d5480527",
+      "api_calls": 0,
+      "history_match_fraction_tune": 0.3727019928935579,
+      "history_match_fraction_test": 0.37672056661766673,
+      "external_quality": "unknown: test labels unavailable"
+    },
+    "adopted": false,
+    "reason": "Earlier sealed recipe retained; historical-link transfer failed on reused year-5 control."
+  },
+  "aborted_classification": {
+    "catboost_900_iterations": "timeout after 360 seconds",
+    "sqrt_weighted_900": "cancelled before completion",
+    "no_control_scores_observed": true,
+    "replacement": "LightGBM-first comparison, CatBoost capped at 200 iterations and 180 seconds per fit"
+  },
+  "evaluation_limitations": {
+    "target_aggregate_preinspection_before_split": true,
+    "read_full_train_in_reference_worker": true,
+    "control_not_used_for_fit_early_stopping_recipe_selection_after_split": true,
+    "strict_blind_contest_acceptance": false
+  }
+}

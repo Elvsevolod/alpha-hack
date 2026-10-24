@@ -10,3 +10,5 @@ These reports distinguish completed execution, measured model behavior, and unve
 - [Test artifacts, failures and resolutions](2026-10-24-test-summary.json)
 
 Every current EDA run also writes REPORT.md and evaluation_report.json into its own output directory. Published evidence is a sanitized summary of those local artifacts, not a copy of the training data or a claim of competition acceptance.
+
+The separate [participant-example reference study](../examples/2026-10-25-reference.md) solves both supplied ML examples and publishes predictions. It measures expert-selected model recipes, not autonomous EDA decisions.
