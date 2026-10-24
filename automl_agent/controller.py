@@ -67,6 +67,7 @@ Rejected configurations are not model results; repair the cited incompatibility.
 Use draft for a new branch, improve with a completed parent, debug with a failed parent.
 Unlimited repairs require distinct failure-based changes; retries reuse stable operation IDs.
 For a new or changed command use core.current_work.suggested_new_operation_id.
+Use profile findings for hypotheses; request <=30-column correlations as needed, never automatic feature removal.
 Keep research_note question/reading_goal/expected_evidence/related_ids while gathering evidence;
 close it after comparison. ready_to_compare requests xhigh for the next difficult decision;
 ordinary gathering uses medium. Notes record assumptions.
@@ -126,14 +127,14 @@ class DuplicateComputation(ValueError):
 
 
 class Controller:
-    def __init__(self, task_path: Path, limits=None, started_at=None, run_id=None, transport="auto", research_focus=None, training_seed=42, budget_mode="research"):
+    def __init__(self, task_path: Path, limits=None, started_at=None, run_id=None, transport="auto", research_focus=None, training_seed=42, budget_mode="research", workdir=None):
         self.started_at = started_at if started_at is not None else time.time()
         self.dataset = Dataset(task_path, deferred=True)
         identifier = run_id or "api2_" + self.dataset.source_hash[:16]
         if not identifier or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in identifier):
             raise ValueError("Run ID must be alphanumeric with underscores or hyphens")
         self.run_id = identifier
-        self.workdir = self.dataset.task_path.parent / ".agent_work" / identifier
+        self.workdir = Path(workdir).resolve() if workdir is not None else self.dataset.task_path.parent / ".agent_work" / identifier
         self.workdir.mkdir(parents=True, exist_ok=True)
         self.lock = (self.workdir / "run.lock").open("a")
         try:
@@ -149,6 +150,12 @@ class Controller:
             raise ValueError("Incompatible tool API: resume this old run with its frozen runtime, or choose a new API v2 run_id")
         self.journal.put("tool_api_version", 2)
         previous = self.journal.get("source_hash")
+        from .profiling import PROFILE_VERSION
+        if previous is not None and self.journal.get("eda_profile_version") != PROFILE_VERSION:
+            self.journal.close()
+            self.lock.close()
+            raise ValueError("Incompatible EDA runtime: resume with the frozen runtime or choose a new run_id")
+        self.journal.put("eda_profile_version", PROFILE_VERSION)
         if previous is not None and previous != self.dataset.source_hash:
             raise ValueError("A saved run cannot resume against changed source files")
         self.journal.put("source_hash", self.dataset.source_hash)
@@ -162,6 +169,9 @@ class Controller:
         self.journal.put("budget_mode", budget_mode)
         self.executor = Executor(min(self.budget.limits.cpu, max(1, (os.cpu_count() or 2) - 1)),
             self.budget.limits.memory_mb, self.budget.deadline, self.journal)
+        from .eda.loading import BoundedCSVLoader
+        self.dataset.csv_loader = BoundedCSVLoader(self.executor, self.budget, self.workdir)
+        self.dataset.deadline = self.budget.deadline
         self.capabilities = CapabilityRegistry(self.workdir / "capabilities.json")
         self.references = AgentReferences(Path(__file__).resolve().parent.parent, self.capabilities)
         self.qwen = QwenClient(self.journal, self.budget, transport)
@@ -172,6 +182,10 @@ class Controller:
         from .context_memory import ContextMemory
         self.context_memory = ContextMemory(self)
         self.qwen.context_memory = self.context_memory
+        from .eda.repository import EDARepository
+        from .eda.service import EDAService
+        self.eda = EDAService(self.dataset, EDARepository(self.context_memory.store), self.executor,
+            self.budget, self.workdir, self.finalist_costs)
         from .knowledge_tools import KnowledgeTools
         from .run_tools import RunTools
         self.knowledge_tools = KnowledgeTools(self)
@@ -509,8 +523,8 @@ class Controller:
         X.index = [self.dataset.row_keys[i] for i in fit_rows]
         y = self.dataset.train.iloc[fit_rows][self.task.targets].copy()
         y.index = X.index
-        stage_frame(directory / "fit_X.json", X)
-        stage_frame(directory / "fit_y.json", y)
+        stage_frame(directory / "fit_X.json", X, deadline=self.budget.deadline, memory_mb=self.executor.memory_mb)
+        stage_frame(directory / "fit_y.json", y, deadline=self.budget.deadline, memory_mb=self.executor.memory_mb)
         for part, rows in predict_rows.items():
             if part == "test":
                 features = self.dataset.features(test=True)
@@ -518,7 +532,7 @@ class Controller:
             else:
                 features = self.dataset.features(rows)
                 features.index = [self.dataset.row_keys[i] for i in rows]
-            stage_frame(directory / f"{part}_X.json", features)
+            stage_frame(directory / f"{part}_X.json", features, deadline=self.budget.deadline, memory_mb=self.executor.memory_mb)
         active = pipeline or spec.pipeline
         if active.engine == "custom":
             source = self.workdir / "code" / f"{active.custom_hash}.py"
@@ -995,6 +1009,8 @@ class Controller:
         from .context_memory import context_route
         is_context_read = context_route(command)
         args = self.context_memory.arguments(command)
+        if getattr(args,"evaluation",None) is not None and not getattr(self,"eda_mode",False):
+            raise ValueError("Fit-inner evaluation design belongs to EDA; use the registered full-cycle validation protocol")
         canonical_args = {"arguments": command.arguments if is_context_read else args.model_dump(mode="json"),
             "data": self.dataset.source_hash, "protocol": self.plan.hash}
         if self.state != "searching" and self.journal.operation(command.operation_id) is None:
@@ -1105,6 +1121,10 @@ class Controller:
                 self.journal.event("feedback_read", {"report_id": args.report_id, "experiments": args.experiment_ids, "policy": self.plan.feedback_policy.hash})
             elif command.tool == "build_ensemble":
                 result = self.build_ensemble(args, operation)
+            elif getattr(self, "eda_mode", False) and command.tool == "finish":
+                self.journal.put("eda_finish", args.model_dump(mode="json"))
+                self.journal.transition("frozen", args.reason)
+                result = {"status": "frozen", "reason": args.reason, "submission_written": False}
             else:
                 if not args.result_ids:
                     raise ValueError("finish requires result_ids referencing completed experiments and a concrete reason")
@@ -1112,7 +1132,7 @@ class Controller:
                     spec, measured = self.lookup(identifier)
                     if not measured or measured.status != "completed" or measured.score is None or measured.scope == "pilot" or spec.validation_hash != self.plan.hash:
                         raise ValueError("finish evidence must be a completed result on the current protocol")
-                numeric_missing = any(item["numeric"] and 0 < item["missing_fraction"] < 1 for item in self.dataset.profile(self.plan.fit).columns.values())
+                numeric_missing = any(item["numeric"] and 0 < item["missing_fraction"] < 1 for item in self.eda.profile(self.plan)[1]["columns"].values())
                 if numeric_missing and not self.journal.get("model_imputation_attempted"):
                     self.journal.put("imputation_skip_reason", args.imputation_skip_reason or "Agent elected finish: " + args.reason)
                 self.journal.put("finish_evidence", {"result_ids": args.result_ids, "reason": args.reason})
@@ -1144,7 +1164,7 @@ class Controller:
                 useful = progress.record_many(self, "observation", [{"tool": command.tool, "evidence": item}
                     for item in (fragments if fragments is not None else [evidence])])
                 self.journal.put("unproductive_reads", 0 if useful else self.budget.counter("unproductive_reads") + 1)
-            operation.status, operation.outcome, operation.result = "succeeded", "confirmed", result
+            operation.status, operation.outcome, operation.result = ("failed" if result.get("status") in {"technical_failure", "budget_too_small", "incompatible"} else "succeeded"), "confirmed", result
         except (ValueError, ImportError, TimeoutError, OSError) as error:
             from .knowledge_tools import CursorError
             result = {"status": "invalid_cursor" if isinstance(error, CursorError) or "cursor" in str(error).lower() else "rejected",
@@ -1305,7 +1325,8 @@ class Controller:
 
     def context(self):
         """Legacy diagnostic projection; live research uses ContextMemory.snapshot."""
-        profile = self.dataset.profile(self.plan.fit)
+        from .contracts import DataProfile
+        profile = DataProfile.model_validate(self.eda.profile(self.plan)[1])
         records = self.records()
         state = ResearchState(task_hash=self.task.hash, validation_hash=self.plan.hash,
             facts=[{"source": "fit_profile", "scope": "fit", "profile": profile.model_dump(mode="json")},
@@ -1640,6 +1661,14 @@ class Controller:
             "model_configuration": self.journal.get("qwen_configuration"),
             "qwen_unknown_outcome": self.journal.get("qwen_unknown_outcome"),
             "model_error_count": self.journal.db.execute("SELECT COUNT(*) FROM events WHERE kind='qwen_failure'").fetchone()[0]}
+        from .reporting import verification_dimensions, write_full_summary
+        report["verification_dimensions"] = verification_dimensions()
+        try:
+            write_full_summary(self.workdir, report)
+            report["readable_report_status"] = "available"
+        except OSError:
+            # Optional prose diagnostics never invalidate the already verified CSV.
+            report["readable_report_status"] = "unavailable"
         atomic_json(self.workdir / "run_report.json", report)
         return report
 
@@ -1770,8 +1799,12 @@ class Controller:
         if not args.rationale or not args.proposed_strategy:
             raise ValueError("A revision requires the proposed strategy and an evidence-based rationale")
         strategy = args.proposed_strategy
-        if strategy == self.plan.strategy:
+        if strategy == self.plan.strategy and getattr(args,"temporal_window_periods",None) is None and getattr(args,"gap_periods",0) == 0:
             raise ValueError("The proposed strategy is already active")
+        if (getattr(args,"temporal_window_periods",None) or getattr(args,"gap_periods",0)) and strategy not in {"temporal","temporal_group"}:
+            raise ValueError("Temporal window/gap requires a temporal strategy")
+        if self.task.kind == "forecasting" and getattr(args,"temporal_window_periods",None) and getattr(args,"temporal_window_periods",None) < self.task.horizon:
+            raise ValueError("A revision cannot shorten the declared forecast horizon")
         if self.task.explicit_validation and strategy != self.task.explicit_validation:
             raise ValueError("A protocol revision cannot contradict the explicit task transfer requirement")
         if (self.task.kind == "forecasting" and strategy not in {"temporal", "temporal_group"}
@@ -1816,7 +1849,8 @@ class Controller:
         available_candidates = self.budget.snapshot()["candidates"]
         if (available_candidates is not None and available_candidates < len(candidates)) or self.budget.remaining < required + self.budget.final_reserve(self.finalist_costs()):
             raise ValueError("Insufficient budget to re-evaluate every comparable candidate on a new protocol")
-        a, b = inner_split(X.reset_index(drop=True), y.reset_index(drop=True), self.task, strategy, self.plan.seed)
+        a, b = inner_split(X.reset_index(drop=True), y.reset_index(drop=True), self.task, strategy, self.plan.seed,
+            temporal_window=getattr(args,"temporal_window_periods",None), gap_periods=getattr(args,"gap_periods",0))
         old = self.plan
         feedback = old.feedback_policy.model_copy(update={"version": old.feedback_policy.version + 1, "history_guard":"restricted_after_revision"})
         revised = old.model_copy(update={"strategy": strategy, "reason": args.rationale,
@@ -1829,7 +1863,8 @@ class Controller:
                 for target, labels in self.task.classes.items()}
         partitions = freeze_partitions(self.task, self.dataset.features(revised.fit), self.dataset.features(revised.validation),
             ordered_time=ordered_periods(self.dataset.train.iloc[revised.validation][self.task.time_column]) if strategy in {"temporal", "temporal_group"} else None)
-        revised.observations = partitions
+        revised.observations = partitions + [{"type":"evaluation_design","temporal_window_periods":getattr(args,"temporal_window_periods",None),
+            "gap_periods":getattr(args,"gap_periods",0),"rationale":args.rationale,"source":"agent_methodological_choice"}]
         revised.feedback_policy.report_ids = ["missingness"] + (["classes"] if self.task.classes else []) + [p["report_id"] for p in partitions]
         protocols = self.journal.get("protocols")
         protocols[revised.hash] = revised.model_dump(mode="json")

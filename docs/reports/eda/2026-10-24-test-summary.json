@@ -1,0 +1,111 @@
+{
+  "scope": "Targeted source acceptance, not complete repository/environment/ZIP acceptance",
+  "groups_overlap": true,
+  "artifacts": [
+    {
+      "artifact": "acceptance_final.xml",
+      "sha256": "2ef95623f1faea943990c173c3234fb8dff1820c73c33d4e9813e026fd503603",
+      "tests": 310,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": [
+        "tests.test_research_learning::test_review_respects_primary_metric_direction_and_material_gain[mae-10-9.9995-no_material_gain]",
+        "tests.test_pipelines::test_model_fit_predict_and_save_load[catboost]",
+        "tests.test_pipelines::test_multiclass_probability_alignment[catboost]"
+      ]
+    },
+    {
+      "artifact": "review_policy_final.xml",
+      "sha256": "c63c798de4db2bcc1595aa3b83f18f4fc67f961bdb0a243e667a5f29fae2e809",
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "catboost_recheck.xml",
+      "sha256": "a4a9e15c7e79a385b390bd2ea998f7f06df8657c63806f9a25d1499c0af47e47",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "cache_reports_final.xml",
+      "sha256": "adb85d306145d5b51583988788f2274bdbc9af86c782019a04c6884b11844bb7",
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "reports_final.xml",
+      "sha256": "de317f089b8884e88e4ddf4512495f843d0517b9a41ff2efa585c2480b0fb99f",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "adaptive_selection_final.xml",
+      "sha256": "58a1afba8932a9d6a5930c87306a1ac6c37243225292f00acb26fb583dadde6b",
+      "tests": 66,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "full_protocol_final.xml",
+      "sha256": "cb3fb79bd6b0845b1857a1511cbfa6b674168ddc20f98c560be2ad9da33ee6c3",
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "shared_context_final.xml",
+      "sha256": "39afef049b465aeb8b2e11bcdcc54f6d4f6f3a11a7345634a7734e0de13f607b",
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "cli_boundary_final.xml",
+      "sha256": "1119eeaa646a4aca0c8fb42ca30cf57cb77aec8dbc8b3d268208a649a7825b01",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    },
+    {
+      "artifact": "provider_safety_final.xml",
+      "sha256": "fd5e9736e969c29f477a7bbc77efaac4fd6d7c7d3a5d5e75068187a26ff3a805",
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "failed_cases": []
+    }
+  ],
+  "broad_failures_resolution": [
+    {
+      "case": "old universal material-gain expectation",
+      "resolution": "Updated for requested zero default effect floor; explicit task-specific floor test retained; review_policy_final.xml passes"
+    },
+    {
+      "case": "catboost regression and classification",
+      "resolution": "Missing pinned dev dependency installed; catboost_recheck.xml passes"
+    }
+  ],
+  "collection_limit": "Historical test_v055_new_period_queue requires an absent ignored outputs launcher; exact full environment not reproduced."
+}

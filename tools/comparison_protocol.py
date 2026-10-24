@@ -45,7 +45,7 @@ H = Hypothesis(observation="Prespecified comparison arm on frozen research data"
 
 
 def code_hash(root=ROOT):
-    return digest({str(p.relative_to(root)): file_hash(p) for p in [root / "solution.py", *sorted((root / "automl_agent").glob("*.py")),
+    return digest({str(p.relative_to(root)): file_hash(p) for p in [root / "solution.py", *sorted((root / "automl_agent").rglob("*.py")),
         *[p for p in sorted((root / "context_compressor").glob("*.py")) if p.name != "verify.py"]]})
 
 

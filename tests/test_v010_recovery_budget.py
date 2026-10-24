@@ -357,9 +357,12 @@ def test_selected_model_cost_uses_actual_inner_training_rows(tmp_path):
         c.prepare()
         spec, result = c.lookup("baseline")
         result.seconds = 60
-        result.training_summary.update(rows=120, seconds=60, budget={"selected_fit_actual_seconds": 2., "selected_fit_rows": 60})
+        # This fixture isolates row-scaling of a selected fit. Real worker phase
+        # timings from prepare() belong to a different cost scenario and vary by host.
+        result.training_summary = {"rows":120, "seconds":60,
+            "budget":{"selected_fit_actual_seconds":2., "selected_fit_rows":60}}
         c.journal.save_experiment(spec, result)
         forecast = estimate(c, [spec.experiment_id], list(range(120)))
-        assert 5.5 < forecast["seconds"] < 6
+        assert forecast["seconds"] == pytest.approx(5.7)
     finally:
         c.close()

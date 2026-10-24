@@ -1,0 +1,367 @@
+{
+  "version": 1,
+  "base": "origin/main@c35e09b",
+  "scope": "Development verification; no new submission ZIP or private acceptance",
+  "runs": [
+    {
+      "series": "live_adaptive",
+      "case": "evidence_bike",
+      "state": "completed",
+      "generations": 6,
+      "fit_attempts": 2,
+      "stop_reason": "finished",
+      "cost": {
+        "gateway_units": 3.3353480135013998,
+        "outcome_unknown": false,
+        "requests": 6,
+        "series_account_increase": 2.805595613579044,
+        "stop_threshold_units": 5.0,
+        "threshold_enforcement": "between_requests"
+      },
+      "submission_written": false,
+      "outer_labels_used": false,
+      "summary_sha256": "e53aa286f4d886fc58cb577f3950acc0a7abdc2808276eaf2f1f33fcb543de5d",
+      "evaluation_contract": {
+        "available_fit_periods": 582,
+        "claim_limits": [
+          "Aggregate bias does not locate errors in the target tails.",
+          "Duplicate features do not establish their cause or whether they are harmless.",
+          "No universal effect threshold or uncertainty estimator is valid for every task."
+        ],
+        "design": {
+          "assumptions": "Rows within the temporal window are treated as independent observations. The 24-row (1-period) validation set is too small for statistical inference, so descriptive paired differences are reported. Seasonal patterns (yearly, weekly, hourly) are assumed approximately stable within the window. No resampling or block structure is justified given the small validation support.",
+          "block_periods": null,
+          "confidence": 0.95,
+          "gap_periods": 0,
+          "method": "descriptive",
+          "minimum_effect_abs": null,
+          "minimum_effect_rel": null,
+          "rationale": "The task is daily bike-sharing demand with strong seasonal features (season, mnth, hr, weekday). A 365-period window captures one full yearly cycle, which is the dominant seasonal period. The external test spans 147 periods, so 365 training periods provides sufficient history without sacrificing the most recent data that is most relevant for near-term transfer. With only 24 validation rows (1 period), descriptive paired differences are the only justifiable uncertainty method.",
+          "resamples": 500,
+          "temporal_window_periods": 365
+        },
+        "design_status": "agent_selected",
+        "external_periods": 147,
+        "gap_periods": 0,
+        "horizon_covered": true,
+        "limitations": [
+          "Single historical origin; regime and seasonal changes may invalidate transfer.",
+          "Observed periods are not elapsed duration; irregular calendars require separate interpretation.",
+          "Window, effect criterion and uncertainty assumptions require task-specific justification."
+        ],
+        "method": "descriptive",
+        "protocol_hash": "b7d29e1095050d151a8fde941ab613ab3e69c0a0df6ec218c0619cb54ea7c5ff",
+        "strategy": "temporal",
+        "temporal_window": 365,
+        "version": 3
+      },
+      "experiments": [
+        {
+          "evaluation_keys_hash": "7c2fc55175a85f26aeec8ab87714f3c7e3d14be93245ff001a52cb3b4e0b617b",
+          "evaluation_periods": 365,
+          "evaluation_rows": 8729,
+          "evidence_ref": {
+            "id": "142e7cb347e1ec83433c96676d072c6587abc9da166d1e29324bace4780e0aa1",
+            "kind": "observation",
+            "version": "89d297c81a4a0c4ce831f09f93b91ddd9440a578f7ba517957e0c8e8464e99b0"
+          },
+          "fit_keys_hash": "25b7c0039f380aeb62a6ac070fe2f78f6bcd9adf96411c4334e3287347a94b5d",
+          "fit_number": 1,
+          "inner_feature_transfer": [
+            {
+              "column": "season",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.2444724481613014,
+              "unseen_rows": 2134
+            },
+            {
+              "column": "yr",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.5954863100011456,
+              "unseen_rows": 5198
+            },
+            {
+              "column": "mnth",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.3345171268186505,
+              "unseen_rows": 2920
+            }
+          ],
+          "metric": "rmse",
+          "operation_id": "err_profile_baseline",
+          "pipeline": {
+            "class_offsets": null,
+            "custom_component": "pipeline",
+            "custom_hash": null,
+            "custom_module": null,
+            "custom_semantic_hash": null,
+            "engine": "direct",
+            "fit_diagnostics": "none",
+            "hyperparameters": {
+              "learning_rate": 0.05,
+              "n_estimators": 300,
+              "num_leaves": 31
+            },
+            "imputation": {
+              "categorical": "missing_category",
+              "categorical_model_columns": [],
+              "constraints": {},
+              "empty_numeric": 0.0,
+              "indicators": true,
+              "max_iter": 3,
+              "n_nearest_features": 20,
+              "numeric": "median"
+            },
+            "learners": [],
+            "max_text_features": 20000,
+            "members": [],
+            "model": "lightgbm",
+            "n_trials": 8,
+            "postprocess_fit_policy": "none",
+            "prediction_policy": "default",
+            "representation": "native",
+            "resampling": "none",
+            "search_owner": "none",
+            "search_space": {},
+            "seed": 42,
+            "target_transform": "none",
+            "text_analyzer": "word",
+            "training_objective": null,
+            "transformations": []
+          },
+          "score": 100.76614744267519,
+          "support_limitations": [
+            "Single historical origin; regime and seasonal changes may invalidate transfer.",
+            "Observed periods are not elapsed duration; irregular calendars require separate interpretation.",
+            "Window, effect criterion and uncertainty assumptions require task-specific justification."
+          ],
+          "support_status": "available",
+          "temporal_comparison": null
+        },
+        {
+          "comparison": {
+            "baseline_operation": "err_profile_baseline",
+            "causal_attribution": "not_established",
+            "changes": [
+              {
+                "after": 63,
+                "before": 31,
+                "component": "hyperparameters.num_leaves"
+              }
+            ],
+            "limitation": "One inner split; multiple changed components cannot isolate an individual effect.",
+            "matched_rows_and_metric": true,
+            "score_delta": -0.40574650853120886
+          },
+          "evaluation_keys_hash": "7c2fc55175a85f26aeec8ab87714f3c7e3d14be93245ff001a52cb3b4e0b617b",
+          "evaluation_periods": 365,
+          "evaluation_rows": 8729,
+          "evidence_ref": {
+            "id": "26dd0633b52a51ceea98781bc5431f231c2d738fb231c6e852c8341764c4d92f",
+            "kind": "observation",
+            "version": "23c448182fd11588923e27f4be6cf499324dd726ec9f64f5b2c7ab22e9a2e4b8"
+          },
+          "fit_keys_hash": "25b7c0039f380aeb62a6ac070fe2f78f6bcd9adf96411c4334e3287347a94b5d",
+          "fit_number": 2,
+          "inner_feature_transfer": [
+            {
+              "column": "season",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.2444724481613014,
+              "unseen_rows": 2134
+            },
+            {
+              "column": "yr",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.5954863100011456,
+              "unseen_rows": 5198
+            },
+            {
+              "column": "mnth",
+              "evaluation_rows": 8729,
+              "limitation": "Inner training-category coverage differs; this does not locate the cause of errors.",
+              "unseen_fraction": 0.3345171268186505,
+              "unseen_rows": 2920
+            }
+          ],
+          "metric": "rmse",
+          "operation_id": "ablation_num_leaves_63",
+          "pipeline": {
+            "class_offsets": null,
+            "custom_component": "pipeline",
+            "custom_hash": null,
+            "custom_module": null,
+            "custom_semantic_hash": null,
+            "engine": "direct",
+            "fit_diagnostics": "none",
+            "hyperparameters": {
+              "learning_rate": 0.05,
+              "n_estimators": 300,
+              "num_leaves": 63
+            },
+            "imputation": {
+              "categorical": "missing_category",
+              "categorical_model_columns": [],
+              "constraints": {},
+              "empty_numeric": 0.0,
+              "indicators": true,
+              "max_iter": 3,
+              "n_nearest_features": 20,
+              "numeric": "median"
+            },
+            "learners": [],
+            "max_text_features": 20000,
+            "members": [],
+            "model": "lightgbm",
+            "n_trials": 8,
+            "postprocess_fit_policy": "none",
+            "prediction_policy": "default",
+            "representation": "native",
+            "resampling": "none",
+            "search_owner": "none",
+            "search_space": {},
+            "seed": 42,
+            "target_transform": "none",
+            "text_analyzer": "word",
+            "training_objective": null,
+            "transformations": []
+          },
+          "score": 100.36040093414398,
+          "support_limitations": [
+            "Single historical origin; regime and seasonal changes may invalidate transfer.",
+            "Observed periods are not elapsed duration; irregular calendars require separate interpretation.",
+            "Window, effect criterion and uncertainty assumptions require task-specific justification."
+          ],
+          "support_status": "available",
+          "temporal_comparison": {
+            "baseline_score": 100.76614744267519,
+            "candidate_score": 100.36040093414398,
+            "limitations": [
+              "One historical origin; any interval is conditional on the selected dependence assumptions.",
+              "Repeated adaptive selection and external regime shifts are not covered by this comparison."
+            ],
+            "method": "descriptive",
+            "periods": 365,
+            "reason": "Descriptive comparison selected; no uncertainty interval or automatic acceptance.",
+            "score_delta": -0.40574650853120886,
+            "status": "descriptive",
+            "verdict": "inconclusive"
+          }
+        }
+      ],
+      "agent_conclusion_unverified": "MEASURED RESULTS: (1) err_profile_baseline (fit 1, LightGBM lr=0.05, n_estimators=300, num_leaves=31): RMSE=100.77, bias=-55.6, top-decile (threshold=328) bias=-161.6, 71.7% of squared error in top 10% of targets. (2) ablation_num_leaves_63 (fit 2, same pipeline with num_leaves=63): RMSE=100.36, bias=-54.9, top-decile bias=-160.3. Score delta=-0.41 RMSE. Temporal comparison verdict: inconclusive (descriptive method, no uncertainty interval justified with 24-row validation / 1-period holdout). 59.5% of inner-evaluation rows have unseen 'yr' categories.\n\nTENTATIVE EXPLANATIONS: The 0.41 RMSE reduction from doubling num_leaves is small and cannot be distinguished from seed-to-seed noise without an uncertainty estimate. The persistent large negative bias across both models (-55 overall, -160 in top decile) suggests systematic under-prediction at high demand that is not primarily a leaf-capacity problem. The dominant confound is temporal distribution shift (59.5% unseen yr), which limits causal attribution.\n\nUNKNOWN: Whether the 0.41 improvement generalizes to the 147-period external test; whether the bias is driven by the unseen-year distribution shift, the heavy-tail target structure (median=130, q99=703), or an interaction of both; whether the observed duplicate features (with varying targets) represent a data-quality issue or legitimate repeated daily observations.\n\nLIMITATIONS: Single historical origin; one 365-period window; 24-row validation precludes statistical inference; no uncertainty interval computed; the two fits share the same inner split so the comparison is conditional on that single partition. No external-test score is available.\n\nCONCRETE NEXT EXPERIMENT: Apply target_transform='log1p' to the baseline LightGBM (lr=0.05, n_estimators=300, num_leaves=31) on the same 365-period temporal window with all other components held fixed. Falsifiable question: does compressing the heavy tail (q99=703, 71.7% squared error above threshold=328) reduce the systematic negative bias more than the modest RMSE change from leaf capacity? Comparator: err_profile_baseline (evidence_ref 142e7cb347e1ec83433c96676d072c6587abc9da166d1e29324bace4780e0aa1). Acceptance rule: if RMSE decreases AND bias magnitude (|bias|) decreases by more than 5 absolute units relative to -55.6, the heavy-tail structure is a meaningful contributor to under-prediction. If bias remains near -55, the under-prediction is more likely temporal-shift-driven. Limitation: log1p transforms the metric space (RMSE on log-scale is not directly comparable to RMSE on raw scale); a paired back-transformed comparison would be needed for a valid acceptance decision. This experiment requires at least one additional fit budget and ideally a multi-origin or moving-block uncertainty method to move beyond descriptive inference."
+    },
+    {
+      "series": "live_scope_fixed",
+      "case": "evidence_bike",
+      "state": "partial",
+      "generations": 3,
+      "fit_attempts": 0,
+      "stop_reason": "QwenOutcomeUnknown: Organizer generation unknown: ReadTimeout",
+      "cost": {
+        "gateway_units": 0.7313324990218,
+        "outcome_unknown": true,
+        "requests": 3,
+        "series_account_increase": 0.5796710418348994,
+        "stop_threshold_units": 5.0,
+        "threshold_enforcement": "between_requests"
+      },
+      "submission_written": false,
+      "outer_labels_used": false,
+      "summary_sha256": "0fd9c261dbe53ca46c504d9e60503169bf477affd88979ad4f81b44dd56e2ea9",
+      "evaluation_contract": {
+        "available_fit_periods": 582,
+        "claim_limits": [
+          "Aggregate bias does not locate errors in the target tails.",
+          "Duplicate features do not establish their cause or whether they are harmless.",
+          "No universal effect threshold or uncertainty estimator is valid for every task."
+        ],
+        "design": null,
+        "design_status": "unselected",
+        "external_periods": 147,
+        "gap_periods": 0,
+        "horizon_covered": null,
+        "limitations": [
+          "Single historical origin; regime and seasonal changes may invalidate transfer.",
+          "Observed periods are not elapsed duration; irregular calendars require separate interpretation.",
+          "Window, effect criterion and uncertainty assumptions require task-specific justification."
+        ],
+        "method": "descriptive",
+        "protocol_hash": "b7d29e1095050d151a8fde941ab613ab3e69c0a0df6ec218c0619cb54ea7c5ff",
+        "strategy": "temporal",
+        "temporal_window": null,
+        "version": 3
+      },
+      "experiments": [],
+      "agent_conclusion_unverified": null
+    }
+  ],
+  "full_live": {
+    "control_status": "completed",
+    "failure": null,
+    "generations": 2,
+    "limits": {
+      "candidates": 2,
+      "cpu": 2,
+      "generations": 3,
+      "memory_mb": 4096,
+      "seconds": 180
+    },
+    "mode": "full_controller_live_qwen",
+    "model": "qwen/qwen3.8-27b",
+    "quality_claim": "None: a short technical run cannot establish full-budget research quality.",
+    "refit_status": "completed",
+    "state": "completed",
+    "submission_exists": true
+  },
+  "full_offline_technical": [
+    {
+      "api_calls": 0,
+      "case": "regression",
+      "control_status": "completed",
+      "failure": null,
+      "interpretation": "Technical no-LLM smoke; no autonomous decision quality or private prediction claim.",
+      "refit_status": "completed",
+      "state": "completed",
+      "submission_exists": true
+    },
+    {
+      "api_calls": 0,
+      "case": "classification",
+      "control_status": "completed",
+      "failure": null,
+      "interpretation": "Technical no-LLM smoke; no autonomous decision quality or private prediction claim.",
+      "refit_status": "completed",
+      "state": "completed",
+      "submission_exists": true
+    },
+    {
+      "api_calls": 0,
+      "case": "temporal_group",
+      "control_status": "completed",
+      "failure": null,
+      "interpretation": "Technical no-LLM smoke; no autonomous decision quality or private prediction claim.",
+      "refit_status": "completed",
+      "state": "completed",
+      "submission_exists": true
+    }
+  ],
+  "account_interval": {
+    "before_remaining": 468.18930378641164,
+    "after_remaining": 461.4583343339784,
+    "increase": 6.730969452432873,
+    "interpretation": "Shared key interval may include other processes and delayed charges; one request outcome is unknown."
+  },
+  "source_facts": {
+    "requirements_sha256": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6"
+  },
+  "claim_support": "Manual review required; execution success does not verify model explanations.",
+  "final_python_source_fingerprint": "7c04a6ee62f99dd7c08607e2c38fc87f57bbd0410ded93fdd2a0a08953ee4d8e",
+  "fingerprint_rule": "SHA256 of canonical sorted path:SHA256 map for solution.py, automl_agent/**/*.py, context_compressor/*.py",
+  "live_evidence_limit": "Late scope-display, report and policy refinements have offline checks; the final live scope retry had unknown HTTP outcome."
+}

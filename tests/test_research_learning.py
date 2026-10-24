@@ -22,10 +22,10 @@ def trial(identifier, score, **changes):
 
 @pytest.mark.parametrize("metric,reference,score,expected", [
     ("rmse", 10, 9, "improved_locally"), ("rmse", 10, 11, "no_material_gain"),
-    ("mae", 10, 9.9995, "no_material_gain"), ("log_loss", .8, .7, "improved_locally"),
+    ("mae", 10, 9.9995, "improved_locally"), ("log_loss", .8, .7, "improved_locally"),
     ("f1", .7, .8, "improved_locally"), ("accuracy", .8, .7, "no_material_gain"),
     ("r2", -.3, -.2, "improved_locally"), ("ndcg", .7, .8, "improved_locally")])
-def test_review_respects_primary_metric_direction_and_material_gain(metric, reference, score, expected):
+def test_review_respects_primary_metric_direction_without_universal_effect_floor(metric, reference, score, expected):
     from types import SimpleNamespace
     task = SimpleNamespace(metric=MetricSpec(name=metric))
     s, r = trial("new", score)
@@ -150,3 +150,12 @@ def test_review_is_durable_discoverable_and_survives_wire_compression(tmp_path, 
         assert {p.name: p.read_bytes() for p in (resumed.workdir / "research_reviews").glob("*.json")} == before
     finally:
         resumed.close()
+
+
+def test_experiment_review_preserves_explicit_task_specific_effect_policy():
+    from types import SimpleNamespace
+    task=SimpleNamespace(metric=MetricSpec(name="mae"))
+    s,r=trial("new",9.9995)
+    review=experiment_review(s,r,[trial("old",10)],task,SelectionPolicy(maximize=False,min_delta_abs=.01))
+    assert review["outcome"]=="no_material_gain"
+    assert review["comparison"]["acceptance"]=="requires_hypothesis_review"

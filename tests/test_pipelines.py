@@ -79,3 +79,24 @@ def test_multiclass_probability_alignment(tabular,model):
     p.fit(X,y,context(task));b=p.predict(X.iloc[:4],context(task))
     values=align_predictions(b,X.index[:4].tolist(),task,'protocol','test')['answer']
     assert values.shape==(4,3) and np.allclose(values.sum(axis=1),1)
+
+
+def test_lightgbm_special_feature_names_preserve_values_categories_and_roundtrip(tabular):
+    X,y,task=tabular
+    mapping={'number':'number,mean','second':'number:mean','category':'category[code]'}
+    X=X.rename(columns=mapping)
+    before=X.copy(deep=True)
+    task=task.model_copy(update={'feature_columns':list(X),'categorical_columns':['category[code]']})
+    spec=PipelineSpec(model='lightgbm',representation='native',hyperparameters={'n_estimators':10})
+    pipeline=build_pipeline(spec,task,{})
+    c=context(task)
+    pipeline.fit(X,y,c)
+    prediction=pipeline.predict(X.iloc[:30],c)
+    restored=cloudpickle.loads(cloudpickle.dumps(pipeline))
+    assert np.isfinite(prediction.values['answer']).all()
+    assert np.allclose(prediction.values['answer'],restored.predict(X.iloc[:30],c).values['answer'])
+    assert pipeline.model_feature_names['feature_0']=='number,mean'
+    assert len(set(pipeline.model_feature_names))==pipeline.preprocessor.width
+    assert set(mapping.values())<=set(pipeline.model_feature_names.values())
+    assert pipeline.summary.preprocessing['model_feature_name_policy']=='positional_safe_aliases'
+    pd.testing.assert_frame_equal(X,before)

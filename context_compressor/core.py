@@ -217,7 +217,13 @@ class ProfileCache:
             "duplicate_features", "label_conflicts", "duplicate_target_variation", "class_imbalance", "rare_classes", "heavy_tail"}
         summary["risk_flags"] = {name: value for item in document.get("observations", []) if item.get("type") == "fit_risks"
             for name, value in item.get("flags", {}).items() if name in allowed_risks and type(value) is bool}
+        if document.get("status", "available") != "available":
+            summary["status"] = document["status"]
+            summary["error"] = document.get("error")
         summary["trust"] = "external_data"
+        if document.get("findings"):
+            summary["findings"] = [{k: item[k] for k in ("kind", "scope", "observation", "limitation", "next_question")}
+                for item in document["findings"][:3]]
         source_id = "profile:" + key.hash
         reference = {"cache_key": key.hash, "summary": summary,
                      "read": read_ref(source_id, key.format_version, key.scope),

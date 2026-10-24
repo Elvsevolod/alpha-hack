@@ -188,6 +188,17 @@ class DirectPipeline:
                 self.encoders[target] = encoder
                 values = encoder.transform(values)
             fit_kwargs = {}
+            if self.spec.model in {"lightgbm", "lgbm_ranker"} and isinstance(model_matrix, pd.DataFrame) and any(
+                    any(char in str(column) for char in '[]{}":,') for column in model_matrix.columns):
+                # Keep task/source names unchanged. LightGBM's JSON model format
+                # requires safe, collision-free internal names, including indicators.
+                aliases = [f"feature_{i}" for i in range(model_matrix.shape[1])]
+                self.model_feature_names = dict(zip(aliases, map(str, model_matrix.columns)))
+                fit_kwargs["feature_name"] = aliases
+                fit_kwargs["categorical_feature"] = [i for i, dtype in enumerate(model_matrix.dtypes)
+                    if isinstance(dtype, pd.CategoricalDtype)]
+                self.preprocessor.processing_summary["model_feature_name_policy"] = "positional_safe_aliases"
+                self.preprocessor.processing_summary["feature_name_mapping_hash"] = digest(self.model_feature_names)
             if self.spec.model == "catboost" and self.preprocessor.native:
                 fit_kwargs["cat_features"] = self.preprocessor.categorical_columns
             if self.spec.model == "lgbm_ranker":
@@ -197,7 +208,7 @@ class DirectPipeline:
                 order = np.argsort(group, kind="stable")
                 _, sizes = np.unique(group[order], return_counts=True)
                 ordered_matrix = model_matrix.iloc[order] if isinstance(model_matrix, pd.DataFrame) else model_matrix[order]
-                model.fit(ordered_matrix, values[order], group=sizes.tolist())
+                model.fit(ordered_matrix, values[order], group=sizes.tolist(), **fit_kwargs)
             else:
                 model.fit(model_matrix, values, **fit_kwargs)
             self.models[target] = model

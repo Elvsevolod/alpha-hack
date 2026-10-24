@@ -8,6 +8,7 @@ import json
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from automl_agent.custom import ALLOWED_IMPORTS
 from automl_agent.util import atomic_json,file_hash
+from tools.runtime_sources import production_agent_sources
 
 ROOT=Path(__file__).resolve().parents[1]
 MODULE_DISTRIBUTIONS={'sklearn':'scikit-learn','imblearn':'imbalanced-learn','feature_engine':'feature-engine',
@@ -21,7 +22,7 @@ def audit():
         match=re.fullmatch(r'([A-Za-z0-9_.-]+)(?:\[([^]]+)\])?==([^\s#]+)',line.strip())
         if match:pins[match[1]]={'version':match[3],'extras':match[2]}
     violations=[];imports=[]
-    paths=[ROOT/'solution.py',*sorted((ROOT/'automl_agent').glob('*.py')),
+    paths=[ROOT/'solution.py',*production_agent_sources(ROOT),
         *[p for p in sorted((ROOT/'context_compressor').glob('*.py')) if p.name != 'verify.py'],
         *[ROOT/'ml_knowledge'/name for name in ('__init__.py','core.py','lexical.py','runtime.py','memory.py','context.py')]]
     for path in paths:

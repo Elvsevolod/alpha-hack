@@ -6,8 +6,8 @@ import time
 from dataclasses import replace
 from types import SimpleNamespace
 
-from context_compressor import (ContextCompressor, ContextStore, Emission, ProfileCache,
-    ProfileKey, Record, REQUIRED_FLAGS, Source, SourceSlice, Transport, configure, BudgetExceeded)
+from context_compressor import (ContextCompressor, ContextStore, Emission,
+    Record, REQUIRED_FLAGS, Source, SourceSlice, Transport, configure, BudgetExceeded)
 
 from .contracts import ExperimentResult, ExperimentSpec, ResearchState, TOOL_SCHEMAS, LEGACY_TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand
 from .util import atomic_json, canonical, digest, redact, utf8_short
@@ -222,8 +222,7 @@ class ContextMemory:
         c = self.c
         c.qwen.select_for_step()
         self.index_experiments()
-        profile = ProfileCache(self.store).get_or_create(ProfileKey(c.dataset.source_hash, digest(c.plan.fit), format_version="3"),
-            lambda: c.dataset.profile(c.plan.fit).model_dump(mode="json"))
+        profile, _ = c.eda.profile(c.plan)
         # Always retain complete contract/text and environment behind versioned
         # routes; none of these sources can expose private control labels.
         self.store.put_source(Source("task_description", c.dataset.source_hash, c.dataset.text, "contract", origin="task_file"))
@@ -295,7 +294,14 @@ class ContextMemory:
             counters=counters, work=work, profile=profile)
         if c.research_focus:
             system += "\nDevelopment objective, subject to all fixed contracts and permissions: " + canonical(c.research_focus)
-        transport = Transport(system=system, tool_schemas={k: {**v.model_json_schema(), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},
+        schemas={k:{**v.model_json_schema(),"description":TOOL_DESCRIPTIONS[k]} for k,v in TOOL_SCHEMAS.items()}
+        # EDA-only evaluation arguments are not executable in the full research path.
+        # Project the shared schema to capabilities instead of spending request bytes
+        # advertising a field that the executor rejects.
+        for schema in schemas.values():
+            schema.get("properties",{}).pop("evaluation",None)
+            schema.get("$defs",{}).pop("EvaluationDesign",None)
+        transport = Transport(system=system, tool_schemas=schemas,
             model=c.qwen.model, response_reserve=c.qwen.output_tokens, extra=c.qwen.extra,
             reference_packet=c.knowledge.select_packet(profile))
         self.compressor = ContextCompressor(self.store, transport)

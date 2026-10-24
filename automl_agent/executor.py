@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+import json
+import tempfile
 import os
 import signal
 import shutil
@@ -17,10 +19,58 @@ from .util import atomic_json, file_hash, read_json, redact
 from .diagnostics import RotatingOutput, snapshot, emit, artifact
 
 
-def stage_frame(path: Path, frame: pd.DataFrame):
-    data = frame.astype(object).where(frame.notna(), None)
-    atomic_json(path, {"columns": list(frame), "index": list(map(str, frame.index)), "data": data.values.tolist(),
-        "numeric": [column for column in frame if pd.api.types.is_numeric_dtype(frame[column])]})
+def stage_frame(path: Path, frame: pd.DataFrame, *, deadline=None, memory_mb=None, chunk_rows=128):
+    """Stream bounded chunks into the existing worker format, replacing only on success.
+
+    Deadline/RSS checks are cooperative: an individual scalar conversion or OS write
+    cannot be interrupted here. No full-frame object copy or nested row list is made.
+    """
+    if chunk_rows < 1:
+        raise ValueError("chunk_rows must be positive")
+    def check():
+        if deadline is not None and time.time() >= deadline:
+            raise TimeoutError("Frame staging deadline exhausted")
+        if memory_mb is not None and psutil.Process().memory_info().rss > memory_mb * 1024**2:
+            raise ValueError("Frame staging memory limit exhausted")
+    check()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=".pending-", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            def write(value):
+                json.dump(value, stream, ensure_ascii=False, allow_nan=False, separators=(",", ":"))
+            stream.write('{"columns":')
+            write(list(frame))
+            stream.write(',"numeric":')
+            write([c for c in frame if pd.api.types.is_numeric_dtype(frame[c])])
+            stream.write(',"index":[')
+            for i, key in enumerate(frame.index):
+                if i % chunk_rows == 0:
+                    check()
+                if i:
+                    stream.write(',')
+                write(str(key))
+            stream.write('],"data":[')
+            first = True
+            # Bound cell count as well as rows for wide tables.
+            step = max(1, min(chunk_rows, 16384 // max(1, len(frame.columns))))
+            for start in range(0, len(frame), step):
+                check()
+                chunk = frame.iloc[start:start+step]
+                data = chunk.astype(object).where(chunk.notna(), None)
+                for row in data.values.tolist():
+                    if not first:
+                        stream.write(',')
+                    write(row)
+                    first = False
+                check()
+            stream.write(']}\n')
+            stream.flush()
+            os.fsync(stream.fileno())
+        check()
+        os.replace(temporary, path)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
 
 
 def terminate_tree(process):
@@ -172,6 +222,7 @@ class Executor:
                     process.wait(timeout=1)
                 except psutil.TimeoutExpired:
                     os.killpg(process.pid, signal.SIGKILL)
+                    process.wait(timeout=3)
         except (psutil.NoSuchProcess, ProcessLookupError):
             pass
         self.journal.put("active_worker", None)

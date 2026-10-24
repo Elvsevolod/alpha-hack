@@ -17,7 +17,7 @@ from automl_agent.util import atomic_json, digest, file_hash
 def run(source, output, kind):
     output.mkdir(parents=True, exist_ok=False)
     paths = {str(p.relative_to(Path(__file__).resolve().parents[1])): file_hash(p)
-        for p in sorted(Path(__file__).resolve().parents[1].joinpath("automl_agent").glob("*.py"))}
+        for p in sorted(Path(__file__).resolve().parents[1].joinpath("automl_agent").rglob("*.py"))}
     data = Dataset(source)
     task, questions = data.draft()
     if task is None or task.kind != kind:

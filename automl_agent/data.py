@@ -171,6 +171,16 @@ def _explicit_validation_supported(strategy: str, text: str) -> bool:
     for clause in clauses:
         if re.search(r"\b(?:as an example|for example|in the report|as an illustration|to illustrate)\b|(?:в качестве примера|для примера|в отч[её]т[а-я]*)", clause, re.I):
             continue
+        # A direct validation-integrity requirement also prescribes a group split.
+        # Require the directive itself, not an observation about external test groups.
+        if re.fullmatch(
+            r"\s*(?:internal\s+|cross[- ]?)?validation\s+(?:must|shall|should)\s+"
+            r"(?:use|keep|have)\s+(?:mutually\s+)?disjoint\s+"
+            r"(?:groups?|entities|subjects?|participants?|patients?|customers?|users?)\s*[.!?;]?\s*",
+            clause, re.I,
+        ):
+            signals.add("group")
+            continue
         assignments = list(re.finditer(
             r"(?:explicit_validation|validation[_ -]?(?:strategy|protocol)|split[_ -]?strategy)\s*[\"']?\s*[:=]\s*[\"']?(temporal_group|random|group|temporal)\b",
             clause,
@@ -363,9 +373,10 @@ class Dataset:
         if any(file_hash(paths[role]) != self.catalog[name]['sha256'] for role, name in roles.items()):
             raise ValueError("Source changed after inventory")
         self.paths = paths
-        self.train = read_csv(self.paths["train.csv"])
-        self.test = read_csv(self.paths["test.csv"])
-        self.sample = read_csv(self.paths["sample_submission.csv"]) if self.paths["sample_submission.csv"] else None
+        loader = getattr(self, "csv_loader", read_csv)
+        self.train = loader(self.paths["train.csv"])
+        self.test = loader(self.paths["test.csv"])
+        self.sample = loader(self.paths["sample_submission.csv"]) if self.paths["sample_submission.csv"] else None
         self.sources["schema"] = {"sha256": digest({"train": list(self.train), "test": list(self.test)}),
             "train": list(self.train), "test": list(self.test)}
         if self.paths.get("data_dictionary.csv"):
@@ -377,8 +388,8 @@ class Dataset:
         self.row_keys = [f"train:{i}" for i in range(len(self.train))]
         self.test_keys = [f"test:{i}" for i in range(len(self.test))]
 
-    def explicit(self):
-        path = self.task_path.parent / "task_spec.json"
+    def explicit(self, contract_path: Path | None = None):
+        path = contract_path or self.task_path.parent / "task_spec.json"
         if not path.is_file():raise ContractUnresolved("Without LLM an explicit task_spec.json contract is required")
         values = json.loads(path.read_text(encoding="utf-8"))
         if values.get("source_hash") not in (None, self.source_hash):raise ValueError("Explicit contract source mismatch")
@@ -529,6 +540,8 @@ class Dataset:
         # be repaired, before activation leaves the task-resolution loop.
         invalid_numeric = []
         for column in task.feature_columns:
+            if __import__("time").time() >= getattr(self, "deadline", float("inf")):
+                raise TimeoutError("Original deadline exhausted during activation")
             if column not in task.categorical_columns + task.text_columns:
                 for frame in (self.train, self.test):
                     converted = pd.to_numeric(frame[column], errors="coerce")
@@ -655,6 +668,8 @@ class Dataset:
 
     def activate(self, task: TaskSpec) -> TaskSpec:
         for column in task.feature_columns:
+            if __import__("time").time() >= getattr(self, "deadline", float("inf")):
+                raise TimeoutError("Original deadline exhausted during activation")
             if column not in task.categorical_columns + task.text_columns:
                 for frame in (self.train, self.test):
                     converted = pd.to_numeric(frame[column], errors="coerce")
@@ -689,48 +704,15 @@ class Dataset:
         return frame[columns].copy()
 
     def profile(self, indices: list[int], scope: str = "fit") -> DataProfile:
-        fit = self.train.iloc[indices]
-        columns = {}
-        for column in self.task.feature_columns:
-            values, test = fit[column], self.test[column]
-            numeric = pd.api.types.is_numeric_dtype(values)
-            item: dict[str, Any] = {"dtype": str(values.dtype), "missing": int(values.isna().sum()),
-                "missing_fraction": float(values.isna().mean()), "test_missing_fraction": float(test.isna().mean()),
-                "unique": int(values.nunique()), "numeric": numeric}
-            if numeric and values.notna().any():
-                item.update({"min": float(values.min()), "max": float(values.max()), "median": float(values.median())})
-            elif not numeric:
-                known = set(values.dropna())
-                item["new_test_category_rows"] = int((test.notna() & ~test.isin(known)).sum())
-                item["most_common_fit"] = {str(k): int(v) for k, v in values.value_counts().head(8).items()}
-            columns[column] = item
-        risks = {"empty_columns": any(v["missing"] == len(fit) for v in columns.values()),
-            "unknown_categories": any(v.get("new_test_category_rows", 0) for v in columns.values()),
-            "missingness_shift": any(abs(v["missing_fraction"] - v["test_missing_fraction"]) >= .1 for v in columns.values()),
-            "high_cardinality": any(columns[c]["unique"] > 100 for c in self.task.categorical_columns)}
-        features = fit[self.task.feature_columns]
-        duplicates = features.duplicated(keep=False)
-        risks["duplicate_features"] = bool(duplicates.any())
-        risks["label_conflicts"] = False
-        risks["duplicate_target_variation"] = False
-        if scope == "fit" and self.task.classes:
-            counts = [int((fit[target] == label).sum()) for target, labels in self.task.classes.items() for label in labels]
-            risks.update(class_imbalance=bool(counts and min(counts) * 10 < max(counts)),
-                rare_classes=bool(counts and min(counts) < 100))
-            if duplicates.any() and self.task.feature_columns:
-                conflicts = fit.loc[duplicates].groupby(self.task.feature_columns, dropna=False, observed=True)[self.task.targets].nunique()
-                risks["label_conflicts"] = bool((conflicts > 1).any().any())
-        elif scope == "fit":
-            if duplicates.any() and self.task.feature_columns:
-                target_variation = fit.loc[duplicates].groupby(self.task.feature_columns, dropna=False, observed=True)[self.task.targets].nunique()
-                risks["duplicate_target_variation"] = int((target_variation > 1).any(axis=1).sum()) >= 2
-            risks["heavy_tail"] = any(float(fit[t].quantile(.99) - fit[t].quantile(.5)) >
-                4 * max(float(fit[t].quantile(.75) - fit[t].quantile(.25)), 1e-12) for t in self.task.targets)
-        return DataProfile(data_version=self.source_hash, scope=scope, source="immutable_csv",
-            rows={"fit": len(fit), "train": len(self.train), "test": len(self.test)}, columns=columns,
-            observations=[{"type": "fit_risks", "flags": {k: bool(v) for k, v in risks.items()}}])
+        from .profiling import build_profile, profile_key
+        key = profile_key(self, indices, scope)
+        if not hasattr(self, "_profile_cache"):
+            self._profile_cache = {}
+        if key not in self._profile_cache:
+            self._profile_cache[key] = build_profile(self, indices, scope)
+        return self._profile_cache[key].model_copy(deep=True)
 
-    def inspect(self, args, plan) -> dict[str, Any]:
+    def inspect(self, args, plan, profile_document=None) -> dict[str, Any]:
         if args.scope != "fit" and args.include_target:
             raise ValueError("Target-based analysis is restricted to fit")
         if args.report == "dictionary":
@@ -746,6 +728,34 @@ class Dataset:
             text = "\n".join(lines)
             return {"status": "available", "scope": "schema", "source": "dictionary", "sha256": source["sha256"],
                 "content": text[:20000], "truncated": len(text) > 20000, "hint": "Request a named subset of columns if truncated"}
+        frame, columns = self.select_report(args, plan)
+        result: dict[str, Any] = {"scope": args.scope, "data_version": self.source_hash,
+            "protocol_hash": plan.hash, "rows": len(frame), "report": args.report}
+        selected = frame[columns]
+        if args.report == "profile" and not args.group_by:
+            from .profiling import build_profile
+            indices = plan.fit if args.scope == "fit" else plan.validation if args.scope == "validation_features" else list(range(len(self.test)))
+            document = profile_document or (build_profile(self, indices, args.scope, frame=frame).model_dump(mode="json") if args.predicate
+                else self.profile(indices, args.scope).model_dump(mode="json"))
+            result.update(status=document.get("status", "available"), error=document.get("error"),
+                version=document["version"], source=document["source"],
+                columns={c: v for c, v in document["columns"].items() if c in columns},
+                targets={c: v for c, v in document["targets"].items() if args.include_target and (not args.columns or c in columns)},
+                selection={"columns": columns, "predicate": args.predicate})
+            target_risks = {"label_conflicts", "duplicate_target_variation", "class_imbalance", "rare_classes", "heavy_tail"}
+            result["observations"] = [{**item, "flags": {k: v for k, v in item.get("flags", {}).items()
+                if args.include_target or k not in target_risks}} for item in document["observations"]]
+            result["findings"] = [item for item in document["findings"] if args.include_target or item["kind"] not in target_risks]
+        elif args.report == "correlations":
+            raise ValueError("Correlations require the resource-monitored get_dataset_report worker")
+        else:
+            from .profiling import descriptive_report
+            result.update(descriptive_report(frame, columns, args.report, args.group_by))
+        return result
+
+    def select_report(self, args, plan):
+        if args.scope != "fit" and args.include_target:
+            raise ValueError("Target-based analysis is restricted to fit")
         if args.scope == "fit":
             frame = self.train.iloc[plan.fit]
             allowed = set(self.task.feature_columns + (self.task.targets if args.include_target else []))
@@ -753,6 +763,8 @@ class Dataset:
             frame = self.test if args.scope == "test_features" else self.train.iloc[plan.validation]
             allowed = set(self.task.feature_columns)
         columns = args.columns or self.task.feature_columns
+        if len(columns) != len(set(columns)):
+            raise ValueError("Report columns must be unique")
         if not set(columns) <= allowed or (args.group_by and args.group_by not in allowed):
             raise ValueError("Column is unavailable in this analysis scope")
         if args.predicate:
@@ -773,21 +785,4 @@ class Dataset:
             else:
                 raise ValueError("Unsupported predicate operator")
             frame = frame.loc[mask]
-        result: dict[str, Any] = {"scope": args.scope, "data_version": self.source_hash,
-            "protocol_hash": plan.hash, "rows": len(frame), "report": args.report}
-        selected = frame[columns]
-        if args.report == "correlations":
-            corr = selected.select_dtypes(include="number").corr().replace([np.inf, -np.inf], np.nan)
-            result["correlations"] = json.loads(corr.to_json())
-        elif args.report == "missing":
-            masks = selected.isna().astype(int)
-            result["missing_counts"] = {c: int(v) for c, v in masks.sum().items()}
-            result["joint_missing"] = {c: {k: int(v) for k, v in row.items()} for c, row in (masks.T @ masks).to_dict().items()}
-        elif args.group_by:
-            result["groups"] = [{"value": str(k), "rows": len(g), "missing": {c: int(v) for c, v in g[columns].isna().sum().items()}}
-                                for k, g in frame.groupby(args.group_by, dropna=False, sort=False)] [:50]
-        else:
-            result["columns"] = {c: {"dtype": str(selected[c].dtype), "missing": int(selected[c].isna().sum()),
-                "unique": int(selected[c].nunique()), "top": {str(k): int(v) for k, v in selected[c].value_counts().head(8).items()}}
-                for c in columns}
-        return result
+        return frame, columns

@@ -82,9 +82,9 @@ def review_candidate(c, spec, costs, custom_code=None, requested_budget=None):
             "status": result.status, "scope": result.scope, "score": result.score, "seconds": result.seconds})
     comparators = [item for item in comparators if item["parent"] or item["incumbent"]] + [
         item for item in comparators if not item["parent"] and not item["incumbent"]][-3:]
-    profile = c.dataset.profile(c.plan.fit)
+    _, profile = c.eda.profile(c.plan)
     missing = [{"column": name, "fraction": item["missing_fraction"], "numeric": item["numeric"]}
-        for name, item in profile.columns.items() if name in c.task.feature_columns and item["missing_fraction"] > 0]
+        for name, item in profile["columns"].items() if name in c.task.feature_columns and item["missing_fraction"] > 0]
     request = {"task": {key: value for key, value in c.task.model_dump(mode="json").items() if key in {
             "kind", "metric", "targets", "feature_columns", "categorical_columns", "text_columns",
             "time_column", "group_column", "series_columns", "forecast_horizon", "feature_constraints", "output"}},
@@ -92,7 +92,7 @@ def review_candidate(c, spec, costs, custom_code=None, requested_budget=None):
             "learning_scope": "fit_only_including_inner_folds", "control": "closed",
             "comparison_scope": "research_validation_only", "supplied_score_scope": "research_validation",
             "closed_control_and_test": "Never use for hypothesis selection, criticism or acceptance criteria"},
-        "fit_profile": {"rows": len(c.plan.fit), "feature_count": len(c.task.feature_columns),
+        "fit_profile": {"status":profile.get("status","unknown"), "rows": len(c.plan.fit), "feature_count": len(c.task.feature_columns),
             "missing_features": sorted(missing, key=lambda item: -item["fraction"])[:20]},
         "candidate": spec.model_dump(mode="json", exclude={"experiment_id"}), "comparators": comparators,
         "cost": {"estimated_seconds": seconds, "basis": "measured_recipe_forecast" if measured else "hard_candidate_cap",

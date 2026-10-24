@@ -307,12 +307,12 @@ def test_context_routes_retrieve_unicode_and_reject_control_labels(controller):
 
 def test_fit_profile_is_calculated_once_per_immutable_split(controller, monkeypatch):
     c = controller
-    original = c.dataset.profile
+    original = c.eda._profile
     calls = []
     def profile(*args, **kwargs):
         calls.append(1)
         return original(*args, **kwargs)
-    monkeypatch.setattr(c.dataset, "profile", profile)
+    monkeypatch.setattr(c.eda, "_profile", profile)
     a = c.context_memory.snapshot(SYSTEM)
     b = c.context_memory.snapshot(SYSTEM)
     assert len(calls) == 1

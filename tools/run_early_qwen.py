@@ -22,7 +22,7 @@ def run(source, destination, assay, seconds):
         "imputation": row.get("outcome", {}).get("result", {}).get("training_summary", {}).get("imputation", {}).get("method")}
         for row in prior["runs"]]
     hashes = {str(p.relative_to(Path(__file__).resolve().parents[1])): file_hash(p)
-        for p in sorted(Path(__file__).resolve().parents[1].joinpath("automl_agent").glob("*.py"))}
+        for p in sorted(Path(__file__).resolve().parents[1].joinpath("automl_agent").rglob("*.py"))}
     focus = "Development follow-up to a frozen short model assay on this same research protocol. The following are permitted aggregate validation results, not outer evaluation or closed-control error analyses. Choose your next hypotheses freely based on these results and fit observations; do not repeat a failed component without a concrete changed reason. Explain observation, actual configuration change and expected effect. You may consult existing references, tune, ensemble or create Python components. Previous assays: " + json.dumps(evidence)
     atomic_json(destination / "LIVE_MANIFEST.json", {"code_hash": digest(hashes), "code_hashes": hashes,
         "assay_sha256": file_hash(assay), "provided_evidence": evidence, "seconds": seconds, "cpu": 6,

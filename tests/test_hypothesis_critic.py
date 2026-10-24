@@ -141,12 +141,14 @@ def test_critic_context_does_not_expose_private_results_or_nonfit_profiles(contr
     measured.artifacts['predictions'] = 'PRIVATE_SENTINEL'
     measured.training_summary['inner_labels'] = 'PRIVATE_SENTINEL'
     c.journal.save_experiment(old, measured)
-    profile = c.dataset.profile
+    profile = c.eda.profile
     scopes = []
-    def fit_profile(indices, scope='fit'):
-        scopes.append(indices)
-        return profile(indices, scope)
-    monkeypatch.setattr(c.dataset, 'profile', fit_profile)
+    def fit_profile(plan, scope='fit'):
+        scopes.append(plan.fit)
+        assert scope == 'fit'
+        return profile(plan, scope)
+    monkeypatch.setattr(c.eda, 'profile', fit_profile)
+    monkeypatch.setattr(c.dataset, 'profile', lambda *a, **kw: pytest.fail('Unbounded profile bypassed EDA cache'))
     def critique(request, reserve_seconds):
         wire = json.dumps(request)
         assert 'PRIVATE_SENTINEL' not in wire and 'feedback' not in wire and 'artifacts' not in wire

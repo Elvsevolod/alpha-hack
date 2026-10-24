@@ -154,6 +154,8 @@ class TaskResolutionProposal(Contract):
 
 
 class DataProfile(Contract):
+    status: str = "available"
+    error: str | None = None
     data_version: str
     scope: str
     source: str
@@ -161,6 +163,8 @@ class DataProfile(Contract):
     rows: dict[str, int]
     columns: dict[str, dict[str, Any]]
     observations: list[dict[str, Any]] = Field(default_factory=list)
+    targets: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    findings: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class FeedbackPolicy(Contract):
@@ -175,7 +179,7 @@ class FeedbackPolicy(Contract):
 
 class SelectionPolicy(Contract):
     maximize: bool
-    min_delta_abs: float = Field(default=0.001, ge=0)
+    min_delta_abs: float = Field(default=0.0, ge=0)
     min_delta_rel: float = Field(default=0.0, ge=0)
     tie_order: list[str] = Field(default_factory=lambda: ["finish_seconds", "peak_memory_mb", "created_index"])
     control_tie: Literal["baseline"] = "baseline"
@@ -454,7 +458,28 @@ class ReferenceArgs(Contract):
     knowledge_gap: str | None = None
 
 
+class EvaluationDesign(Contract):
+    """Adaptive methodology, frozen before fit; bounds are engineering limits."""
+    rationale: str = Field(min_length=20, max_length=3000)
+    temporal_window_periods: int | None = Field(default=None, ge=1)
+    gap_periods: int = Field(default=0, ge=0)
+    method: Literal["descriptive", "moving_block"] = "descriptive"
+    block_periods: int | None = Field(default=None, ge=1)
+    resamples: int = Field(default=500, ge=100, le=2000)
+    confidence: float = Field(default=.95, gt=.5, lt=1)
+    minimum_effect_abs: float | None = Field(default=None, ge=0)
+    minimum_effect_rel: float | None = Field(default=None, ge=0)
+    assumptions: str = Field(min_length=10, max_length=2000)
+
+    @model_validator(mode="after")
+    def complete_uncertainty(self):
+        if self.method == "moving_block" and (self.block_periods is None or self.temporal_window_periods is None):
+            raise ValueError("Moving-block comparison needs explicit temporal window and block size")
+        return self
+
+
 class TrainArgs(Contract):
+    evaluation: EvaluationDesign | None = None
     pipeline: PipelineSpec
     hypothesis: Hypothesis
     parent_id: str | None = None
@@ -503,8 +528,9 @@ LEGACY_TOOL_SCHEMAS = {
 
 
 class DatasetReportArgs(Contract):
+    evaluation: EvaluationDesign | None = None
     scope: Literal["fit", "validation_features", "test_features"] = "fit"
-    report: Literal["profile", "dictionary", "missing", "categories", "correlations", "slice"] = "profile"
+    report: Literal["profile", "dictionary", "missing", "categories", "correlations", "errors", "slice"] = "profile"
     columns: list[str] = Field(default_factory=list, max_length=30)
     group_by: str | None = None
     predicate: dict[str, Any] | None = None
@@ -535,6 +561,8 @@ class DiagnosticReportArgs(Contract):
 
 
 class ReviseValidationArgs(Contract):
+    temporal_window_periods: int | None = Field(default=None, ge=1)
+    gap_periods: int = Field(default=0, ge=0)
     proposed_strategy: Literal["random", "group", "temporal", "temporal_group"]
     rationale: str = Field(min_length=1)
 
@@ -562,9 +590,18 @@ class KnowledgeReadArgs(Contract):
     collection: Literal["documents", "methods", "recipes", "search_spaces"]
     id: str
     corpus_version: str
+    view: Literal["document", "parameters"] = "document"
+    parameter: str | None = Field(default=None, max_length=128,
+        description="Exact parameter name within view=parameters; omit to browse all parameters.")
     cursor: str | None = None
     max_chars: int = Field(default=6000, ge=2000, le=12000)
     knowledge_gap: str | None = None
+
+    @model_validator(mode="after")
+    def parameter_view(self):
+        if self.parameter and self.view != "parameters":
+            raise ValueError("parameter requires view=parameters")
+        return self
 
 
 class RunFilters(Contract):
@@ -637,7 +674,7 @@ TOOL_DESCRIPTIONS = {
     "revise_validation": "State-changing action: may re-evaluate candidates and apply a new active validation protocol in this call, without further confirmation. Metric, roles and closed control cannot change.",
     "search_knowledge": "Search one collection. Ranked candidates are not confirmed answers; read evidence next. Exact symbol, FTS5 BM25 or lexical matching.",
     "list_knowledge": "Browse a filtered catalog, without claiming a search match.",
-    "read_knowledge": "Read a specific versioned knowledge source, including conditions, warnings and continuation.",
+    "read_knowledge": "Use view=parameters to browse library parameter declarations/defaults/descriptions, optionally one exact parameter; adapter restrictions remain binding. Read a specific versioned knowledge source, including conditions, warnings and continuation.",
     "search_run_records": "Find permitted past results, errors, notes or observations by filters and literal normalized words.",
     "list_run_records": "Browse the permitted run index by type and filters.",
     "read_run_records": "Read up to ten saved records, one saved code object, or a versioned contract/source page.",

@@ -11,9 +11,9 @@ from .feedback import freeze_partitions
 
 
 def selection_for(task: TaskSpec) -> SelectionPolicy:
-    if task.metric.name in {"rmse", "mse", "mae", "mape", "log_loss"}:
-        return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=1e-12, min_delta_rel=0.001)
-    return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=0.001)
+    # Ordering candidates is not a statistical or practical significance test.
+    # A task-specific acceptance effect belongs to its declared experiment design.
+    return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=0., min_delta_rel=0.)
 
 
 def ordered_periods(series: pd.Series) -> pd.Series:
@@ -98,7 +98,7 @@ def stratified_parts(y: pd.DataFrame, seed: int, multilabel: bool = False) -> tu
     return tuple(sorted(x) for x in result)
 
 
-def choose_validation(dataset, seed: int = 42) -> ValidationPlan:
+def choose_validation(dataset, seed: int = 42, *, temporal_window: int | None = None) -> ValidationPlan:
     task, train, test = dataset.task, dataset.train, dataset.test
     n = len(train)
     if n < 8:
@@ -139,7 +139,7 @@ def choose_validation(dataset, seed: int = 42) -> ValidationPlan:
             raise ValueError("Temporal validation requires an established time column")
         time = ordered_periods(train[task.time_column])
         periods = sorted(time.unique())
-        horizon = task.horizon if task.kind == "forecasting" else 1
+        horizon = task.horizon if task.kind == "forecasting" else (temporal_window or 1)
         if len(periods) < 2 * horizon + 1:
             raise ValueError("Not enough periods for fit and two independent horizons")
         control_periods = periods[-horizon:]
@@ -203,16 +203,18 @@ def choose_validation(dataset, seed: int = 42) -> ValidationPlan:
         selection_policy=selection_for(task), class_coverage=coverage, observations=observations)
 
 
-def inner_split(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str, seed: int) -> tuple[np.ndarray, np.ndarray]:
+def inner_split(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str, seed: int, *, temporal_window: int | None = None, gap_periods: int = 0) -> tuple[np.ndarray, np.ndarray]:
     n = len(X)
     if strategy in {"temporal", "temporal_group"}:
         time = ordered_periods(X[task.time_column])
         periods = sorted(time.unique())
-        horizon = task.horizon if task.kind == "forecasting" else 1
+        horizon = temporal_window if temporal_window is not None else (task.horizon if task.kind == "forecasting" else 1)
         if len(periods) <= horizon:
             raise ValueError("Insufficient inner training history")
         val = np.flatnonzero(time.isin(periods[-horizon:]))
-        fit = np.flatnonzero(time < periods[-horizon])
+        if len(periods) <= horizon + gap_periods:
+            raise ValueError("Insufficient inner history for window and gap")
+        fit = np.flatnonzero(time < periods[-horizon-gap_periods])
         if strategy == "temporal_group":
             if not task.group_column or X[task.group_column].isna().any():
                 raise ValueError("Joint inner split requires complete groups")

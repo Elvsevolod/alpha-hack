@@ -53,6 +53,9 @@ def test_model_validation_strategy_needs_protocol_evidence_not_column_roles(tmp_
     ('Use group-based validation and avoid random validation.', 'group'),
     ('Use group-based validation and never use random validation.', 'group'),
     ('Groups must not overlap across train and validation.', 'group'),
+    ('Internal validation must use disjoint subjects.', 'group'),
+    ('Validation must use disjoint participants.', 'group'),
+    ('Cross-validation shall use disjoint entities.', 'group'),
     ('Do not split groups across train and validation.', 'group'),
     ('Группы не должны пересекаться между train и validation.', 'group'),
     ('Groups must not be split across train and validation.', 'group'),
@@ -168,6 +171,10 @@ def test_model_validation_strategy_rejects_alternatives_and_unrelated_directives
 
 @pytest.mark.parametrize(('instruction','strategy'),[
     ('Group-based validation is one option in the guide.', 'group'),
+    ('The previous run used disjoint subjects for internal validation.', 'group'),
+    ('Internal validation must not use disjoint subjects.', 'group'),
+    ('Internal validation must use disjoint subjects or random validation.', 'group'),
+    ('The guide says internal validation must use disjoint subjects.', 'group'),
     ('The previous run used group-based validation.', 'group'),
     ('Group-based validation is one option. Chronological validation is another.', 'temporal_group'),
 ])

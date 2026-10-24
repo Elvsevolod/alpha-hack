@@ -113,6 +113,32 @@ def run_request(request, directory):
         from .visual_diagnostics import run_worker
         request.setdefault("context", {})["workdir"] = str(directory)
         return run_worker(request, directory)
+    if request["mode"] == "load_csv":
+        from .data import read_csv
+        from .executor import stage_frame
+        stage_frame(directory / "loaded.json", read_csv(Path(request["input_path"])))
+        return {"status": "completed"}
+    if request["mode"] == "profile":
+        from types import SimpleNamespace
+        from .profiling import build_profile
+        task = TaskSpec.model_validate(request["task"])
+        frame = read_frame(directory / "profile_rows.json")
+        test = read_frame(directory / "profile_test.json")
+        dataset = SimpleNamespace(task=task, train=range(request["train_rows"]), test=test,
+            source_hash=request["data_version"])
+        profile = build_profile(dataset, [], request["scope"], frame=frame)
+        return {"status": "completed", "report": profile.model_dump(mode="json")}
+    if request["mode"] == "eda_errors":
+        from .eda.error_analysis import run
+        return run(request, read_frame(directory / "fit_X.json"), read_frame(directory / "fit_y.json"))
+    if request["mode"] == "descriptive_report":
+        from .profiling import descriptive_report
+        return {"status": "completed", "report": descriptive_report(
+            read_frame(directory / "analysis_X.json"), request["columns"], request["report"], request.get("group_by"))}
+    if request["mode"] == "correlations":
+        from .profiling import correlations
+        return {"status": "completed", "report": correlations(read_frame(directory / "analysis_X.json"),
+            request.get("excluded_columns"))}
     if request["mode"] == "clustering":
         from .clustering import ClusteringContract, run
         report = run(directory, ClusteringContract.model_validate(request["contract"]))

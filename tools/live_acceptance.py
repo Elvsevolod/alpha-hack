@@ -30,7 +30,7 @@ PROTOCOL_VERSION=6
 
 
 def code_fingerprint():
-    paths=[ROOT/'solution.py',*sorted((ROOT/'automl_agent').glob('*.py')),
+    paths=[ROOT/'solution.py',*sorted((ROOT/'automl_agent').rglob('*.py')),
         *[p for p in sorted((ROOT/'context_compressor').glob('*.py')) if p.name!='verify.py'],Path(__file__),
         ROOT/'tools/acceptance_fixtures.py',ROOT/'tools/live_acceptance_extensions.py',ROOT/'knowledge_runtime/knowledge.lock.json']
     return digest({str(p.relative_to(ROOT)):file_hash(p) for p in paths})

@@ -13,6 +13,7 @@ import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from automl_agent.util import atomic_bytes, atomic_json, file_hash
+from tools.runtime_sources import production_agent_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -85,7 +86,7 @@ def build(destination):
     if file_hash(knowledge_release) != release_manifest['zip_sha256']:
         raise ValueError('Independent knowledge release checksum mismatch')
     knowledge_modules = ('core', 'lexical', 'runtime', 'memory', 'context')
-    paths = [ROOT / 'solution.py', ROOT / 'requirements.txt', *sorted((ROOT / 'automl_agent').glob('*.py')),
+    paths = [ROOT / 'solution.py', ROOT / 'requirements.txt',  *production_agent_sources(ROOT),
         *[ROOT / 'context_compressor' / name for name in ('__init__.py', 'contracts.py', 'store.py', 'core.py', 'transport.py', 'assembler.py')],
         ROOT / 'ml_knowledge/__init__.py', *[ROOT / 'ml_knowledge' / (name + '.py') for name in knowledge_modules]]
     # The large corpus stays in the standalone streaming shards, once. The

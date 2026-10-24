@@ -6,7 +6,6 @@ import re
 
 from context_compressor import Record, Source
 
-from .contracts import InspectArgs
 from .knowledge_tools import CursorError, continuation, cursor, position
 from .util import canonical, digest, file_hash
 
@@ -124,12 +123,16 @@ class RunTools:
             "next_cursor": token, "continuation": continuation(tool, args, token)}
 
     def dataset(self, args):
-        raw = args.model_dump(exclude={"cursor", "max_chars", "knowledge_gap"})
-        value = self.c.dataset.inspect(InspectArgs(**raw), self.c.plan)
+        value, identity = self.c.eda.report(args, self.c.plan)
+        analysis_status = value.get("status", "available")
+        status = analysis_status if analysis_status in {"technical_failure", "budget_too_small", "incompatible"} else "success"
         if len(canonical(value)) <= args.max_chars - 900 and not args.cursor:
-            return {"status": "success", "report": value, "scope": args.scope, "complete": True}
-        return self.page("get_dataset_report", args, canonical(value), args.scope,
-            {"data": self.c.dataset.source_hash, "protocol": self.c.plan.hash, "args": raw})
+            return {"status": status, "analysis_status": analysis_status, "delivery_status": "complete",
+                "report": value, "scope": args.scope, "complete": True}
+        result = self.page("get_dataset_report", args, canonical(value), args.scope, identity)
+        result.update(status=status, analysis_status=analysis_status,
+            delivery_status="complete" if result["complete"] else "partial")
+        return result
 
     def read(self, args):
         self.index()

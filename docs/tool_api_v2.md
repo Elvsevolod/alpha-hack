@@ -42,6 +42,8 @@
 
 ## Общий результат
 
+В текущих исходниках профиль и корреляции расширены EDA v1: [единые факты, области доступа, worker и совместимость](eda_v1.md). Число публичных действий сохранено.
+
 Ответ содержит `tool`, `tool_api_version`, `operation_id`, устойчивый `observation_id`, `evidence_ref`, `status`, `error_code`, `provenance`, `complete`, `continuation` и типизированный `data`. Происхождение включает текущий запуск, данные, протокол, корпус и хеш полезного результата. Отдельные источники добавляют область доступа и хеш содержимого.
 
 Статусы: `success`, `no_matches`, `ambiguous`, `missing_version`, `unknown_id`, `incompatible`, `technical_failure`, `invalid_cursor`, `budget_too_small`, `interrupted`, `outcome_unknown`. Поисковая карточка всегда имеет `answer_confirmed=false`: совпадение слов не подтверждает ответ или применимость метода.
@@ -83,3 +85,24 @@ flowchart TD
 ## Статус приёмки
 
 Доказательства и все попытки сохраняются в `outputs/tool_api_v2_20261021`. Краткая техническая проверка и один разрешённый живой прогон не заменяют четыре сценария S1–S4, парную серию качества или полную репетицию проекта. Прирост RMSE/Macro F1 этой работой не установлен. Указатель принятой версии сохраняется отдельно от нового кандидата.
+
+Dataset report schema v3 adds fit-only `errors` in the autonomous development runtime. It consumes one of the same two fits as `train_model`. Responses expose separate analysis/delivery statuses; failed diagnostics are not successful analyses. See [development EDA](eda_autonomy.md). The upstream registry now has 15 actions; EDA exposes nine and retains its shared two-fit gate.
+
+
+## Просмотр параметров библиотеки
+
+Документация уже находится в замороженном корпусе. `search_knowledge(collection="documents", strategy="exact_symbol", query="<API symbol>")` возвращает прежний маршрут `read` и маршрут `parameters_read`. Через `read_knowledge` доступны:
+
+- `view="document"` — прежний документ, условия и предупреждения;
+- `view="parameters"` — раздел параметров с исходными декларациями, значениями по умолчанию и описаниями;
+- `view="parameters", parameter="<exact parameter name>"` — один параметр.
+
+Нужны реальные `id` и `corpus_version` из поиска. Продолжения привязаны к виду и выбранному параметру; диапазоны и хеши фрагментов относятся к исходному документу. Корпус не перезаписывается, неизвестные параметры и неподдерживаемые форматы не додумываются. Сохраняются исходные условия и предупреждения.
+
+`entry.parameter_view.adapter` отдельно показывает разрешённые гиперпараметры готового адаптера, параметры под управлением контроллера и возможности, доступные лишь в самой библиотеке. Это описание интерфейса, а не рекомендация значений. Просмотр не обучает модель и не расходует fit. Число действий API остаётся 15.
+
+## Методическая оценка v3
+
+`get_dataset_report(report="errors")` и `train_model` в разработческом EDA принимают необязательный `evaluation`: rationale, assumptions, temporal_window_periods, gap_periods, method (`descriptive` / `moving_block`), block_periods, resamples, confidence, optional minimum_effect_abs/rel. Временной fit требует явного окна; после первой попытки design заморожен. Другие отчёты это поле не применяют. Full controller не рекламирует EDA-only поле и отклоняет его при исполнении.
+
+В полном цикле существующий `revise_validation` принимает temporal_window_periods/gap_periods и может сохранить strategy, изменив окно. Закрытый control не меняется; сравнимые кандидаты пересчитываются с новым protocol hash. Подтверждённая forecasting-горизонтальность и group/time запреты не снимаются. Число действий остаётся 15.

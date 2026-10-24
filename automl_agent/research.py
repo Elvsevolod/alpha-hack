@@ -7,11 +7,50 @@ from .contracts import ExperimentResult, ExperimentSpec
 from .util import atomic_json, canonical, digest
 
 
-RESEARCH_POLICY = """Read the research_guide in current_work.related_ids once via read_run_records.
+COMMON_RESEARCH_RULES = """Research decisions use measured observations, relevant source reading, a falsifiable
+question, a bounded experiment, a matched comparison, and a conditional next question.
+A one-field ablation changes one independent configuration field. A family/package comparison
+may change several fields but must disclose them and cannot isolate their individual effects.
+Do not turn a point-score change into a causal explanation or a reliable transfer claim.
+When a supplied uncertainty interval includes zero, call the difference inconclusive; a worse
+point estimate alone does not prove harm or permanently rule out a hypothesis.
+An observed duplicate, skewed target or aggregate bias does not establish its cause, harmlessness,
+or the location of errors. Separate measured findings, tentative explanations and unknowns.
+Source existence and successful execution do not establish scientific support.
+A profile or two failed models cannot establish irreducible noise. Numeric storage declared as
+categorical is a semantic assumption to verify, not proof that numeric interpolation is impossible.
+Do not call the budget exhausted when measured affordable work remains; if expected information
+is low, explain that judgement separately from an actual resource limit.
+
+"""
+
+
+RESEARCH_POLICY = COMMON_RESEARCH_RULES + """
+The research_guide in current_work.related_ids contains optional methods and limitations.
+Read it when it resolves a question; no mandatory source-reading count or tool order.
 Hypotheses state observation, expected_effect, changed_component, acceptance and evidence_refs.
 """
 
-RESEARCH_GUIDE = """
+
+RESEARCH_GUIDE = COMMON_RESEARCH_RULES + """
+Offline environment: only the provided Qwen endpoint, task files, allowed installed dependencies
+and pinned local knowledge are available. Never fetch data, weights or docs or install packages.
+Method choice is adaptive: cheap profile facts may resolve a question without training; association
+matrices and slices are optional and may miss nonlinear relations or confound composition.
+For independent rows, stratification preserves class proportions but is not a dependence model.
+For new entities preserve declared groups; for future transfer preserve chronology and the relevant
+horizon/gap. Metadata alone cannot invent group identity. Inspect unseen categories across actual
+training/evaluation windows; whole-train/test overlap can hide inner distribution shift.
+Choose evaluation support before observing candidate scores. A long window trades less training
+history for transfer coverage; several origins cost additional fits. Request them only if affordable.
+Optional uncertainty methods need a sampling unit and assumptions. Row resampling assumes independent
+rows; temporal blocks assume dependence/stationarity and a justified block size. Neither bootstrap,
+multiple origins nor an effect threshold is mandatory. If none is justified, report descriptive
+paired differences and unknown stability. Do not report a confidence interval across overlapping
+folds as though folds were independent. Repeated validation selection can overfit the criterion.
+Costs include source reads, auxiliary fits, tuning and finalization. A baseline CSV is a recoverability
+safeguard, not evidence that a prescribed model or mandatory analysis sequence is optimal.
+
 Visual diagnostics: get_diagnostic_report returns numeric evidence plus an optional
 image. Compare quantiles, skew, missingness and histogram shape; a long tail suggests
 a transform/loss hypothesis, never automatic deletion. For confusion_matrix use the
