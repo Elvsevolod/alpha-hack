@@ -37,8 +37,10 @@ def experiment_summary(c, spec, result, source, change):
     training = result.get('training_summary', {})
     stability = training.get('temporal_stability', result.get('temporal_stability', {}))
     if stability:
+        from .research_evaluation import stability_design
         scores = list(stability.get('scores', {}).items())[-3:]
         item = {key: stability.get(key) for key in ('status', 'scope', 'windows_hash')}
+        item['evaluation_design'] = stability.get('evaluation_design') or stability_design(getattr(getattr(c,'plan',None),'strategy',None))
         item['windows'] = [{'id': short(name, 48), 'score': score} for name, score in scores]
         if scores:
             bias = stability.get('diagnostics', {}).get(scores[-1][0], {}).get('residual_bias', {})

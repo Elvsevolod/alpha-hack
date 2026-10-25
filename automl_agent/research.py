@@ -62,12 +62,13 @@ For residuals/confusion_matrix use get_diagnostic_report(experiment_id=..., scop
 Use preview_recipe/apply_recipe for a verified base and set/remove changes.
 Copy recipe_hash from the complete pipeline read into base_hash; diagnostic source_recipe_hash is provenance, not a preview base.
 Copy returned read routes, IDs and hashes exactly; never guess them or repair arguments by substituting identities.
-Compare cheap distinct representations/families before repeated local changes. Use run_experiments for independent hypotheses.
+Choose a bounded check for an observed error or unresolved question. Distinct representations/families are options, not a required sequence before local changes or finish. Use run_experiments for independent hypotheses.
 Starter search ranges are examples, not API limits: verify supported typed alternatives in the source documentation.
 Distinguish recipes from model families. Individual scores do not establish ensemble utility; inspect joint errors or strict OOF evidence.
 Log transforms do not establish corrected tail bias: read measured residuals in the original scale.
 Link each proposed experiment to an observed error and a falsifiable expected effect. Effective parent diffs govern attribution; mixed changes are not single-component ablations.
 Finish may explain skipped_directions; no quota. For component-loss warnings, retrain or confirm component_audit_hash. Preserve finalization reserve.
+Tied aggregate scores do not prove identical errors, irreducible error or optimality. Finish may retain a measured incumbent with explicit unknowns; affordable unattempted cards are suggestions, not required fits.
 Search feedback, strict OOF and external quality are different evidence. Small rare-class gains remain uncertain.
 Domain separation proposes a bounded weights/subset experiment; it never automatically removes features.
 Score final labels after composition/decision and regression in the original scale including tail SSE.

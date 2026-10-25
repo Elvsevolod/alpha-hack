@@ -54,13 +54,19 @@ def direction_map(c):
 
 def finish_readiness(c, args):
     mapping = direction_map(c)
+    if not args.reason.strip():
+        raise ValueError("Finish requires a concrete reason")
     skipped = args.skipped_directions
     if any(not reason.strip() for reason in skipped.values()):
         raise ValueError("Skipped directions require a concrete reason")
     if "all" in skipped and len(skipped["all"].strip()) < 20:
         raise ValueError("A global finish limitation must explain why the remaining actions are not useful")
     remaining = [row for row in mapping["affordable_unattempted"] if row["id"] not in skipped and "all" not in skipped]
-    return {"ready": not remaining, "available_actions": remaining, "skipped_directions": skipped,
+    # The dispatcher separately verifies completed current-protocol evidence
+    # and all finalization guarantees. Untried catalog entries do not establish
+    # useful experiments and must not impose a method quota or exact-ID ritual.
+    return {"ready": True, "available_actions": remaining, "skipped_directions": skipped,
+        "remaining_actions_are_advisory": True, "optimality_established": False,
         "completed_directions": len(mapping["directions"]), "reason": args.reason,
         "catalog_exhaustion_is_research_exhaustion": False,
         "diagnostic_questions": mapping['diagnostic_questions'],

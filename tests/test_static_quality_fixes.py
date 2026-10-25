@@ -439,7 +439,9 @@ def test_A19_baseline_does_not_prove_search_exhaustion(tabular, tmp_path):
     assert {"catboost", "xgboost", "ridge"} <= {row["model"] for row in mapping["affordable_unattempted"]}
     assert not mapping["catalog_exhaustion_is_research_exhaustion"]
     readiness = finish_readiness(c, SimpleNamespace(skipped_directions={}, reason="One baseline is insufficient evidence"))
-    assert not readiness["ready"]
+    assert readiness["ready"] and readiness["remaining_actions_are_advisory"]
+    assert not readiness["optimality_established"]
+    assert readiness["available_actions"]
 
 
 def test_A20_ensemble_default_preserves_the_need_for_joint_decision():

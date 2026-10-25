@@ -1,0 +1,1078 @@
+{
+  "runs": {
+    "research_branch": {
+      "analysis": {
+        "agent_minus_reference_f1": -0.019469076493800808,
+        "api": {
+          "after": 522.0127079703918,
+          "before": 530.6675752603776,
+          "increase": 8.654867289985077
+        },
+        "calls": 10,
+        "control": "completed",
+        "decisions": [
+          {
+            "operation_id": "step_2_baseline_recipe",
+            "tool": "read_run_records"
+          },
+          {
+            "operation_id": "step_3_list_recipes",
+            "tool": "list_knowledge"
+          },
+          {
+            "operation_id": "step_4",
+            "tool": "run_experiments"
+          },
+          {
+            "operation_id": "step_5_prep_1",
+            "tool": "search_knowledge"
+          },
+          {
+            "operation_id": "step_6",
+            "tool": "read_run_records"
+          },
+          {
+            "operation_id": "step_8",
+            "tool": "run_experiments"
+          },
+          {
+            "operation_id": "step_9",
+            "tool": "finish"
+          },
+          {
+            "operation_id": "step_10",
+            "tool": "run_experiments"
+          }
+        ],
+        "events": {
+          "automatic_pilot": 3,
+          "bootstrap_publication": 1,
+          "candidate_completion_forecast": 1,
+          "candidate_forecast_actual": 2,
+          "candidate_pipeline_diff": 2,
+          "cleanup_completed": 16,
+          "cleanup_planned": 16,
+          "complete_refit_estimate": 1,
+          "completion_node_actual": 4,
+          "completion_node_forecast": 4,
+          "extra_native_calls_deferred": 2,
+          "finalist_component_audit": 1,
+          "finish_readiness": 1,
+          "hypothesis_review_route": 3,
+          "inherited_fields": 2,
+          "initial_protocol_decision": 1,
+          "knowledge_discovery": 2,
+          "native_fallback": 1,
+          "publication_completed": 5,
+          "qwen_decision": 8,
+          "qwen_http_identity": 10,
+          "qwen_provider_identity": 10,
+          "qwen_request": 10,
+          "qwen_response": 10,
+          "task_resolution_proposal": 1,
+          "training_budget": 2,
+          "transition": 5,
+          "useful_progress": 8
+        },
+        "max_server_prompt_tokens": 29748,
+        "metrics": {
+          "agent": {
+            "accuracy": 0.9649122807017544,
+            "confusion": [
+              [
+                72,
+                0
+              ],
+              [
+                4,
+                38
+              ]
+            ],
+            "errors": 4,
+            "macro_f1": 0.9614864864864865
+          },
+          "reference": {
+            "accuracy": 0.9824561403508771,
+            "confusion": [
+              [
+                72,
+                0
+              ],
+              [
+                2,
+                40
+              ]
+            ],
+            "errors": 2,
+            "macro_f1": 0.9809555629802873
+          }
+        },
+        "model_time_including_queue": 190.5465841689993,
+        "refit": "completed",
+        "rejections": [
+          {
+            "error": "Unsupported parameters for xgboost: ['lambda']",
+            "operation_id": "step_4",
+            "status": "incompatible",
+            "tool": "run_experiments"
+          },
+          {
+            "error": "3 validation errors for TrainArgs\nhypothesis.parent_id\n  Extra inputs are not permitted [type=extra_forbidden, input_value='baseline', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden\nhypothesis.pipeline\n  Extra inputs are not permitted [type=extra_forbidden, input_value={'engine': 'direct', 'hyp...presentation': 'native'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden\nhypothesis.search_action\n  Extra inputs are not permitted [type=extra_forbidden, input_value='draft', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden",
+            "operation_id": "step_10",
+            "status": "incompatible",
+            "tool": "run_experiments"
+          }
+        ],
+        "requests": [
+          {
+            "file": "00000001.json",
+            "messages": [
+              {
+                "bytes": 3071,
+                "role": "system"
+              },
+              {
+                "bytes": 20261,
+                "components_bytes": {
+                  "fixed": 2,
+                  "request_id": 26,
+                  "schema": 5683,
+                  "source_hash": 66,
+                  "sources": 12432,
+                  "unresolved_fields": 107,
+                  "validation_errors": 2
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 23715
+          },
+          {
+            "file": "00000002.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 22604,
+                "components_bytes": {
+                  "compaction": 430,
+                  "core": 5622,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 2,
+                  "profile": 5039,
+                  "reference_evidence": 5537
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 84530
+          },
+          {
+            "file": "00000003.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 26882,
+                "components_bytes": {
+                  "compaction": 496,
+                  "core": 5622,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 3642,
+                  "profile": 5039,
+                  "reference_evidence": 5537
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 88808
+          },
+          {
+            "file": "00000004.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 32362,
+                "components_bytes": {
+                  "compaction": 496,
+                  "core": 6513,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 7270,
+                  "profile": 5039,
+                  "reference_evidence": 5735
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 94288
+          },
+          {
+            "file": "00000005.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 25374,
+                "components_bytes": {
+                  "compaction": 496,
+                  "core": 6574,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 2285,
+                  "profile": 5039,
+                  "reference_evidence": 4625
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 87300
+          },
+          {
+            "file": "00000006.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 32381,
+                "components_bytes": {
+                  "compaction": 496,
+                  "core": 6438,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 7496,
+                  "profile": 5039,
+                  "reference_evidence": 5850
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 94307
+          },
+          {
+            "file": "00000007.json",
+            "messages": [
+              {
+                "bytes": 14134,
+                "role": "system"
+              },
+              {
+                "bytes": 56028,
+                "components_bytes": {
+                  "$defs": 6851,
+                  "command_schema": 1101,
+                  "compaction": 496,
+                  "core": 6437,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 7496,
+                  "profile": 5039,
+                  "reference_evidence": 5850,
+                  "tool_argument_schemas": 12686
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 70545
+          },
+          {
+            "file": "00000008.json",
+            "messages": [
+              {
+                "bytes": 14134,
+                "role": "system"
+              },
+              {
+                "bytes": 51676,
+                "components_bytes": {
+                  "$defs": 6851,
+                  "command_schema": 1101,
+                  "compaction": 496,
+                  "core": 6439,
+                  "history": 1968,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 3610,
+                  "profile": 5039,
+                  "reference_evidence": 5850,
+                  "tool_argument_schemas": 12686
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 66193
+          },
+          {
+            "file": "00000009.json",
+            "messages": [
+              {
+                "bytes": 14134,
+                "role": "system"
+              },
+              {
+                "bytes": 61418,
+                "components_bytes": {
+                  "$defs": 6851,
+                  "command_schema": 1101,
+                  "compaction": 677,
+                  "core": 7438,
+                  "history": 3637,
+                  "history_details": 5567,
+                  "known_failures": 2,
+                  "observations": 5932,
+                  "profile": 5039,
+                  "reference_evidence": 5850,
+                  "tool_argument_schemas": 12686
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 75935
+          },
+          {
+            "file": "00000010.json",
+            "messages": [
+              {
+                "bytes": 14134,
+                "role": "system"
+              },
+              {
+                "bytes": 60108,
+                "components_bytes": {
+                  "$defs": 6851,
+                  "command_schema": 1101,
+                  "compaction": 543,
+                  "core": 7438,
+                  "history": 3637,
+                  "history_details": 5567,
+                  "known_failures": 2,
+                  "observations": 4932,
+                  "profile": 5039,
+                  "reference_evidence": 5850,
+                  "tool_argument_schemas": 12686
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 74625
+          }
+        ],
+        "scope": "one live run, public WDBC holdout; not contest quality or causal A/B",
+        "state": "completed",
+        "token_usage": {
+          "completion_tokens": 26091,
+          "prompt_tokens": 221702,
+          "reasoning_tokens": 21598,
+          "total_tokens": 247793
+        },
+        "training_seconds": 14.794126666000011
+      },
+      "manifest": {
+        "classes": [
+          "benign",
+          "malignant"
+        ],
+        "cpu": 2,
+        "dataset": "UCI WDBC redistributed by sklearn",
+        "isolation": "native task-directory boundary; Docker daemon unavailable; no OS container isolation claim",
+        "license": "CC BY 4.0",
+        "max_calls": 10,
+        "memory_mb": 4096,
+        "metric": "macro_f1",
+        "seconds": 600,
+        "source": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+        "source_sha256": {
+          "automl_agent/__init__.py": "dde79fe7ab0e88fb72d388817fc94eebdcda0a55e1b0e39311b42873a1691426",
+          "automl_agent/action_cards.py": "4a6ec88e3ea2bf1e73f4141540814f6d38f4c52787a984c6c39caf95a3505040",
+          "automl_agent/admission.py": "36e4b152cb91655e6f091d7f9b341aa0ec62dff504e3c8b6eecf7ebbbd7b2572",
+          "automl_agent/api.py": "2df759216d7b3da954411f38225d702b7e809d01012fa354026b7ff4ab211a7d",
+          "automl_agent/automl_decision.py": "d6a3930cb61c1093b94ea1c1453df8f7d90bfbd44305b162ca7aa6106ee1c35d",
+          "automl_agent/batch.py": "35293d9663b2558f6037c90622042bec5657d4d90b9eb0412516f6e4ac4f8744",
+          "automl_agent/budget.py": "b946fe1a3838253bdf33fec884a72f9603fc83d5aa8f25fecc1d21f0d19450d6",
+          "automl_agent/capabilities.py": "3a0da7db2d09619aafe86048294cb87f21ba27940d62caa6013f8e35144727b6",
+          "automl_agent/cleanup.py": "e51e19e1de5a842e21d15eae796edfeddd0d7061b7cfa5fea16ea8405743eab8",
+          "automl_agent/clustering.py": "b70650c63777bf051d4edd1a1543ef179344280033b5526665a8cbff2396923c",
+          "automl_agent/clustering_route.py": "4217fa363a4516196c3843a308a06db9f8b58e5ef7c8cb368e94ea66ae9444bf",
+          "automl_agent/compatibility.py": "ad4cab57aa8a7f6c0f6612ea96da77ba106c73a59e94c6e6aa8bb4217e72f463",
+          "automl_agent/completion.py": "fb4d6d815ad754bfa6eca9ee7ec421924fea945a9575c644ccc7af4037de8336",
+          "automl_agent/context_memory.py": "85e4c19eb9c21faa3f211d38442d00fcb8826b9974a8772d6d4d4b113289bec6",
+          "automl_agent/contracts.py": "d34f8c3e8e2f655bfc23c967d1404e88d4644b5f6b57cdd5a84b5c7149670da3",
+          "automl_agent/controller.py": "9a77b510e5112f65414f53506d279d2e24cbce049a18bf7dda91a7f910db99c3",
+          "automl_agent/cost_model.py": "f78e447c596ad9e9d103eff299af6942560c58f9b080d88d01dd5ab69a9329b5",
+          "automl_agent/critic.py": "315de2b54973f10d5527c22d8368dc3870fb0ce6aa0771d044d5595d778742e7",
+          "automl_agent/custom.py": "c4ac3a1efd1475e2441da34fca9e950851c2f1a87b71093175f819476c76b3d5",
+          "automl_agent/data.py": "a881cbff79cb0fa37f5b11686b7f699c30fca1cae65d63d8fb3418eb1b8483b0",
+          "automl_agent/decision.py": "b54a1bde50ee000fde4c1c87c21a97b645e7c52058bc074aa52b13a1103329ca",
+          "automl_agent/dependency_policy.py": "85010725cb6384f9782112336195a556ed51aab5a3a0724469c01d25b8c20a38",
+          "automl_agent/diagnostic_automl.py": "43090f1bc5bf08bc0b675dd6fe5fbff41c4a8275cbcd05046e1d4ca5f3df6be7",
+          "automl_agent/diagnostics.py": "5da661501094d51ca886b7b6b90ee6de84b69dbd23b9991db0ae86db24935838",
+          "automl_agent/directions.py": "465d06b5510df75886a40fe9eedbe05ca3f7662196fd368f39645d1559a4065b",
+          "automl_agent/evaluation.py": "1a97cbdc63478f15059c0bb3fd1885a83a204885057a449c284cdaec45f6fc6d",
+          "automl_agent/executor.py": "cf806340f068310c7fb9a971ff6bd7d90fe6e32e278a8a134abef22aa1a5f882",
+          "automl_agent/feedback.py": "71763a28449cce1a3808188c3ab23923e058de4ae21832c954293f9cd8a384c9",
+          "automl_agent/finalists.py": "19f54813e84765efc3c93b07ea8717369d1539e5cccb28996bbfa60059772476",
+          "automl_agent/forecasting.py": "03951ffd09f48ed3ac445eb52a7b6b236c566056964774a44c600db5112f1c67",
+          "automl_agent/group_context.py": "a666d82d898e75c454c2d5a32afb8456fb0b1d866a59729d5758131ad8e38e01",
+          "automl_agent/human_practice.py": "ec5f84c5866d042617f4b46e1ac2a51bdcadfe4b353ea6e1edc5c92e3ca9aed1",
+          "automl_agent/identity.py": "e6ee4a10349bac1ca0f13eb0f4ae2536da6bef904a046e33dcb7d2f6fc364bdf",
+          "automl_agent/journal.py": "787c4ec062e5a3316f98481efe9ad7bb3d430d737cca8bb79a52ff8ab3833e03",
+          "automl_agent/knowledge.py": "0bb0f215a2b576a500c0313aacc2281909eb0e44873a1b0ac57e5e8e1ea17905",
+          "automl_agent/knowledge_tools.py": "2ac1418de7b5d3eae5bb2c4475633c81fe5514fd9f6838e80c422727e28f531e",
+          "automl_agent/learned_blend.py": "d191a594c0bf3146809973ae4db75540ad5628b9407f6f4ecc6630fc8ac88cdf",
+          "automl_agent/lightautoml_adapter.py": "d5e718cec49a7da72fa87ecf335ceef3e606ef35ca38f7c42c6cb099a40849b4",
+          "automl_agent/pair_refinement.py": "7d44f579363884429aea18e6f7bae9ec8fcb10022c6d9b0151e4b43d552eb3b1",
+          "automl_agent/parameter_docs.py": "c7d2b3a8bf5ad39543d93c133c3db32b66dcfa9603642321b68b7aa53d9cd630",
+          "automl_agent/pipelines.py": "4071274473a597683cbae2c21252553953daf6a980c5644834d53f69116676e6",
+          "automl_agent/preprocessing.py": "ec8ca2e79cc27bb2a366a8e17fb470cf862dc0b1e25c90cceb104fdcd3e0f7e4",
+          "automl_agent/profiling.py": "38511599d0b5bd59af64a0bdbbbab90b0b7168add40d8727ac90338077d8b4cc",
+          "automl_agent/progress.py": "c45b75d0df59c2f26def417096b1b1a188f401bd9aa6af61ae731c7618105e78",
+          "automl_agent/protocol_revision.py": "711f678ba93786e18583636cb3d03a49719a54dee3837c7a413b01482c2fc77c",
+          "automl_agent/protocols.py": "dc0dbf0440272ba08246ddd8a6fc8a376a9a82f11f6be30673a6031c044970ef",
+          "automl_agent/publication.py": "f80c2c0a64c880b6963cd882bb5960daf855a8166d355e0460271699c201ae0c",
+          "automl_agent/qwen.py": "41e85db327e45017ee0839aeff5fe364ec6432fa6eadaae46c4bef22801086f6",
+          "automl_agent/qwen_stream.py": "928a4e77123eae27fc7060831c15479aa8ccea70cabe4d0ffbe5ba46c43caf74",
+          "automl_agent/recipe_patch.py": "f0075e71becedd5be89f513959aaa9eefac449664d88557f5bf6bf02790c1c03",
+          "automl_agent/references.py": "9bf012c5540b4f0797af581cb4508e9d1029147492945634e1514fd92e68453c",
+          "automl_agent/related_tables.py": "44b0aceb9f64c27be3cbde962eab4beb7c887bf853600390b1d5e7add0ea1706",
+          "automl_agent/reporting.py": "e64179d47fe690f0adf65766f2576ce958265f8452478db31b86f221dcae1338",
+          "automl_agent/research.py": "b219fc429c392e6b4fb5ebaf419cf8b9d52b733857ae21995c682ccbbdc6dddb",
+          "automl_agent/research_evaluation.py": "27bcca02155f31abee559155245f760bb03941f25b0ee1372a116d8f64c28b88",
+          "automl_agent/residual_calibration.py": "cfef2424bacb4971fa1d90252f368e0b1cecfa9298f12e64a5482cdc40f7eb04",
+          "automl_agent/rolling.py": "754c501b380f8b080153d0ff66501cd0d83ec0ff2b2b7c20ebb14b8b334dbbd9",
+          "automl_agent/run_tools.py": "dc86ed5dbe54062594479bc34a690aac57dd0ef5c6fdfe13367291c33f8e8a4b",
+          "automl_agent/search.py": "c974ae1d2b6583eb027c9e8a2da3cfb64d6a28c3cc03cb09d5013b8a1c93a6ca",
+          "automl_agent/shift.py": "3960c21b48613e40480a0e7e933d174eecd87f36ce86263dc26486bacaa93599",
+          "automl_agent/supervised_features.py": "9d3a3f51c20f7ebc6a25a667efe9bc56c783b4fb1ee64f7d93ae24c5d2b59af3",
+          "automl_agent/tool_results.py": "beae3ad9aa324b0d8993e707efc0ebe8fd71113c52cbfdee13b40a496bce7d17",
+          "automl_agent/training_schedule.py": "c698353c82996c0df058cb5b4e2d1001773c7278389e691cbe7d470c58902e4f",
+          "automl_agent/tuning.py": "36205e7e27894c7e6143cf2e3754f7af1c5137d9b77609116a200132083bf44e",
+          "automl_agent/util.py": "5fcdc4e075d46ff4ce6018c9684a6534fc28b57b03fb6befc2e27fcb5795f496",
+          "automl_agent/validation.py": "ffd4f822cc0b775e97f5488a729a908465a9be1dce40d9fa2a5e63e11fb57f49",
+          "automl_agent/visual_diagnostics.py": "abcfe31f961a3c639c3c822993ca7c69c93b818f8d1b809284901591f8fe29f9",
+          "automl_agent/worker.py": "2d67ff0ba2281e6b88a7bc40abe7a5017710fde76fd42d782999b5db178daff4",
+          "automl_agent/worker_entry.py": "38f9b4285ce998fcf748e26a728631de543a9beeb3cffdf6052cb013a029238d",
+          "solution.py": "f0a3fcb07f1d43c7f2b828e0486e32f870c899c0de283b1317beec9ae6b2478b"
+        },
+        "split": "stratified 80/20 seed 42",
+        "task_files_sha256": {
+          "data_dictionary.csv": "bcd131f7c6ee7a7fd1f092b414cd158861313d93959ecce0af5163048c27676f",
+          "sample_submission.csv": "50ef8a7944a2e15f7c134abc921de1ec561be2851ddf3c428d952b5c41ecc82d",
+          "task.md": "ab19685b975653f0a5c22bca3d19e0143a74c85c3bc16af7a83f2033fd606ff6",
+          "test.csv": "01cdf14b59df43f115b6d37214696df0c323a0b1d62891a8607c11877a800c0d",
+          "train.csv": "a8add8221745608c78030f5bfecc8605c057f18a4605a63d16e22b382f914e1b"
+        },
+        "test_rows": 114,
+        "train_rows": 455
+      },
+      "live": {
+        "api_after_confirmed": true,
+        "external_timeout": false,
+        "model": "qwen/qwen3.8-27b",
+        "returncode": 0,
+        "seconds": 215.60428479199993
+      }
+    },
+    "exact_main": {
+      "analysis": {
+        "agent_minus_reference_f1": -0.019469076493800808,
+        "api": {
+          "after": 507.91302328838947,
+          "before": 522.0127079703918,
+          "increase": 14.099684682003044
+        },
+        "calls": 10,
+        "control": "completed",
+        "decisions": [
+          {
+            "operation_id": "step_3",
+            "tool": "read_run_records"
+          },
+          {
+            "operation_id": "step_4",
+            "tool": "run_experiments"
+          },
+          {
+            "operation_id": "step_5_baseline_read",
+            "tool": "read_run_records"
+          },
+          {
+            "operation_id": "step_7_confusion",
+            "tool": "get_diagnostic_report"
+          },
+          {
+            "operation_id": "step_8_finish",
+            "tool": "finish"
+          },
+          {
+            "operation_id": "step_9",
+            "tool": "run_experiments"
+          },
+          {
+            "operation_id": "step_10",
+            "tool": "read_run_records"
+          }
+        ],
+        "events": {
+          "automatic_pilot": 3,
+          "bootstrap_publication": 1,
+          "candidate_completion_forecast": 1,
+          "candidate_forecast_actual": 2,
+          "candidate_pipeline_diff": 2,
+          "cleanup_completed": 16,
+          "cleanup_planned": 16,
+          "command_arguments_rejected": 1,
+          "complete_refit_estimate": 1,
+          "completion_node_actual": 4,
+          "completion_node_forecast": 4,
+          "evidence_experiment_link": 2,
+          "extra_native_calls_deferred": 2,
+          "finalist_component_audit": 1,
+          "finish_readiness": 1,
+          "hypothesis_review_route": 3,
+          "inherited_fields": 2,
+          "initial_protocol_decision": 1,
+          "publication_completed": 5,
+          "qwen_decision": 7,
+          "qwen_failure": 1,
+          "qwen_http_identity": 10,
+          "qwen_provider_identity": 10,
+          "qwen_request": 10,
+          "qwen_response": 10,
+          "task_resolution_proposal": 2,
+          "task_resolution_rejected": 1,
+          "training_budget": 2,
+          "transition": 5,
+          "useful_progress": 7,
+          "visual_diagnostic_execution": 1
+        },
+        "max_server_prompt_tokens": 32460,
+        "metrics": {
+          "agent": {
+            "accuracy": 0.9649122807017544,
+            "confusion": [
+              [
+                72,
+                0
+              ],
+              [
+                4,
+                38
+              ]
+            ],
+            "errors": 4,
+            "macro_f1": 0.9614864864864865
+          },
+          "reference": {
+            "accuracy": 0.9824561403508771,
+            "confusion": [
+              [
+                72,
+                0
+              ],
+              [
+                2,
+                40
+              ]
+            ],
+            "errors": 2,
+            "macro_f1": 0.9809555629802873
+          }
+        },
+        "model_time_including_queue": 323.70651487199984,
+        "refit": "completed",
+        "rejections": [
+          {
+            "error": "Explicit parent component removal requires hypothesis.changed_fields: representation, hyperparameters",
+            "operation_id": "step_9",
+            "status": "incompatible",
+            "tool": "run_experiments"
+          }
+        ],
+        "requests": [
+          {
+            "file": "00000001.json",
+            "messages": [
+              {
+                "bytes": 3071,
+                "role": "system"
+              },
+              {
+                "bytes": 20261,
+                "components_bytes": {
+                  "fixed": 2,
+                  "request_id": 26,
+                  "schema": 5683,
+                  "source_hash": 66,
+                  "sources": 12432,
+                  "unresolved_fields": 107,
+                  "validation_errors": 2
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 23715
+          },
+          {
+            "file": "00000002.json",
+            "messages": [
+              {
+                "bytes": 3071,
+                "role": "system"
+              },
+              {
+                "bytes": 20320,
+                "components_bytes": {
+                  "fixed": 2,
+                  "request_id": 26,
+                  "schema": 5683,
+                  "source_hash": 66,
+                  "sources": 12432,
+                  "unresolved_fields": 107,
+                  "validation_errors": 59
+                },
+                "role": "user"
+              }
+            ],
+            "native": false,
+            "tools_bytes": 2,
+            "wire_bytes": 23774
+          },
+          {
+            "file": "00000003.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 22601,
+                "components_bytes": {
+                  "compaction": 430,
+                  "core": 5622,
+                  "history": 1965,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 2,
+                  "profile": 5039,
+                  "reference_evidence": 5537
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 84527
+          },
+          {
+            "file": "00000004.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 26847,
+                "components_bytes": {
+                  "compaction": 496,
+                  "core": 5622,
+                  "history": 1965,
+                  "history_details": 1836,
+                  "known_failures": 2,
+                  "observations": 3610,
+                  "profile": 5039,
+                  "reference_evidence": 5537
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 88773
+          },
+          {
+            "file": "00000005.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 37823,
+                "components_bytes": {
+                  "compaction": 676,
+                  "core": 7129,
+                  "history": 3664,
+                  "history_details": 5560,
+                  "known_failures": 2,
+                  "observations": 5928,
+                  "profile": 5039,
+                  "reference_evidence": 6255
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 99749
+          },
+          {
+            "file": "00000006.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 37075,
+                "components_bytes": {
+                  "compaction": 676,
+                  "core": 7552,
+                  "history": 3664,
+                  "history_details": 5560,
+                  "known_failures": 2,
+                  "observations": 5928,
+                  "profile": 5039,
+                  "reference_evidence": 4977
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 99001
+          },
+          {
+            "file": "00000007.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 35478,
+                "components_bytes": {
+                  "compaction": 542,
+                  "core": 7378,
+                  "history": 3664,
+                  "history_details": 5560,
+                  "known_failures": 2,
+                  "observations": 3638,
+                  "profile": 5039,
+                  "reference_evidence": 6255
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 97404
+          },
+          {
+            "file": "00000008.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 67923,
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 129849
+          },
+          {
+            "file": "00000009.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 37853,
+                "components_bytes": {
+                  "compaction": 542,
+                  "core": 6812,
+                  "history": 3664,
+                  "history_details": 5560,
+                  "known_failures": 2,
+                  "observations": 6371,
+                  "profile": 5039,
+                  "reference_evidence": 6458
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 99779
+          },
+          {
+            "file": "00000010.json",
+            "messages": [
+              {
+                "bytes": 14063,
+                "role": "system"
+              },
+              {
+                "bytes": 34636,
+                "components_bytes": {
+                  "compaction": 543,
+                  "core": 7891,
+                  "history": 3664,
+                  "history_details": 5560,
+                  "known_failures": 2,
+                  "observations": 2340,
+                  "profile": 5039,
+                  "reference_evidence": 6444
+                },
+                "role": "user"
+              }
+            ],
+            "native": true,
+            "tools_bytes": 47459,
+            "wire_bytes": 96562
+          }
+        ],
+        "scope": "one live run, public WDBC holdout; not contest quality or causal A/B",
+        "state": "completed",
+        "token_usage": {
+          "completion_tokens": 43810,
+          "prompt_tokens": 252145,
+          "reasoning_tokens": 38826,
+          "total_tokens": 295955
+        },
+        "training_seconds": 13.289315875000057
+      },
+      "manifest": {
+        "classes": [
+          "benign",
+          "malignant"
+        ],
+        "cpu": 2,
+        "dataset": "UCI WDBC redistributed by sklearn",
+        "isolation": "native task-directory boundary; Docker daemon unavailable; no OS container isolation claim",
+        "license": "CC BY 4.0",
+        "max_calls": 10,
+        "memory_mb": 4096,
+        "metric": "macro_f1",
+        "revision": "1c463e90b081e963241e46496173de020bfaba0f",
+        "runtime_path": "outputs/public_context_wdbc_main_20261025/runtime",
+        "seconds": 600,
+        "shared_assets_note": "Unchanged frozen knowledge corpus and documentation; editable method catalogs are not the runtime index.",
+        "source": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+        "source_sha256": {
+          "automl_agent/__init__.py": "dde79fe7ab0e88fb72d388817fc94eebdcda0a55e1b0e39311b42873a1691426",
+          "automl_agent/action_cards.py": "4a6ec88e3ea2bf1e73f4141540814f6d38f4c52787a984c6c39caf95a3505040",
+          "automl_agent/admission.py": "36e4b152cb91655e6f091d7f9b341aa0ec62dff504e3c8b6eecf7ebbbd7b2572",
+          "automl_agent/api.py": "2df759216d7b3da954411f38225d702b7e809d01012fa354026b7ff4ab211a7d",
+          "automl_agent/automl_decision.py": "d6a3930cb61c1093b94ea1c1453df8f7d90bfbd44305b162ca7aa6106ee1c35d",
+          "automl_agent/batch.py": "35293d9663b2558f6037c90622042bec5657d4d90b9eb0412516f6e4ac4f8744",
+          "automl_agent/budget.py": "b946fe1a3838253bdf33fec884a72f9603fc83d5aa8f25fecc1d21f0d19450d6",
+          "automl_agent/capabilities.py": "3a0da7db2d09619aafe86048294cb87f21ba27940d62caa6013f8e35144727b6",
+          "automl_agent/cleanup.py": "e51e19e1de5a842e21d15eae796edfeddd0d7061b7cfa5fea16ea8405743eab8",
+          "automl_agent/clustering.py": "b70650c63777bf051d4edd1a1543ef179344280033b5526665a8cbff2396923c",
+          "automl_agent/clustering_route.py": "4217fa363a4516196c3843a308a06db9f8b58e5ef7c8cb368e94ea66ae9444bf",
+          "automl_agent/compatibility.py": "ad4cab57aa8a7f6c0f6612ea96da77ba106c73a59e94c6e6aa8bb4217e72f463",
+          "automl_agent/completion.py": "fb4d6d815ad754bfa6eca9ee7ec421924fea945a9575c644ccc7af4037de8336",
+          "automl_agent/context_memory.py": "85e4c19eb9c21faa3f211d38442d00fcb8826b9974a8772d6d4d4b113289bec6",
+          "automl_agent/contracts.py": "d34f8c3e8e2f655bfc23c967d1404e88d4644b5f6b57cdd5a84b5c7149670da3",
+          "automl_agent/controller.py": "9a77b510e5112f65414f53506d279d2e24cbce049a18bf7dda91a7f910db99c3",
+          "automl_agent/cost_model.py": "f78e447c596ad9e9d103eff299af6942560c58f9b080d88d01dd5ab69a9329b5",
+          "automl_agent/critic.py": "315de2b54973f10d5527c22d8368dc3870fb0ce6aa0771d044d5595d778742e7",
+          "automl_agent/custom.py": "c4ac3a1efd1475e2441da34fca9e950851c2f1a87b71093175f819476c76b3d5",
+          "automl_agent/data.py": "a881cbff79cb0fa37f5b11686b7f699c30fca1cae65d63d8fb3418eb1b8483b0",
+          "automl_agent/decision.py": "b54a1bde50ee000fde4c1c87c21a97b645e7c52058bc074aa52b13a1103329ca",
+          "automl_agent/dependency_policy.py": "85010725cb6384f9782112336195a556ed51aab5a3a0724469c01d25b8c20a38",
+          "automl_agent/diagnostic_automl.py": "43090f1bc5bf08bc0b675dd6fe5fbff41c4a8275cbcd05046e1d4ca5f3df6be7",
+          "automl_agent/diagnostics.py": "5da661501094d51ca886b7b6b90ee6de84b69dbd23b9991db0ae86db24935838",
+          "automl_agent/directions.py": "465d06b5510df75886a40fe9eedbe05ca3f7662196fd368f39645d1559a4065b",
+          "automl_agent/evaluation.py": "1a97cbdc63478f15059c0bb3fd1885a83a204885057a449c284cdaec45f6fc6d",
+          "automl_agent/executor.py": "cf806340f068310c7fb9a971ff6bd7d90fe6e32e278a8a134abef22aa1a5f882",
+          "automl_agent/feedback.py": "71763a28449cce1a3808188c3ab23923e058de4ae21832c954293f9cd8a384c9",
+          "automl_agent/finalists.py": "19f54813e84765efc3c93b07ea8717369d1539e5cccb28996bbfa60059772476",
+          "automl_agent/forecasting.py": "03951ffd09f48ed3ac445eb52a7b6b236c566056964774a44c600db5112f1c67",
+          "automl_agent/human_practice.py": "2bbd170a3947edc1054fd4118c68f246bec5aa711c1d8aeaf63c7e985dc2d36e",
+          "automl_agent/identity.py": "e6ee4a10349bac1ca0f13eb0f4ae2536da6bef904a046e33dcb7d2f6fc364bdf",
+          "automl_agent/journal.py": "787c4ec062e5a3316f98481efe9ad7bb3d430d737cca8bb79a52ff8ab3833e03",
+          "automl_agent/knowledge.py": "0bb0f215a2b576a500c0313aacc2281909eb0e44873a1b0ac57e5e8e1ea17905",
+          "automl_agent/knowledge_tools.py": "2ac1418de7b5d3eae5bb2c4475633c81fe5514fd9f6838e80c422727e28f531e",
+          "automl_agent/learned_blend.py": "d191a594c0bf3146809973ae4db75540ad5628b9407f6f4ecc6630fc8ac88cdf",
+          "automl_agent/lightautoml_adapter.py": "d5e718cec49a7da72fa87ecf335ceef3e606ef35ca38f7c42c6cb099a40849b4",
+          "automl_agent/parameter_docs.py": "c7d2b3a8bf5ad39543d93c133c3db32b66dcfa9603642321b68b7aa53d9cd630",
+          "automl_agent/pipelines.py": "4071274473a597683cbae2c21252553953daf6a980c5644834d53f69116676e6",
+          "automl_agent/preprocessing.py": "ec8ca2e79cc27bb2a366a8e17fb470cf862dc0b1e25c90cceb104fdcd3e0f7e4",
+          "automl_agent/profiling.py": "38511599d0b5bd59af64a0bdbbbab90b0b7168add40d8727ac90338077d8b4cc",
+          "automl_agent/progress.py": "c45b75d0df59c2f26def417096b1b1a188f401bd9aa6af61ae731c7618105e78",
+          "automl_agent/protocol_revision.py": "711f678ba93786e18583636cb3d03a49719a54dee3837c7a413b01482c2fc77c",
+          "automl_agent/protocols.py": "dc0dbf0440272ba08246ddd8a6fc8a376a9a82f11f6be30673a6031c044970ef",
+          "automl_agent/publication.py": "f80c2c0a64c880b6963cd882bb5960daf855a8166d355e0460271699c201ae0c",
+          "automl_agent/qwen.py": "41e85db327e45017ee0839aeff5fe364ec6432fa6eadaae46c4bef22801086f6",
+          "automl_agent/qwen_stream.py": "928a4e77123eae27fc7060831c15479aa8ccea70cabe4d0ffbe5ba46c43caf74",
+          "automl_agent/recipe_patch.py": "f0075e71becedd5be89f513959aaa9eefac449664d88557f5bf6bf02790c1c03",
+          "automl_agent/references.py": "9bf012c5540b4f0797af581cb4508e9d1029147492945634e1514fd92e68453c",
+          "automl_agent/related_tables.py": "44b0aceb9f64c27be3cbde962eab4beb7c887bf853600390b1d5e7add0ea1706",
+          "automl_agent/reporting.py": "e64179d47fe690f0adf65766f2576ce958265f8452478db31b86f221dcae1338",
+          "automl_agent/research.py": "b219fc429c392e6b4fb5ebaf419cf8b9d52b733857ae21995c682ccbbdc6dddb",
+          "automl_agent/research_evaluation.py": "27bcca02155f31abee559155245f760bb03941f25b0ee1372a116d8f64c28b88",
+          "automl_agent/rolling.py": "754c501b380f8b080153d0ff66501cd0d83ec0ff2b2b7c20ebb14b8b334dbbd9",
+          "automl_agent/run_tools.py": "dc86ed5dbe54062594479bc34a690aac57dd0ef5c6fdfe13367291c33f8e8a4b",
+          "automl_agent/search.py": "c974ae1d2b6583eb027c9e8a2da3cfb64d6a28c3cc03cb09d5013b8a1c93a6ca",
+          "automl_agent/shift.py": "3960c21b48613e40480a0e7e933d174eecd87f36ce86263dc26486bacaa93599",
+          "automl_agent/supervised_features.py": "9d3a3f51c20f7ebc6a25a667efe9bc56c783b4fb1ee64f7d93ae24c5d2b59af3",
+          "automl_agent/tool_results.py": "beae3ad9aa324b0d8993e707efc0ebe8fd71113c52cbfdee13b40a496bce7d17",
+          "automl_agent/training_schedule.py": "c698353c82996c0df058cb5b4e2d1001773c7278389e691cbe7d470c58902e4f",
+          "automl_agent/tuning.py": "36205e7e27894c7e6143cf2e3754f7af1c5137d9b77609116a200132083bf44e",
+          "automl_agent/util.py": "5fcdc4e075d46ff4ce6018c9684a6534fc28b57b03fb6befc2e27fcb5795f496",
+          "automl_agent/validation.py": "ffd4f822cc0b775e97f5488a729a908465a9be1dce40d9fa2a5e63e11fb57f49",
+          "automl_agent/visual_diagnostics.py": "abcfe31f961a3c639c3c822993ca7c69c93b818f8d1b809284901591f8fe29f9",
+          "automl_agent/worker.py": "2d67ff0ba2281e6b88a7bc40abe7a5017710fde76fd42d782999b5db178daff4",
+          "automl_agent/worker_entry.py": "38f9b4285ce998fcf748e26a728631de543a9beeb3cffdf6052cb013a029238d",
+          "context_compressor/__init__.py": "65bab8ea3cd5b04d5971a868f74779159f62c850931afd56ed8507cf26ca56ed",
+          "context_compressor/assembler.py": "a44bec2842723cd55ef8c67c326e5c79bf26518e261f39b0d9a9eea8e5aa9d1c",
+          "context_compressor/contracts.py": "893b0f0a445c9e53c174329e9a7cc979eb9f1e21ee609829befd6bf2026bde5e",
+          "context_compressor/core.py": "219afbaa18d8e99c9d6ecadd2afde8ed03702737af1744e53dce252ad5129817",
+          "context_compressor/store.py": "1e05b0734f21c594813dd9b6f9fe9428d76f25fe5f63c90c7cb7970064c17d89",
+          "context_compressor/transport.py": "3c343f8c3401061421d67f862fcaece1e0ddb591b673f0e46aa05df429d60fa6",
+          "context_compressor/verify.py": "7eedd25a28c82e20afb429c723873fd1fb5aa2518ca67547e51ec23b24a279e7",
+          "solution.py": "f0a3fcb07f1d43c7f2b828e0486e32f870c899c0de283b1317beec9ae6b2478b"
+        },
+        "split": "stratified 80/20 seed 42",
+        "task_files_sha256": {
+          "data_dictionary.csv": "bcd131f7c6ee7a7fd1f092b414cd158861313d93959ecce0af5163048c27676f",
+          "sample_submission.csv": "50ef8a7944a2e15f7c134abc921de1ec561be2851ddf3c428d952b5c41ecc82d",
+          "task.md": "ab19685b975653f0a5c22bca3d19e0143a74c85c3bc16af7a83f2033fd606ff6",
+          "test.csv": "01cdf14b59df43f115b6d37214696df0c323a0b1d62891a8607c11877a800c0d",
+          "train.csv": "a8add8221745608c78030f5bfecc8605c057f18a4605a63d16e22b382f914e1b"
+        },
+        "test_rows": 114,
+        "train_rows": 455
+      },
+      "live": {
+        "api_after_confirmed": true,
+        "external_timeout": false,
+        "model": "qwen/qwen3.8-27b",
+        "returncode": 0,
+        "seconds": 351.25067141700015
+      },
+      "archive_source_check": {
+        "archive": "dist/solution_v101.zip",
+        "checked": 80,
+        "different": [],
+        "missing": []
+      }
+    }
+  },
+  "tests": {
+    "context_public_preflight_20261025": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "1",
+        "tests": "108",
+        "time": "212.549",
+        "timestamp": "2026-10-25T20:25:49.049260+07:00",
+        "hostname": "Mac-mini-Semen.local"
+      }
+    ],
+    "public_context_postfix_20261025": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "1",
+        "tests": "132",
+        "time": "188.701",
+        "timestamp": "2026-10-25T20:45:35.175052+07:00",
+        "hostname": "Mac-mini-Semen.local"
+      }
+    ],
+    "public_context_final_regressions_20261025": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "86",
+        "time": "364.981",
+        "timestamp": "2026-10-25T20:50:21.679631+07:00",
+        "hostname": "Mac-mini-Semen.local"
+      }
+    ],
+    "public_context_schema_final_20261025": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "23",
+        "time": "9.803",
+        "timestamp": "2026-10-25T21:07:30.987456+07:00",
+        "hostname": "Mac-mini-Semen.local"
+      }
+    ]
+  },
+  "test_sets_overlap": true,
+  "official_score_claimed": false,
+  "fixes_live_retested": false,
+  "postfix_schema_reduction_claimed": false,
+  "native_isolation_limitation": "Docker socket absent; source runtime used with its native worker restrictions, not a contest-container certificate",
+  "jsonschema_development_dependency": "4.23.0 installed after both live runs, from organizer requirements",
+  "metadata_only_initial_failure": {
+    "run": "public_context_wdbc_20261025",
+    "reason": "Harness used semantic_type instead of allowed dtype metadata header",
+    "api_increase": 0
+  },
+  "sources": {
+    "automl_agent/pipelines.py": "2135f9262ef9340454c0f1f8f543309ee6a620c1b976d137a380a9a04eb8a3c3",
+    "automl_agent/directions.py": "02ee8892acbf67d04eac341aef76ba5e8dc356e50572a81816bec55186ad6288",
+    "automl_agent/context_memory.py": "610156e593324691ccb7e8426153f56d026b2d865686227b1c2850cf412256bf",
+    "automl_agent/research_evaluation.py": "fe3111f8be9490ddd97c3d53a3425c65fac4f0424cec87672306693f45f05f00",
+    "automl_agent/research.py": "f6c8d74ed507b12df0e3d033ce63efb83156270778b2bd312e558c49d620f540",
+    "automl_agent/controller.py": "2642fb52cc4d778bf57918ca667d7b99040091240a92c056fe4ca0fabd107cbf"
+  }
+}

@@ -849,8 +849,10 @@ class Controller:
         return windows
 
     def temporal_stability(self, spec, deadline):
+        from .research_evaluation import stability_design
         windows = self.stability_windows()
-        report = {"version":3, "scope":"fit_only_stress_windows", "status":"limited", "scores":{}, "diagnostics": {},
+        report = {"version":4, "scope":"fit_only_stress_windows", "status":"limited", "scores":{}, "diagnostics": {},
+            "evaluation_design":stability_design(self.plan.strategy),
             "windows_hash":digest(windows), "skipped": {}, "failures": {},
             "reason":"insufficient_time_periods" if not windows else "budget_or_worker_failure"}
         for index, window in enumerate(windows):

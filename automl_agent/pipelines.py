@@ -49,6 +49,13 @@ CONTROLLED_PARAMETERS = {
 def effective_parameters(spec: PipelineSpec):
     parameters = {key: value for key, value in spec.hyperparameters.items()
         if key not in CONTROLLED_PARAMETERS.get(spec.model, set())}
+    if spec.model == "xgboost":
+        for alias, canonical in (("lambda", "reg_lambda"), ("alpha", "reg_alpha"),
+                ("eta", "learning_rate"), ("min_split_loss", "gamma")):
+            if alias in parameters:
+                if canonical in parameters and parameters[canonical] != parameters[alias]:
+                    raise ValueError(f"Conflicting XGBoost aliases: {alias}/{canonical}")
+                parameters[canonical] = parameters.pop(alias)
     if spec.model in {"lightgbm", "lgbm_ranker"}:
         # LightGBM's primary name wins over its sklearn alias, including when
         # an Optuna trial overrides a normalized base value.
