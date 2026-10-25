@@ -62,12 +62,15 @@ def project(controller, reviews):
 
     def card(row):
         s, review = row['spec'], row['review']
+        change = review['effective_change']
         return {'experiment_id': s.experiment_id, 'branch_id': branch_key(s.pipeline),
             'parent_id': s.parent_id, 'comparator_id': review['comparison']['experiment_id'],
             'outcome': review['outcome'], 'score': review['measurement']['score'],
             'scope': review['measurement']['scope'],
             'tested_design': {'source': 'agent_assumption',
                 'changed_component': utf8_short(s.hypothesis.changed_component, 48)},
+            'change_facts': {'basis': change['basis'], 'field_count': len(change['effective_fields']),
+                'mixed': change['mixed_change']},
             'read': {'tool': 'read_run_records', 'arguments': {'ids': [row['id']], 'max_chars': 12000}}}
 
     past = sorted((row for row in rows if row is not selected), key=rank, reverse=True)[:2] if selected else []

@@ -112,6 +112,21 @@ def test_reviews_exclude_private_payloads_and_leave_acceptance_unknown():
     assert review['learning']['acceptance'] == 'not_established_by_numeric_score'
 
 
+def test_compact_memory_keeps_measured_diff_separate_from_declared_single_change():
+    _, c = rows_and_controller()
+    parent, old = trial('parent', 2., pipeline=PipelineSpec(model='ridge', hyperparameters={'alpha': 1}))
+    child, measured = trial('child', 1., parent_id='parent',
+        pipeline=PipelineSpec(model='lightgbm', hyperparameters={'n_estimators': 5}))
+    review = experiment_review(child, measured, [(parent, old)], c.task, SelectionPolicy(maximize=False))
+    c.context_memory.store.active_note = lambda: {'related_ids': ['child']}
+    memory = project(c, [{'spec': child, 'review': review, 'id': 'review_child', 'sequence': 1}])
+    facts = memory['current']['change_facts']
+    assert facts['basis'] == 'normalized_parent_recipe'
+    assert facts['field_count'] == len(review['effective_change']['effective_fields']) > 1
+    assert facts['mixed'] is True
+    assert memory['current']['tested_design']['source'] == 'agent_assumption'
+
+
 @pytest.mark.parametrize('mode', ['native', 'json'])
 def test_real_controller_delivers_negative_memory_after_maximum_compression(tmp_path, monkeypatch, mode):
     from automl_agent.controller import Controller
