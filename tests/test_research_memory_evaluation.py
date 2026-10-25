@@ -9,8 +9,9 @@ from tools.research_memory_evaluation import evaluate
     ('classification', 'label', 'f1', ['a', 'b'], 1.),
     ('regression', 'value', 'rmse', [2., 5.], 0.),
 ])
+@pytest.mark.parametrize('declared_classes', [True, False])
 def test_evaluator_grades_exact_published_csv_and_freezes_before_labels(
-        tmp_path, kind, target, metric, values, expected):
+        tmp_path, kind, target, metric, values, expected, declared_classes):
     import pandas as pd
     output = tmp_path / 'series'
     case = output / 'runs' / 'synthetic_B' / 'task'
@@ -20,11 +21,12 @@ def test_evaluator_grades_exact_published_csv_and_freezes_before_labels(
     pd.DataFrame({'id': ['001', '002'], 'x': [3, 4]}).to_csv(case / 'test.csv', index=False)
     answer = pd.DataFrame({'id': ['001', '002'], target: values})
     answer.to_csv(case / 'submission.csv', index=False)
+    answer.to_csv(case / 'train.csv', index=False)
     answer.to_csv(sealed / 'labels.csv', index=False)
     reference = {'kind': kind, 'targets': [target], 'id_columns': ['id'], 'feature_columns': ['x'],
         'metric': {'name': metric}, 'output': {'columns': ['id', target],
         'prediction_type': 'labels' if kind == 'classification' else 'values'}}
-    if kind == 'classification':
+    if kind == 'classification' and declared_classes:
         reference['classes'] = {target: ['a', 'b']}
     (sealed / 'reference_contract.json').write_text(json.dumps(reference))
     protocol = {'commits': {'B': 'frozen'}, 'runs': [{'id': 'synthetic_B', 'task': 'synthetic',

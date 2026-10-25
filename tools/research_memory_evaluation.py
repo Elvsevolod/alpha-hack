@@ -99,6 +99,15 @@ def evaluate(output):
             directory = output / 'runs' / row['id'] / 'task'
             csv = directory / 'submission.csv'
             reference = json.loads((sealed / row['task'] / 'reference_contract.json').read_text())
+            if reference['kind'] == 'classification':
+                # Earlier benchmark contracts omitted the declared vocabulary.
+                # Recover it from public training data, never external labels.
+                classes = dict(reference.get('classes') or {})
+                missing = [t for t in reference['targets'] if not classes.get(t)]
+                if missing:
+                    train = pd.read_csv(directory / 'train.csv', usecols=missing)
+                    classes.update({t: train[t].dropna().unique().tolist() for t in missing})
+                reference = {**reference, 'classes': classes}
             task = TaskSpec.model_validate({**reference, 'source_hash': 'sealed_external_evaluator'})
             dtype = {key: str for key in task.id_columns}
             prediction = pd.read_csv(csv, dtype=dtype)
