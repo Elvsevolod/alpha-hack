@@ -73,6 +73,20 @@ def reference_splits(frame, classification):
     return dict(fit=fit, tune=tune, control=control, development=development, all=np.arange(len(frame)))
 
 
+def validate_locked_recipes(recipes, completed):
+    """Fail closed when a controlled comparison did not complete its models."""
+    if not recipes:
+        raise ValueError('Controlled comparison requires at least one recipe')
+    for recipe in recipes:
+        names, weights = recipe['names'], recipe['weights']
+        if not names or len(names) != len(weights) or len(set(names)) != len(names):
+            raise ValueError('Invalid controlled recipe members')
+        if not all(n in completed for n in names):
+            raise ValueError('Controlled comparison has incomplete candidates')
+        if not np.isfinite(weights).all() or min(weights) < 0 or not np.isclose(sum(weights), 1):
+            raise ValueError('Controlled recipe weights must sum to one')
+
+
 def diverse_pairs(ordered_singles, completed):
     """Retain model-family diversity before testing blends on development data."""
     unique = list(dict.fromkeys(r['names'][0] for r in ordered_singles))
@@ -85,7 +99,7 @@ def diverse_pairs(ordered_singles, completed):
     return [(pool[a], pool[b]) for a in range(len(pool)) for b in range(a + 1, len(pool))]
 
 
-def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, baseline_override=None, reference_pair=None):
+def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, baseline_override=None, reference_pair=None, locked_recipes=None):
     classification = kind == 'classification'
     directory = ROOT / 'data_for_participants' / ('Многоклассовая классификация' if classification else 'Регрессия')
     target = 'attack_cat' if classification else 'site_eui'
@@ -141,6 +155,7 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
         'split_sha256': sha(split_path), 'previous_control_reused': True,
         'baseline_audit_score': previous['control']['selected_score'],
         'ensemble_pair_policy': 'top three single recipes plus best recipe per (model, alternative) family',
+        'locked_recipes': locked_recipes,
         'selection': 'two complementary calibration/selection group partitions, calibration only for stopping and offsets' if classification else 'mean RMSE on next-period validation years 3 and 4',
         'policy_search': {'tau': [0, .5, 1.], 'offset_bound': 1., 'support_shrinkage': 50., 'coordinate_passes': 2},
         'resources': {'cpu_per_worker': 4, 'timeout_per_worker_seconds': 180},
@@ -206,25 +221,30 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
                     score=float(np.mean(scores)), learned_offsets=learned)
         recipes.append(item)
         return item
-    for name in completed:
-        if classification:
-            for tau in [0, .5, 1.]:
-                assess([name], [1.], tau, False)
-                assess([name], [1.], tau, True)
-        else:
-            assess([name], [1.])
     direction = -1 if classification else 1
-    best_single = sorted(recipes, key=lambda r: direction * r['score'])
-    pairs = diverse_pairs(best_single, completed)
-    anchors = tuple(reference_pair) if reference_pair else ('anchor31', 'anchor63') if classification else ('anchor_cb', 'anchor_lgb')
-    if all(n in completed for n in anchors) and anchors not in pairs:
-        pairs.append(anchors)
-    for a, b in pairs:
-        for weight in [.25, .5, .75]:
-            for tau in ([0, .5, 1.] if classification else [0]):
-                assess([a, b], [weight, 1 - weight], tau, False)
-                if classification:
-                    assess([a, b], [weight, 1 - weight], tau, True)
+    if locked_recipes is not None:
+        validate_locked_recipes(locked_recipes, completed)
+        for settings in locked_recipes:
+            assess(**settings)
+    else:
+        for name in completed:
+            if classification:
+                for tau in [0, .5, 1.]:
+                    assess([name], [1.], tau, False)
+                    assess([name], [1.], tau, True)
+            else:
+                assess([name], [1.])
+        best_single = sorted(recipes, key=lambda r: direction * r['score'])
+        pairs = diverse_pairs(best_single, completed)
+        anchors = tuple(reference_pair) if reference_pair else ('anchor31', 'anchor63') if classification else ('anchor_cb', 'anchor_lgb')
+        if all(n in completed for n in anchors) and anchors not in pairs:
+            pairs.append(anchors)
+        for a, b in pairs:
+            for weight in [.25, .5, .75]:
+                for tau in ([0, .5, 1.] if classification else [0]):
+                    assess([a, b], [weight, 1 - weight], tau, False)
+                    if classification:
+                        assess([a, b], [weight, 1 - weight], tau, True)
     recipes.sort(key=lambda r: direction * r['score'])
     chosen = recipes[0]
     selection = dict(chosen, sealed_before_reused_audit=True, at_unix=time.time())

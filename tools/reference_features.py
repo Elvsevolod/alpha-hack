@@ -22,7 +22,7 @@ def engineer(frame, plan=None):
             if monthly:
                 result['ref_monthly_temp_std'] = result[monthly].std(axis=1)
                 result['ref_monthly_temp_range'] = result[monthly].max(axis=1) - result[monthly].min(axis=1)
-    elif plan == 'network':
+    elif plan in {'network', 'network_semantic'}:
         for left, right, name in [('sbytes', 'spkts', 'source_packet_bytes'),
                                   ('dbytes', 'dpkts', 'destination_packet_bytes'),
                                   ('sbytes', 'dbytes', 'byte_ratio'), ('spkts', 'dpkts', 'packet_ratio'),
@@ -31,6 +31,19 @@ def engineer(frame, plan=None):
             result['ref_' + name] = (result[left] / denominator).replace([np.inf, -np.inf], np.nan)
         result['ref_ttl_difference'] = result.sttl - result.dttl
         result['ref_log_byte_ratio'] = np.log1p(result.sbytes.clip(lower=0)) - np.log1p(result.dbytes.clip(lower=0))
+        if plan == 'network_semantic':
+            for a, b in [('proto', 'service'), ('proto', 'state'), ('service', 'state')]:
+                result[f'ref_{a}_{b}'] = result[a].fillna('__MISSING__').astype(str) + '|' + result[b].fillna('__MISSING__').astype(str)
+            result['ref_service_unspecified'] = result.service.eq('-').astype(float)
+            result['ref_no_reply'] = ((result.dpkts == 0) & (result.dbytes == 0)).astype(float)
+            result['ref_total_packets'] = result.spkts + result.dpkts
+            result['ref_total_bytes'] = result.sbytes + result.dbytes
+            result['ref_packet_asymmetry'] = (result.spkts - result.dpkts) / (result.ref_total_packets + 1)
+            result['ref_byte_asymmetry'] = (result.sbytes - result.dbytes) / (result.ref_total_bytes + 1)
+            result['ref_tcp_time_residual'] = result.tcprtt - result.synack - result.ackdat
+            result['ref_no_windows'] = ((result.swin == 0) & (result.dwin == 0)).astype(float)
+            result['ref_log_duration'] = np.log1p(result.dur.clip(lower=0))
+            result['ref_log_rate'] = np.log1p(result.rate.clip(lower=0))
     elif plan is not None:
         raise ValueError(f'Unknown feature plan: {plan}')
     return result

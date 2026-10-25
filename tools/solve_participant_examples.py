@@ -490,7 +490,7 @@ def predict_solution(run, frame):
     return result
 
 
-def predict_saved(path, frame):
+def prepare_saved(path, frame):
     import joblib
     import numpy as np
     import pandas as pd
@@ -508,9 +508,15 @@ def predict_saved(path, frame):
         x[c] = x[c].fillna('__MISSING__').astype(str)
         if bundle['spec']['model'] == 'lightgbm':
             x[c] = pd.Categorical(x[c], categories=bundle['vocabulary'][c])
-    model = bundle['model']
     if bundle.get('preprocessor') is not None:
         x = bundle['preprocessor'].transform(x)
+    return bundle, x
+
+
+def predict_saved(path, frame):
+    import numpy as np
+    bundle, x = prepare_saved(path, frame)
+    model = bundle['model']
     p = model.predict_proba(x) if bundle['classes'] else model.predict(x)
     if not bundle['classes']:
         p = p * bundle.get('target_scale', 1.) + bundle.get('target_mean', 0.)
