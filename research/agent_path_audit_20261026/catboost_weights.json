@@ -1,0 +1,135 @@
+{
+  "base_commit": "5495572a0e1a0e7a87c3c0a65286b0af3f9e585a",
+  "source": "Current source and deterministic synthetic fixtures, not an observed historical organizer failure",
+  "findings": [
+    {
+      "kind": "JSON key type",
+      "before": "CatBoost class_weights={\"0\":1,\"1\":4} on integer labels fits with native classes [\"0\",\"1\"], then DirectPipeline.predict fails ValueError: 0 is not in list (string key)"
+    },
+    {
+      "kind": "early stopping class order",
+      "before_curve_binary_f1": 0.8775510204081632,
+      "before_actual_binary_f1": 0.45454545454545453,
+      "cause": "CatBoost dictionary insertion order defines encoded classes; callback used sorted observed labels"
+    }
+  ],
+  "scope": "CatBoost dictionaries in DirectPipeline and direct inner Optuna trials; native positional lists regression-checked. Nested AutoML class-weight forwarding is not certified.",
+  "policy": {
+    "keys": "Resolve only against confirmed labels; no positional-index guessing",
+    "coverage": "Dictionary must define every confirmed label before local observed-class filtering",
+    "observed_classes": "Only current fit classes sent to native constructor; full frozen recipe retains absent class weights for refit",
+    "mutual_exclusion": "Non-null class_weights cannot be combined with active auto_class_weights",
+    "native_metric_order": "Dictionary key order used for native early stopping target/probability interpretation"
+  },
+  "documentation": {
+    "provider": "Context7 resolve-library-id then query-docs",
+    "library": "/catboost/catboost",
+    "installed_version": "1.2.8",
+    "source": "https://github.com/catboost/catboost/blob/master/catboost/docs/en/references/training-parameters/common.md",
+    "claim": "Dictionary keys are class labels and define extracted class names; class_weights and auto_class_weights are mutually exclusive"
+  },
+  "checks": [
+    {
+      "path": "outputs/catboost_weights_before.xml",
+      "sha256": "cb7184ba471e1c75cde87f4a2b0af0c311c08f55ace5842a218f95432ee75512",
+      "counts": {
+        "tests": 13,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_catboost_dictionary_survives_json_predict_and_frozen_replay[labels0]",
+          "message": "ValueError: '0' is not in list"
+        },
+        {
+          "case": "test_catboost_dictionary_survives_json_predict_and_frozen_replay[labels1]",
+          "message": "ValueError: '20' is not in list"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights0]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights1]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights2]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights3]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights4]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_invalid_catboost_dictionary_fails_before_preprocessing[weights5]",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_catboost_dictionary_and_auto_weights_are_not_combined",
+          "message": "Failed: DID NOT RAISE <class 'ValueError'>"
+        },
+        {
+          "case": "test_absent_inner_class_keeps_its_weight_for_full_refit",
+          "message": "_catboost.CatBoostError: catboost/private/libs/options/catboost_options.cpp:620: if loss-function is Logloss, then class weights should be given for 0 and 1 classes"
+        },
+        {
+          "case": "test_binary_stopping_metric_uses_catboost_dictionary_class_order",
+          "message": "assert 0.8775510204081632 == 0.45454545454545453 ± 4.5e-07\n  \n  comparison failed\n  Obtained: 0.8775510204081632\n  Expected: 0.45454545454545453 ± 4.5e-07"
+        }
+      ]
+    },
+    {
+      "path": "outputs/catboost_weights_after.xml",
+      "sha256": "24d072b4a402fbe7d98bd4cd7d47f895bd667463301717beed3e9e6ad5c02a27",
+      "counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/catboost_weights_final.xml",
+      "sha256": "694a772456f39c985aa5922c3030fcd702078e1c31514bf8b8c4b2d94df4b13b",
+      "counts": {
+        "tests": 71,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/catboost_weights_final_v2.xml",
+      "sha256": "67f8cd96eec8c3b8148e77cd8356eadd2636852488eda0d743c9ef98c67a3c20",
+      "counts": {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    }
+  ],
+  "final_sources": {
+    "automl_agent/class_weight.py": "881deadf69403e9ce4cd967b79725a0c15960d889a42b4ef3af27dc53afbdf92",
+    "automl_agent/pipelines.py": "207880f5d1f780881968ddbacef32379ee66dfcc7768b7500bd981364384d6f4",
+    "tests/test_catboost_weight_contract.py": "0b9d6abccbdbd256031c56242eab8f6808d2b9e38b03ea8d142e69ee6a1d4840"
+  },
+  "real_organizer_api_calls": 0,
+  "control_labels_used_for_tuning": false,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "commands": [
+    "python -m pytest -q tests/test_catboost_weight_contract.py --junitxml=outputs/catboost_weights_final_v2.xml",
+    "python -m pytest -q tests/test_catboost_weight_contract.py tests/test_class_weight_contract.py tests/test_audit_learning.py tests/test_schedule_execution_identity.py --junitxml=outputs/catboost_weights_final.xml"
+  ]
+}

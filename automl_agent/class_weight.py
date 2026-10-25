@@ -49,3 +49,24 @@ def resolve_class_weight(spec,task,target,observed=None):
     # A declared rare class may be absent from this particular inner fit.
     # Its weight has no samples to act on and must not reach a local class map.
     return {label:weight for label,weight in result.items() if label in present}
+
+
+def resolve_catboost_class_weights(spec,task,target,observed=None):
+    """CatBoost infers its class names from dictionary keys, including their types."""
+    weights=spec.hyperparameters['class_weights']
+    if not task.classes.get(target):
+        raise ValueError('class_weights requires confirmed classification labels')
+    if weights is not None and spec.hyperparameters.get('auto_class_weights') not in (None,'None'):
+        raise ValueError('class_weights cannot be combined with auto_class_weights')
+    if not isinstance(weights,dict):
+        # Native positional lists retain their existing CatBoost semantics.
+        return weights
+    surrogate=spec.model_copy(update={'hyperparameters':{'class_weight':weights}})
+    try:
+        resolved=resolve_class_weight(surrogate,task,target)
+        if set(resolved)!=set(task.classes[target]):
+            raise ValueError('class_weight dictionary must cover every confirmed class label')
+        return resolve_class_weight(surrogate,task,target,observed)
+    except ValueError as error:
+        # The shared resolver emits only fixed public diagnostics, never keys.
+        raise ValueError(str(error).replace('class_weight','class_weights')) from None

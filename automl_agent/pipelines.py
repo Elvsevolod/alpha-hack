@@ -80,6 +80,10 @@ def validate_parameters(spec, task):
         from .class_weight import resolve_class_weight
         for target in task.targets:
             resolve_class_weight(spec,task,target)
+    if spec.model=='catboost' and 'class_weights' in p:
+        from .class_weight import resolve_catboost_class_weights
+        for target in task.targets:
+            resolve_catboost_class_weights(spec,task,target)
     if spec.model == "knn":
         if p.get("metric", "minkowski") not in {"minkowski", "euclidean", "manhattan", "cosine"} or p.get("weights", "uniform") not in {"uniform", "distance"}:
             raise ValueError("KNN requires a verified metric and weighting rule")
@@ -303,6 +307,10 @@ class DirectPipeline:
                 from .class_weight import resolve_class_weight
                 model_spec = model_spec.model_copy(update={'hyperparameters':{**model_spec.hyperparameters,
                     'class_weight':resolve_class_weight(model_spec,self.task,target,values)}})
+            if model_spec.model=='catboost' and 'class_weights' in model_spec.hyperparameters:
+                from .class_weight import resolve_catboost_class_weights
+                model_spec = model_spec.model_copy(update={'hyperparameters':{**model_spec.hyperparameters,
+                    'class_weights':resolve_catboost_class_weights(model_spec,self.task,target,values)}})
             model = make_estimator(model_spec, classification, context)
             if classification and len(pd.unique(values)) == 1:
                 model = DummyClassifier(strategy="prior")
@@ -342,6 +350,8 @@ class DirectPipeline:
                 if target in self.encoders:
                     valid_values = self.encoders[target].transform(valid_values)
                 order = self.encoders[target].classes_.tolist() if target in self.encoders else sorted(y[target].unique().tolist()) if classification else []
+                if self.spec.model=='catboost' and isinstance(model_spec.hyperparameters.get('class_weights'),dict):
+                    order=list(model_spec.hyperparameters['class_weights'])
                 model, self.schedules[target] = fit_with_schedule(model, self.spec, self.task, target, model_matrix,
                     values, (self.preprocessor.transform(valid_X), valid_values), context, fit_kwargs, order)
             else:
