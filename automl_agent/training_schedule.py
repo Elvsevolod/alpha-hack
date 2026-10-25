@@ -17,9 +17,11 @@ def fit_with_schedule(model, spec, task, target, matrix, values, evaluation, con
         "metric": task.metric.model_copy(update={"aggregation": "uniform", "target_weights": None})})
     trial = context.get("optuna_trial")
 
-    def report(value, iteration):
-        if iteration % spec.evaluation_interval == 0:
-            curve.append({"iteration": int(iteration), "primary_metric": float(value)})
+    def report(value, iteration, checkpoint=False):
+        # Native callbacks and Optuna use zero-based steps; public curves show
+        # the number of fitted rounds. Sparse HGB checkpoints include the tail.
+        if checkpoint or (iteration + 1) % spec.evaluation_interval == 0:
+            curve.append({"iteration": int(iteration + 1), "primary_metric": float(value)})
         if trial is not None:
             trial.report(float(value), step=int(iteration))
             if trial.should_prune():
@@ -110,10 +112,12 @@ def fit_with_schedule(model, spec, task, target, matrix, values, evaluation, con
             raise optuna.TrialPruned()
         iterations = max(1, model.get_best_iteration() + 1)
     elif spec.model == "hist_gradient_boosting":
+        from copy import deepcopy
         maximum = model.max_iter
         interval = min(spec.evaluation_interval, maximum)
         schedule = sorted(set([*range(interval, maximum + 1, interval), maximum]))
         best, iterations, stale = None, interval, 0
+        best_model = None
         model.set_params(warm_start=True, early_stopping=False)
         for iteration in schedule:
             model.set_params(max_iter=iteration)
@@ -121,16 +125,23 @@ def fit_with_schedule(model, spec, task, target, matrix, values, evaluation, con
             prediction = model.predict_proba(valid) if task.classes else model.predict(valid)
             encoded = np.asarray([class_order.index(value) for value in actual]) if task.classes else actual
             value = primary(encoded, prediction)
-            report(value, iteration - 1)
+            report(value, iteration - 1, checkpoint=True)
             if best is None or (value > best if task.metric.maximize else value < best):
                 best, iterations, stale = value, iteration, 0
+                # warm_start keeps growing the current estimator. Preserve the
+                # state that earned the selected metric without another fit or
+                # editing private sklearn tree arrays. Release the old snapshot
+                # before copying so at most two estimator states are retained.
+                best_model = None
+                best_model = deepcopy(model)
             else:
                 stale += interval
                 if stale >= rounds:
                     break
+        model = best_model
     else:
         raise ValueError("Learning-curve schedules require a supported boosting family")
-    return {"iterations": int(iterations), "curve": curve, "scope": "fit_inner_holdout",
+    return model, {"iterations": int(iterations), "curve": curve, "scope": "fit_inner_holdout",
         "primary_metric": task.metric.name, "is_quality_guarantee": False,
         "stopping_prediction_policy": "native_argmax" if task.classes else "original_scale_values",
         "final_prediction_policy": spec.prediction_policy,

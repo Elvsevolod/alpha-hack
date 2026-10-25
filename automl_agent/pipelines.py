@@ -334,7 +334,7 @@ class DirectPipeline:
                 if "sample_weight" in fit_kwargs:
                     fit_kwargs["sample_weight"] = fit_kwargs["sample_weight"][order]
                 model.fit(ordered_matrix, values[order], group=sizes.tolist(), **fit_kwargs)
-            elif context.get("schedule_selection") and self.spec.early_stopping_rounds and not isinstance(model, DummyClassifier):
+            elif context.get("schedule_selection") and self.spec.early_stopping_rounds and not iterations and not isinstance(model, DummyClassifier):
                 valid_X, valid_y = context["schedule_validation"]
                 valid_values = valid_y[target].to_numpy()
                 if self.spec.target_transform == "log1p":
@@ -342,7 +342,7 @@ class DirectPipeline:
                 if target in self.encoders:
                     valid_values = self.encoders[target].transform(valid_values)
                 order = self.encoders[target].classes_.tolist() if target in self.encoders else sorted(y[target].unique().tolist()) if classification else []
-                self.schedules[target] = fit_with_schedule(model, self.spec, self.task, target, model_matrix,
+                model, self.schedules[target] = fit_with_schedule(model, self.spec, self.task, target, model_matrix,
                     values, (self.preprocessor.transform(valid_X), valid_values), context, fit_kwargs, order)
             else:
                 model.fit(model_matrix, values, **fit_kwargs)

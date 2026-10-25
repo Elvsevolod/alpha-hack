@@ -1,0 +1,187 @@
+{
+  "base_commit": "daf24c1f09ad3e4b151116b234f408a971088a52",
+  "finding_source": "Current source audit and deterministic synthetic execution; no historical organizer failure is attributed to this bug",
+  "findings": [
+    "HistGradientBoosting warm-start trial is scored using last stale state while frozen iteration schedule advertises an earlier best state",
+    "Histogram callback used zero-based iteration with interval-based filtering and could omit all measured checkpoints",
+    "schedule_selection flag could overwrite an explicit or checkpoint-selected iteration count"
+  ],
+  "synthetic_before": {
+    "selected_iterations": 2,
+    "executed_iterations": 4,
+    "evaluation_interval": 2,
+    "curve": []
+  },
+  "change": {
+    "histogram_state": "Return deepcopy of selected fitted estimator, without additional fit or private tree slicing; release obsolete snapshot before copying",
+    "schedule_priority": "Select natively only if this target has no fixed or already selected iterations",
+    "curve": "One-based fitted-round counts; all sparse histogram checkpoints, including final incomplete interval; zero-based Optuna pruning steps unchanged"
+  },
+  "cost_limits": {
+    "extra_fits_for_snapshot_restore": 0,
+    "estimator_states_retained_during_histogram_selection": 2,
+    "copy_time_included_in_existing_measured_fit_seconds": true,
+    "large_dataset_peak_rss_measured": false,
+    "full_competition_resource_certification": false
+  },
+  "documentation": {
+    "via": "Context7 resolve-library-id then query-docs",
+    "library": "/websites/scikit-learn_stable",
+    "installed_test_version": "1.5.2",
+    "sources": [
+      "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html",
+      "https://scikit-learn.org/stable/glossary.html"
+    ],
+    "claim": "warm_start adds iterations on the same data; n_iter_ corresponds to executed total iterations"
+  },
+  "checks": [
+    {
+      "path": "outputs/schedule_identity_before.xml",
+      "sha256": "48ed0a6e34ee39a667c107a6f7a1776c666fcf1be13b0baa43ef4131f0922598",
+      "counts": {
+        "tests": 11,
+        "failures": 11,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_histogram_scored_model_restores_the_selected_state",
+          "message": "assert 4 == 2\n +  where 4 = HistGradientBoostingRegressor(early_stopping=False, max_iter=4,\\n                              min_samples_leaf=5, random_state=42,\\n                              warm_start=True).n_iter_"
+        },
+        {
+          "case": "test_histogram_curve_contains_executed_one_based_checkpoints",
+          "message": "assert [6] == [3, 6, 7]\n  \n  At index 0 diff: 6 != 3\n  Right contains 2 more items, first extra item: 6\n  Use -v to get more diff"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[iteration_schedule-lightgbm-n_estimators]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[iteration_schedule-xgboost-n_estimators]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[iteration_schedule-catboost-iterations]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[iteration_schedule-hist_gradient_boosting-max_iter]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[frozen_iterations-lightgbm-n_estimators]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[frozen_iterations-xgboost-n_estimators]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[frozen_iterations-catboost-iterations]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_frozen_iterations_take_priority_over_inner_selection_flag[frozen_iterations-hist_gradient_boosting-max_iter]",
+          "message": "KeyError: 'schedule_validation'"
+        },
+        {
+          "case": "test_checkpoint_selection_is_not_overwritten_by_native_early_stopping",
+          "message": "KeyError: 'schedule_validation'"
+        }
+      ],
+      "skips": []
+    },
+    {
+      "path": "outputs/schedule_identity_after.xml",
+      "sha256": "7ec42fc0592f57fcd84427c6a2797e010096e5f2c1f3acad54ce5658bc22d216",
+      "counts": {
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [],
+      "skips": []
+    },
+    {
+      "path": "outputs/schedule_identity_related.xml",
+      "sha256": "9d27454e2a3b9a2e53f70f7caf9cf82133b5b6360bfe75687b1737177f3d21d0",
+      "counts": {
+        "tests": 27,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [],
+      "skips": []
+    },
+    {
+      "path": "outputs/schedule_identity_final.xml",
+      "sha256": "926959b583d8694ecd00925f5ea78edbb2aa5ec1287ce16ad8fc6f96fb8cf0f2",
+      "counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [],
+      "skips": []
+    },
+    {
+      "path": "outputs/schedule_identity_regression.xml",
+      "sha256": "1dd9bd5ef3f09b9123992267ef2386e30a75322ed461a6d8661f99a9b35f14fe",
+      "counts": {
+        "tests": 75,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 1
+      },
+      "failures": [
+        {
+          "case": "test_A01_automl_decision_freeze_audit_and_refit",
+          "message": "ModuleNotFoundError: No module named 'autogluon'"
+        },
+        {
+          "case": "test_A02_A16_explicit_graph_and_exact_groups_replay[bagging]",
+          "message": "ModuleNotFoundError: No module named 'autogluon'"
+        },
+        {
+          "case": "test_A02_A16_explicit_graph_and_exact_groups_replay[stacking]",
+          "message": "ModuleNotFoundError: No module named 'autogluon'"
+        }
+      ],
+      "skips": [
+        {
+          "case": "test_autogluon_selection_refit_trains_on_every_permitted_row",
+          "message": "could not import 'autogluon.tabular': No module named 'autogluon'"
+        }
+      ]
+    },
+    {
+      "path": "outputs/schedule_identity_integration.xml",
+      "sha256": "2a5d627e451788ef2c77c031a882f691cdebb765f9a3a75da087bb7dfd785d8d",
+      "counts": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [],
+      "skips": []
+    }
+  ],
+  "final_sources": {
+    "automl_agent/pipelines.py": "c5a9aefd9581fc3e699681f529bdfcdb5c8e1949f0d8a314ba90e15748b396d0",
+    "automl_agent/training_schedule.py": "3ebf659921695c3593b5d5b3368b4cb928e6226fe02ad3505775413bd9d31a9e",
+    "tests/test_schedule_execution_identity.py": "3b5ca0200f7fc180eaf6eacd93602b0e72bd578584662c9c4a5df07b31510898"
+  },
+  "real_organizer_api_calls": 0,
+  "control_labels_used_for_tuning": false,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "commands": [
+    "python -m pytest -q tests/test_schedule_execution_identity.py --junitxml=outputs/schedule_identity_integration.xml",
+    "python -m pytest -q tests/test_schedule_execution_identity.py tests/test_audit_learning.py tests/test_plan_nested_learning.py tests/test_c1_optuna_reserve.py tests/test_static_quality_fixes.py tests/test_v089_review_fixes.py --junitxml=outputs/schedule_identity_regression.xml"
+  ]
+}
