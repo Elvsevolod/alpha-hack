@@ -71,6 +71,7 @@ def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
 
 
 def estimate(controller, identifiers, rows=None, phase=None):
+    from .contracts import PipelineSpec
     from .cost_model import iteration_multiplier
     c = controller
     rows = c.plan.fit if rows is None else rows
@@ -84,6 +85,9 @@ def estimate(controller, identifiers, rows=None, phase=None):
             manifest = result.artifacts.get('worker_manifest')
             pipeline = read_json(Path(manifest)).get('frozen_pipeline') if manifest and Path(manifest).is_file() else None
             pipeline = pipeline or spec.pipeline.model_dump(mode="json")
+        # Match _prepare_finalist's canonical identity: older worker manifests
+        # may omit default fields without changing the executable frozen recipe.
+        pipeline = PipelineSpec.model_validate(pipeline).model_dump(mode="json")
         pipeline_hash = digest(pipeline)
         directory = Path(result.artifacts["directory"])
         size = sum(p.stat().st_size for p in directory.rglob("*") if p.is_file())
@@ -100,7 +104,11 @@ def estimate(controller, identifiers, rows=None, phase=None):
             path = c.workdir / "finalization" / phase / identifier / "worker_result.json"
             if path.is_file():
                 raw = read_json(path)
-                ready = raw.get("status") == "completed" and raw.get("fit_row_keys_hash") == row_hash and digest(raw.get("frozen_pipeline")) == pipeline_hash
+                try:
+                    saved_hash = PipelineSpec.model_validate(raw.get("frozen_pipeline")).hash if raw.get("frozen_pipeline") else None
+                except (TypeError, ValueError):
+                    saved_hash = None
+                ready = raw.get("status") == "completed" and raw.get("fit_row_keys_hash") == row_hash and saved_hash == pipeline_hash
                 if ready:
                     ready = all((path.parent / relative).is_file() and file_hash(path.parent / relative) == sha for relative, sha in raw.get("hashes", {}).items())
         costs[identifier] = 0 if ready else cost

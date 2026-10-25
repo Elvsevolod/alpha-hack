@@ -1,0 +1,72 @@
+{
+  "base_commit": "b627bd2804df10f1cb7869f6aa8d37184c289d7a",
+  "finding": "forecast used raw recipe digest while executor canonicalized PipelineSpec; missed reusable preparations and measured cost observations",
+  "change": "normalize frozen recipe for cost/provenance identity; retain row and artifact checks",
+  "final_sources": {
+    "automl_agent/completion.py": "1ee2215fd7b52f2fa06d7396b7a3a3d3393ed280256188cc863fac25edb992e9",
+    "tests/test_completion_recipe_identity.py": "e75d7ab9830224c0dcc7fb15f177177d1fcffb58cc053b8ebc69024bae165c96"
+  },
+  "checks": [
+    {
+      "path": "outputs/completion_identity_before_v2.xml",
+      "sha256": "d88d83681302d0bb85c1cff3e7c5f0d39edb91b9be655833994464c4ac756fb0",
+      "counts": {
+        "tests": 9,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_tests": [
+        "test_equivalent_saved_recipe_is_ready_for_forecast_and_executor[True-policy]",
+        "test_equivalent_saved_recipe_is_ready_for_forecast_and_executor[True-manifest]",
+        "test_observed_cost_uses_canonical_recipe_identity_from_legacy_manifest"
+      ]
+    },
+    {
+      "path": "outputs/completion_identity_after.xml",
+      "sha256": "902e9308a2ef886053048d76f4eef20d5cf37b36a7ffb3d8f772879677413db5",
+      "counts": {
+        "tests": 38,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_tests": []
+    },
+    {
+      "path": "outputs/completion_identity_integration.xml",
+      "sha256": "20c809cc43997837da25d360b51a9f90c3e370543951dd3d463cf2eb3f7d6aaf",
+      "counts": {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_tests": []
+    },
+    {
+      "path": "outputs/completion_identity_offline.xml",
+      "sha256": "fe75fdb94ae8cd7be5a2d2af259bd7e1a1c3c32e7141792e5b1b72e29e225681",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_tests": []
+    }
+  ],
+  "commands": [
+    "python -m pytest -q tests/test_completion_recipe_identity.py tests/test_cost_phase_scaling.py tests/test_qa_completion_budget.py tests/test_final_boundaries.py",
+    "python -m pytest -q tests/test_completion_recipe_identity.py"
+  ],
+  "offline_controller_integration": {
+    "control_fits_repeated": 0,
+    "full_train_refits": 1,
+    "published_rows": 25,
+    "real_llm_calls": 0
+  },
+  "api_calls": 0,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false
+}
