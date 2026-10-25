@@ -354,6 +354,8 @@ class ContextMemory:
                 "agent_assumption", origin="agent_hypothesis"))
             work["active_operation_id"] = active.get("operation_id")
             caps = {"changed_component": 1024, "observation": 256, "expected_effect": 256, "acceptance": 128}
+            if getattr(c, "prompt_contract", {}).get("version", 1) >= 3:
+                caps = {"changed_component": 256, "observation": 128, "expected_effect": 128, "acceptance": 128}
             hypothesis = {key: short(active.get(key, ""), cap) for key, cap in caps.items()}
             hypothesis.update(source="agent_assumption", read=reference)
             while len(canonical(hypothesis).encode()) > 1664:
@@ -373,6 +375,15 @@ class ContextMemory:
                 rejected.append(item)
         if rejected:
             work["rejected_operations"] = rejected
+        from .research_memory import enabled as branch_memory_enabled, project as branch_projection
+        if branch_memory_enabled(c):
+            memory = branch_projection(c, self.branch_reviews)
+            source = Source("research_memory", digest(memory), canonical(memory), "registered_feedback",
+                "external_data", origin="research_memory")
+            read = self.store.put_source(source)
+            work["research_memory"] = {"version": 1, "read": read}
+            if len(canonical(memory).encode()) <= 1536 and len(canonical({**work, "research_memory": memory}).encode()) < 2800:
+                work["research_memory"] = memory
         if getattr(c, "prompt_contract", {}).get("version", 1) >= 2:
             from .decision_context import publish_guides, decision_frame
             work["local_guides"] = publish_guides(c, self.store)
@@ -389,7 +400,9 @@ class ContextMemory:
             if len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS["current_work"]:
                 work["decision_frame"] = {"version": 1, "read": route}
             # Existing protected state wins over optional new inline projections.
-            for field in ("local_guides", "decision_frame"):
+            if "research_memory" in work and len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS["current_work"]:
+                work["research_memory"] = {"version": 1, "read": read}
+            for field in ("local_guides", "decision_frame", "research_memory"):
                 if len(canonical(project_work(self.store, work)).encode()) <= CORE_LIMITS["current_work"]:
                     break
                 work.pop(field, None)

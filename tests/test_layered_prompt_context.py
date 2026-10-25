@@ -4,7 +4,7 @@ import json
 import pytest
 
 from automl_agent.controller import Controller, SYSTEM, LEGACY_SYSTEM
-from automl_agent.prompting import bind_prompt, build_system_prompt
+from automl_agent.prompting import bind_prompt, build_system_prompt, PROMPT_VERSION
 from automl_agent.references import INTERFACE
 from automl_agent.budget import Limits
 from automl_agent.contracts import TOOL_SCHEMAS
@@ -69,7 +69,7 @@ def test_existing_run_keeps_legacy_prompt_and_new_run_is_pinned(tmp_path):
     j = Journal(tmp_path / 'new')
     try:
         new = bind_prompt(j, LEGACY_SYSTEM, existing_run=False)
-        assert new['version'] == 2 and new['system'] == SYSTEM == build_system_prompt()
+        assert new['version'] == PROMPT_VERSION and new['system'] == SYSTEM == build_system_prompt()
         assert new['guides']['candidate_interface'] == INTERFACE
         assert bind_prompt(j, 'different runtime', existing_run=True) == new
         j.put('llm_prompt_contract', {**new, 'system': 'tampered'})
@@ -161,5 +161,5 @@ def test_http_mock_reads_guide_then_sees_its_operation_and_continuation(controll
             assert next_route[0]  # first catalog fragment is incomplete
     assert len(calls) == 2
     metadata = c.report()['prompt_contract']
-    assert metadata['version'] == 2 and 'guides' not in metadata and 'system' not in metadata
+    assert metadata['version'] == PROMPT_VERSION and 'guides' not in metadata and 'system' not in metadata
     assert c.journal.get('control_status', 'not_opened') == 'not_opened'

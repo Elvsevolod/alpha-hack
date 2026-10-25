@@ -117,7 +117,7 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
             raise ContextError("Counters must be nonnegative integers")
     work = dict(work or {})
     routes = {"leader_pipeline", "research_options", "unexecuted_intents", "local_guides"}
-    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations", "decision_frame"} | routes):
+    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations", "decision_frame", "research_memory"} | routes):
         raise ContextError("Unsupported current-work fields")
     for name in routes & set(work):
         route = work[name]
@@ -144,6 +144,13 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
         allowed_frame = {"version", "read", "facts_source", "last_operation", "analysis_status", "last_request_status", "limitation"}
         if set(frame) - allowed_frame:
             raise ContextError("Unknown decision frame fields")
+    memory = work.get("research_memory")
+    if memory is not None:
+        if (not isinstance(memory, dict) or type(memory.get("version")) is not int
+                or memory["version"] != 1 or size(memory) > 1536
+                or set(memory) - {"version", "read", "current", "previous", "selection_source", "limitation"}
+                or len(memory.get("previous", [])) > 2):
+            raise ContextError("Unsupported or oversized research memory")
     task_hash, policy_hash = digest(task), digest(policies)
     identity = {"run_id": run_id, "task_hash": task_hash, "data_hash": data_hash,
                 "protocol_hash": protocol_hash, "environment_hash": environment_hash,

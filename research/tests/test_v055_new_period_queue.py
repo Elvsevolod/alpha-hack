@@ -7,7 +7,7 @@ from types import SimpleNamespace
 
 import pytest
 
-PATH = Path(__file__).resolve().parents[1] / 'outputs/quality_goal_20261023/v055_new_period_full_launcher.py'
+PATH = Path(__file__).resolve().parents[2] / 'outputs/quality_goal_20261023/v055_new_period_full_launcher.py'
 spec = importlib.util.spec_from_file_location('v055_new_period_queue', PATH)
 queue = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(queue)

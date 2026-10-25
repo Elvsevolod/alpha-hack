@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 from pathlib import Path
 import sys
 
@@ -22,7 +23,9 @@ def load(path, name):
 
 
 import automl_agent.decision as candidate
-original = load(ROOT / 'outputs/ml_M1_M8_v101_20261025/base_v096/automl_agent/decision.py', '_old_decision_test')
+BASELINE = ROOT / 'tests/fixtures/legacy_decision_v096.py'
+assert hashlib.sha256(BASELINE.read_bytes()).hexdigest() == '3041947b1d763f0bb503bd063cffac1a122d4233cfa758ec4162385a4158b602'
+original = load(BASELINE, '_old_decision_test')
 
 
 def data(seed=7, k=4, n=500):

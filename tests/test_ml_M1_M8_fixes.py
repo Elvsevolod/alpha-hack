@@ -150,21 +150,6 @@ def class_data(seed, k=4, n=500):
     return task, y, p
 
 
-@pytest.mark.parametrize('seed', range(8))
-def test_M4_canonical_permutations(seed, canonical_decision):
-    fit_decision, decide = canonical_decision.fit_decision, canonical_decision.decide
-    task, y, p = class_data(seed)
-    original = fit_decision(task, y, p, range(len(y)))
-    expected = decide(p, task.classes['response'], original)
-    for permutation in ([3, 0, 1, 2], [2, 1, 0, 3]):
-        classes = [task.classes['response'][i] for i in permutation]
-        altered = task.model_copy(update={'classes': {'response': classes}})
-        state = fit_decision(altered, y, p[:, permutation], range(len(y)))
-        np.testing.assert_array_equal(decide(p[:, permutation], classes, state), expected)
-        assert state['training_metric'] == pytest.approx(original['training_metric'], abs=1e-15)
-        assert state['classes'] == classes and max(map(abs, state['offsets'])) <= 1
-
-
 @pytest.mark.parametrize('maximize', [True, False])
 def test_M3_partial_window_hash_protocol_and_no_pareto_exclusion(maximize):
     from automl_agent.contracts import SelectionPolicy
@@ -290,33 +275,6 @@ def test_M2_summary_priorities_utf8_classes_and_measured_feedback():
     assert summary['effective_change']['claimed_field_unchanged']
     assert 'CONTROL_SENTINEL' not in canonical(summary)
     assert summary == experiment_summary(SimpleNamespace(task=task), spec, result, source, change)
-
-
-@pytest.mark.parametrize('method', ['legacy', 'regularized'])
-@pytest.mark.parametrize('k', [2, 3, 10])
-def test_M4_sparse_classes_and_zero_objective(method, k, canonical_decision):
-    fit_decision = canonical_decision.fit_decision
-    from automl_agent.evaluation import score_predictions
-    task, y, p = class_data(11, k=k, n=100)
-    if k > 2:
-        y.loc[y.response == f'c{k-1}', 'response'] = 'c0'
-    state = fit_decision(task, y, p, range(len(y)), method=method)
-    baseline = score_predictions(task, y, {'response': decide(p, task.classes['response'])}, 'labels')
-    objective = state['training_metric'] - np.sum(np.asarray(state['penalty']) * np.asarray(state['offsets']) ** 2)
-    assert objective >= baseline - 1e-12 and np.isfinite(state['offsets']).all()
-    if method == 'regularized':
-        assert state['permutation_guarantee'] == 'distinct_fit_keys_and_no_final_argmax_ties'
-
-
-@pytest.fixture
-def canonical_decision():
-    """Rejected M4 hypothesis remains independently reproducible outside runtime."""
-    import importlib.util
-    path = Path(__file__).resolve().parents[1] / 'outputs/ml_M1_M8_v096_20261025/m4_candidate/decision.py'
-    spec = importlib.util.spec_from_file_location('automl_agent._m4_candidate', path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 @pytest.fixture

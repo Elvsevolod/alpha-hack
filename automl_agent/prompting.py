@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from .util import digest
 
-PROMPT_VERSION = 2
+PROMPT_VERSION = 3
 SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supplied task. Choose useful '
              'analyses and experiments from the current evidence, task and remaining resources. '
              'Optimize the confirmed primary metric while preserving a valid final artifact.',
@@ -70,13 +70,17 @@ SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supp
 
 
 def build_system_prompt():
-    return "\n\n".join(f"<{name}>\n{text}\n</{name}>" for name, text in SECTIONS.items())
+    return "\n\n".join(f"<{name}>\n{text}\n</{name}>" for name, text in SECTIONS.items()) + (
+        "\nResearch memory: current_work.research_memory links the selected branch and at most two comparable "
+        "past experiences. Read omitted details through the returned routes. Measured outcomes are controller "
+        "facts; interpretation and revisit conditions can remain unknown. Different preprocessing and "
+        "representations of one model family are distinct options, never a required quota.")
 
 
 def bind_prompt(journal, legacy, *, existing_run):
     saved = journal.get("llm_prompt_contract")
     if saved is not None:
-        if saved.get("version") not in {1, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
+        if saved.get("version") not in {1, 2, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
             raise ValueError("Saved prompt contract is unsupported or changed")
         if digest(saved.get("guides", {})) != saved.get("guides_hash"):
             raise ValueError("Saved local guide contract changed")
