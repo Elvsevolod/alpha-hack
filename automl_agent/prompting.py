@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from .util import digest
 
-PROMPT_VERSION = 5
+PROMPT_VERSION = 6
 SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supplied task. Choose useful '
              'analyses and experiments from the current evidence, task and remaining resources. '
              'Optimize the confirmed primary metric while preserving a valid final artifact.',
@@ -87,13 +87,16 @@ def build_system_prompt():
         "Do not repeatedly read the proposal container merely to discharge it. "
         "Keep action arguments concise: omit unchanged defaults and inherited fields, and use the existing "
         "recipe preview/patch tools for deliberate changes instead of repeatedly serializing complete recipes. "
+        "Reuse already delivered version-matched contract facts. A rejected action can include verified repair "
+        "names and an exact optional read route; read again for a specific missing condition or changed version, "
+        "not merely to rediscover that route. "
         "Retain the required hypothesis and evidence; return one action that fits the response allocation.")
 
 
 def bind_prompt(journal, legacy, *, existing_run):
     saved = journal.get("llm_prompt_contract")
     if saved is not None:
-        if saved.get("version") not in {1, 2, 3, 4, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
+        if saved.get("version") not in {1, 2, 3, 4, 5, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
             raise ValueError("Saved prompt contract is unsupported or changed")
         if digest(saved.get("guides", {})) != saved.get("guides_hash"):
             raise ValueError("Saved local guide contract changed")

@@ -80,7 +80,7 @@ from .human_practice import GUIDE
 RESEARCH_GUIDE = '\nVisual diagnostics: get_diagnostic_report returns numeric evidence plus an optional\nimage. Compare quantiles, skew, missingness and histogram shape; a long tail suggests\na transform/loss hypothesis, never automatic deletion. For confusion_matrix use the\nfull fit-inner matrix, declared class order and per-class precision/recall/F1;\nrare-class suppression cannot be reconstructed. Residuals are y_true-minus-y_pred\nin the original scale: inspect bias and aggregated prediction intervals. Curvature\nor changing spread is a hypothesis, not proof of a cause. Cite the numeric report,\nconsider an alternative explanation and compare one bounded experiment. Reports\nare exploratory fit-only evidence; group/time boundaries and final reserves bind.\n' + GUIDE
 
 
-def experiment_review(spec, result, previous, task, policy, *, structured=True):
+def experiment_review(spec, result, previous, task, policy, *, structured=True, branch_version=2):
     """Summarize permitted scores without promoting a local outcome into global knowledge."""
     candidates = [(s, r) for s, r in previous
         if r.status == "completed" and r.score is not None and r.scope != "pilot"
@@ -133,8 +133,8 @@ def experiment_review(spec, result, previous, task, policy, *, structured=True):
         "next_step": next_step, "transfer_status": "task_local_requires_revalidation"}
     if structured:
         from .research_memory import branch_axes, branch_key
-        review.update(review_version=2, branch_id=branch_key(spec.pipeline),
-            branch_axes=branch_axes(spec.pipeline), parent_id=spec.parent_id,
+        review.update(review_version=2, branch_id=branch_key(spec.pipeline, version=branch_version),
+            branch_axes=branch_axes(spec.pipeline, version=branch_version), parent_id=spec.parent_id,
             learning={"measured_outcome": outcome, "interpretation": "unknown",
                 "interpretation_source": "agent_assumption_not_supplied",
                 "revisit_condition": "Requires changed evidence, conditions or implementation; none established",
@@ -167,8 +167,9 @@ def index_reviews(context_memory):
         public = c.public_result(result)
         measured = result.model_copy(update={"score": public.get("score"), "seconds": public.get("seconds", 0),
             "training_summary": public.get("training_summary", {})})
-        from .research_memory import enabled
-        review = experiment_review(spec, measured, previous, c.task, c.plan.selection_policy, structured=enabled(c))
+        from .research_memory import enabled, identity_version
+        review = experiment_review(spec, measured, previous, c.task, c.plan.selection_policy,
+            structured=enabled(c), branch_version=identity_version(c))
         identifier = "research_review:" + digest(review)[:24]
         if not store.record(identifier):
             source = Source(identifier, digest(review), canonical(review), "registered_feedback",

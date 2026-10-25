@@ -17,12 +17,33 @@ def bounded_read_route(c, store, source, component):
     return {'tool': 'read_run_records', 'arguments': {'ids': [identifier], 'max_chars': 12000}}
 
 
+def guide_route(c, store, name):
+    content = c.prompt_contract['guides'][name]
+    source = Source('guide:' + name, digest(content), content, 'reference',
+        'external_data', origin='project_runtime_guide')
+    return bounded_read_route(c, store, source, name)
+
+
+def parameter_repair(c, error):
+    from .pipelines import UnsupportedParameters
+    if c.prompt_contract['version'] < 6 or not isinstance(error, UnsupportedParameters):
+        return None
+    import json
+    # Use the run-pinned public adapter contract, not the full library API.
+    contract = json.loads(c.prompt_contract['guides']['runtime_parameters'])
+    unsupported = [utf8_short(name, 96) for name in error.unsupported[:8]]
+    return {'model': error.model, 'unsupported': unsupported,
+        'unsupported_total': len(error.unsupported),
+        'unsupported_names_truncated': unsupported != error.unsupported,
+        'accepted_parameter_names': contract['models'][error.model],
+        'read': guide_route(c, c.context_memory.store, 'runtime_parameters'),
+        'next_action': 'Correct the declared recipe with a new operation ID. Names do not establish value compatibility; no settings were substituted.'}
+
+
 def publish_guides(c, store):
     entries = []
     for name, content in sorted(c.prompt_contract['guides'].items()):
-        source = Source('guide:' + name, digest(content), content, 'reference',
-            'external_data', origin='project_runtime_guide')
-        route = bounded_read_route(c, store, source, name)
+        route = guide_route(c, store, name)
         entries.append({'id': name, 'when': {
             'candidate_interface': 'Before implementing an unfamiliar custom component',
             'runtime_guidance': 'Exact report, model, transport and resource adapter rules',

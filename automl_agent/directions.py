@@ -4,8 +4,9 @@ from .util import digest
 
 
 def direction_map(c):
-    from .research_memory import branch_axes, branch_key, enabled
+    from .research_memory import branch_axes, branch_key, enabled, identity_version
     structured = enabled(c)
+    version = identity_version(c)
     measured, failures = {}, set()
     for spec, result in c.records():
         if spec.validation_hash != c.plan.hash:
@@ -16,8 +17,8 @@ def direction_map(c):
             "objective": p.training_objective, "decision": p.prediction_policy, "transfer": p.shift_strategy,
             "composition": p.ensemble_strategy if p.engine == "ensemble" else "single"}
         if structured:
-            axes = branch_axes(p)
-        key = branch_key(p) if structured else digest(axes)
+            axes = branch_axes(p, version=version)
+        key = branch_key(p, version=version) if structured else digest(axes)
         if result and result.status == "completed" and result.scope != "pilot":
             old = measured.get(key)
             row = {"axes": axes, "experiment_id": spec.experiment_id, "score": result.score, "seconds": result.seconds}
@@ -39,7 +40,7 @@ def direction_map(c):
         and result.scope != 'pilot' and spec.validation_hash == c.plan.hash}
     for card in cards(c.task, c.plan.strategy).values():
         p = PipelineSpec.model_validate(card["pipeline"])
-        already_measured = (branch_key(p) in measured if structured else
+        already_measured = (branch_key(p, version=version) in measured if structured else
             p.model in models if p.engine == 'direct' else p.engine in engines)
         if not structured and card['id'].endswith('offsets'):
             already_measured = any(row['axes']['decision'] == 'class_offsets' for row in measured.values())

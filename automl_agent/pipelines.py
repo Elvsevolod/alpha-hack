@@ -73,12 +73,20 @@ def effective_parameters(spec: PipelineSpec):
 PARAMETERS["lightgbm"].update({"cat_smooth", "cat_l2", "min_data_per_group", "alpha", "fair_c", "tweedie_variance_power"})
 
 
+class UnsupportedParameters(ValueError):
+    """Public adapter contract failure, without parameter values or data."""
+    def __init__(self, model, unsupported):
+        self.model = model
+        self.unsupported = sorted(unsupported)
+        super().__init__(f"Unsupported parameters for {model}: {self.unsupported}")
+
+
 def validate_parameters(spec, task):
     if set(spec.hyperparameters) & CONTROLLED_PARAMETERS.get(spec.model, set()):
         raise ValueError("Model resource/seed parameters are controller-owned; use the declared task limits and seed")
     p = effective_parameters(spec)
     if spec.model in PARAMETERS and not set(p) <= PARAMETERS[spec.model]:
-        raise ValueError(f"Unsupported parameters for {spec.model}: {sorted(set(p) - PARAMETERS[spec.model])}")
+        raise UnsupportedParameters(spec.model, set(p) - PARAMETERS[spec.model])
     if spec.model == "knn":
         if p.get("metric", "minkowski") not in {"minkowski", "euclidean", "manhattan", "cosine"} or p.get("weights", "uniform") not in {"uniform", "distance"}:
             raise ValueError("KNN requires a verified metric and weighting rule")
@@ -165,7 +173,7 @@ def make_estimator(spec: PipelineSpec, classification: bool, context):
         raise ValueError("model_outside_classical_ml_scope")
     p = effective_parameters(spec)
     if spec.model in PARAMETERS and not set(p) <= PARAMETERS[spec.model]:
-        raise ValueError(f"Unsupported parameters for {spec.model}: {sorted(set(p) - PARAMETERS[spec.model])}")
+        raise UnsupportedParameters(spec.model, set(p) - PARAMETERS[spec.model])
     objective = spec.training_objective
     if objective and spec.model not in {"catboost", "lightgbm", "lgbm_ranker", "xgboost"}:
         if spec.model in {"sgd", "hist_gradient_boosting"}:

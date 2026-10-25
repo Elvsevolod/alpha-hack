@@ -283,12 +283,21 @@ class Controller:
             schema['properties']['contract_version'] = {'type': 'integer', 'const': 2}
             schema['required'] = [*schema.get('required', []), 'contract_version']
             errors = []
+            from .resolution_feedback import ResolutionFeedback
+            feedback = (ResolutionFeedback(request_id, self.journal.get('task_resolution_feedback'))
+                if self.prompt_contract['version'] >= 6 else None)
+            if feedback:
+                prompt += ('\nvalidation_errors are the latest unresolved verifier findings. '
+                    'response_error describes delivery/parsing only and does not supersede those findings. '
+                    'Correct the proposal using the supplied evidence; no contract is accepted until verification succeeds.')
             attempt = 0
             while self.budget.remaining > self.budget.final_reserve():
                 if not self.qwen.configured:
                     raise ContractUnresolved("Task resolution requires a configured model channel")
                 try:
-                    raw = self.qwen.resolve(prompt, {**request, "validation_errors": errors})
+                    validated_proposal = False
+                    raw = self.qwen.resolve(prompt, {**request, **(feedback.payload() if feedback else {"validation_errors": errors})})
+                    validated_proposal = True
                     self.journal.event("task_resolution_proposal", {"attempt": attempt, "proposal": raw})
                     proposal = TaskResolutionProposal.model_validate(raw)
                     task = self.dataset.confirm_proposal(proposal, request_id)
@@ -302,6 +311,9 @@ class Controller:
                     break
                 except (ValueError, QwenError) as error:
                     errors = [redact(str(error))[:1500]]
+                    if feedback:
+                        feedback.record(error, validated_proposal=validated_proposal)
+                        self.journal.put('task_resolution_feedback', feedback.state())
                     diagnostic = self.error_diagnostic(error, "task_resolution", request_id)
                     self.journal.event("task_resolution_rejected", {"attempt": attempt, "errors": errors, "diagnostic": diagnostic})
                     attempt += 1
@@ -1458,6 +1470,10 @@ class Controller:
             result = {"status": "invalid_cursor" if isinstance(error, CursorError) or "cursor" in str(error).lower() else "rejected",
                 "error_code": "invalid_cursor" if "cursor" in str(error).lower() else type(error).__name__, "error": redact(str(error))[:4000]}
             result.update(self.error_diagnostic(error, "command", command.operation_id))
+            from .decision_context import parameter_repair
+            repair = parameter_repair(self, error)
+            if repair:
+                result['repair'] = repair
             if isinstance(error, DuplicateComputation):
                 result.update(status="duplicate_computation", existing_experiment_id=error.experiment_id,
                     computation_hash=error.computation_hash, next_action="Use read_run_records with ids=[existing_experiment_id]")

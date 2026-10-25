@@ -162,7 +162,7 @@ def test_real_controller_delivers_negative_memory_after_maximum_compression(tmp_
         c.close()
 
 
-@pytest.mark.parametrize('version', [2, 3, 4])
+@pytest.mark.parametrize('version', [2, 3, 4, 5])
 def test_saved_prompt_is_not_silently_upgraded(tmp_path, version):
     from automl_agent.prompting import bind_prompt
     from automl_agent.journal import Journal
