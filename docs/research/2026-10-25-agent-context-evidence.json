@@ -1,0 +1,776 @@
+{
+  "development_only": true,
+  "api_calls": 0,
+  "runtime_changed": false,
+  "pi": {
+    "url": "https://github.com/earendil-works/pi",
+    "commit": "d5b3de22d0e24a3e9c38a9410d3329b099717283",
+    "clean_checkout": true,
+    "dependencies_installed": false,
+    "code_executed": false,
+    "local_relative_path": "outputs/agent-source-research/pi",
+    "files": {
+      "packages/coding-agent/src/core/system-prompt.ts": "5e28c82634113d0cca7ff5da6fa94e27aaae80e461cd5664ced9dbcef6f89089",
+      "packages/coding-agent/src/core/skills.ts": "8dcc644dbabbb34238f609ecf191c0da370d74873ccaccaf3c3cd0e7703d9431",
+      "packages/coding-agent/src/core/resource-loader.ts": "926218234706b97699e1acc727d5357831f2a013dd25d4c719a5bdf616900b68",
+      "packages/agent/src/agent-loop.ts": "9d7589b5071ea3b8b3e3c624f9cfc09a976ebf7436024a58213837de4645167d",
+      "packages/coding-agent/src/core/compaction/compaction.ts": "32714966eb644da31cd84e8eb172965256160626b3d26ae9752c3894300f2b0b"
+    }
+  },
+  "other_sources": {
+    "aider": {
+      "commit": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+      "path": "aider/coders/base_coder.py",
+      "snapshot_sha256": "be3aad6de19789112b5a1615572fe6329ec28e969e8aa9d843efb61f56bbb12c",
+      "pinned_read_matches": true
+    },
+    "mini_swe_agent": {
+      "commit": "04d809ceab9df28f9adaed044884180159172930",
+      "snapshots": {
+        "mini_loop.py": "f2ad1f9a3c4fe4d7894f6c32f186c70b9ace25f5765171a46ed979e598a27632",
+        "mini_config.yaml": "5bab4e1160373f54514b141d79c789a4ba0a1e56ee13514d0b02d60ef8618214"
+      },
+      "pinned_read_matches": true
+    }
+  },
+  "historical_prepared_requests": {
+    "branch": {
+      "requests": [
+        {
+          "index": 0,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 20556,
+          "context_blocks": {
+            "compaction": 430,
+            "core": 5622,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 2,
+            "profile": 5039,
+            "reference_evidence": 5537
+          },
+          "core_blocks": {
+            "current_work": 1252,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 4,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 0,
+          "research_note_present": false,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 1,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 24262,
+          "context_blocks": {
+            "compaction": 496,
+            "core": 5622,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 3642,
+            "profile": 5039,
+            "reference_evidence": 5537
+          },
+          "core_blocks": {
+            "current_work": 1252,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 4,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": false,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 2,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 28979,
+          "context_blocks": {
+            "compaction": 496,
+            "core": 6513,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 7270,
+            "profile": 5039,
+            "reference_evidence": 5735
+          },
+          "core_blocks": {
+            "current_work": 1500,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 647,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 3,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 22945,
+          "context_blocks": {
+            "compaction": 496,
+            "core": 6574,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 2285,
+            "profile": 5039,
+            "reference_evidence": 4625
+          },
+          "core_blocks": {
+            "current_work": 1728,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 480,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 4,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 29245,
+          "context_blocks": {
+            "compaction": 496,
+            "core": 6438,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 7496,
+            "profile": 5039,
+            "reference_evidence": 5850
+          },
+          "core_blocks": {
+            "current_work": 1607,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 465,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 5,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13967,
+          "system_sha256": "164591fb000508c4e64616a2f0961e0e67d0c1d7bc4f3275dd6b2b89c174ee7e",
+          "native_function_count": 0,
+          "logical_tool_count": 17,
+          "transport": "json",
+          "tools_bytes": 2,
+          "tools_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "context_bytes": 49934,
+          "context_blocks": {
+            "$defs": 6851,
+            "command_schema": 1101,
+            "compaction": 496,
+            "core": 6437,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 7496,
+            "profile": 5039,
+            "reference_evidence": 5850,
+            "tool_argument_schemas": 12686
+          },
+          "core_blocks": {
+            "current_work": 1607,
+            "identity": 482,
+            "policies_resources": 1155,
+            "reading_routes": 571,
+            "research_note": 465,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 6,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13967,
+          "system_sha256": "164591fb000508c4e64616a2f0961e0e67d0c1d7bc4f3275dd6b2b89c174ee7e",
+          "native_function_count": 0,
+          "logical_tool_count": 17,
+          "transport": "json",
+          "tools_bytes": 2,
+          "tools_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "context_bytes": 46050,
+          "context_blocks": {
+            "$defs": 6851,
+            "command_schema": 1101,
+            "compaction": 496,
+            "core": 6439,
+            "history": 1968,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 3610,
+            "profile": 5039,
+            "reference_evidence": 5850,
+            "tool_argument_schemas": 12686
+          },
+          "core_blocks": {
+            "current_work": 1607,
+            "identity": 482,
+            "policies_resources": 1157,
+            "reading_routes": 571,
+            "research_note": 465,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 7,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13967,
+          "system_sha256": "164591fb000508c4e64616a2f0961e0e67d0c1d7bc4f3275dd6b2b89c174ee7e",
+          "native_function_count": 0,
+          "logical_tool_count": 17,
+          "transport": "json",
+          "tools_bytes": 2,
+          "tools_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "context_bytes": 54952,
+          "context_blocks": {
+            "$defs": 6851,
+            "command_schema": 1101,
+            "compaction": 677,
+            "core": 7438,
+            "history": 3637,
+            "history_details": 5567,
+            "known_failures": 2,
+            "observations": 5932,
+            "profile": 5039,
+            "reference_evidence": 5850,
+            "tool_argument_schemas": 12686
+          },
+          "core_blocks": {
+            "current_work": 2607,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 465,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 3,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 8,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13967,
+          "system_sha256": "164591fb000508c4e64616a2f0961e0e67d0c1d7bc4f3275dd6b2b89c174ee7e",
+          "native_function_count": 0,
+          "logical_tool_count": 17,
+          "transport": "json",
+          "tools_bytes": 2,
+          "tools_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "context_bytes": 53818,
+          "context_blocks": {
+            "$defs": 6851,
+            "command_schema": 1101,
+            "compaction": 543,
+            "core": 7438,
+            "history": 3637,
+            "history_details": 5567,
+            "known_failures": 2,
+            "observations": 4932,
+            "profile": 5039,
+            "reference_evidence": 5850,
+            "tool_argument_schemas": 12686
+          },
+          "core_blocks": {
+            "current_work": 2608,
+            "identity": 482,
+            "policies_resources": 1155,
+            "reading_routes": 571,
+            "research_note": 465,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        }
+      ],
+      "count": 9,
+      "unique_systems": 2,
+      "unique_toolsets": 2,
+      "only_snapshot_messages": true,
+      "interpretation": "bytes are not tokens; historical prepared requests need not all be accepted or billed"
+    },
+    "main": {
+      "requests": [
+        {
+          "index": 0,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 20553,
+          "context_blocks": {
+            "compaction": 430,
+            "core": 5622,
+            "history": 1965,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 2,
+            "profile": 5039,
+            "reference_evidence": 5537
+          },
+          "core_blocks": {
+            "current_work": 1252,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 4,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 0,
+          "research_note_present": false,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 1,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 24227,
+          "context_blocks": {
+            "compaction": 496,
+            "core": 5622,
+            "history": 1965,
+            "history_details": 1836,
+            "known_failures": 2,
+            "observations": 3610,
+            "profile": 5039,
+            "reference_evidence": 5537
+          },
+          "core_blocks": {
+            "current_work": 1252,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 4,
+            "task": 2063
+          },
+          "history_count": 3,
+          "observation_count": 1,
+          "research_note_present": false,
+          "hypothesis_present": false,
+          "compaction_stage": 0
+        },
+        {
+          "index": 2,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 34373,
+          "context_blocks": {
+            "compaction": 676,
+            "core": 7129,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 5928,
+            "profile": 5039,
+            "reference_evidence": 6255
+          },
+          "core_blocks": {
+            "current_work": 2193,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 570,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 3,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 3,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 33518,
+          "context_blocks": {
+            "compaction": 676,
+            "core": 7552,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 5928,
+            "profile": 5039,
+            "reference_evidence": 4977
+          },
+          "core_blocks": {
+            "current_work": 2616,
+            "identity": 482,
+            "policies_resources": 1156,
+            "reading_routes": 571,
+            "research_note": 570,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 3,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 4,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 32198,
+          "context_blocks": {
+            "compaction": 542,
+            "core": 7378,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 3638,
+            "profile": 5039,
+            "reference_evidence": 6255
+          },
+          "core_blocks": {
+            "current_work": 2441,
+            "identity": 482,
+            "policies_resources": 1157,
+            "reading_routes": 571,
+            "research_note": 570,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 5,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 33643,
+          "context_blocks": {
+            "compaction": 542,
+            "core": 7658,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 4956,
+            "profile": 5039,
+            "reference_evidence": 5410,
+            "visual_diagnostics": 670
+          },
+          "core_blocks": {
+            "current_work": 2441,
+            "identity": 482,
+            "policies_resources": 1157,
+            "reading_routes": 571,
+            "research_note": 850,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 6,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 34568,
+          "context_blocks": {
+            "compaction": 542,
+            "core": 6812,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 6371,
+            "profile": 5039,
+            "reference_evidence": 6458
+          },
+          "core_blocks": {
+            "current_work": 2441,
+            "identity": 482,
+            "policies_resources": 1157,
+            "reading_routes": 571,
+            "research_note": 4,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 1,
+          "research_note_present": false,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        },
+        {
+          "index": 7,
+          "roles": [
+            "system",
+            "user"
+          ],
+          "system_bytes": 13896,
+          "system_sha256": "7836428f4cbabb1684229874769ca2244bf978054e2bb161b0e886b331a68ed7",
+          "native_function_count": 17,
+          "logical_tool_count": 17,
+          "transport": "native",
+          "tools_bytes": 47459,
+          "tools_sha256": "699115d6a2d51e2ce3bd19b5d5fe4877b1403c6e4152e5c7c39e378da87012ea",
+          "context_bytes": 31603,
+          "context_blocks": {
+            "compaction": 543,
+            "core": 7891,
+            "history": 3664,
+            "history_details": 5560,
+            "known_failures": 2,
+            "observations": 2340,
+            "profile": 5039,
+            "reference_evidence": 6444
+          },
+          "core_blocks": {
+            "current_work": 2780,
+            "identity": 482,
+            "policies_resources": 1157,
+            "reading_routes": 571,
+            "research_note": 744,
+            "task": 2063
+          },
+          "history_count": 5,
+          "observation_count": 1,
+          "research_note_present": true,
+          "hypothesis_present": true,
+          "compaction_stage": 0
+        }
+      ],
+      "count": 8,
+      "unique_systems": 1,
+      "unique_toolsets": 1,
+      "only_snapshot_messages": true,
+      "interpretation": "bytes are not tokens; historical prepared requests need not all be accepted or billed"
+    }
+  },
+  "current_source": {
+    "commit_before_research": "32e0e24",
+    "static_system_bytes": 13515,
+    "logical_tools": [
+      "preview_recipe",
+      "get_dataset_report",
+      "revise_validation",
+      "get_diagnostic_report",
+      "search_knowledge",
+      "list_knowledge",
+      "read_knowledge",
+      "search_run_records",
+      "list_run_records",
+      "read_run_records",
+      "train_model",
+      "run_automl",
+      "tune_model",
+      "run_experiments",
+      "run_custom_experiment",
+      "build_ensemble",
+      "finish"
+    ],
+    "files": {
+      "automl_agent/controller.py": "2642fb52cc4d778bf57918ca667d7b99040091240a92c056fe4ca0fabd107cbf",
+      "automl_agent/context_memory.py": "610156e593324691ccb7e8426153f56d026b2d865686227b1c2850cf412256bf",
+      "context_compressor/transport.py": "3c343f8c3401061421d67f862fcaece1e0ddb591b673f0e46aa05df429d60fa6"
+    }
+  },
+  "draft": {
+    "measurements": {
+      "current": {
+        "raw_system_bytes": 13515,
+        "overhead_bytes": {
+          "native": 62066,
+          "json": 38304
+        },
+        "logical_tools": 17
+      },
+      "draft": {
+        "raw_system_bytes": 3667,
+        "overhead_bytes": {
+          "native": 52074,
+          "json": 28312
+        },
+        "logical_tools": 17
+      }
+    },
+    "sha256": "846ab34eca2ea43de7fabab7954dceb93b9c72728abfca23f007584534a05c8c",
+    "connected_to_runtime": false,
+    "behavior_equivalence_proven": false,
+    "quality_improvement_measured": false
+  },
+  "audit_verification": {
+    "tests_passed": 3,
+    "scope": [
+      "no raw context export",
+      "journal unchanged",
+      "empty journal is unknown"
+    ],
+    "full_suite_executed": false
+  }
+}
