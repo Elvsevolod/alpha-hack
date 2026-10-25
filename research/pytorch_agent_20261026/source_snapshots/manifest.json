@@ -1,0 +1,60 @@
+{
+  "6c47e9d5a07669e42ebd87a93cf29ae1bbb8541fae619e234d6614e227dbc12e": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/6c47e9d5a07669e4.py",
+    "copied_from": [
+      "tools/torch_research_core.py",
+      "outputs/pytorch_study_fixed42/har/torch_research_core.py",
+      "outputs/pytorch_study_wide42/har/torch_research_core.py"
+    ]
+  },
+  "cd6639fed0da87471f929d9f44d9a8b75b9025693a17dc61d02b313e2b08bcc9": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/cd6639fed0da8747.py",
+    "copied_from": [
+      "research/pytorch_agent_20261026/core_screen_v1.py",
+      "outputs/pytorch_study_screen/regression/core_snapshot.py",
+      "outputs/pytorch_study_complete42/classification/torch_research_core.py",
+      "outputs/pytorch_study_complete42/bank/torch_research_core.py",
+      "outputs/pytorch_study_complete42/bike/torch_research_core.py",
+      "outputs/pytorch_study_complete42/har/torch_research_core.py",
+      "outputs/pytorch_study_complete42/regression/torch_research_core.py",
+      "outputs/pytorch_study_complete42/adult/torch_research_core.py",
+      "outputs/pytorch_study_fixed42/bike/torch_research_core.py"
+    ]
+  },
+  "82052007e2efc279749d71afc33351a7b9754cc1cdd637c53da3fc477c8c5274": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/82052007e2efc279.py",
+    "copied_from": [
+      "tools/pytorch_agent_study.py",
+      "outputs/pytorch_study_wide42/har/pytorch_agent_study.py"
+    ]
+  },
+  "fb89e86a79e90af8ab9047cec9a8e3220fbdd23c8a809f874a323f29edddc4c1": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/fb89e86a79e90af8.py",
+    "copied_from": [
+      "outputs/pytorch_study_screen/regression/driver_snapshot.py"
+    ]
+  },
+  "6b4461fd7091bc3ea7c77d2416868f13918e79e41b5a5dfe7a7e32eebdf35db2": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/6b4461fd7091bc3e.py",
+    "copied_from": [
+      "outputs/pytorch_study_complete42/classification/pytorch_agent_study.py",
+      "outputs/pytorch_study_complete42/bank/pytorch_agent_study.py",
+      "outputs/pytorch_study_complete42/bike/pytorch_agent_study.py",
+      "outputs/pytorch_study_complete42/har/pytorch_agent_study.py",
+      "outputs/pytorch_study_complete42/regression/pytorch_agent_study.py",
+      "outputs/pytorch_study_complete42/adult/pytorch_agent_study.py"
+    ]
+  },
+  "6421dae9417be2b464037e26f8f1bffe4e91ea41a801cd196cc3eb95abdb6e8a": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/6421dae9417be2b4.py",
+    "copied_from": [
+      "outputs/pytorch_study_fixed42/bike/pytorch_agent_study.py"
+    ]
+  },
+  "0b855226196a34e3364c2a57434dcb9162259efe1e82b8aeff452f82a6b9818f": {
+    "snapshot": "research/pytorch_agent_20261026/source_snapshots/0b855226196a34e3.py",
+    "copied_from": [
+      "outputs/pytorch_study_fixed42/har/pytorch_agent_study.py"
+    ]
+  }
+}

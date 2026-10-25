@@ -8,6 +8,7 @@ from pathlib import Path
 from .util import atomic_json, digest, read_json
 
 MODEL_PACKAGES = {
+    "torch_tabular": "torch",
     "ridge": "scikit-learn", "spline": "scikit-learn", "elastic_net": "scikit-learn", "logistic": "scikit-learn",
     "sgd": "scikit-learn", "knn": "scikit-learn", "constant": "scikit-learn", "random_forest": "scikit-learn", "extra_trees": "scikit-learn",
     "hist_gradient_boosting": "scikit-learn", "catboost": "catboost", "lightgbm": "lightgbm",

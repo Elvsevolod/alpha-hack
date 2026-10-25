@@ -73,6 +73,8 @@ def ranking_bootstrap_issue(task, train, plan):
 
 def incompatibilities(spec, task, strategy=None, capabilities=None):
     reasons = []
+    if spec.model=="torch_tabular" and spec.engine!="direct":
+        reasons.append("torch_tabular_requires_direct_engine")
     from .preprocessing import selected_features
     try:
         selected_features(spec, task)

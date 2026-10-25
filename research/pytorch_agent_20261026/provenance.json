@@ -1,0 +1,136 @@
+{
+  "baseline_commit": "1c463e9",
+  "reference_commit": "df36940ef7614abee3f976c21de202c5ce865c00",
+  "copied_read_only": [
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/docs/research/2026-10-25-pytorch-agent.md",
+      "sha256": "5626fe9eaed22f94f98d6b6a69deb1195165e348562ecd41fad5562a9bff5c9f",
+      "destination": "docs/research/2026-10-25-pytorch-agent.md"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/docs/research/2026-10-25-pytorch-evidence.json",
+      "sha256": "5d8e61283ee7911ad760be35ef860a8a22ba829293cf99d968263c4fa9358b71",
+      "destination": "docs/research/2026-10-25-pytorch-evidence.json"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/tools/torch_tabular_probe.py",
+      "sha256": "f34f051bbb58da22fb21fe5a8a94485d8bcd31b383fa87c70ae215bc93da95cb",
+      "destination": "tools/torch_tabular_probe.py"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/tools/torch_probe_control.py",
+      "sha256": "f3b5746e0e5d47124417539348913ccb7a4a1d5f5b46fe8efb211db1ad100b3a",
+      "destination": "tools/torch_probe_control.py"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/tools/torch_probe_decisions.py",
+      "sha256": "8f36abcb18c94c1b31c09c7f6fd2560fb2cbb6a33b69e72d101858e453d0fecd",
+      "destination": "tools/torch_probe_decisions.py"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/tools/torch_temporal_features.py",
+      "sha256": "1468568d393b825a8a1f823f6333f5090887309cbc82dc5c69e75bd4533ee37e",
+      "destination": "tools/torch_temporal_features.py"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/adult/task.md",
+      "destination": "outputs/pytorch_inputs/adult/task.md",
+      "sha256": "0da7e2450bfa00290243457794188fde82ec5733a4891a77441354f8f3d05b56"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/adult/train.csv",
+      "destination": "outputs/pytorch_inputs/adult/train.csv",
+      "sha256": "db0e0fe582e08994143149ae91020edbe87251398a7c83117fca6ae0620f8073"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/adult/test.csv",
+      "destination": "outputs/pytorch_inputs/adult/test.csv",
+      "sha256": "a6fb1db645ea389acf2823bc5ee7a8c518d1e68f3e48d450a1a5f5776feaabb3"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/adult/data_dictionary.csv",
+      "destination": "outputs/pytorch_inputs/adult/data_dictionary.csv",
+      "sha256": "dc17c42517350b6d033ba25132056c28219df8f28015fe16ae4fadb05e6bcd27"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/adult/sample_submission.csv",
+      "destination": "outputs/pytorch_inputs/adult/sample_submission.csv",
+      "sha256": "6ee5dfa793838185d5c36e529f04e94b5f150e82e29bf2a178a45e3b8a420a96"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bank/task.md",
+      "destination": "outputs/pytorch_inputs/bank/task.md",
+      "sha256": "40b85e276f44905d62eac8aa4b83a11d0e1dba51c086afc1ee668aefdb87b352"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bank/train.csv",
+      "destination": "outputs/pytorch_inputs/bank/train.csv",
+      "sha256": "70831db10dfc0c37efc54b69e9e8fba9dbb1aae9c36ca364a22bac088b12b847"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bank/test.csv",
+      "destination": "outputs/pytorch_inputs/bank/test.csv",
+      "sha256": "93a9a94b33c552e77338263361cbe7b9e1345b38d2c83fe677404dea3f6c1857"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bank/data_dictionary.csv",
+      "destination": "outputs/pytorch_inputs/bank/data_dictionary.csv",
+      "sha256": "039ce2e77a185c58d72602255dce9ec7c54bc260ef15613a281e7c452ab21c9d"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bank/sample_submission.csv",
+      "destination": "outputs/pytorch_inputs/bank/sample_submission.csv",
+      "sha256": "b13c367670bc956c1b4bb5c8112c67c8bc79eaf999dc369ff049828f298155e4"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bike/task.md",
+      "destination": "outputs/pytorch_inputs/bike/task.md",
+      "sha256": "bad75d115624e9d5890346bf11a8fc696b7163521613641d06ba52d338784e2c"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bike/train.csv",
+      "destination": "outputs/pytorch_inputs/bike/train.csv",
+      "sha256": "bf9d3040f9d45ca25e4c1dc1e5af649a6b4eaeadf2016ca8b6d10f5cfbd8022b"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bike/test.csv",
+      "destination": "outputs/pytorch_inputs/bike/test.csv",
+      "sha256": "e342bfaa7fac3b73acb9d771a240a3af31697361ee5a30ac22e220ac121c97b1"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bike/data_dictionary.csv",
+      "destination": "outputs/pytorch_inputs/bike/data_dictionary.csv",
+      "sha256": "beeeccdbc886197e8e7f96d022eef1c8c239be6ad657f83866b435c82428603f"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/bike/sample_submission.csv",
+      "destination": "outputs/pytorch_inputs/bike/sample_submission.csv",
+      "sha256": "52d17ebd259befe9f3dc12389082b6292a8043a6d69647076d019fcfff4c0994"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/har/task.md",
+      "destination": "outputs/pytorch_inputs/har/task.md",
+      "sha256": "34ec987a47b66da8b8038dc145c2314bb8445a5d47b8055eac36122d47eedc3e"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/har/train.csv",
+      "destination": "outputs/pytorch_inputs/har/train.csv",
+      "sha256": "954152e8ba5aa0dae1285a73fcb5aa8be05045690fd29053b28a8966b054d6c0"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/har/test.csv",
+      "destination": "outputs/pytorch_inputs/har/test.csv",
+      "sha256": "789714e1d062189ff1b75d0048f5baa3dc66ec80c0b55f66d1122dc6364815c8"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/har/data_dictionary.csv",
+      "destination": "outputs/pytorch_inputs/har/data_dictionary.csv",
+      "sha256": "92924b31edfc1148ee059659343a4fbdbb58c22aa6fc7a81c1c61350e8d78dd5"
+    },
+    {
+      "source": "/Users/semolik/Developer/alpha-hack/outputs/eda_autonomy_20261024/tasks/har/sample_submission.csv",
+      "destination": "outputs/pytorch_inputs/har/sample_submission.csv",
+      "sha256": "561998acf1697aebf0a11abae957f181eb3d6e60457f79444487ca3f5a834c9e"
+    }
+  ]
+}

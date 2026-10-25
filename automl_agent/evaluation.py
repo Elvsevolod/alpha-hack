@@ -24,7 +24,7 @@ def align_predictions(bundle: PredictionBundle, expected_keys: list[str], task: 
     if task.kind in {"classification", "multioutput_classification", "multilabel"} and bundle.prediction_type not in {"labels", "probabilities"}:
         raise ValueError("Classification requires labels or probabilities")
     mapping = {key: i for i, key in enumerate(bundle.row_keys)}
-    order = np.asarray([mapping[key] for key in expected_keys])
+    order = np.asarray([mapping[key] for key in expected_keys], dtype=int)
     result = {}
     for target in task.targets:
         arr = np.asarray(bundle.values[target])
@@ -36,6 +36,8 @@ def align_predictions(bundle: PredictionBundle, expected_keys: list[str], task: 
             expected = task.classes[target]
             if len(labels) != len(set(labels)) or set(labels) != set(expected):
                 raise ValueError("Probability classes mismatch")
+            if not expected_keys and arr.size==0:
+                arr=arr.reshape(0,len(labels))
             if arr.shape != (len(expected_keys), len(labels)):
                 raise ValueError("Invalid probability shape")
             arr = arr.astype(float)[:, [labels.index(label) for label in expected]]

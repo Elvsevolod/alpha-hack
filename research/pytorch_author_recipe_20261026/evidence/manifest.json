@@ -1,0 +1,632 @@
+[
+  {
+    "source": "outputs/realmlp_author_equal_20261026/freeze.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/freeze.json",
+    "sha256": "03e9f0a5017564402f0938f91580b454d0d79fb40f8966b654c8400ce6a60d58"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/execution_environment.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/execution_environment.json",
+    "sha256": "65449d5df4f1815f895c82978234f60a674eb2bdf70e37cc3c39b8a7eaf11408"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/prediction_audit.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/prediction_audit.json",
+    "sha256": "304db7f4405efe9be15d6751c7270f9c9ada7561900de0a34f05882e590f49dc"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/har_control_admission.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/har_control_admission.json",
+    "sha256": "5c0da02f08a6cad66d8dbd0bf7c01b5e591a02d07c7c8c781c6f914c15a1eea2"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/mixture/result.json",
+    "sha256": "84230b7f17b47914703ab3205b9547dade0cf2d7d13450aaf17bf9870d374b04"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/mixture/cost.json",
+    "sha256": "46171eae7c0365ba7b75754337e2d04007623ff2f97704f4f9e27ca39177746a"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/mixture/charged_protocol.json",
+    "sha256": "60eb2bd6a111e436ae7435107116b232c3827af51c9287f1b19b99002462c777"
+  },
+  {
+    "source": "control/classification/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/mixture/predictions_and_rows.npz",
+    "sha256": "98c903bdd0d942929dbba661dfaf6f6aa2fb29bd5b2648d71b643e6f7367a2c6"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/neural/result.json",
+    "sha256": "ac3d8bda4810d7d00e751a680311c310d8eceb32b5df050040812be01fb7e118"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/neural/cost.json",
+    "sha256": "baa3ac3b0425398beb597ed7b582d362bed201cfc905a067c5b67964f21a5f83"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/neural/charged_protocol.json",
+    "sha256": "8ca98bfa4eccc48dac6defef5fda2e9173e7d1b70085c531310217c129e22c5b"
+  },
+  {
+    "source": "control/classification/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/neural/predictions_and_rows.npz",
+    "sha256": "b56ea4c27a5502513d1d08f980dd6ea3ea32981d41fdf611fa785fdb35ab814a"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/trees/result.json",
+    "sha256": "cdb1f1e68b5ad7578c8d4d03eab69ce68b7fa8424e5b812c89f553ebcc84db7b"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/trees/cost.json",
+    "sha256": "4bb433454a53734b2e3302cfbf91b032f1ba27489e8fbf891463de36c1a0072f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/classification/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/trees/charged_protocol.json",
+    "sha256": "1ab712cccdc621a6a0833fe63c9d824be79f0fb87c1a1d3431d6aac2f3578d46"
+  },
+  {
+    "source": "control/classification/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/classification/trees/predictions_and_rows.npz",
+    "sha256": "c20e7b214ca1a96f6f047dd707d89d61847d72a5b979b1e496a23a33414909f3"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/mixture/result.json",
+    "sha256": "fa84c5a5add7038d8669d3c549f38642926b926b7e073814200e345248347777"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/mixture/cost.json",
+    "sha256": "2b9242b45ca57ca4c27ccbaca9b37acfab2a017605d171e1e6f9c43a74ce07be"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/mixture/charged_protocol.json",
+    "sha256": "4a17743fec0f9d3d2a3c5127b9ab18495ee0c70af71f2e532707eba3fe3e0e8d"
+  },
+  {
+    "source": "control/har/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/mixture/predictions_and_rows.npz",
+    "sha256": "36f05f046cba5fa4bb2dc36d1cc48e4932ea62da4d8717c855bda3d78a7eae28"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/neural/result.json",
+    "sha256": "6cfb7a8aa12657db62d91997f5ea7d02c66b843f2a3f7d185f4ef9c0a4c165b6"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/neural/cost.json",
+    "sha256": "d05b032698913de4d5fca7b3ec808b18ce5888cf59715ad35ad6b97124aad1d4"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/neural/charged_protocol.json",
+    "sha256": "0dbc5fe0cce7a2956a3472dc6d31e7324ba437f0a0612a39b049d627cceee902"
+  },
+  {
+    "source": "control/har/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/neural/predictions_and_rows.npz",
+    "sha256": "f24e81aac033f4c30994f1eddad195b389d2caba3c09adea8a622636fc24e286"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/trees/result.json",
+    "sha256": "81c5c9c43e8598e18d6441eb23ca6297fce44d8fcfed1808c5da168b73fbb57e"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/trees/cost.json",
+    "sha256": "4e8e36e619ce6dee154310dee1b94f3420da30e5a30431d59bcd5609fda053e7"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/har/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/trees/charged_protocol.json",
+    "sha256": "3dd7ea71f46ab7fa47dbbb0988dc93b77dcbaeed0cb3e07bde0bcd0893c44876"
+  },
+  {
+    "source": "control/har/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/har/trees/predictions_and_rows.npz",
+    "sha256": "73f31642ea953c37f32fc69a61d4827eb519b728bcc823e8764a88a0f88b8f69"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/mixture/result.json",
+    "sha256": "e48b7e32cac8a8e594fe938cedef468b52936fb8bf5c43693fad5c00b6551317"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/mixture/cost.json",
+    "sha256": "086950d4049155b55728c2c83d5457928ee893794be74ec1e5d86847735572f8"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/mixture/charged_protocol.json",
+    "sha256": "59fefbc40d58331a180a6c35b256ef3d0769380e38a4caed81d0644667346bb5"
+  },
+  {
+    "source": "control/regression/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/mixture/predictions_and_rows.npz",
+    "sha256": "158e60fe053f601729d01412914fb2a7b4dcc1c0d8203edd1be0aabb6aa4d360"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/neural/result.json",
+    "sha256": "5f9a971568dd6dd88f07d422b6bbd47ba49f7019d1af6c3e5a5f9527b92983e2"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/neural/cost.json",
+    "sha256": "82f58bd0062e717412930c1c10cf1a8851b783f40b46652d4132323cd5a24c75"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/neural/charged_protocol.json",
+    "sha256": "48eea66d3542292b77b237ee275c2e2a673a382f87577915f1e56f581c58aedf"
+  },
+  {
+    "source": "control/regression/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/neural/predictions_and_rows.npz",
+    "sha256": "02a2b671309c5b333e59e22beb47af0bd2521b827d973ec06062a91fe35db028"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/trees/result.json",
+    "sha256": "2973a359b2e5506c291eaee4c1852b276538e0fa7f9fa415045417db92decc77"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/trees/cost.json",
+    "sha256": "e78721112c7002c2d35dc82110f1d57534ebe1a80d457f8f81d60b03a9bd9e6f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/control/regression/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/trees/charged_protocol.json",
+    "sha256": "4deb889b52b6cbe3c8342e2334e9a7f160b1abe0513a3df5761445a042ab0f98"
+  },
+  {
+    "source": "control/regression/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/control/regression/trees/predictions_and_rows.npz",
+    "sha256": "f469e4d5ba75a62c1c900dcd6dab0bca7b923be82da28e857d2468a2ede1b610"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/mixture/result.json",
+    "sha256": "a44042029493bd0f4c3f10acc5f109c84c0bbb6b2b28d208079896536bf69cc3"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/mixture/cost.json",
+    "sha256": "08490e1b5faea461298294087540256b60f06b7a5409ab0991ea5d6393167dd5"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/mixture/charged_protocol.json",
+    "sha256": "5a93955e58248bf97b56355c710ca9d8dd3904180b7c99eeeb9ab003641f86df"
+  },
+  {
+    "source": "development/adult/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/mixture/predictions_and_rows.npz",
+    "sha256": "43a0a586693d964299c3cead25ce43b38a75d5a5dc2a773411512a301ed399ed"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/neural/result.json",
+    "sha256": "1009504d0010593e832006a7d5d676fd7a8f4cb46e69a5db43ae5c60ff63c66d"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/neural/cost.json",
+    "sha256": "7cc348c41beb47b059b0f067eebedfee284480ec4d4cbb3ea2e692ed150f08a0"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/neural/charged_protocol.json",
+    "sha256": "083a13dd660cbf728e52aef40661d3db2374072d82525f49d2594ca2b843174b"
+  },
+  {
+    "source": "development/adult/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/neural/predictions_and_rows.npz",
+    "sha256": "c2532971ef6e3c2c618f0efac58413cf09c67371d95980ed4bc73a2b69079ab8"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/trees/result.json",
+    "sha256": "0bf332ec5896aee6a5eab4cbfbc817f42a556723ab97115c45b096d39aba170e"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/trees/cost.json",
+    "sha256": "70a3379f856616be53bbb6994b1029625c6995b385bebefa58d656c15dc4cf1a"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/adult/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/trees/charged_protocol.json",
+    "sha256": "2ebc2be6e43088b1d35a78e44c8fc94887787470b8936c9572cb626333b409dd"
+  },
+  {
+    "source": "development/adult/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/adult/trees/predictions_and_rows.npz",
+    "sha256": "543e0d1965e6daa8cf17349fd77ae5223a771fe7d66fc000d8195111f65b72f2"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/mixture/result.json",
+    "sha256": "2e27ad45413bc6536a6b133ce843a9ecd0138d8134aa0fed27f6f7f4353016cf"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/mixture/cost.json",
+    "sha256": "d0e0d3b4df5f43c0521c5e1c401d962a5a7e0bc8f8d75e893194c7d104fad396"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/mixture/charged_protocol.json",
+    "sha256": "4472e2699018b3c059d46b8ed6430089944d83652a5fdb5702811c0b98a69df0"
+  },
+  {
+    "source": "development/bank/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/mixture/predictions_and_rows.npz",
+    "sha256": "d9bad448caa447d373b293f7754a093b571ebcf804692af580c4c40043759e68"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/neural/result.json",
+    "sha256": "ae58faaaee72592168ed3337d236e3edfa66c039e823b637915898980c48c1b6"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/neural/cost.json",
+    "sha256": "77b2c115bcf56f43861559b72f10a53857f3aae34dbfb420425f2e053c9a74c4"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/neural/charged_protocol.json",
+    "sha256": "ce72fafd4c092e5fdd69803a9132361157a070f75cd1169444326811b4cc5216"
+  },
+  {
+    "source": "development/bank/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/neural/predictions_and_rows.npz",
+    "sha256": "7e06851fd234fc2aa0f763b2aa7280cdb6e223c7b49313fb8cf7ec8cc9eb4787"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/trees/result.json",
+    "sha256": "70f2638b003733437ee7f3247d658959352d25deab33906599f6f51e6ebd6a16"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/trees/cost.json",
+    "sha256": "498ff5ab5d4394b1324d379046f12382219ef9f402c52e78e529d60f7b062c3b"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bank/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/trees/charged_protocol.json",
+    "sha256": "53665395abbb99d1dafc755a734e9912ac5c307ee5b2a6329cd8937961a358d0"
+  },
+  {
+    "source": "development/bank/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bank/trees/predictions_and_rows.npz",
+    "sha256": "42c229bd4490294a8ae21f4927e55a472c5bd32237e0f31f00b10053deefff5b"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/mixture/result.json",
+    "sha256": "68e091ee40cfb82fefbf420750e795722c34b66a03757ac94dd71ebeda779736"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/mixture/cost.json",
+    "sha256": "827d7d78e3c9931d3778b078b2417a47f02a60b45577ba97703c73e9ed356b4d"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/mixture/charged_protocol.json",
+    "sha256": "4cf209f7dcf13847aefd107dbdfb946c66a6f436a532d32a110e37ac32f21dd7"
+  },
+  {
+    "source": "development/bike/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/mixture/predictions_and_rows.npz",
+    "sha256": "a96df96f5cb4b0327d5d299a7247234f192af1facea0c7556a18c92f600a08d8"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/neural/result.json",
+    "sha256": "c198201a005f2a87f967f5f621f25d90d1febd05f6f36054cd7d1c1face4a77f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/neural/cost.json",
+    "sha256": "b5c4bb3d6d8be288bdfef90ff5bd7c36fa73d0bacc5c67a6db8f4995dc11b5d6"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/neural/charged_protocol.json",
+    "sha256": "81e66f1757636b92cb046f0bf7ebf0718df6522c7db9065392165eafbbb589de"
+  },
+  {
+    "source": "development/bike/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/neural/predictions_and_rows.npz",
+    "sha256": "06b47a004eaff07eb45cbffd2a6ed4951c8985d8d28c9d5c57f123e33a57ed68"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/trees/result.json",
+    "sha256": "5ca6eae423183a55bc9198df30e1fae2a408ded1e8d4d2908010c33efe0a30c4"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/trees/cost.json",
+    "sha256": "befbc30a5db6e97806fa3eced914ce32736387e4bd4f644846a5a9e461ac731f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/bike/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/trees/charged_protocol.json",
+    "sha256": "8a01c3ef384fb2eacf32a07d9f7fd112820fce684b24c45ee09452cf545b4a7c"
+  },
+  {
+    "source": "development/bike/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/bike/trees/predictions_and_rows.npz",
+    "sha256": "b695fd126436688755052731714c0417eb745e23c93c48bbcbc84d8f32a3b57f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/mixture/result.json",
+    "sha256": "d85ce03bb1dac52ac2ada2f65c444c47b0dcacb5681dbb2a5ee322a250e8ccd0"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/mixture/cost.json",
+    "sha256": "e626d0700e6da3c400792fcb75774172cfd243ac7f9101477ed1f80adf1051aa"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/mixture/charged_protocol.json",
+    "sha256": "04b11aa2e9aaa9433b0ecf609f59f5f9b247c54b272ed1969e75cba98e39a495"
+  },
+  {
+    "source": "development/classification/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/mixture/predictions_and_rows.npz",
+    "sha256": "369a135eb58350957c282d35c4998da0a63f467faa4d37cab815c48ba4006e08"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/neural/result.json",
+    "sha256": "a357f195a88121bd686a72bdabe08d73aa66be4b8a243845e8a3a489750254aa"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/neural/cost.json",
+    "sha256": "c5eee72c6bf9de8e229a50b78b516c7ceaf0f7c416eea1a5671e3e7090b7db76"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/neural/charged_protocol.json",
+    "sha256": "76ef2e4ea4d6a0c0f895d202c9690d44b422ed98602a7671775ca910cd04cc36"
+  },
+  {
+    "source": "development/classification/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/neural/predictions_and_rows.npz",
+    "sha256": "f8847ef2767c56fb0871bed86da872ccc80171b27db66b06224947dec455f1fb"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/trees/result.json",
+    "sha256": "8fc24da0a6cb9d2922e1fd001ae323458df55a039f4931ed1eef07e448282146"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/trees/cost.json",
+    "sha256": "ed7df885180c315d75c3b034f5f380bb403f5de0d8c28ff942433642f516c505"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/classification/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/trees/charged_protocol.json",
+    "sha256": "5f35efb0ac76677aa48a11c31580b0e1c1dee5edbb1690484fa6ee4b26c349b7"
+  },
+  {
+    "source": "development/classification/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/classification/trees/predictions_and_rows.npz",
+    "sha256": "7ac19e6a75be12f86ef2464acc1b489e16eec6301965198d380b58f671a95ad9"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/mixture/result.json",
+    "sha256": "16b6aa220d33188fff81249e851623f3d8f82ce887ceae286dc3dc0c97c70c5d"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/mixture/cost.json",
+    "sha256": "c5423305a68b0721cca02d530cbaddbd0a296f3b676fde35558d0bfeeaa7a6c7"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/mixture/charged_protocol.json",
+    "sha256": "8eb9e1b368f7abeae476a9021057fd90c27c4cc3c53b24d2b118da11db487511"
+  },
+  {
+    "source": "development/har/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/mixture/predictions_and_rows.npz",
+    "sha256": "d9d8b2780713872f91ead0e6ba10936ef9f91afb783a700e059a610e2dadbc72"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/neural/result.json",
+    "sha256": "4dec5c61c3167bb8336c4e4415654fcc322a7e6895e898f669d95fc24b41324f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/neural/cost.json",
+    "sha256": "4b9d9e3cdd9e20cf560ccab8f7c4ca0f2a1a5085e7d64d77e78cde250a30de14"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/neural/charged_protocol.json",
+    "sha256": "c3034af3f9b11677c2b15a4c3fe9443df5128e8a12bab1966f8430af6fc4f635"
+  },
+  {
+    "source": "development/har/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/neural/predictions_and_rows.npz",
+    "sha256": "28766d7da49041de47a2cceadeb654fb78236c17ead6ef5feb6c5bacde811bef"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/trees/result.json",
+    "sha256": "90b7bf33f8fec58a9e197441193de929826259e74cb787c3c3dddb6e94bfff9c"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/trees/cost.json",
+    "sha256": "4e5005380d186e5254907cb7ce24ac4eeb04bc357d0ce8a82402a5c91872d25f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/har/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/trees/charged_protocol.json",
+    "sha256": "2ff25460d1efec50f584ab677577172ad00185a988fb8b3781f810999d16a9d2"
+  },
+  {
+    "source": "development/har/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/har/trees/predictions_and_rows.npz",
+    "sha256": "a93314eb119042d0306063ae498b82ebc3891efba1244b2f87665ebab75ae329"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/mixture/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/mixture/result.json",
+    "sha256": "f1eb96c2f5e40041f4aa8a2799cc177387b25aa0949717e9e98c7df3b40c0293"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/mixture/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/mixture/cost.json",
+    "sha256": "a24b23f8f5002f69df21fe73556c64a7a4c8a5c4e85b4e5aa6cd6941c9241f1f"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/mixture/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/mixture/charged_protocol.json",
+    "sha256": "3bea558826f42df85d7956e6a2aef3389860c9c679ce2f62fca50122d14b2878"
+  },
+  {
+    "source": "development/regression/mixture",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/mixture/predictions_and_rows.npz",
+    "sha256": "0264f0e6770c4b5fc88f4e6798a8022a23d5edb761c56f3ca3e6819227de59cc"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/neural/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/neural/result.json",
+    "sha256": "eafeaf2a6df3654cf507859a47f21318dda7ba0424736ed768c96aa42ea78aa1"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/neural/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/neural/cost.json",
+    "sha256": "7efa95d93d09df56872a3536e584e740f9f62d49d52258ff2c74c923d3c20938"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/neural/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/neural/charged_protocol.json",
+    "sha256": "b35f54e06625d1378530cdadd5a5b7ba403a187405eb9d74ee3d924380201411"
+  },
+  {
+    "source": "development/regression/neural",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/neural/predictions_and_rows.npz",
+    "sha256": "3f9a53b2a86b14dd6fb7ab7f9a6e94f6c8fec4b163e7fa46de447f8f3f509a53"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/trees/result.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/trees/result.json",
+    "sha256": "f862151e0a4c05d65a821e63952a678161ce1ffd57ec177aaa34d5f214f78ad7"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/trees/cost.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/trees/cost.json",
+    "sha256": "41360eb087f9e9eb95b87eec38e19f9823764025f8f91b6641a86947a8c5aa27"
+  },
+  {
+    "source": "outputs/realmlp_author_equal_20261026/development/regression/trees/charged_protocol.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/trees/charged_protocol.json",
+    "sha256": "a92cabde4f2b6d8498eac61fae870c67cfb21a627c61eee6a709dab15c56c636"
+  },
+  {
+    "source": "development/regression/trees",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/development/regression/trees/predictions_and_rows.npz",
+    "sha256": "23c7e499a797f709e83b93264149da23e0513b1a412005cfd3559eae3bb5da5d"
+  },
+  {
+    "source": "outputs/pytorch_gate_final.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/pytorch_gate_final.json",
+    "sha256": "2a4ef71ee7db517e49d826a55337f05774ae8ba732078718093ad458d8bf86c5"
+  },
+  {
+    "source": "outputs/pytorch_control_freeze.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/pytorch_control_freeze.json",
+    "sha256": "3753958bb65b3d0de301e65d4d5d957639f32c7fe0fe43cc9c21d74024b20814"
+  },
+  {
+    "source": "outputs/pytorch_host.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/pytorch_host.json",
+    "sha256": "096efc1f565d40b9dbcecb11a4c3df9e5e0f1d81e432d27853db6a815b1a1741"
+  },
+  {
+    "source": "outputs/pytorch_attention_cost.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/pytorch_attention_cost.json",
+    "sha256": "2d39ceb52f1359eb5c6404518adf589daeff432611fef0246cb58e65773f1740"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/adult/results.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/adult/results.json",
+    "sha256": "b0ae54d3e5ad1c126aa1d1908e3372332687ebc1be630a5bfc663c18c00e1617"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/adult/protocol.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/adult/protocol.json",
+    "sha256": "7099e2ff0e78d2005e36435e8faf17a53ef049f1890188013b26fa59ddd72ff6"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/adult/splits.npz",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/adult/splits.npz",
+    "sha256": "c49b3647865d4ff678a690ae3c8e0e9cb2fe5db2992532c4d61b571981222777"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bank/results.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bank/results.json",
+    "sha256": "0e44bddf371e7010f1dd24cfd424f81e6a7595367244be6ae4a0195ca48fb72a"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bank/protocol.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bank/protocol.json",
+    "sha256": "6ac03012ae379bcc778e24983f8aab69dd222f830538e0ea5fc15134a4381c7b"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bank/splits.npz",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bank/splits.npz",
+    "sha256": "e44e121bd06ad842e035969807aa17184e71b4f28efe8a07e419f18253a99539"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bike/results.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bike/results.json",
+    "sha256": "af2ff4ba8e3da79fca9ebce1e8011e715e8c3c19a0787d84be073553eccbe920"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bike/protocol.json",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bike/protocol.json",
+    "sha256": "9ca93c0edd6c88216fb9b25f0a8b32eea65a89f66dce95bffd10ad5f2c20a27e"
+  },
+  {
+    "source": "outputs/pytorch_study_control42/bike/splits.npz",
+    "artifact": "research/pytorch_agent_20261026/evidence/control/bike/splits.npz",
+    "sha256": "f5da87a028bf113b55b7afc1fe14a0287d437a0800f1f06703325dc1c16a1bf7"
+  },
+  {
+    "source": "outputs/pytorch_reference_verification/verification.json",
+    "artifact": "research/pytorch_author_recipe_20261026/evidence/historical_reference_verification.json",
+    "sha256": "eb05d767cb01d6b915217461353053b885e1e58421b133715f9966dcd7568ef2"
+  }
+]

@@ -47,7 +47,9 @@ def effective_change(pipeline, parent, hypothesis):
         'imputation': after['imputation'], 'causality_established': False}
 
 
-RESEARCH_POLICY = """Classical ML only: no PyTorch, sklearn neural_network, MLP, neural embeddings or neural AutoML learners.
+RESEARCH_POLICY = """Classical models and the experimental built-in torch_tabular family are available. It trains from scratch with fit-only numeric transforms and categorical embeddings. Choose or decline it from observed complementarity and measured CPU/refit/OOF/inference cost; it is not a default or a guaranteed improvement.
+torch_tabular supports single-target tabular RMSE regression or Macro F1 classification, default prediction policy/imputation, optional stateless math/datetime/log1p/aggregate frame operations. Hyperparameters: encoding standard/quantile/piecewise/learned_piecewise/periodic; width 8-512; depth 1-4; heads 1-8; epochs 1-200; learning_rate 1e-5 to .05; dual_numeric/residual/attention booleans. Residual requires heads=1. Attention requires quantile, heads=1, residual=false and omits width/depth (fixed token dimension 32, one layer); attention cost grows quadratically with feature count. Profile it before large fits.
+Cold PyTorch startup contributes to every new worker; include it in candidate budgets and retain the prior CSV on a pilot timeout. Epoch selection is strictly inside each current fit, including nested OOF. Final refit uses frozen epochs and fresh initialization/preprocessing. Learned mixtures and classification decisions use the existing ensemble route and fit-only OOF, not protected labels. No external weights/data, hubs, downloads, installs, arbitrary custom torch imports or neural AutoML learners.
 Use the existing knowledge tools to read source conditions; unsupported classical models need a separately validated permitted custom path.
 Read guides as needed; collection=actions has executable cards.
 current_work.leader_pipeline returns the full recipe. Children inherit all omitted fresh-fit fields and companions, never learned state. Same-model partial hyperparameters merge; changed_fields can explicitly reset a field.

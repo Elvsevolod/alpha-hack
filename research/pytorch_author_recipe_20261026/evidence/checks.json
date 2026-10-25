@@ -1,0 +1,252 @@
+[
+  {
+    "source": "outputs/pytorch_contract_checks.xml",
+    "sha256": "1b2980dfb86e98f4be48f1d9a89d2b479765464717e3d80c734a65e24ae45f3c",
+    "counts": {
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_cost_cache_checks.xml",
+    "sha256": "624be35e0ca8f52bc3f9793fc67251be68a73858555ec7279edb4701ff14bab1",
+    "counts": {
+      "tests": 100,
+      "failures": 0,
+      "errors": 14,
+      "skipped": 0
+    },
+    "failures": [
+      {
+        "test": "test_M4_canonical_permutations[0]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[1]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[2]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[3]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[4]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[5]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[6]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_canonical_permutations[7]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[2-legacy]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[2-regularized]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[3-legacy]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[3-regularized]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[10-legacy]",
+        "kind": "error"
+      },
+      {
+        "test": "test_M4_sparse_classes_and_zero_objective[10-regularized]",
+        "kind": "error"
+      }
+    ]
+  },
+  {
+    "source": "outputs/pytorch_final_checks.xml",
+    "sha256": "0ace7974fd2e2df7ee464b5e62ae1d5a06dd9b6e382393a435a0efdb6615d6d2",
+    "counts": {
+      "tests": 249,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_integration_checks.xml",
+    "sha256": "d721b09ca0785fa8168e1d6328153180c0767d8edb9ff847626c9ba1343ce6a6",
+    "counts": {
+      "tests": 87,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_mock_cycle_checks.xml",
+    "sha256": "4bc0e92cded984f18ccabc9843f4d4bcb4b4cbbb3904d12931795ad27073dae6",
+    "counts": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": [
+      {
+        "test": "test_mock_agent_cycle_trains_neural_then_publishes_real_csv[native]",
+        "kind": "failure"
+      },
+      {
+        "test": "test_mock_agent_cycle_trains_neural_then_publishes_real_csv[json]",
+        "kind": "failure"
+      }
+    ]
+  },
+  {
+    "source": "outputs/pytorch_mock_cycle_checks_v2.xml",
+    "sha256": "e643082594bb9ed89e36deee9534bd21518c580bcdacb64d7649e05e86d889f2",
+    "counts": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_pipeline_tests.xml",
+    "sha256": "e984335c8f19cf101c718c533a169f72491c55908953c8e9d4f2b3d1f96417c0",
+    "counts": {
+      "tests": 18,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": [
+      {
+        "test": "test_unsupported_modes_rejected_before_fit[change0]",
+        "kind": "failure"
+      }
+    ]
+  },
+  {
+    "source": "outputs/pytorch_research_tests.xml",
+    "sha256": "97bd9a668bc46e0cc51749fac8b44e607b26a8fe6e06d88b048124d27e015923",
+    "counts": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_resource_http_checks.xml",
+    "sha256": "0ae4e15b21ebabb475d28a1cbd2a9a83b7dd641d9d9c9ba05d64950f1600d7d9",
+    "counts": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/pytorch_startup_checks.xml",
+    "sha256": "4bd30fe08ad50f87b639c24d0365221d4da0565dc36c52db55ee3f4136b975bb",
+    "counts": {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/realmlp_recipe_tests.xml",
+    "sha256": "6bc0b3446422e9c37749b82a23c66cb13cb6e5c742f5a91b2ffbc416b0b5f15b",
+    "counts": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/agent_path_audit_after.xml",
+    "sha256": "608faeca112c5e0b36a7ec80ec188156f7e2aa0ecf4b3fd3c66459188e0694c9",
+    "counts": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  },
+  {
+    "source": "outputs/agent_path_audit_before.xml",
+    "sha256": "5d23ab097dee90210cc9637a3fe2c0057ece879b22fa19779c4c90feeac98ed3",
+    "counts": {
+      "tests": 6,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": [
+      {
+        "test": "test_numeric_storage_does_not_override_declared_categorical_role",
+        "kind": "failure"
+      },
+      {
+        "test": "test_startup_is_fixed_when_old_summary_has_no_execution_phases",
+        "kind": "failure"
+      },
+      {
+        "test": "test_successful_oof_cache_rejects_foreign_identity_without_refitting[protocol]",
+        "kind": "failure"
+      },
+      {
+        "test": "test_successful_oof_cache_rejects_foreign_identity_without_refitting[pipeline]",
+        "kind": "failure"
+      },
+      {
+        "test": "test_successful_oof_cache_rejects_foreign_identity_without_refitting[rows]",
+        "kind": "failure"
+      },
+      {
+        "test": "test_successful_oof_cache_rejects_foreign_identity_without_refitting[request_hash]",
+        "kind": "failure"
+      }
+    ]
+  },
+  {
+    "source": "outputs/agent_path_audit_checks.xml",
+    "sha256": "332144c8fd01c2773d24a8ff399943d8e2328456f2548740ed8bb24bbb996207",
+    "counts": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failures": []
+  }
+]

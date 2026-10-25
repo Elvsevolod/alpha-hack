@@ -26,11 +26,6 @@ def cached_oof(c, identifier, spec, rows, directory):
         'error': 'OOF operation outcome unknown; inspect the existing attempt before retrying'}
     try:
         manifest = read_json(manifest_path) if manifest_path.is_file() else {}
-        if manifest.get('status') == 'completed':
-            path = directory / 'oof_predictions.json'
-            if file_hash(path) != manifest['hashes'][path.name]:
-                raise ValueError('OOF cached artifact changed')
-            return read_json(path)
         request = read_json(request_path)
         context = request['context']
         expected_keys = [c.dataset.row_keys[i] for i in rows]
@@ -40,9 +35,15 @@ def cached_oof(c, identifier, spec, rows, directory):
             and context['library_versions'] == spec.library_versions
             and read_json(directory / 'fit_X.json')['index'] == expected_keys
             and read_json(directory / 'fit_y.json')['index'] == expected_keys)
+        if manifest.get('status') == 'completed':
+            path = directory / 'oof_predictions.json'
+            if (not valid or manifest.get('request_hash',digest(request)) != digest(request)
+                    or file_hash(path) != manifest['hashes'][path.name]):
+                raise ValueError('OOF cached identity or artifact changed')
+            return read_json(path)
         from pathlib import Path
         terminal_status = manifest.get('status')
-        terminal = (valid and terminal_status in {'error', 'import_error', 'memory_limit', 'insufficient_pilot_support'}
+        terminal = (valid and terminal_status in {'error', 'import_error', 'memory_limit', 'timeout', 'insufficient_pilot_support'}
             and manifest.get('diagnostic_code') == terminal_status
             and isinstance(manifest.get('error'), str) and bool(manifest['error'])
             and ('request_hash' not in manifest or manifest['request_hash'] == digest(request))
@@ -196,6 +197,9 @@ def oof_forecast(c, identifiers, rows=None):
             raise ValueError('OOF members require built-in independent pipelines')
         costs[identifier] = sum(candidate_measured_cost(result.training_summary, result.seconds,
             len(a), len(c.plan.fit), spec.pipeline) for a, _, _, _ in parts)
+        if spec.pipeline.model=='torch_tabular':
+            auxiliary=float((result.training_summary.get('budget') or {}).get('independent_oof_auxiliary_fit_seconds',0))
+            costs[identifier]+=sum(auxiliary*len(a)/max(1,len(c.plan.fit)) for a,_,_,_ in parts)
     total = sum(costs.values())
     return {'seconds': total + max(1., total * .05), 'member_seconds': costs, 'folds': max(fold_counts.values(), default=0),
         'member_fold_counts': fold_counts,

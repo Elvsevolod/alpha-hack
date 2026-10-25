@@ -271,7 +271,7 @@ def main(request_path: str):
     try:
         result = run_request(request, directory)
     except BaseException as error:
-        status = "insufficient_pilot_support" if isinstance(error, InsufficientPilotSupport) else "import_error" if isinstance(error, (ImportError, ModuleNotFoundError)) else "memory_limit" if isinstance(error, MemoryError) else "error"
+        status = "insufficient_pilot_support" if isinstance(error, InsufficientPilotSupport) else "import_error" if isinstance(error, (ImportError, ModuleNotFoundError)) else "memory_limit" if isinstance(error, MemoryError) else "timeout" if isinstance(error,TimeoutError) else "error"
         first_line = str(error).splitlines()[0] if str(error) else ""
         first_line = re.sub(r"(['\"])(.*?)\1", lambda m: m[0] if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]{0,100}", m[2]) else "'<value>'", first_line)
         if re.fullmatch(r"[0-9.,; +\-]+", first_line):

@@ -1,0 +1,12 @@
+{
+  "system": "Darwin",
+  "machine": "arm64",
+  "logical_cpus": null,
+  "physical_cpus": 10,
+  "physical_memory_bytes": 17179869184,
+  "contest_cpus": 8,
+  "contest_memory_gb": 32,
+  "screen_threads": 1,
+  "isolated_contest_environment": false,
+  "api_calls_this_study": 0
+}

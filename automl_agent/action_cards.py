@@ -7,6 +7,10 @@ from .util import digest
 def cards(task, strategy=None):
     linear = "logistic" if task.classes else "ridge"
     templates = {
+        "torch_tabular": (PipelineSpec(model="torch_tabular",hyperparameters={"encoding":"quantile","epochs":50}),
+            "Experimental neural tabular MLP numeric embeddings categorical complementarity",
+            "One CPU thread; nested epoch selection plus fresh replay; profile OOF/refit/full inference",
+            "Single-target RMSE/Macro F1 only; no external weights; agent may decline; quality is task-dependent"),
         "linear": (PipelineSpec(model=linear), "Smooth regularized linear baseline; compare representations before local tuning", "Small CPU fit; sparse inference", "Reject unsupported target or text representation; preserve time/groups"),
         "knn": (PipelineSpec(model="knn"), "KNN neighbors distance scaling representation complementary errors", "Bounded donor matrix and prediction batches; profile full test inference", "Reject oversized donor matrix or unsupported output; useful quality is unestablished"),
         "boosting": (PipelineSpec(model="lightgbm", hyperparameters={"n_estimators": 150}), "CPU boosting baseline and categorical regularization", "Bounded native fit plus measured refit", "Reject incompatible objective, inactive bagging or resource overrides"),
@@ -29,7 +33,7 @@ def cards(task, strategy=None):
         recipe = pipeline.research_recipe()
         identifier = "action:" + name
         result[identifier] = {"id": identifier, "title": description, "pipeline": recipe, "recipe_hash": digest(recipe),
-            "task_kinds": ["regression", "classification", "multioutput_regression", "multioutput_classification", "multilabel"],
+            "task_kinds": ["regression", "classification"] if name=="torch_tabular" else ["regression", "classification", "multioutput_regression", "multioutput_classification", "multilabel"],
             "conditions": "Confirmed current task, fit-only preprocessing, shared development rows; no external data",
             "diagnostic": "Read transfer/support and fit profile before selecting a representation",
             "price": price, "validation_boundaries": "Every learned stage is inside the permitted fold fit; final quality uses other rows",

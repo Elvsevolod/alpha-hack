@@ -1,0 +1,526 @@
+{
+  "regularized_lgb": {
+    "spec": {
+      "model": "lightgbm",
+      "hyperparameters": {
+        "n_estimators": 1035,
+        "num_leaves": 31,
+        "learning_rate": 0.03,
+        "reg_lambda": 10,
+        "min_child_samples": 50,
+        "colsample_bytree": 0.9,
+        "subsample": 0.8,
+        "subsample_freq": 1
+      },
+      "seed": 42
+    },
+    "columns": [
+      "State_Factor",
+      "building_class",
+      "facility_type",
+      "floor_area",
+      "year_built",
+      "energy_star_rating",
+      "ELEVATION",
+      "ref_log_area",
+      "ref_rating_missing",
+      "ref_rating_normal",
+      "ref_state_facility",
+      "ref_facility_area"
+    ],
+    "categorical": [
+      "State_Factor",
+      "building_class",
+      "facility_type",
+      "ref_state_facility",
+      "ref_facility_area"
+    ],
+    "classes": null,
+    "feature_plan": "energy_building",
+    "source_sha256": "ad6c0e90a1aec06a2a2f1a0db85c5210789779103bf871a1bbc57f9a9cf4b447",
+    "weight_exponent": 0,
+    "unfitted_preprocessor": "None",
+    "template_sha256": "bbb8270c998afd1fa72915ce0c0860fb9dc940f55df575f9d2a5000099507267"
+  },
+  "engineered_cb": {
+    "spec": {
+      "model": "catboost",
+      "hyperparameters": {
+        "iterations": 979,
+        "depth": 8,
+        "learning_rate": 0.04,
+        "l2_leaf_reg": 8
+      },
+      "seed": 42
+    },
+    "columns": [
+      "State_Factor",
+      "building_class",
+      "facility_type",
+      "floor_area",
+      "year_built",
+      "energy_star_rating",
+      "ELEVATION",
+      "ref_log_area",
+      "ref_rating_missing",
+      "ref_rating_normal",
+      "ref_state_facility",
+      "ref_facility_area"
+    ],
+    "categorical": [
+      "State_Factor",
+      "building_class",
+      "facility_type",
+      "ref_state_facility",
+      "ref_facility_area"
+    ],
+    "classes": null,
+    "feature_plan": "energy_building",
+    "source_sha256": "324d8067c15d645c6f3e8e344184b4b452e49808b80fd5063aa495629f4a77e4",
+    "weight_exponent": 0,
+    "unfitted_preprocessor": "None",
+    "template_sha256": "d919f05cf384a27969096bc42defb9b6fc9afa32f4f1aca5950284cc01197fb2"
+  },
+  "current_weighted": {
+    "spec": {
+      "model": "xgboost",
+      "hyperparameters": {
+        "n_estimators": 589,
+        "max_depth": 5,
+        "learning_rate": 0.06,
+        "reg_lambda": 5,
+        "min_child_weight": 2,
+        "subsample": 0.85,
+        "colsample_bytree": 0.85
+      },
+      "seed": 42
+    },
+    "columns": [
+      "dur",
+      "proto",
+      "service",
+      "state",
+      "spkts",
+      "dpkts",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "dttl",
+      "sload",
+      "dload",
+      "sloss",
+      "dloss",
+      "sinpkt",
+      "dinpkt",
+      "sjit",
+      "djit",
+      "swin",
+      "stcpb",
+      "dtcpb",
+      "dwin",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "smean",
+      "dmean",
+      "trans_depth",
+      "response_body_len",
+      "ct_srv_src",
+      "ct_state_ttl",
+      "ct_dst_ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_flw_http_mthd",
+      "ct_src_ltm",
+      "ct_srv_dst",
+      "is_sm_ips_ports",
+      "ref_source_packet_bytes",
+      "ref_destination_packet_bytes",
+      "ref_byte_ratio",
+      "ref_packet_ratio",
+      "ref_syn_fraction",
+      "ref_ttl_difference",
+      "ref_log_byte_ratio"
+    ],
+    "categorical": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "classes": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "feature_plan": "network",
+    "source_sha256": "02dc549166703cba24087e2ffe381cb580c11641ea8c8ca0600889b55a4c274a",
+    "weight_exponent": 0.5,
+    "unfitted_preprocessor": "ColumnTransformer(sparse_threshold=0,\n                  transformers=[('numeric',\n                                 Pipeline(steps=[('impute',\n                                                  SimpleImputer(add_indicator=True,\n                                                                keep_empty_features=True,\n                                                                strategy='median'))]),\n                                 ['dur', 'spkts', 'dpkts', 'sbytes', 'dbytes',\n                                  'rate', 'sttl', 'dttl', 'sload', 'dload',\n                                  'sloss', 'dloss', 'sinpkt', 'dinpkt', 'sjit',\n                                  'djit', 'swin', 'stcpb', 'dtcpb', 'dwin',\n                                  'tcprtt', 'synack', 'ackdat', 'smean',\n                                  'dmean', 'trans_depth', 'response_body_len',\n                                  'ct_srv_src', 'ct_state_ttl', 'ct_dst_ltm', ...]),\n                                ('categories',\n                                 OneHotEncoder(handle_unknown='ignore',\n                                               sparse_output=False),\n                                 ['proto', 'service', 'state'])])",
+    "template_sha256": "6b587fbbc2cd99f07ae226533b995872d0eeb8b760eab8442ecff00f396e76eb"
+  },
+  "hierarchy_balanced": {
+    "spec": {
+      "model": "lightgbm",
+      "hyperparameters": {
+        "n_estimators": 757,
+        "num_leaves": 31,
+        "learning_rate": 0.05,
+        "reg_lambda": 5,
+        "class_weight": "balanced"
+      },
+      "seed": 42
+    },
+    "columns": [
+      "dur",
+      "proto",
+      "service",
+      "state",
+      "spkts",
+      "dpkts",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "dttl",
+      "sload",
+      "dload",
+      "sloss",
+      "dloss",
+      "sinpkt",
+      "dinpkt",
+      "sjit",
+      "djit",
+      "swin",
+      "stcpb",
+      "dtcpb",
+      "dwin",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "smean",
+      "dmean",
+      "trans_depth",
+      "response_body_len",
+      "ct_srv_src",
+      "ct_state_ttl",
+      "ct_dst_ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_flw_http_mthd",
+      "ct_src_ltm",
+      "ct_srv_dst",
+      "is_sm_ips_ports",
+      "ref_source_packet_bytes",
+      "ref_destination_packet_bytes",
+      "ref_byte_ratio",
+      "ref_packet_ratio",
+      "ref_syn_fraction",
+      "ref_ttl_difference",
+      "ref_log_byte_ratio"
+    ],
+    "categorical": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "classes": [
+      "Analysis",
+      "Backdoor",
+      "DoS",
+      "Exploits",
+      "Fuzzers",
+      "Generic",
+      "Normal",
+      "Reconnaissance",
+      "Shellcode",
+      "Worms"
+    ],
+    "feature_plan": "network",
+    "source_sha256": "3760f8baa8968047895f02364e8171c07e769a64ddd6248cc18c5caf63cb11e7",
+    "hierarchy": true,
+    "normal_index": 6,
+    "component_iterations": {
+      "gate": 757,
+      "attack": 304
+    },
+    "weight_exponent": 0,
+    "unfitted_preprocessor": "None",
+    "template_sha256": "f85abe872adb094da65383ea82e6e9c5bf3fb82865c8f281999a5ab89165c4af"
+  },
+  "_datasets": {
+    "regression": {
+      "data_hash": "89d50a68fe41977dcdc3f9a105cd1e6db39d5dbdfa03216c1bc648fa6f33b5a5",
+      "split_sha256": "776d7b1e917eddb38cdbcf15809bdf5557bc56cc5eee209d9f44c4567e29b971",
+      "task": {
+        "categorical_columns": [
+          "State_Factor",
+          "building_class",
+          "facility_type"
+        ],
+        "classes": {},
+        "contract_version": 1,
+        "evidence": {
+          "id_columns": [
+            "output",
+            "task"
+          ],
+          "metric": [
+            "task"
+          ],
+          "targets": [
+            "schema",
+            "task"
+          ],
+          "time_column": [
+            "task",
+            "dictionary"
+          ]
+        },
+        "explicit_validation": null,
+        "feature_columns": [
+          "Year_Factor",
+          "State_Factor",
+          "building_class",
+          "facility_type",
+          "floor_area",
+          "year_built",
+          "energy_star_rating",
+          "ELEVATION",
+          "january_min_temp_c",
+          "january_avg_temp_c",
+          "january_max_temp_c",
+          "february_min_temp_c",
+          "february_avg_temp_c",
+          "february_max_temp_c",
+          "march_min_temp_c",
+          "march_avg_temp_c",
+          "march_max_temp_c",
+          "april_min_temp_c",
+          "april_avg_temp_c",
+          "april_max_temp_c",
+          "may_min_temp_c",
+          "may_avg_temp_c",
+          "may_max_temp_c",
+          "june_min_temp_c",
+          "june_avg_temp_c",
+          "june_max_temp_c",
+          "july_min_temp_c",
+          "july_avg_temp_c",
+          "july_max_temp_c",
+          "august_min_temp_c",
+          "august_avg_temp_c",
+          "august_max_temp_c",
+          "september_min_temp_c",
+          "september_avg_temp_c",
+          "september_max_temp_c",
+          "october_min_temp_c",
+          "october_avg_temp_c",
+          "october_max_temp_c",
+          "november_min_temp_c",
+          "november_avg_temp_c",
+          "november_max_temp_c",
+          "december_min_temp_c",
+          "december_avg_temp_c",
+          "december_max_temp_c",
+          "cooling_degree_days_c",
+          "heating_degree_days_c",
+          "precipitation_inches",
+          "snowfall_inches",
+          "snowdepth_inches",
+          "avg_temp_c",
+          "days_below_minus1C",
+          "days_below_minus7C",
+          "days_below_minus12C",
+          "days_below_minus18C",
+          "days_above_27C",
+          "days_above_32C",
+          "days_above_38C",
+          "days_above_43C",
+          "direction_max_wind_speed",
+          "direction_peak_wind_speed",
+          "max_wind_speed",
+          "days_with_fog"
+        ],
+        "feature_constraints": {},
+        "file_roles": {},
+        "group_column": null,
+        "horizon": null,
+        "id_columns": [
+          "id"
+        ],
+        "kind": "regression",
+        "metric": {
+          "aggregation": "uniform",
+          "average": "macro",
+          "k": null,
+          "name": "rmse",
+          "positive_label": null,
+          "relevance_threshold": 0.0,
+          "target_weights": null
+        },
+        "output": {
+          "columns": [
+            "id",
+            "site_eui"
+          ],
+          "prediction_type": "values",
+          "probability_columns": {}
+        },
+        "related_tables": [],
+        "series_columns": [],
+        "service_columns": [],
+        "source_hash": "89d50a68fe41977dcdc3f9a105cd1e6db39d5dbdfa03216c1bc648fa6f33b5a5",
+        "targets": [
+          "site_eui"
+        ],
+        "text_columns": [],
+        "time_column": "Year_Factor"
+      },
+      "original_categorical_roles": [
+        "State_Factor",
+        "building_class",
+        "facility_type"
+      ]
+    },
+    "classification": {
+      "data_hash": "18c5103851848ce501d759a1e4cc4c9dfa1c2f86618b0be8f2774eea0d2809f5",
+      "split_sha256": "931b7aff009aa064923456f8e15a5c6ae29d7673700655268c9d803e0133a7e2",
+      "task": {
+        "categorical_columns": [
+          "proto",
+          "service",
+          "state"
+        ],
+        "classes": {
+          "attack_cat": [
+            "Analysis",
+            "Backdoor",
+            "DoS",
+            "Exploits",
+            "Fuzzers",
+            "Generic",
+            "Normal",
+            "Reconnaissance",
+            "Shellcode",
+            "Worms"
+          ]
+        },
+        "contract_version": 1,
+        "evidence": {
+          "id_columns": [
+            "output",
+            "task"
+          ],
+          "metric": [
+            "task"
+          ],
+          "targets": [
+            "schema",
+            "task"
+          ],
+          "time_column": [
+            "schema"
+          ]
+        },
+        "explicit_validation": null,
+        "feature_columns": [
+          "dur",
+          "proto",
+          "service",
+          "state",
+          "spkts",
+          "dpkts",
+          "sbytes",
+          "dbytes",
+          "rate",
+          "sttl",
+          "dttl",
+          "sload",
+          "dload",
+          "sloss",
+          "dloss",
+          "sinpkt",
+          "dinpkt",
+          "sjit",
+          "djit",
+          "swin",
+          "stcpb",
+          "dtcpb",
+          "dwin",
+          "tcprtt",
+          "synack",
+          "ackdat",
+          "smean",
+          "dmean",
+          "trans_depth",
+          "response_body_len",
+          "ct_srv_src",
+          "ct_state_ttl",
+          "ct_dst_ltm",
+          "ct_src_dport_ltm",
+          "ct_dst_sport_ltm",
+          "ct_dst_src_ltm",
+          "is_ftp_login",
+          "ct_ftp_cmd",
+          "ct_flw_http_mthd",
+          "ct_src_ltm",
+          "ct_srv_dst",
+          "is_sm_ips_ports"
+        ],
+        "feature_constraints": {},
+        "file_roles": {},
+        "group_column": null,
+        "horizon": null,
+        "id_columns": [
+          "id"
+        ],
+        "kind": "classification",
+        "metric": {
+          "aggregation": "uniform",
+          "average": "macro",
+          "k": null,
+          "name": "f1",
+          "positive_label": null,
+          "relevance_threshold": 0.0,
+          "target_weights": null
+        },
+        "output": {
+          "columns": [
+            "id",
+            "attack_cat"
+          ],
+          "prediction_type": "labels",
+          "probability_columns": {}
+        },
+        "related_tables": [],
+        "series_columns": [],
+        "service_columns": [],
+        "source_hash": "18c5103851848ce501d759a1e4cc4c9dfa1c2f86618b0be8f2774eea0d2809f5",
+        "targets": [
+          "attack_cat"
+        ],
+        "text_columns": [],
+        "time_column": null
+      },
+      "original_categorical_roles": [
+        "proto",
+        "service",
+        "state"
+      ]
+    }
+  }
+}

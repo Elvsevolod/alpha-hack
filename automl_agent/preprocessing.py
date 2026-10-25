@@ -102,7 +102,8 @@ class FeatureMatrix:
             self.frame_steps.append(step)
         self.training_frame = frame
         self.text_columns = [c for c in self.task.text_columns if c in frame]
-        self.categorical_columns = [c for c in frame if c not in self.text_columns and not pd.api.types.is_numeric_dtype(frame[c])]
+        self.categorical_columns = [c for c in frame if c not in self.text_columns
+            and (c in self.task.categorical_columns or not pd.api.types.is_numeric_dtype(frame[c]))]
         self.numeric_columns = [c for c in frame if c not in self.text_columns + self.categorical_columns]
         self.empty_columns = [c for c in self.numeric_columns if frame[c].isna().all()]
         self.complete_columns = [c for c in self.numeric_columns if frame[c].notna().all()]
@@ -281,12 +282,12 @@ class FeatureMatrix:
         return self
 
     def _categorical(self, frame, numeric):
-        result = frame[self.categorical_columns].copy()
+        result = frame[self.categorical_columns].astype('object').copy()
         for column in self.categorical_columns:
             mask = result[column].isna()
             if column in self.categorical_models and mask.any():
                 result.loc[mask, column] = self.categorical_models[column].predict(np.nan_to_num(numeric[mask], nan=0.0))
-            result[column] = result[column].fillna(self.category_fill[column]).astype(str)
+            result[column] = result[column].where(result[column].notna(), self.category_fill[column]).astype(str)
         return result
 
     def transform(self, X):

@@ -216,7 +216,7 @@ def test_M8_effective_diff_ignores_learned_state_and_normalizes_aliases():
     assert report['imputation']['indicators'] == parent.imputation.indicators
 
 
-@pytest.mark.parametrize('outcome', ['error', 'import_error', 'memory_limit', 'insufficient_pilot_support', 'completed', 'request_only', 'corrupt', 'wrong_request', 'wrong_rows', 'wrong_artifact', 'wrong_request_hash'])
+@pytest.mark.parametrize('outcome', ['error', 'import_error', 'memory_limit', 'timeout', 'insufficient_pilot_support', 'completed', 'request_only', 'corrupt', 'wrong_request', 'wrong_rows', 'wrong_artifact', 'wrong_request_hash'])
 def test_M6_cached_outcomes_never_refit(tmp_path, outcome):
     from automl_agent.learned_blend import member_oof, oof_directory, OOFCacheError
     from automl_agent.util import file_hash
@@ -237,7 +237,7 @@ def test_M6_cached_outcomes_never_refit(tmp_path, outcome):
         (directory / name).write_text(canonical({'index': ['foreign'] if outcome == 'wrong_rows' else X.index.tolist()}))
     manifest = {'status': 'error', 'diagnostic_code': 'error', 'error': 'ValueError: Insufficient inner history',
         'diagnostic_artifact': str(directory / ('foreign.json' if outcome == 'wrong_artifact' else 'worker_result.json'))}
-    known = outcome in {'error', 'import_error', 'memory_limit', 'insufficient_pilot_support'}
+    known = outcome in {'error', 'import_error', 'memory_limit', 'timeout', 'insufficient_pilot_support'}
     if known:
         manifest.update(status=outcome, diagnostic_code=outcome)
     manifest['request_hash'] = 'foreign' if outcome == 'wrong_request_hash' else digest(request)

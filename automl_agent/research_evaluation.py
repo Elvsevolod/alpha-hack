@@ -72,7 +72,7 @@ def oof_plan(spec, task, X, y, strategy, seed=42):
             try:
                 inner_split(X.iloc[a], y.iloc[a], task, strategy, spec.seed)
             except ValueError as error:
-                needs_inner = (fresh.engine != "direct" or fresh.prediction_policy != "default"
+                needs_inner = (fresh.model == "torch_tabular" or fresh.engine != "direct" or fresh.prediction_policy != "default"
                     or fresh.log_inverse == "oof_smearing" or fresh.checkpoint_counts
                     or fresh.early_stopping_rounds and any(op.name == 'target_encode' for op in fresh.transformations))
                 # Target encoding itself can use a neutral first period. Keep
@@ -97,6 +97,7 @@ def oof_predictions(spec, task, X, y, context):
         raise ValueError('insufficient_oof_support: at least two independently fitted folds are required for learned postprocessing')
     predictions = {target: {} for target in task.targets}
     identities, scores = [], []
+    total_base_fits=0
     for index, (a, b, fresh, warmup) in enumerate(parts):
         remaining = context["budget_seconds"] - (time.monotonic() - started)
         if remaining <= .2:
@@ -109,7 +110,9 @@ def oof_predictions(spec, task, X, y, context):
             raise ValueError("Strict OOF requires independently rebuilt domain weights; parent-fitted weights cannot be inherited")
         # Every fold selects its iterations/postprocessing inside its own fit.
         model = build_pipeline(fresh, task, local)
-        model.fit(X.iloc[a].copy(), y.iloc[a].copy(), local)
+        summary=model.fit(X.iloc[a].copy(), y.iloc[a].copy(), local)
+        summary=summary.model_dump() if hasattr(summary,'model_dump') else summary or {}
+        total_base_fits+=1+int(summary.get('auxiliary_fits',0))
         bundle = model.predict(X.iloc[b].copy(), local)
         values = align_predictions(bundle, X.iloc[b].index.tolist(), task, context["protocol_hash"], local["split_id"])
         probabilities = getattr(bundle, "calibrated_probabilities", {}) or getattr(bundle, "raw_probabilities", {})
@@ -131,7 +134,7 @@ def oof_predictions(spec, task, X, y, context):
     keys = [str(key) for key in X.index if all(str(key) in predictions[target] for target in task.targets)]
     return {"row_keys": keys, "values": {target: [predictions[target][key] for key in keys] for target in task.targets},
         "classes": task.classes, "prediction_type": "probabilities" if task.classes else "values",
-        "folds": identities, "folds_hash": digest([{k: part[k] for k in ("fold", "fit_keys", "evaluation_keys")} for part in identities]), "coverage": len(keys) / len(X),
+        "folds": identities, "folds_hash": digest([{k: part[k] for k in ("fold", "fit_keys", "evaluation_keys")} for part in identities]), "coverage": len(keys) / len(X), "base_fits":total_base_fits,
         "uncovered_reason": "earliest temporal rows lack an earlier training population" if len(keys) < len(X) else None,
         "scores": scores, "seconds": time.monotonic() - started, "scope": "fit_only_out_of_fold",
         "support_status": "limited_temporal_history" if len(parts) < 2 or skipped else "multiple_folds",

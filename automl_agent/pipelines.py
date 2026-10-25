@@ -18,6 +18,7 @@ from .compatibility import ranking_label_issue, require_compatible
 from .util import digest
 
 PARAMETERS = {
+    "torch_tabular": {"encoding", "width", "depth", "heads", "epochs", "learning_rate", "dual_numeric", "residual", "attention"},
     "knn": {"n_neighbors", "weights", "metric", "p", "leaf_size"},
     "constant": set(),
     "ridge": {"alpha", "fit_intercept", "solver", "tol", "max_iter", "positive"},
@@ -69,6 +70,9 @@ PARAMETERS["lightgbm"].update({"cat_smooth", "cat_l2", "min_data_per_group", "al
 def validate_parameters(spec, task):
     if set(spec.hyperparameters) & CONTROLLED_PARAMETERS.get(spec.model, set()):
         raise ValueError("Model resource/seed parameters are controller-owned; use the declared task limits and seed")
+    if spec.model == 'torch_tabular':
+        from .torch_pipeline import validate
+        validate(spec, task)
     p = effective_parameters(spec)
     if spec.model in PARAMETERS and not set(p) <= PARAMETERS[spec.model]:
         raise ValueError(f"Unsupported parameters for {spec.model}: {sorted(set(p) - PARAMETERS[spec.model])}")
@@ -595,4 +599,7 @@ def build_pipeline(spec: PipelineSpec, task: TaskSpec, context):
     if task.kind == "forecasting":
         from .forecasting import ForecastPipeline
         return ForecastPipeline(spec, task)
+    if spec.model == 'torch_tabular':
+        from .torch_pipeline import TorchPipeline
+        return TorchPipeline(spec, task)
     return DirectPipeline(spec, task)

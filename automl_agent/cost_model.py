@@ -4,19 +4,22 @@ from .util import digest
 
 
 def family(spec):
-    return (spec.engine, spec.model, spec.representation, spec.imputation.hash,
+    identity = (spec.engine, spec.model, spec.representation, spec.imputation.hash,
         tuple((op.name, digest(op.parameters)) for op in spec.transformations),
         spec.prediction_policy, spec.custom_semantic_hash or spec.custom_hash,
         spec.autogluon_profile, tuple(spec.learners), bool(spec.early_stopping_rounds),
         spec.supervised_transform, spec.shift_strategy, tuple(spec.include_features or []), tuple(spec.exclude_features),
         spec.neighbor_scale, spec.postprocess_fit_policy, spec.log_inverse, tuple(spec.checkpoint_counts),
         spec.refit_iteration_policy, digest(spec.autogluon_configurations))
+    return identity + (digest(spec.hyperparameters),) if spec.model=="torch_tabular" else identity
 
 
 def complexity(spec):
     p = spec.hyperparameters
     if spec.engine == 'autogluon':
         return float(spec.bag_folds * (2 if spec.autogluon_profile == 'stacking' else 1)) if spec.autogluon_profile != 'selection' else 1.
+    if spec.model == 'torch_tabular':
+        return float(p.get('epochs',50)*p.get('depth',2)*p.get('width',128)**2*p.get('heads',1))
     defaults = {'random_forest':100,'extra_trees':100,'hist_gradient_boosting':100,'catboost':200,'mlp':100,'sgd':1000}
     iterations = p.get('n_estimators', p.get('iterations', p.get('max_iter', defaults.get(spec.model,150))))
     if spec.model in {'ridge', 'elastic_net', 'logistic', 'constant'}:
@@ -70,6 +73,7 @@ def phase_forecast(summary, seconds, rows, default_rows, ensemble=False, pipelin
     curve = summary.get('cost_curve')
     fit = selected_seconds(summary)
     repeatable = float(budget.get('repeatable_auxiliary_fit_seconds', 0))
+    initialization=float(budget.get('worker_initialization_seconds',0))
     iteration_recipe = pipeline
     if pipeline is not None and budget.get('iteration_schedule'):
         from .contracts import PipelineSpec
@@ -85,7 +89,7 @@ def phase_forecast(summary, seconds, rows, default_rows, ensemble=False, pipelin
         if selected:
             overhead = max(.2, seconds-summary.get('seconds',0)-summary.get('automatic_pilot_seconds',0))
             base = max(.2, fit * iterations + repeatable + overhead)
-        return base * max(1., rows/training_rows) * 1.25 + .2
+        return (base * max(1., rows/training_rows) + (initialization if selected else 0.)) * 1.25 + .2
     if curve:
         fit = curve['fixed_fit_seconds'] + curve['seconds_per_row'] * rows
         multiplier = curve['uncertainty_multiplier']
@@ -105,7 +109,7 @@ def phase_forecast(summary, seconds, rows, default_rows, ensemble=False, pipelin
     loading = float(phases.get('load_and_construct_seconds', 0)) + float(phases.get('controller_staging_seconds', 0))
     actual_fit = float(summary.get('seconds', phases.get('fit_seconds', 0)) if selected else phases.get('fit_seconds', summary.get('seconds', 0)))
     startup = max(.2, seconds - actual_fit - save_load - float(phases.get('predict_and_verify_seconds', 0)) - loading - summary.get('automatic_pilot_seconds', 0))
-    result = (max(.1 if ensemble else .2, fit) + save_load + predict + prediction_fixed + loading + startup) * multiplier + .2
+    result = (max(.1 if ensemble else .2, fit) + save_load + predict + prediction_fixed + loading + startup + initialization) * multiplier + .2
     if not math.isfinite(result):
         raise ValueError('Nonfinite completion forecast')
     return result

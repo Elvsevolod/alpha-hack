@@ -1,0 +1,64 @@
+{
+  "repository": "https://github.com/dholzmueller/pytabkit",
+  "commit": "c126ea51187c5080b91f28d352481dbd3b2194b0",
+  "license": "Apache-2.0",
+  "purpose": "read-only fidelity audit; not installed/imported as runtime package",
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "pytabkit/models/data/conversion.py",
+      "sha256": "dd1c10fe7cfde98baafb29ca2e60a6160e4c325e6f43ac0ed039c34a999d573c"
+    },
+    {
+      "path": "pytabkit/models/data/data.py",
+      "sha256": "125bc800758a953c29450737dc33bac8b6d0a5a7b78a188c08ee2be7278feb16"
+    },
+    {
+      "path": "pytabkit/models/nn_models/base.py",
+      "sha256": "7d695a4d9da836b915c1d00e286b71c3697733704bd690293a77b7bf9f06557b"
+    },
+    {
+      "path": "pytabkit/models/nn_models/categorical.py",
+      "sha256": "897f07d2c78c9ceb0c24d90b875931b4ed8aa69c345e9a373084838038a26c96"
+    },
+    {
+      "path": "pytabkit/models/nn_models/models.py",
+      "sha256": "8eb600dd7b33ad742d1ecbcabe7743c9e58c25693556d5159aef90ba2567fafa"
+    },
+    {
+      "path": "pytabkit/models/nn_models/nn.py",
+      "sha256": "1346ddc47501deeec6386f92c91e125e2012208d10aa6b874627fd78ca576138"
+    },
+    {
+      "path": "pytabkit/models/nn_models/pipeline.py",
+      "sha256": "05597494d5bc29ca385e31d0df08419d124d98386b5891de3e510eed27d57cdb"
+    },
+    {
+      "path": "pytabkit/models/optim/optimizers.py",
+      "sha256": "560f362270e49ec8e1473ddf8ea965c9a78c59bfce26d276b1496bffc3998407"
+    },
+    {
+      "path": "pytabkit/models/sklearn/default_params.py",
+      "sha256": "fe9adff37506ba737b146fec1dce00c0cc1f1bbb227a83cdcf4971a9d2ca485e"
+    },
+    {
+      "path": "pytabkit/models/sklearn/sklearn_base.py",
+      "sha256": "6bd8422937431bf933e05f6e5e46ec596814894486ed084d708211d3415f1a0a"
+    },
+    {
+      "path": "pytabkit/models/training/lightning_modules.py",
+      "sha256": "87df06db90d3c13160e5fbfe0c6a2807d8e2e5cc2aba37f5aa7790c54a988213"
+    },
+    {
+      "path": "pytabkit/models/training/nn_creator.py",
+      "sha256": "01a567a173458827be99f3c57c908dafe03ea333f2d3e3feb6f1488b6cdbc5f2"
+    },
+    {
+      "path": "pytabkit/models/training/scheduling.py",
+      "sha256": "8f26565413eaf8d761dc1997d0cca2db44c508ca6ec7a7c9d9a24422d5ffb640"
+    }
+  ]
+}
