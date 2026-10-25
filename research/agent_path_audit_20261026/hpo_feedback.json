@@ -1,0 +1,148 @@
+{
+  "base_commit": "c15172ef668663b9346e86210a2a4a6acc9c4042",
+  "ported_from": {
+    "commit": "4478c2e9f6f7445a3301be59862f387b1789d8ff",
+    "title": "fix: report public recipe constraints for failed HPO trials",
+    "files": [
+      "automl_agent/tuning.py",
+      "tests/test_hpo_failure_evidence.py"
+    ],
+    "scope": "Selective port, plus additional trusted-message formatting fix and worker/controller/native/json delivery tests; not a merge of the other branch"
+  },
+  "historical_trace": {
+    "source": "/Users/semolik/Developer/alpha-hack/outputs/research_memory_ab_live_20261025/runs/adult_A/task/.agent_work/research_memory_ab/attempts/exp_f17651f5e870d406/smoke",
+    "experiment_id": "exp_f17651f5e870d406",
+    "access": "read-only; no replay of real Qwen",
+    "files": {
+      "hpo_history.json": "0e19e30f1e0e0f8e1cf97bd6f0fb8f17cd92c7aec45f4974c83fbf6b3287805e",
+      "worker_result.json": "1efba66b9889d98eb6c4f008ac1a10cd8f05ab81bea53d2a0af7a19f7eb1a68f",
+      "request.json": "3a19339275e9de6a0ae0644c0c76d189e70650e3921c322cea2724d71362ef8c"
+    },
+    "trials": [
+      {
+        "state": "failed",
+        "parameters": {
+          "colsample_bytree": 0.6872700594236812,
+          "learning_rate": 0.08927180304353628,
+          "min_child_samples": 45,
+          "n_estimators": 759,
+          "num_leaves": 32,
+          "subsample": 0.7467983561008608
+        },
+        "seconds": 0.0005812500003230525
+      }
+    ],
+    "result": {
+      "status": "error",
+      "error": "ValueError: Optuna completed no valid inner trial",
+      "score": null
+    }
+  },
+  "checks": [
+    {
+      "path": "outputs/hpo_evidence_port_tests.xml",
+      "sha256": "4d7392f1310c27114a5478b73c625b60b9c2efc9730f7049a7c6c08747a798bb",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/hpo_worker_reason_before.xml",
+      "sha256": "11715581e5bb97d88f83c83eefd18139028132c7baef9c7c332ff2f9d5d8016d",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_public_constraint_survives_worker_and_controller_error_sanitization",
+          "message": "assert 'inactive_row_bagging' in 'ValueError: Optuna completed no valid inner trial; failure types=[\"ValueError\"]; public recipe constraints=[\\'<value>\\']'"
+        }
+      ]
+    },
+    {
+      "path": "outputs/hpo_evidence_after.xml",
+      "sha256": "75c65657d6f5243066e2ab15beb2ad71827b96f0831c86655fe52b862ed15e8a",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/hpo_feedback_final.xml",
+      "sha256": "085944a3803bae134dc683529671b7fcdeaf007a843f03c015fa5d15f51a8bd5",
+      "counts": {
+        "tests": 5,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_mock_agent_repairs_hpo_from_delivered_constraint_and_publishes[native]",
+          "message": "PermissionError: [Errno 1] Operation not permitted"
+        },
+        {
+          "case": "test_mock_agent_repairs_hpo_from_delivered_constraint_and_publishes[json]",
+          "message": "PermissionError: [Errno 1] Operation not permitted"
+        }
+      ]
+    },
+    {
+      "path": "outputs/hpo_feedback_final_v2.xml",
+      "sha256": "ac87fd39163d9861eb4dabf835e40b03ba8e4ebcbc960ca000f22ab2ce41644e",
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/hpo_feedback_related.xml",
+      "sha256": "e6fced557b4093484360204e24d3c9cd5c08d58ad6bdcd1e1a4cc5c11ff96d54",
+      "counts": {
+        "tests": 61,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_search_fit_save_load_and_fixed_refit[False-autogluon]",
+          "message": "ModuleNotFoundError: No module named 'autogluon'"
+        },
+        {
+          "case": "test_search_fit_save_load_and_fixed_refit[True-autogluon]",
+          "message": "ModuleNotFoundError: No module named 'autogluon'"
+        }
+      ]
+    }
+  ],
+  "final_sources": {
+    "automl_agent/tuning.py": "4d0d1207a964a51c519920e3be585cf774ebcdece2575c389e20e545cd5dd2a8",
+    "tests/test_hpo_failure_evidence.py": "02b9307dc21a79c685f70d8d3a876e39d205a91d6ef14ff3e531e9a43f247ad8"
+  },
+  "api_calls": 0,
+  "mock_repair_is_real_model_autonomy": false,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "commands": [
+    "python -m pytest -q tests/test_hpo_failure_evidence.py --junitxml=outputs/hpo_feedback_final_v2.xml",
+    "python -m pytest -q tests/test_c1_optuna_reserve.py tests/test_search_and_specialized.py tests/test_registered_feedback.py tests/test_context_integration.py tests/test_audit_research_evaluation.py --junitxml=outputs/hpo_feedback_related.xml"
+  ],
+  "environment_limitations": [
+    "AutoGluon is absent in the reused local Python environment; two related tests fail at import. No dependencies or requirements changed.",
+    "Local HTTP mock bind needs sandbox escalation; no real organizer endpoint used."
+  ]
+}
