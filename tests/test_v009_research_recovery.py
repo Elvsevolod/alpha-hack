@@ -25,7 +25,8 @@ def test_default_research_continues_beyond_old_time_and_count_quotas(tmp_path):
     assert budget.snapshot()["qwen_calls"] is None
     assert budget.snapshot()["candidates"] is None
     assert budget.counter("llm_calls") == 50
-    assert budget.final_reserve() == 300
+    # A 10800 s budget reserves 6% (capped at 900 s) for finalization, not 300 s.
+    assert budget.final_reserve() == 648
     journal.close()
 
 
@@ -66,9 +67,9 @@ def test_internal_http_endpoint_and_truncation_recovery(tmp_path, monkeypatch):
         with pytest.raises(QwenError, match="Truncated"):
             qwen._request([{"role": "user", "content": "fixture"}])
         assert qwen._request([{"role": "user", "content": "fixture"}])["content"] == "{}"
-        assert [r["max_tokens"] for r in requests] == [16384, 32768]
+        assert [r["max_tokens"] for r in requests] == [4096, 8192]
         assert journal.get("token_usage")["total_tokens"] == 20
-        assert journal.get("qwen_configuration")["output_tokens"] == 32768
+        assert journal.get("qwen_configuration")["output_tokens"] == 8192
     finally:
         qwen.close()
         journal.close()
@@ -141,7 +142,8 @@ def test_three_transient_errors_do_not_end_research(tmp_path, monkeypatch):
         if len(calls) <= 3:
             raise QwenError("temporary HTTP 503")
         return ToolCommand(operation_id="recovered_finish", tool="finish", arguments={
-            "reason": "Recovery verified", "result_ids":["baseline"], "imputation_skip_reason": "Transport fixture"}), ""
+            "reason": "Recovery verified", "result_ids":["baseline"], "imputation_skip_reason": "Transport fixture",
+            "skipped_directions": {"all": "The fixed transport fixture verifies bounded recovery and finalization only."}}), ""
     monkeypatch.setattr(controller.qwen, "next_command", next_command)
     monkeypatch.setattr(controller, "recover_search", lambda error: recovery.append(str(error)))
     try:
@@ -203,17 +205,21 @@ def test_repeated_computation_cannot_hide_behind_ignored_cpu_overrides(tmp_path)
         base = {"pipeline": {"model": "extra_trees", "hyperparameters": {"n_estimators": 5, "n_jobs": 99}},
             "hypothesis": {"observation": "Fixture", "expected_effect": "Fixture", "changed_component": "Fixture", "acceptance": "Fixture"},
             "budget_seconds": 20}
+        rejected = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_override", tool="train_model", arguments=base)))
+        assert rejected["status"] == "rejected" and controller.budget.counter("candidate_count") == 0
+        del base["pipeline"]["hyperparameters"]["n_jobs"]
         first = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_first", tool="train_model", arguments=base)))
         assert first["result"]["status"] == "completed"
-        base["pipeline"]["hyperparameters"]["n_jobs"] = 1
         second = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_second", tool="train_model", arguments=base)))
         assert second["status"] == "duplicate_computation" and "Duplicate computation" in second["error"]
         assert second["existing_experiment_id"] == first["experiment"]["experiment_id"]
         assert second["computation_hash"] == controller.lookup(second["existing_experiment_id"])[0].computation_hash
         base["budget_seconds"] = 21
         third = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_more_budget", tool="train_model", arguments=base)))
-        assert third["result"]["status"] == "completed"
-        assert third["experiment"]["budget_seconds"] > first["experiment"]["budget_seconds"]
+        assert third["status"] == "duplicate_computation"  # A larger cap does not change a fixed five-tree fit.
+        base["pipeline"]["hyperparameters"]["n_estimators"] = 6
+        changed = tool_payload(controller.dispatch(ToolCommand(operation_id="managed_cpu_changed_recipe", tool="train_model", arguments=base)))
+        assert changed["result"]["status"] == "completed"
         assert controller.budget.counter("candidate_count") == 2
     finally:
         controller.close()

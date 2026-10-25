@@ -28,7 +28,7 @@ def client(tmp_path, monkeypatch):
     journal.close()
 
 
-def test_wire_settings_override_stale_env_and_request_has_no_300_second_cap(client):
+def test_wire_settings_override_stale_env_and_request_has_stage_specific_ceiling(client):
     captured = []
     def handler(request):
         captured.append((json.loads(request.content), request.extensions['timeout']))
@@ -39,12 +39,12 @@ def test_wire_settings_override_stale_env_and_request_has_no_300_second_cap(clie
     for effort in ('medium', 'xhigh', 'medium'):
         client.select_reasoning(effort, 'test')
         client._request([{'role': 'user', 'content': 'fixture'}])
-    for (body, timeout), effort, output in zip(captured, ('medium', 'xhigh', 'medium'), (16384, 32768, 16384)):
+    for (body, timeout), effort, output in zip(captured, ('medium', 'xhigh', 'medium'), (4096, 12288, 4096)):
         assert all(body[k] == v for k, v in GENERATION.items())
         assert body['reasoning'] == {'enabled': True, 'effort': effort}
         assert 'reasoning_effort' not in body and 'chat_template_kwargs' not in body
         assert body['max_tokens'] == output
-        assert 300 < timeout['read'] <= client.budget.limits.seconds - 300
+        assert timeout['read'] <= (180 if effort=='medium' else 420)
         assert timeout['connect'] <= 15
     assert client.journal.get('token_usage')['reasoning_tokens'] == 36
 
@@ -77,20 +77,20 @@ def test_compressed_response_format_belongs_to_the_rendered_wire(mode):
         assert payload['tools'] and payload['tool_choice'] == 'required'
 
 
-def test_output_growth_is_per_effort_and_survives_resume_beyond_32768(client):
+def test_output_growth_is_per_effort_bounded_and_survives_resume(client):
     client.client.close()
     client.client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200,
         json={'choices': [{'finish_reason': 'length', 'message': {'content': ''}}]})))
     client.select_reasoning('xhigh', 'test')
     with pytest.raises(QwenRetryableError):
         client._request([{'role': 'user', 'content': 'fixture'}])
-    assert client.output_tokens == 65536
+    assert client.output_tokens == 24576
     client.select_reasoning('medium', 'test')
-    assert client.output_tokens == 16384
+    assert client.output_tokens == 4096
     resumed = QwenClient(client.journal, client.budget)
     try:
         resumed.select_reasoning('xhigh', 'test')
-        assert resumed.output_tokens == 65536
+        assert resumed.output_tokens == 24576
     finally:
         resumed.close()
 
@@ -114,9 +114,9 @@ def test_compressed_wire_switches_medium_xhigh_and_back(tmp_path, monkeypatch, t
             snapshot = c.context_memory.snapshot(SYSTEM)
             command, _ = c.qwen.next_command(SYSTEM, snapshot)
             c.dispatch(command)
-        assert [r['reasoning']['effort'] for r in requests] == ['medium', 'xhigh', 'medium', 'xhigh']
+        assert [r['reasoning']['effort'] for r in requests] == ['medium', 'medium', 'medium', 'xhigh']
         assert all(r['temperature'] == 1 and r['reasoning']['enabled'] for r in requests)
-        assert [r['max_tokens'] for r in requests] == [16384, 32768, 16384, 32768]
+        assert [r['max_tokens'] for r in requests] == [4096, 4096, 4096, 12288]
         c.journal.put('last_tool_result', {'status': 'rejected', 'error': 'A failed candidate needs repair'})
         c.journal.put('last_research_tool', 'read_knowledge')
         c.context_memory.snapshot(SYSTEM)
@@ -164,7 +164,8 @@ def test_stalled_search_recovers_then_returns_to_qwen_instead_of_finishing(tmp_p
         calls.append(1)
         c.budget.deadline = time.time() + c.budget.final_reserve(c.finalist_costs()) + 30
         return ToolCommand(operation_id='finish_at_reserve', tool='finish', arguments={
-            'reason': 'Finalization reserve approaching', 'result_ids':['baseline'], 'imputation_skip_reason': 'fixture'}), ''
+            'reason': 'Finalization reserve approaching', 'result_ids':['baseline'], 'imputation_skip_reason': 'fixture',
+            'skipped_directions': {'all': 'This fixed reserve fixture checks finalization instead of further exploration.'}}), ''
     monkeypatch.setattr(c.qwen, 'next_command', next_command)
     try:
         early = tool_payload(c.dispatch(ToolCommand(operation_id='early', tool='finish', arguments={'reason': 'Stalled'})))
@@ -207,7 +208,8 @@ def test_task_resolution_can_recover_after_more_than_three_invalid_responses(tmp
             if len(calls) <= 4:
                 raise ValueError('Invalid synthetic response')
             return {'request_id': request['request_id'], 'source_hash': request['source_hash'],
-                'status': 'proposed', 'task_spec': task.model_dump(mode='json')}
+                'status': 'proposed', 'task_spec': task.model_dump(mode='json'),
+                'evidence': {field: ['task', 'inventory'] for field in task.model_dump()}}
         monkeypatch.setattr(c.qwen, 'resolve', resolve)
         confirmed = c._task()
         assert len(calls) == 5 and confirmed.targets == task.targets

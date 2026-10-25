@@ -161,7 +161,7 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(result["native"]["response_reserve"], 40000)
 
     def test_oversized_schemas_are_explicitly_unsupported(self):
-        huge = ContextCompressor(self.store, transport(system="X" * 49152))
+        huge = ContextCompressor(self.store, transport(system="X" * 65536))
         with self.assertRaises(BudgetExceeded):
             huge.preflight(huge.snapshot())
 

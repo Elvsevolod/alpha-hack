@@ -9,8 +9,9 @@ from types import SimpleNamespace
 from context_compressor import (ContextCompressor, ContextStore, Emission, ProfileCache,
     ProfileKey, Record, REQUIRED_FLAGS, Source, SourceSlice, Transport, configure, BudgetExceeded)
 
-from .contracts import ExperimentResult, ExperimentSpec, ResearchState, TOOL_SCHEMAS, LEGACY_TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand
+from .contracts import ExperimentResult, ExperimentSpec, ResearchState, TOOL_SCHEMAS, LEGACY_TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand, public_tool_schema
 from .util import atomic_json, canonical, digest, redact, utf8_short
+from .tool_results import operation_error, payload
 
 
 def short(text, maximum=512):
@@ -19,6 +20,83 @@ def short(text, maximum=512):
 
 def context_route(command):
     return command.tool == "analyze_experiments" and bool(set(command.arguments) & {"context_read", "context_search"})
+
+
+def experiment_summary(c, spec, result, source, change):
+    """Prioritize measured ML feedback; every optional addition is byte bounded."""
+    summary = {'model': short(spec.pipeline.model, 64), 'representation': spec.pipeline.representation,
+        'imputation': {key: getattr(spec.pipeline.imputation, key) for key in ('numeric', 'categorical', 'indicators')},
+        'pipeline_read': {'tool': 'read_run_records', 'arguments': {'ids': [spec.experiment_id],
+            'view': 'pipeline', 'include_code': False}},
+        'evidence_ref': {'kind': 'record', 'id': spec.experiment_id, 'version': source.version}}
+    def add(key, value):
+        if len(canonical({**summary, key: value}).encode()) <= 1536:
+            summary[key] = value
+            return True
+        return False
+    training = result.get('training_summary', {})
+    stability = training.get('temporal_stability', result.get('temporal_stability', {}))
+    if stability:
+        scores = list(stability.get('scores', {}).items())[-3:]
+        item = {key: stability.get(key) for key in ('status', 'scope', 'windows_hash')}
+        item['windows'] = [{'id': short(name, 48), 'score': score} for name, score in scores]
+        if scores:
+            bias = stability.get('diagnostics', {}).get(scores[-1][0], {}).get('residual_bias', {})
+            if len(c.task.targets) == 1 and c.task.targets[0] in bias:
+                item['last_residual_bias'] = bias[c.task.targets[0]]
+        for count in (3, 2, 1, 0):
+            if add('temporal_stability', {**item, 'windows': item['windows'][-count:] if count else []}):
+                break
+    if c.task.kind == 'classification' and len(c.task.targets) == 1:
+        reports = [r for r in result.get('feedback', {}).values() if r.get('classes')
+            and r.get('status', 'available') == 'available']
+        diagnostic = training.get('fit_diagnostics')
+        if diagnostic:
+            reports.append({**diagnostic, 'scope': 'fit_inner_holdout'})
+        target = c.task.targets[0]
+        for report in reports:
+            rows = [row for row in report['classes'] if row.get('status') == 'available'
+                and isinstance(row.get('f1'), (int, float)) and isinstance(row.get('support'), int)
+                and row.get('class') in c.task.classes[target]]
+            if rows:
+                class_item = {'scope': report.get('scope'),
+                    'class_order_ref': source.reference, 'weakest': [
+                        {'index': c.task.classes[target].index(row['class']), 'f1': row['f1'],
+                            'support': row['support'], 'uncertain': row.get('uncertain', True)}
+                        for row in sorted(rows, key=lambda row: (row['f1'], c.task.classes[target].index(row['class'])))[:3]]}
+                for count in (3, 2, 1):
+                    if add('class_feedback', {**class_item, 'weakest': class_item['weakest'][:count]}):
+                        break
+                break
+    change_item = {'basis': change['basis'],
+        'declared': short(change['declared_component'], 64),
+        'fields': [short(path, 64) for path in change['effective_fields'][:6]],
+        'field_count': len(change['effective_fields']), 'claimed_field_unchanged': change['claimed_field_unchanged'],
+        'mixed_change': change['mixed_change']}
+    for count in (6, 3, 1, 0):
+        if add('effective_change', {**change_item, 'fields': change_item['fields'][:count]}):
+            break
+    weakest = []
+    for report_id, report in result.get('feedback', {}).items():
+        if report.get('status') != 'available':
+            continue
+        slices = [(name, values) for name, values in report.get('slices', {}).items()
+            if isinstance(values.get('score'), (int, float))]
+        if slices:
+            name, values = (min if c.task.metric.maximize else max)(slices, key=lambda item: item[1]['score'])
+            weakest.append({'report_id': short(report_id, 64), 'slice': short(name, 64),
+                'rows': values['rows'], 'score': values['score'], 'scope': report['scope']})
+    for item in sorted(weakest, key=lambda row: row['score'], reverse=not c.task.metric.maximize)[:2]:
+        add('weakest_slices', [*summary.get('weakest_slices', []), item])
+    error = result.get('error')
+    add('error', short(error, 384) if error else None)
+    add('error_truncated', bool(error and summary.get('error') != error))
+    parameters = spec.pipeline.hyperparameters
+    if len(canonical(parameters).encode()) <= 512:
+        add('parameters', parameters)
+    if 'parameters' not in summary:
+        add('parameters', {'complete_reference': source.reference})
+    return summary
 
 
 class ContextMemory:
@@ -43,7 +121,8 @@ class ContextMemory:
         if typed.tool not in TOOL_SCHEMAS:
             raise ValueError("This action is not in the public tool API v2 registry")
         args = self.arguments(typed)
-        normalized = typed.arguments if context_route(typed) else args.model_dump(mode="json")
+        from .contracts import request_arguments
+        normalized = typed.arguments if context_route(typed) else request_arguments(args)
         old = c.journal.operation(typed.operation_id)
         if old and (old.tool != typed.tool or old.request_hash != digest(normalized)):
             raise ValueError("Operation ID already has different arguments; use a new operation_id")
@@ -55,8 +134,13 @@ class ContextMemory:
         if c.budget.remaining <= c.qwen.reserve_seconds:
             raise TimeoutError("Finalization reserve reached")
         if typed.tool in {"train_model", "run_automl", "tune_model", "run_custom_experiment"}:
+            if args.apply_recipe:
+                from .recipe_patch import resolve
+                args.pipeline, _ = resolve(c, args.apply_recipe)
+            from .recipe_patch import inherit_parent
+            inherit_parent(c, args)
             from .compatibility import require_compatible
-            engines = {"train_model": {"direct"}, "run_automl": {"flaml", "autogluon"}, "tune_model": {"optuna"}}
+            engines = {"train_model": {"direct"}, "run_automl": {"flaml", "autogluon", "lightautoml"}, "tune_model": {"optuna"}}
             if typed.tool in engines and args.pipeline.engine not in engines[typed.tool]:
                 raise ValueError("Tool and pipeline engine disagree")
             require_compatible(args.pipeline, c.task, c.plan.strategy, c.capabilities)
@@ -111,11 +195,13 @@ class ContextMemory:
             measured = raw["result"]
             card = {"experiment_id": operation.experiment_id, "status": measured.get("status"),
                 "score": measured.get("score"), "scope": measured.get("scope"), "seconds": measured.get("seconds"),
-                "details": source.reference}
+                "details": self.store.route(source.reference)}
             emissions = [Emission(Source("card:" + digest(operation.operation_id), version, canonical(card),
                 scope, "controller_fact", origin="training_result"), kind="training_card")]
-        if operation.tool not in TOOL_SCHEMAS and "source" in result and "range" in result and "content_sha256" in result:
-            emissions = [SourceSlice.from_fragment(result)]
+        fragment = raw if operation.tool == "read_run_records" else result
+        if (operation.tool == "read_run_records" or operation.tool not in TOOL_SCHEMAS) and all(
+                key in fragment for key in ("source", "range", "content_sha256")):
+            emissions = [SourceSlice.from_fragment(fragment)]
         # Preserve generated code independently of a short rejection diagnostic.
         sha = self.c.journal.get("proposed_code_sources", {}).get(operation.operation_id)
         if sha:
@@ -173,40 +259,15 @@ class ContextMemory:
             source = Source("experiment:" + digest(spec.experiment_id), digest(permitted), canonical(permitted),
                 "registered_feedback", origin="evaluated_experiment")
             self.store.put_source(source)
-            parameters = spec.pipeline.hyperparameters
-            summary = {"model": short(spec.pipeline.model, 64), "representation": spec.pipeline.representation,
-                "imputation": {"numeric": spec.pipeline.imputation.numeric, "categorical": spec.pipeline.imputation.categorical},
-                "parameters": parameters if len(canonical(parameters).encode()) <= 512 else {"complete_reference": source.reference},
-                "error": short(result.error, 384) if result.error else None,
-                "error_truncated": bool(result.error and len(result.error.encode()) > 384)}
-            while len(canonical(summary).encode()) > 1536:
-                summary["error"] = short(summary["error"] or "", len((summary["error"] or "").encode()) // 2)
-                summary["error_truncated"] = True
-            weakest = []
-            for report_id, report in permitted["result"].get("feedback", {}).items():
-                if report.get("status") != "available":
-                    continue
-                slices = [(name, values) for name, values in report.get("slices", {}).items()
-                          if isinstance(values.get("score"), (int, float))]
-                if slices:
-                    name, values = (min if c.task.metric.maximize else max)(slices, key=lambda item: item[1]["score"])
-                    weakest.append({"report_id": report_id, "slice": name, "rows": values["rows"],
-                                    "score": values["score"], "scope": report["scope"]})
-            for item in sorted(weakest, key=lambda item: item["score"], reverse=not c.task.metric.maximize)[:2]:
-                feedback = [*summary.get("weakest_slices", []), item]
-                if len(canonical({**summary, "weakest_slices": feedback}).encode()) <= 1536:
-                    summary["weakest_slices"] = feedback
-            diagnostic = permitted["result"].get("training_summary", {}).get("fit_diagnostics")
-            if diagnostic:
-                available = [row for row in diagnostic.get("classes", []) if row.get("status") == "available"]
-                item = {"scope": "fit_inner_holdout", "semantics": "full_confusion_per_class",
-                    "weakest_classes": [{"class": short(str(row["class"]), 64), "f1": row["f1"]}
-                        for row in sorted(available, key=lambda row: row["f1"])[:2]],
-                    "suppressed_classes": sum(row.get("status") == "suppressed" for row in diagnostic.get("classes", [])),
-                    "complete_reference": source.reference}
-                if len(canonical({**summary, "fit_diagnostics": item}).encode()) <= 1536:
-                    summary["fit_diagnostics"] = item
-            self.store.put_source(Source(source.source_id, source.version, canonical(summary), source.scope,
+            recipe = {"experiment_id": spec.experiment_id, "pipeline": spec.pipeline.research_recipe(),
+                "evidence_ref": {"kind": "record", "id": spec.experiment_id, "version": source.version}}
+            self.store.put_source(Source(source.source_id, source.version, canonical(recipe), source.scope,
+                "external_data", section="pipeline", origin=source.origin))
+            from .research import effective_change
+            parent = c.lookup(spec.parent_id)[0].pipeline if spec.parent_id else None
+            change = effective_change(spec.pipeline, parent, spec.hypothesis)
+            summary = experiment_summary(c, spec, permitted['result'], source, change)
+            self.store.put_source(Source(source.source_id, source.version, canonical(self.store.route(summary)), source.scope,
                 "external_data", section="summary", origin=source.origin))
             self.store.publish_records([Record(spec.experiment_id, source.source_id, source.version,
                 component=short(spec.hypothesis.changed_component, 128), engine=spec.pipeline.engine,
@@ -214,7 +275,8 @@ class ContextMemory:
                 protocol=spec.validation_hash, environment=digest(spec.library_versions),
                 parent_id=spec.parent_id, metric=c.task.metric.name, maximize=c.task.metric.maximize,
                 score=result.score, seconds=result.seconds, peak_memory_mib=result.peak_memory_mb,
-                evaluation_scope=result.scope, checked_change=short(spec.hypothesis.changed_component),
+                evaluation_scope=result.scope, checked_change=short("effective: " + ", ".join(change["effective_fields"])
+                    if spec.parent_id else "standalone: " + spec.hypothesis.changed_component),
                 dependencies=tuple(spec.pipeline.members[:8]))])
 
     def snapshot(self, system):
@@ -222,8 +284,10 @@ class ContextMemory:
         c = self.c
         c.qwen.select_for_step()
         self.index_experiments()
-        profile = ProfileCache(self.store).get_or_create(ProfileKey(c.dataset.source_hash, digest(c.plan.fit), format_version="3"),
-            lambda: c.dataset.profile(c.plan.fit).model_dump(mode="json"))
+        unified = getattr(c.dataset, "profile_mode", "legacy") == "unified"
+        profile = ProfileCache(self.store).get_or_create(ProfileKey(c.dataset.source_hash,
+            digest([c.task.hash, c.plan.hash, c.plan.fit]) if unified else digest(c.plan.fit), format_version="6" if unified else "3"),
+            lambda: c.dataset.profile(c.plan.fit, protocol_hash=c.plan.hash).model_dump(mode="json"))
         # Always retain complete contract/text and environment behind versioned
         # routes; none of these sources can expose private control labels.
         self.store.put_source(Source("task_description", c.dataset.source_hash, c.dataset.text, "contract", origin="task_file"))
@@ -246,21 +310,39 @@ class ContextMemory:
         policies = {"feedback": c.plan.feedback_policy.model_dump(mode="json"),
             "selection": c.plan.selection_policy.model_dump(mode="json"), "validation_strategy": c.plan.strategy,
             "validation_reason": c.plan.reason, "execution": c.journal.get("execution_policy"),
-            "budget_mode": c.budget_mode, "training_seed": c.training_seed}
+            "budget_mode": c.budget_mode, "training_seed": c.training_seed,
+            "model_response_limit_seconds": c.qwen.response_limit_seconds}
         active = c.journal.get("active_hypothesis")
         work = {"baseline_id": c.journal.get("baseline_id"), "leader_id": c.journal.get("leader_id"),
             "suggested_new_operation_id": "step_" + str(counters["calls"] + 1)}
+        if work["leader_id"]:
+            work["leader_pipeline"] = {"tool": "read_run_records", "arguments": {"ids": [work["leader_id"]], "view": "pipeline"}}
+        from .research import research_options, compact_research_options
+        options = research_options(c)
+        version = digest(options)
+        details = self.store.put_source(Source("research_options", version, canonical(options),
+            "controller", section="details", origin="research_coverage"))
+        options = compact_research_options(options, details)
+        work["research_options"] = self.store.put_source(Source("research_options", version, canonical(options),
+            "controller", origin="research_coverage"))
+        intents = c.journal.get("unexecuted_native_intents", [])
+        if intents:
+            content = {"requires_new_decision": True, "executed": False, "proposals": intents}
+            work["unexecuted_intents"] = self.store.put_source(Source("unexecuted_native_intents", digest(content), canonical(content),
+                "controller", "agent_assumption", origin="unexecuted_model_proposals"))
         work["related_ids"] = [self.research_guide_id]
         latest = c.journal.db.execute("SELECT id FROM experiments WHERE result IS NOT NULL ORDER BY rowid DESC LIMIT 1").fetchone()
         if latest:
             work["latest_id"] = latest[0]
             work["related_ids"].append(self.latest_research_review)
-        last = c.journal.get("last_tool_result") or {}
+        last = payload(c.journal.get("last_tool_result") or {})
         last_error = last.get("error") or (last.get("result") or {}).get("error")
         if last_error:
-            diagnostic = redact(last_error)
-            self.store.put_source(Source("last_command_error", digest(diagnostic), diagnostic, "controller", origin="controller_error"))
-            work["diagnostic"] = short(diagnostic)
+            diagnostic = {'status': last.get('status'), 'error': redact(last_error),
+                'read_routes': last.get('read_routes', [])}
+            content = canonical(diagnostic)
+            self.store.put_source(Source("last_command_error", digest(content), content, "controller", origin="controller_error"))
+            work["diagnostic"] = short(canonical({**diagnostic, 'error': short(diagnostic['error'], 160)}))
         if active:
             reference = self.store.put_source(Source("active_hypothesis", digest(active), canonical(active), "controller",
                 "agent_assumption", origin="agent_hypothesis"))
@@ -280,7 +362,7 @@ class ContextMemory:
         for (raw,) in c.journal.db.execute("""SELECT record FROM operations
             WHERE json_extract(record,'$.status')='failed' ORDER BY rowid DESC LIMIT 4"""):
             operation = json.loads(raw)
-            item = {"operation_id": operation["operation_id"], "error": short((operation.get("result") or {}).get("error", "unknown outcome"), 192)}
+            item = {"operation_id": operation["operation_id"], "error": short(operation_error(operation), 192)}
             if len(canonical([*rejected, item]).encode()) <= 768:
                 rejected.append(item)
         if rejected:
@@ -295,7 +377,7 @@ class ContextMemory:
             counters=counters, work=work, profile=profile)
         if c.research_focus:
             system += "\nDevelopment objective, subject to all fixed contracts and permissions: " + canonical(c.research_focus)
-        transport = Transport(system=system, tool_schemas={k: {**v.model_json_schema(), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},
+        transport = Transport(system=system, tool_schemas={k: {**public_tool_schema(v), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},
             model=c.qwen.model, response_reserve=c.qwen.output_tokens, extra=c.qwen.extra,
             reference_packet=c.knowledge.select_packet(profile))
         self.compressor = ContextCompressor(self.store, transport)
@@ -303,7 +385,6 @@ class ContextMemory:
         image_operation = self.store.get_meta("diagnostic_image_operation")
         if image_operation and not c.journal.get("vision_disabled"):
             operation = c.journal.operation(image_operation)
-            from .tool_results import payload
             from .visual_diagnostics import DiagnosticTools
             try:
                 image = DiagnosticTools(c).image(image_operation, payload(operation.result))

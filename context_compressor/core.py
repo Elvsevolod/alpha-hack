@@ -116,8 +116,14 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
         if type(value) is not int or value < 0:
             raise ContextError("Counters must be nonnegative integers")
     work = dict(work or {})
-    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations"}):
+    routes = {"leader_pipeline", "research_options", "unexecuted_intents"}
+    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations"} | routes):
         raise ContextError("Unsupported current-work fields")
+    for name in routes & set(work):
+        route = work[name]
+        if (not isinstance(route, dict) or route.get("tool") != "read_run_records"
+                or not isinstance(route.get("arguments"), dict) or size(route) > 768):
+            raise ContextError("Current-work routes must be bounded public reads")
     for key in WORK_IDS:
         if work.get(key) is not None:
             identifier(work[key], key)
@@ -138,7 +144,7 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
     resources = {"flags": policy_flags, "policy": read_ref("policies", policy_hash, "policy"),
                  "cpu": cpu, "memory_mib": memory_mib, "deadline_epoch": deadline_epoch,
                  "reserve_seconds": reserve_seconds, "counters": dict(counters)}
-    for key in ("validation_strategy", "selection", "feedback", "budget_mode", "training_seed"):
+    for key in ("validation_strategy", "selection", "feedback", "budget_mode", "training_seed", "model_response_limit_seconds"):
         if key in policies:
             value = policies[key]
             if size(value) <= 1024:
@@ -222,6 +228,18 @@ class ProfileCache:
         reference = {"cache_key": key.hash, "summary": summary,
                      "read": read_ref(source_id, key.format_version, key.scope),
                      "column_section_rule": "column.<sha256 of canonical JSON column name>"}
+        if key.format_version == "6":
+            summary.update(status=document.get("status", "available"), findings=[])
+            if document.get("error"):
+                summary["error"] = str(document["error"])[:128]
+            for item in document.get("findings", [])[:3]:
+                if item.get("scope") != key.scope or item.get("kind") not in allowed_risks | {"constant_features"}:
+                    continue
+                finding = {name: str(item.get(name, ""))[:160] for name in ("kind", "observation")}
+                summary["findings"].append(finding)
+                if size(reference) > 3072:
+                    summary["findings"].pop()
+                    break
         if size(reference) > 3072:
             raise ContextError("Profile summary exceeds 3072 bytes; calculator must provide a bounded summary")
         with self.store.transaction():
@@ -304,11 +322,14 @@ def _select_records(store, work, note, maximum):
             parent = store.record(record["parent_id"]) if record.get("parent_id") else None
         except AccessDenied:
             parent = None
+        research_role = lambda role: 'full' if role in {'baseline', 'full'} else role
         comparable = bool(parent and record["status"] == parent["status"] == "completed"
                           and record["score"] is not None and parent["score"] is not None
                           and record["metric"] is not None and record["maximize"] is not None
                           and all(record[key] == parent[key] for key in
-                                  ("protocol", "environment", "evaluation_scope", "metric", "maximize", "data_scope")))
+                                  ("protocol", "environment", "metric", "maximize", "data_scope"))
+                          and research_role(record['evaluation_scope']) == research_role(parent['evaluation_scope'])
+                          and record['evaluation_scope'] not in {'pilot', 'unknown', None})
         card["parent_comparison"] = {"comparable": comparable}
         if comparable:
             delta = record["score"] - parent["score"]

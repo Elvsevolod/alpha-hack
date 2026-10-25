@@ -29,9 +29,10 @@ def test_alias_and_canonical_spelling_produce_identical_actual_predictions(class
     assert alias.get_params()['colsample_bytree'] == .8
 
 
-def test_primary_name_wins_and_other_model_namespaces_are_unchanged():
+def test_conflicting_aliases_are_rejected_and_other_namespaces_are_unchanged():
     spec = PipelineSpec(model='lightgbm', hyperparameters={'feature_fraction': .8, 'colsample_bytree': .7})
-    assert effective_parameters(spec) == {'colsample_bytree': .8}
+    with pytest.raises(ValueError, match='Conflicting'):
+        effective_parameters(spec)
     other = PipelineSpec(model='xgboost', hyperparameters={'feature_fraction': .8})
     assert effective_parameters(other) == {'feature_fraction': .8}
     with pytest.raises(ValueError, match='Unsupported parameters'):
@@ -62,7 +63,7 @@ def test_controller_rejects_alias_duplicate_and_primary_precedence_duplicate_bef
         conflict = payload(c.dispatch(ToolCommand(operation_id='alias_conflict', tool='train_model', arguments={
             'pipeline': {'model': 'lightgbm', 'hyperparameters': {'n_estimators': 20, 'feature_fraction': .8, 'colsample_bytree': .7}},
             'budget_seconds': 30, 'hypothesis': hypothesis})))
-        assert conflict['status'] == 'duplicate_computation' and 'already' in conflict['error']
+        assert conflict['status'] == 'rejected' and 'Conflicting' in conflict['error']
         assert c.budget.counter('candidate_count') == count and c.publisher.output.read_bytes() == previous
     finally:
         c.close()
@@ -78,7 +79,7 @@ def test_optuna_sample_overrides_normalized_base_and_freezes_the_actual_model(ta
     c = context(task, tmp_path); c['budget_seconds'] = 20
     pipeline = SearchPipeline(spec, task)
     fitted = pipeline.fit(X, y, c)
-    assert len(fitted.inner_scores['trials']) == 2
+    assert len(fitted.inner_scores['trials']) == 1  # A one-point space is not fitted twice.
     assert effective_parameters(pipeline.frozen_spec())['colsample_bytree'] == .6
     assert pipeline.pipeline.models['answer'].get_params()['colsample_bytree'] == .6
     before = pipeline.predict(X.iloc[:10], c).values
@@ -89,8 +90,7 @@ def test_optuna_sample_overrides_normalized_base_and_freezes_the_actual_model(ta
 
 @pytest.mark.parametrize('model', ['lightgbm', 'lgbm_ranker'])
 def test_recorded_bagging_and_regularization_names_normalize_without_mutating_source(model):
-    original = {'bagging_fraction': .8, 'bagging_freq': 1, 'lambda_l2': 2.,
-        'subsample': .6, 'subsample_freq': 3, 'reg_lambda': 9.}
+    original = {'bagging_fraction': .8, 'bagging_freq': 1, 'lambda_l2': 2.}
     spec = PipelineSpec(model=model, hyperparameters=original.copy())
     assert effective_parameters(spec) == {'subsample': .8, 'subsample_freq': 1, 'reg_lambda': 2.}
     assert spec.hyperparameters == original
@@ -111,7 +111,7 @@ def test_new_names_match_installed_lightgbm_primary_name_precedence(classificati
     X = rng.normal(size=(300, 8))
     y = (X[:, 0] + X[:, 1] > 0).astype(int) if classification else X[:, 0] + .5 * X[:, 1]
     parameters = {'n_estimators': 20, 'min_child_samples': 5, 'bagging_fraction': .8,
-        'bagging_freq': 1, 'lambda_l2': 2., 'subsample': .6, 'subsample_freq': 3, 'reg_lambda': 9.}
+        'bagging_freq': 1, 'lambda_l2': 2.}
     actual = make_estimator(PipelineSpec(model='lightgbm', hyperparameters=parameters), classification, {'cpu': 1})
     reference = (LGBMClassifier if classification else LGBMRegressor)(
         n_jobs=1, random_state=42, verbosity=-1, **parameters)
@@ -132,7 +132,7 @@ def test_optuna_new_primary_names_override_canonical_base_through_refit(tabular,
     c = context(task, tmp_path); c['budget_seconds'] = 20
     pipeline = SearchPipeline(spec, task)
     summary = pipeline.fit(X, y, c)
-    assert len(summary.inner_scores['trials']) == 2
+    assert len(summary.inner_scores['trials']) == 1
     expected = {'subsample': .7, 'subsample_freq': 1, 'reg_lambda': 2.}
     assert all(effective_parameters(pipeline.frozen_spec())[k] == v for k, v in expected.items())
     assert all(pipeline.pipeline.models['answer'].get_params()[k] == v for k, v in expected.items())

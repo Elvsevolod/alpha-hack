@@ -18,7 +18,7 @@ from .custom import TransformerPipeline, load_module, validate_code
 from .dependency_policy import install_dependency_guard
 from .pipelines import build_pipeline
 from .util import atomic_json, digest, file_hash, read_json, redact
-from .validation import pilot_indices
+from .validation import InsufficientPilotSupport, pilot_population
 
 
 def apply_access_policy(directory: Path, extra_read=()):
@@ -107,8 +107,24 @@ def run_request(request, directory):
     phase_started = time.monotonic()
     if request["mode"] == "probe":
         return policy_probe(request, directory)
+    if request.get("pipeline", {}).get("engine") == "lightautoml":
+        # Trusted pinned dependency initialization probes CPU information via a
+        # subprocess. Do this before the fit/candidate process-creation guard;
+        # Executor supplies no API credentials and already monitors this tree.
+        from lightautoml.automl.presets.tabular_presets import TabularAutoML  # noqa: F401
+        from lightautoml.tasks import Task  # noqa: F401
     extras = request.get("read_dependencies", [])
     apply_access_policy(directory, extras)
+    if request["mode"] == "correlations":
+        from .profiling import correlations
+        report = correlations(read_frame(directory / "correlation_frame.json"), request["excluded_columns"])
+        atomic_json(directory / "correlations.json", report)
+        return {"status": "completed", "hashes": {"correlations.json": file_hash(directory / "correlations.json")}}
+    if request["mode"] == "domain_diagnostic":
+        from .research_evaluation import domain_diagnostic
+        report = domain_diagnostic(read_frame(directory / "domain_train.json"), read_frame(directory / "domain_test.json"), request["cpu"], request["seed"])
+        atomic_json(directory / "domain_report.json", report)
+        return {"status": "completed", "hashes": {"domain_report.json": file_hash(directory / "domain_report.json")}}
     if request["mode"] == "visual_diagnostics":
         from .visual_diagnostics import run_worker
         request.setdefault("context", {})["workdir"] = str(directory)
@@ -123,11 +139,20 @@ def run_request(request, directory):
     context = request["context"]
     context["workdir"] = str(directory)
     context["task"] = task.model_dump(mode="json")
+    context["execution_mode"] = request["mode"]
     X, y = read_frame(directory / "fit_X.json"), read_frame(directory / "fit_y.json")
     phases["loaded_fit_rows"] = len(X)
     context["fit_row_keys"] = list(X.index)
+    if spec.shift_strategy != "none":
+        context["unlabelled_features"] = read_frame(directory / "unlabelled_X.json")
+    if request["mode"] == "oof":
+        from .research_evaluation import oof_predictions
+        report = oof_predictions(spec, task, X, y, context)
+        atomic_json(directory / "oof_predictions.json", report)
+        return {"status": "completed", "hashes": {"oof_predictions.json": file_hash(directory / "oof_predictions.json")},
+            "oof_coverage": report["coverage"], "oof_folds_hash": report["folds_hash"]}
     if request.get("pilot"):
-        positions = pilot_indices(X, y, task, context["strategy"], request.get("pilot_rows", 400), spec.seed)
+        positions, context["pilot_support"] = pilot_population(X, y, task, context["strategy"], request.get("pilot_rows", 400), spec.seed, spec)
         X, y = X.iloc[positions], y.iloc[positions]
     if spec.engine == "custom":
         path = directory / "candidate.py"
@@ -153,11 +178,13 @@ def run_request(request, directory):
             atomic_json(directory / "analysis.json", safe)
             return {"status": "completed", "analysis": safe, "scope": "fit"}
         pipeline = TransformerPipeline(module.build_transformer(context), spec, task) if spec.custom_component == "transformer" else module.build_pipeline(context)
-    elif request["mode"] == "refit" and request.get("model_path") and spec.engine in {"flaml", "autogluon"}:
+    elif request["mode"] == "refit" and request.get("model_path") and spec.engine in {"flaml", "autogluon", "lightautoml"}:
         with Path(request["model_path"]).open("rb") as stream:
             pipeline = cloudpickle.load(stream)
     else:
         pipeline = build_pipeline(spec, task, context)
+    if spec.shift_strategy != "none":
+        context["unlabelled_features"] = read_frame(directory / "unlabelled_X.json")
     phases["load_and_construct_seconds"] = time.monotonic() - phase_started
     phase_started = time.monotonic()
     if request["mode"] == "refit" and hasattr(pipeline, "refit"):
@@ -166,6 +193,8 @@ def run_request(request, directory):
         summary = pipeline.fit(X.copy(), y.copy(), context)
     summary = summary.model_dump(mode="json") if hasattr(summary, "model_dump") else summary
     summary = TrainingSummary.model_validate(summary).model_dump(mode="json")
+    if request.get("pilot"):
+        summary["budget"] = {**(summary.get("budget") or {}), "pilot_support": context["pilot_support"]}
     phases["fit_seconds"] = time.monotonic() - phase_started
     if summary["rows"] != len(X):
         raise ValueError("Candidate training summary does not match the supplied fit rows")
@@ -185,13 +214,21 @@ def run_request(request, directory):
         hashes["output_schema.json"] = file_hash(directory / "output_schema.json")
         if summary.get("preprocessing") is not None:
             summary["preprocessing"].update(schema_reference="output_schema.json", schema_sha256=hashes["output_schema.json"])
+    phases["prediction_rows"] = 0
+    phases["prediction_seconds"] = 0.
     for part in request["predict_splits"]:
         features = read_frame(directory / f"{part}_X.json")
+        phases["prediction_rows"] += len(features)
         prediction_context = {**context, "split_id": part}
+        prediction_started = time.monotonic()
         predicted = restored.predict(features.copy(), prediction_context)
+        phases["prediction_seconds"] += time.monotonic() - prediction_started
         if hasattr(predicted, "model_dump"):
             predicted = predicted.model_dump(mode="json")
         bundle = PredictionBundle.model_validate(predicted)
+        from .identity import artifact_scope
+        purpose = "search_validation" if context.get("rolling_folds") and part == "validation" else "frozen_inference" if request["mode"] == "refit" else "research_validation"
+        bundle.provenance = artifact_scope(context, spec, task, X.index, features.index, purpose)
         path = directory / f"{part}_predictions.json"
         atomic_json(path, bundle)
         outputs[part] = path.name
@@ -212,7 +249,10 @@ def run_request(request, directory):
     frozen = restored.frozen_spec() if hasattr(restored, "frozen_spec") else spec
     phases["predict_and_verify_seconds"] = time.monotonic() - phase_started
     phases["controller_staging_seconds"] = context.get("staging_seconds", 0)
+    phases["forecast_prediction_rows"] = context.get("forecast_prediction_rows", phases["prediction_rows"])
     summary["execution_phases"] = phases
+    from .identity import artifact_scope
+    summary["provenance"] = artifact_scope(context, spec, task, X.index, purpose="fitted_pipeline")
     for path in directory.rglob("*"):
         if path.is_file() and (any(part.startswith("autogluon_") for part in path.relative_to(directory).parts)
                 or path.name.startswith("flaml_") or path.name in {"candidate.py", "optuna_trials.json"}):
@@ -227,10 +267,11 @@ def main(request_path: str):
     directory = path.parent
     started = time.monotonic()
     request = read_json(path)
+    request_hash = digest(request) if request.get('mode') == 'oof' else None
     try:
         result = run_request(request, directory)
     except BaseException as error:
-        status = "import_error" if isinstance(error, (ImportError, ModuleNotFoundError)) else "memory_limit" if isinstance(error, MemoryError) else "error"
+        status = "insufficient_pilot_support" if isinstance(error, InsufficientPilotSupport) else "import_error" if isinstance(error, (ImportError, ModuleNotFoundError)) else "memory_limit" if isinstance(error, MemoryError) else "error"
         first_line = str(error).splitlines()[0] if str(error) else ""
         first_line = re.sub(r"(['\"])(.*?)\1", lambda m: m[0] if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]{0,100}", m[2]) else "'<value>'", first_line)
         if re.fullmatch(r"[0-9.,; +\-]+", first_line):
@@ -239,6 +280,8 @@ def main(request_path: str):
             "traceback": redact(traceback.format_exc()), "diagnostic_code": status,
             "diagnostic_artifact": str(directory / 'worker_result.json')}
     result["seconds"] = time.monotonic() - started
+    if request.get('mode') == 'oof':
+        result['request_hash'] = request_hash
     atomic_json(directory / "worker_result.json", result)
 
 

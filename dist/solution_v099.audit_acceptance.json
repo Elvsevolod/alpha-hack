@@ -1,0 +1,8 @@
+{
+  "version": "v099",
+  "sha256": "52e5b2c3c83088965b56511ae45c18c0ee917cffa053faa41a2983f4d23ecf5f",
+  "status": "superseded_intermediate_not_for_submission",
+  "replacement": "solution_v100.zip",
+  "reason": "Canonical versus declared argmax ties could leave a regularized objective below the actual zero-offset baseline; fixed by tie-safe objective guard in v100",
+  "uploaded": false
+}

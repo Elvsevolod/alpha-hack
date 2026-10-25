@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import base64
 import hashlib
 import io
@@ -78,14 +79,30 @@ if __name__ == '__main__':
 '''
 
 
-def build(destination):
+def production_agent_sources(root):
+    paths = sorted((root / "automl_agent").glob("*.py"))
+    nested = set((root / "automl_agent").rglob("*.py")) - set(paths)
+    if nested:
+        raise ValueError("Nested agent sources require an explicit production allowlist before packaging: "
+            + ", ".join(str(path.relative_to(root)) for path in sorted(nested)))
+    return paths
+
+
+def build(destination, knowledge_archive=None):
     destination.mkdir(parents=True, exist_ok=False)
-    knowledge_release = ROOT / 'ml_knowledge/releases/ml_knowledge_v006.zip'
-    release_manifest = json.loads(knowledge_release.with_suffix('.json').read_text())
-    if file_hash(knowledge_release) != release_manifest['zip_sha256']:
-        raise ValueError('Independent knowledge release checksum mismatch')
+    knowledge_release = knowledge_archive or ROOT / 'ml_knowledge/releases/ml_knowledge_v010.zip'
+    if knowledge_archive is None:
+        release_manifest = json.loads(knowledge_release.with_suffix('.json').read_text())
+        if file_hash(knowledge_release) != release_manifest['zip_sha256']:
+            raise ValueError('Independent knowledge release checksum mismatch')
+    else:
+        with zipfile.ZipFile(knowledge_release) as source:
+            tree = ast.parse(source.read('ml_knowledge_bundle.py'))
+            manifest = next(ast.literal_eval(node.value) for node in tree.body if isinstance(node, ast.Assign)
+                and any(isinstance(target, ast.Name) and target.id == 'MANIFEST' for target in node.targets))
+        release_manifest = {'zip_sha256': file_hash(knowledge_release), 'corpus': manifest['corpus']}
     knowledge_modules = ('core', 'lexical', 'runtime', 'memory', 'context')
-    paths = [ROOT / 'solution.py', ROOT / 'requirements.txt', *sorted((ROOT / 'automl_agent').glob('*.py')),
+    paths = [ROOT / 'solution.py', ROOT / 'requirements.txt', *production_agent_sources(ROOT),
         *[ROOT / 'context_compressor' / name for name in ('__init__.py', 'contracts.py', 'store.py', 'core.py', 'transport.py', 'assembler.py')],
         ROOT / 'ml_knowledge/__init__.py', *[ROOT / 'ml_knowledge' / (name + '.py') for name in knowledge_modules]]
     # The large corpus stays in the standalone streaming shards, once. The
@@ -133,4 +150,6 @@ def build(destination):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(); parser.add_argument('--output', type=Path, required=True)
-    print(json.dumps(build(parser.parse_args().output)))
+    parser.add_argument('--knowledge-archive', type=Path)
+    args = parser.parse_args()
+    print(json.dumps(build(args.output, args.knowledge_archive)))

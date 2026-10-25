@@ -274,7 +274,8 @@ def test_inner_diagnostics_fit_preprocessing_on_inner_train_only(monkeypatch):
     assert seen[0] == set(X.iloc[a].index) and not seen[0] & set(X.iloc[b].index)
     assert seen[1] == set(X.index) and len(seen) == 2
     assert summary.auxiliary_fits >= 1 and report["not_external_validation"]
-    assert all("support" not in row for row in report["classes"])
+    assert sum(row["support"] for row in report["classes"]) == len(b)
+    assert all("precision" in row and "recall" in row and "f1" in row for row in report["classes"])
     assert pipeline.frozen_spec().fit_diagnostics == "none"
 
 

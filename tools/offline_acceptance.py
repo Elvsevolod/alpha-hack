@@ -113,17 +113,31 @@ class Candidate:
 def build_pipeline(context):return Candidate()
 '''
 
+CLASSICAL_CODE='''from automl_agent.pipelines import DirectPipeline
+from automl_agent.contracts import PipelineSpec, TaskSpec
+def build_pipeline(context):
+    return DirectPipeline(PipelineSpec(model="ridge", seed=context["seed"]), TaskSpec.model_validate(context["task"]))
+'''
+
 
 def case(root,name,kind,pipeline,code=None,text=False):
     path=fixture(root/name,kind,text)
-    controller=Controller(path,Limits(seconds=120,cpu=6,memory_mb=5120,max_candidates=2,max_calls=0),run_id='offline')
+    controller=Controller(path,Limits(seconds=120,cpu=2,memory_mb=5120,max_candidates=2,max_calls=0),run_id='offline')
     try:
         controller.prepare()
+        if code is not None:
+            # A local scripted critic permits exercising the real custom worker
+            # without authorizing any model request in this technical fixture.
+            controller.qwen.critique=lambda request, **kwargs: dict(review_id=request['review_id'], verdict='approve',
+                evaluation_scope='research_validation', comparator_id=controller.journal.get('baseline_id'),
+                evidence_assessment='Fixed offline adapter fixture', comparison_assessment='Compare the measured baseline',
+                leakage_assessment='Only fit rows reach this worker', cost_assessment='Bounded local test',
+                falsification_assessment='Require finite aligned predictions and frozen refit', revision_requests=[])
         arguments={'pipeline':pipeline.model_dump(mode='json'),'hypothesis':Hypothesis(observation='Offline synthetic fixture',
             expected_effect='Verify supported adapter behavior',changed_component=name,acceptance='Finite aligned outputs, persistence and fixed refit').model_dump(),
             'budget_seconds':60}
         if code is not None:arguments['code']=code
-        tool='run_custom_experiment' if code is not None else 'run_automl' if pipeline.engine in {'flaml','autogluon'} else 'tune_model' if pipeline.engine=='optuna' else 'train_model'
+        tool='run_custom_experiment' if code is not None else 'run_automl' if pipeline.engine in {'flaml','autogluon','lightautoml'} else 'tune_model' if pipeline.engine=='optuna' else 'train_model'
         operation=controller.dispatch(ToolCommand(operation_id='candidate',tool=tool,arguments=arguments))
         operation=operation.get('data',operation)
         result=operation.get('result',{})
@@ -153,7 +167,11 @@ def run(output):
         ('flaml','regression',PipelineSpec(engine='flaml',model='library_search',learners=['lgbm'],n_trials=2),None,False),
         ('autogluon','classification',PipelineSpec(engine='autogluon',model='library_search',learners=['GBM'],n_trials=2),None,False),
         ('optuna','regression',PipelineSpec(engine='optuna',model='ridge',n_trials=2,search_space={'alpha':{'type':'float','low':.1,'high':2.}}),None,False),
-        ('torch_from_scratch','regression',PipelineSpec(engine='custom',model='torch_cpu'),TORCH_CODE,False)]
+        ('custom_classical','regression',PipelineSpec(engine='custom',model='ridge'),CLASSICAL_CODE,False),
+        ('knn','classification',PipelineSpec(model='knn',hyperparameters={'n_neighbors':5}),None,False),
+        ('lightautoml','regression',PipelineSpec(engine='lightautoml',model='lightautoml',learners=['lgb']),None,False),
+        ('autogluon_explicit','classification',PipelineSpec(engine='autogluon',model='library_search',learners=['GBM'],n_trials=1,
+            autogluon_configurations={'GBM':[{'n_estimators':20,'num_leaves':7},{'n_estimators':20,'num_leaves':15}]}),None,False)]
     for args in cases:
         result=case(output,*args);results.append(result)
         print(json.dumps({k:v for k,v in result.items() if k not in {'execution_policy','publication'}},ensure_ascii=False),flush=True)

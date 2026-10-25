@@ -1,0 +1,60 @@
+{
+  "version": "v101",
+  "archive_sha256": "f283ebf58c35d789d1fb09de6598364f99da4e626e7d246cddf2b418ef7535aa",
+  "technical_status": "verified_offline_with_documented_host_failure_and_successful_replays",
+  "single_continuously_green_full_suite": false,
+  "host_process_failure_replayed_unchanged_on_host_and_linux": true,
+  "active_fixes": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
+  "complete_M1_M8_remediation": true,
+  "previous_A25_A27_preserved": true,
+  "original_28_findings_rechecked": true,
+  "default_legacy_policy_unchanged": true,
+  "synthetic_M4_acceptance_and_confirmation_positive": true,
+  "real_qwen_quality_run": false,
+  "quality_advantage_established": false,
+  "uploaded": false,
+  "coverage": {
+    "archive_sha256": "f283ebf58c35d789d1fb09de6598364f99da4e626e7d246cddf2b418ef7535aa",
+    "full_continuous_suite": {
+      "collected": 1375,
+      "passed": 1372,
+      "skipped": 2,
+      "failed": 1,
+      "failed_nodeids": [
+        "tests/test_v010_recovery_budget.py::test_60_5_5_control_preparation_finishes_within_100_and_reuses_nodes"
+      ],
+      "skipped_nodeids": [
+        "tests/test_audit_native_adapters.py::test_lightautoml_fit_save_load_complete_refit",
+        "context_compressor/tests/test_pressure_transport.py::PressureTransportTests::test_serialized_schemas_validate_both_routes_and_all_note_transports"
+      ],
+      "seconds": 1822.229
+    },
+    "host_failure_resolved_in_separate_replay": {
+      "count": 1,
+      "host_xml": "control_budget_failure_repro.xml",
+      "exact_zip_linux_report": "control_budget_pinned/REPORT.json",
+      "runtime_and_test_unchanged": true
+    },
+    "new_test_cases": 92,
+    "active_change_cases": 78,
+    "historical_rejected_hypothesis_cases": 14,
+    "exact_archive_pinned_cases": 88,
+    "pinned_dependencies_matched": 37,
+    "clean_cli_cases": 4,
+    "public_ensemble_cache_cases": 3,
+    "original_skips_replayed": 2,
+    "unique_full_collection_cases_verified": 1375,
+    "repeated_cases_not_added_to_unique_count": true,
+    "real_qwen_calls": 0
+  },
+  "report": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/ml_M1_M8_v101_20261025/REPORT.md"
+}

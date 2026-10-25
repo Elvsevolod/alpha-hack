@@ -52,19 +52,24 @@ def test_unmeasured_recipe_is_piloted_and_rechecked_even_when_capability_verifie
     c = controller
     spec, _ = c.lookup(c.journal.get('baseline_id'))
     pipeline = spec.pipeline.model_copy(deep=True)
-    pipeline.hyperparameters['n_estimators'] = 27
+    pipeline.model = 'extra_trees'
+    # The regression baseline now carries early stopping; extra_trees does not
+    # support it, and this test only exercises the cost gate.
+    pipeline.early_stopping_rounds = None
+    pipeline.hyperparameters = {'n_estimators': 27}
     args = TrainArgs(pipeline=pipeline, budget_seconds=80, hypothesis=Hypothesis(
         observation='Unknown cost of changed parameters', expected_effect='Protect the old CSV',
         changed_component='training_cost', acceptance='Stop after the measured pilot'))
     candidate = c.make_spec(args, 'expensive_after_pilot')
     assert candidate_costs(c, pipeline) is None
+    # Changed hyperparameters within a measured family now reuse phase forecasts.
     previous = c.publisher.output.read_bytes()
     monkeypatch.setattr(c.capabilities, 'verified', lambda *a: True)
     original = c.executor.run
     calls = []
     def run(directory, request, seconds):
         calls.append(directory.name)
-        assert directory.name == 'pilot', 'Full fit started despite unaffordable refit'
+        assert directory.name in {'performance_1','performance_2'}, 'Full fit started despite unaffordable refit'
         assert request['pipeline']['hyperparameters']['n_estimators'] == 27
         raw = original(directory, request, seconds)
         assert raw['status'] == 'completed', raw
@@ -73,7 +78,7 @@ def test_unmeasured_recipe_is_piloted_and_rechecked_even_when_capability_verifie
         return raw
     monkeypatch.setattr(c.executor, 'run', run)
     result = c.execute_experiment(candidate)
-    assert calls == ['pilot'] and result.status == 'timeout'
+    assert calls == ['performance_1','performance_2'] and result.status == 'timeout'
     diagnostic = result.training_summary['diagnostic']
     assert result.seconds > 0
     assert diagnostic['category'] == 'budget_admission'

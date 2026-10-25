@@ -120,7 +120,7 @@ def test_affordable_candidate_gets_a_hard_bounded_attempt_after_pessimistic_pilo
     monkeypatch.setattr(c.executor, 'run', run)
     result = c.execute_experiment(spec)
     assert result.status == 'completed', result.error
-    assert [name for name, _ in calls] == ['pilot', spec.experiment_id]
+    assert [name for name, _ in calls][:3] == ['performance_1', 'performance_2', spec.experiment_id]
     assert not c.journal.get('control_opened')
 
 
@@ -173,7 +173,9 @@ def test_metric_decision_challenger_is_bounded_preserves_anchor_and_resumes(tmp_
         if expected:
             challenger = calls[1]
             assert challenger.pipeline.prediction_policy == 'class_offsets'
-            assert challenger.pipeline.postprocess_fit_policy == 'inner_holdout'
+            # A 600 s task leaves room for the more stable pooled OOF; the cheap
+            # inner holdout is kept only when the measured baseline leaves no room.
+            assert challenger.pipeline.postprocess_fit_policy == 'pooled_oof'
             assert challenger.parent_id == 'baseline' and challenger.budget_seconds <= 180
             assert challenger.pipeline.class_offsets is None
         c.prepare()

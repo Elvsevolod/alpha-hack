@@ -169,7 +169,7 @@ class ReferenceStore:
     get_reference = query
 
     def _filters(self, args):
-        clauses, values = [], []
+        clauses, values = ["NOT (d.kind='documentation' AND (d.title LIKE '%.!_%' ESCAPE '!' OR d.title LIKE '%.tests.%' OR d.title LIKE '%.test!_%' ESCAPE '!'))"], []
         versions = []
         if args.library:
             versions.append("v.library=?"); values.append(args.library)
@@ -182,7 +182,13 @@ class ReferenceStore:
             clauses.append("d.kind=?"); values.append(kind)
         return " AND ".join(clauses) or "1", values
 
+    def excluded_by_scope(self, query):
+        return self.lock.get("scope") == "classical_ml" and bool(re.search(
+            r"(?i)\b(?:pytorch|paytorch|torch|tensorflow|keras|fastai|nnfastaitabularmodel|tabnet|bert|bertembedder|mlp|mlpclassifier|mlpregressor)\b|neural_network|neural[ -]networks?|deep[ -]learning|lightautoml\.(?:ml_algo\.(?:dl_model|tabnet)|text\.(?:embed|nn_model|dl_transformers)|addons\.interpretation\.(?:l2x|data_process))|autogluon\.tabular\.models\.fastainn|нейросет\w*|глубок\w*\s+обуч\w*", query))
+
     def _query(self, args, context):
+        if self.excluded_by_scope(" ".join(filter(None, (args.query, args.library, args.reference_id)))):
+            return {"status": "not_found", "reason": "outside_classical_ml_scope"}
         binding = self._binding(args, context)
         position, token_info = self._position(args.cursor, binding)
         if position is None:
@@ -288,6 +294,8 @@ class ReferenceStore:
         return response(lo)
 
     def search(self, args, *, maximum=100):
+        if self.excluded_by_scope(" ".join(filter(None, (args.query, args.library, args.reference_id)))):
+            return []
         if self.disabled_reason:
             raise IntegrityError("Corpus is disabled")
         where, values = self._filters(args)
@@ -342,7 +350,8 @@ class ReferenceStore:
             title_terms = tokens(hit["title"])
             content_terms = tokens(hit["text"])
             exact = args.query.casefold().strip() == hit["title"].casefold()
-            score = 1000 * (exact or hit["doc"] in exact_docs) + 600 * (hit['doc'] in family_docs) + 3 * len(set(terms) & title_terms) + 4 * len(set(terms) & content_terms)
+            routed = ("f1" in terms or "макро" in terms) and hit["doc"] in {"api_sklearn_metrics_f1_score", "method:hard_case_ml27", "recipe:xgboost_class_offsets"}
+            score = 1500 * routed + 1000 * (exact or hit["doc"] in exact_docs) + 600 * (hit['doc'] in family_docs) + 3 * len(set(terms) & title_terms) + 4 * len(set(terms) & content_terms)
             return (-score, hit.get("score", 0), hit["doc"], hit["start"])
         selected, seen = [], set()
         for hit in sorted(candidates.values(), key=ranking):

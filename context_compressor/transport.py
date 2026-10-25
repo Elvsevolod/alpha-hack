@@ -141,6 +141,9 @@ class Transport:
             # Metadata is shared by all three analyzer variants, and must not be
             # rejected by their additionalProperties:false constraints.
             schema = copy.deepcopy(original)
+            # The function already carries this description. Keep nested field
+            # conditions, without paying for a second root-level copy.
+            schema.pop("description", None)
             variants = schema.get("oneOf", [schema])
             for variant in variants:
                 variant.setdefault("properties", {}).update({

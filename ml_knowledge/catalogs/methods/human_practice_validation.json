@@ -1,0 +1,50 @@
+{
+  "acceptance": "Evaluate the original metric against a comparable incumbent; disclose uncertainty and full cost.",
+  "applicability_rules": [],
+  "conditions": [
+    "Confirmed task; all learning is fit-only, including inner folds.",
+    "Published cases suggest conditional tests; their results are not measurements on this task."
+  ],
+  "constraints": "do not choose splits by their scores, infer identities from convenient coincidences or read future labels. A recovered time order needs independent justification. Batch contest features that use later intervals do not become causal forecasting features.",
+  "contraindications": [
+    "do not choose splits by their scores, infer identities from convenient coincidences or read future labels. A recovered time order needs independent justification. Batch contest features that use later intervals do not become causal forecasting features."
+  ],
+  "cost": "Measure preparation, auxiliary fits, inference and refit.",
+  "diagnostic": "establish time and entity meaning from the task and dictionary. Inspect permitted temporal or entity-level error aggregates. A small fit-only stress test can distinguish dependence on familiar entities from transferable signal. Propose an external protocol revision only through the controller and with semantic evidence.",
+  "evidence_policy": "Project synthesis of author reports; no complete human trace or local reproduction is claimed.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "remove or replace one suspected unstable feature block and compare under the same valid protocol. An isolated weak feature is not enough to justify removal when interactions may matter.",
+  "id": "human_practice_validation",
+  "implementation_path": "mixed",
+  "method_id": "human_practice_validation",
+  "minimum_experiment": "remove or replace one suspected unstable feature block and compare under the same valid protocol. An isolated weak feature is not enough to justify removal when interactions may matter.",
+  "missing_references": [],
+  "observations": "plausible future or unseen-entity use; an unexplained gap between comparable evaluations; performance varying across permitted periods.",
+  "references": [],
+  "related_routing_signals": [
+    "task_contract",
+    "temporal",
+    "temporal_group",
+    "distribution_shift"
+  ],
+  "research_sources": [
+    "https://medium.com/kaggle-blog/rossmann-store-sales-winners-interview-1st-place-gert-jacobusse-a14b271659b",
+    "https://www.kaggle.com/solution-write-up-documentation",
+    "https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/discussion/274970"
+  ],
+  "runtime_status": "unverified",
+  "skill_id": "qwen-ml-best-practices",
+  "skill_source_hashes": {
+    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+  },
+  "skill_text": "Validation and time\n\n**Signal:** plausible future or unseen-entity use; an unexplained gap between comparable evaluations; performance varying across permitted periods.\n\n**Check:** establish time and entity meaning from the task and dictionary. Inspect permitted temporal or entity-level error aggregates. A small fit-only stress test can distinguish dependence on familiar entities from transferable signal. Propose an external protocol revision only through the controller and with semantic evidence.\n\n**Candidate experiment:** remove or replace one suspected unstable feature block and compare under the same valid protocol. An isolated weak feature is not enough to justify removal when interactions may matter.\n\n**Limits:** do not choose splits by their scores, infer identities from convenient coincidences or read future labels. A recovered time order needs independent justification. Batch contest features that use later intervals do not become causal forecasting features.\n\nSources: [Rossmann author interview](https://medium.com/kaggle-blog/rossmann-store-sales-winners-interview-1st-place-gert-jacobusse-a14b271659b); [Kaggle's adaptation of the IEEE-CIS authors' report](https://www.kaggle.com/solution-write-up-documentation); [Optiver author report](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/discussion/274970).",
+  "tags": [
+    "task_contract",
+    "temporal",
+    "temporal_group",
+    "distribution_shift"
+  ],
+  "title": "Human ML practice: Validation and time",
+  "version": 1
+}

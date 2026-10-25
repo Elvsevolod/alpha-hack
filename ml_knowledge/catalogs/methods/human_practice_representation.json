@@ -1,0 +1,47 @@
+{
+  "acceptance": "Evaluate the original metric against a comparable incumbent; disclose uncertainty and full cost.",
+  "applicability_rules": [],
+  "conditions": [
+    "Confirmed task; all learning is fit-only, including inner folds.",
+    "Published cases suggest conditional tests; their results are not measurements on this task."
+  ],
+  "constraints": "high feature importance does not establish improvement. Auxiliary predictions for training rows require appropriate out-of-fold generation; repeated entities and time constraints survive every fold. If related tables are unavailable, record that limitation.",
+  "contraindications": [
+    "high feature importance does not establish improvement. Auxiliary predictions for training rows require appropriate out-of-fold generation; repeated entities and time constraints survive every fold. If related tables are unavailable, record that limitation."
+  ],
+  "cost": "Measure preparation, auxiliary fits, inference and refit.",
+  "diagnostic": "use worker-local fit analysis to test a concrete explanation. Report allowed aggregates with adequate support rather than individual examples. Establish that the proposed information exists at prediction time.",
+  "evidence_policy": "Project synthesis of author reports; no complete human trace or local reproduction is claimed.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "preserve one discarded piece of information with a transformer compatible with the current pipeline. For repeated events, consider richer time-aware aggregates; a model-derived event summary is a later option if honest cross-fitting and full refit fit the budget.",
+  "id": "human_practice_representation",
+  "implementation_path": "mixed",
+  "method_id": "human_practice_representation",
+  "minimum_experiment": "preserve one discarded piece of information with a transformer compatible with the current pipeline. For repeated events, consider richer time-aware aggregates; a model-derived event summary is a later option if honest cross-fitting and full refit fit the budget.",
+  "missing_references": [],
+  "observations": "errors concentrate in a meaningful group; text processing loses quantities or units; event aggregation hides differences between histories.",
+  "references": [],
+  "related_routing_signals": [
+    "text",
+    "feature_engineering",
+    "label_conflicts"
+  ],
+  "research_sources": [
+    "https://github.com/NoxMoon/home-credit-default-risk#feature-engineering",
+    "https://www.kaggle.com/competitions/mercari-price-suggestion-challenge/writeups/pawe-and-konstantin-1st-place-solution"
+  ],
+  "runtime_status": "unverified",
+  "skill_id": "qwen-ml-best-practices",
+  "skill_source_hashes": {
+    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+  },
+  "skill_text": "Lost feature information\n\n**Signal:** errors concentrate in a meaningful group; text processing loses quantities or units; event aggregation hides differences between histories.\n\n**Check:** use worker-local fit analysis to test a concrete explanation. Report allowed aggregates with adequate support rather than individual examples. Establish that the proposed information exists at prediction time.\n\n**Candidate experiment:** preserve one discarded piece of information with a transformer compatible with the current pipeline. For repeated events, consider richer time-aware aggregates; a model-derived event summary is a later option if honest cross-fitting and full refit fit the budget.\n\n**Limits:** high feature importance does not establish improvement. Auxiliary predictions for training rows require appropriate out-of-fold generation; repeated entities and time constraints survive every fold. If related tables are unavailable, record that limitation.\n\nSources: [Home Credit author report](https://github.com/NoxMoon/home-credit-default-risk#feature-engineering); [Mercari authors' report, Feature preprocessing](https://www.kaggle.com/competitions/mercari-price-suggestion-challenge/writeups/pawe-and-konstantin-1st-place-solution).",
+  "tags": [
+    "text",
+    "feature_engineering",
+    "label_conflicts"
+  ],
+  "title": "Human ML practice: Lost feature information",
+  "version": 1
+}

@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "7049767e5a1fb40b19a3eb27c7776b0d94329df68f2f63f184b4125417af9ce6",
+  "runtime_interface_checked": true,
+  "embedded_payload_checked": true,
+  "dependency_policy_checked": true,
+  "requirements_unchanged": true,
+  "knowledge_files_unchanged": 166,
+  "exact_image_dependency_versions_checked": 37,
+  "full_project_tests": {
+    "collected": 1283,
+    "passed": 1281,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0,
+    "single_continuous_run_on_final_sources": true
+  },
+  "unique_verified_cases": 1283,
+  "exact_zip_scenarios": 23,
+  "clean_entrypoint_cases": 4,
+  "full_live_quality_acceptance": false,
+  "real_qwen_requests": 0,
+  "report": "/Users/elvsevolod/Desktop/\u0443\u0447\u0435\u0431\u0430/\u0423\u0447\u0435\u0308\u0431\u0430 4 \u043a\u0443\u0440\u0441/\u0445\u0430\u043a\u0430\u0442\u043e\u043d \u0430\u043b\u044c\u0444\u0430/outputs/fixes_A25_A27_v093_20261025/REPORT.md"
+}

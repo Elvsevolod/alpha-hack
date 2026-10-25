@@ -103,6 +103,8 @@ def test_controller_repairs_feature_classes_before_first_csv(tmp_path, monkeypat
         task = c._task()
         assert len(requests) == 2 and task.classes == {}
         bundle = constant_bundle(c.dataset, choose_validation(c.dataset))
-        assert bundle is not None and not (tmp_path / 'submission.csv').exists()
+        # Only the safety template is published before prepare; no trained file.
+        assert bundle is not None
+        assert (tmp_path / 'submission.csv').read_bytes() == (tmp_path / 'sample_submission.csv').read_bytes()
     finally:
         c.close()

@@ -1,4 +1,4 @@
-"""Keep complete-fit I/O distinct from sampled model work; preserve safety scaling."""
+"""Keep complete-fit I/O distinct from sampled model work; keep fixed I/O and output rows separate."""
 import pytest
 
 from types import SimpleNamespace
@@ -14,31 +14,31 @@ def summary():
 
 def test_sampled_model_work_scales_but_complete_fit_io_uses_its_actual_rows():
     # wall5 = fit2 + save/predict.5 + full-fit I/O.9 + startup1.6.
-    assert measured_cost(summary(), 5., 4000, 4000) == pytest.approx((2.5 * 10 + .9 + 1.6) * 1.25 + .2)
-    assert measured_cost(summary(), 5., 8000, 4000) == pytest.approx((2.5 * 20 + .9 * 2 + 1.6) * 1.25 + .2)
+    assert measured_cost(summary(), 5., 4000, 4000) == pytest.approx((2 * 10 + .5 + .9 + 1.6) * 1.25 + .2)
+    assert measured_cost(summary(), 5., 8000, 4000) == pytest.approx((2 * 20 + .5 + .9 + 1.6) * 1.25 + .2)
 
 
-def test_save_and_prediction_work_keep_the_previous_conservative_row_multiplier():
+def test_serialization_and_fixed_prediction_rows_do_not_scale_with_fit_rows():
     a = summary(); b = summary()
     a['execution_phases']['predict_and_verify_seconds'] = .1
     b['execution_phases']['predict_and_verify_seconds'] = 1.1
-    # An extra second of measured prediction is NOT fixed when model rows grow100x.
-    assert measured_cost(b, 6., 40000, 400) - measured_cost(a, 5., 40000, 400) == pytest.approx(100 * 1.25)
+    # Output rows stay fixed when training rows grow; serialization is fixed too.
+    assert measured_cost(b, 6., 40000, 400) - measured_cost(a, 5., 40000, 400) == pytest.approx(1.25)
     a = summary(); b = summary()
     b['execution_phases']['save_load_seconds'] += 1
-    assert measured_cost(b, 6., 40000, 400) - measured_cost(a, 5., 40000, 400) == pytest.approx(100 * 1.25)
+    assert measured_cost(b, 6., 40000, 400) - measured_cost(a, 5., 40000, 400) == pytest.approx(1.25)
 
 
 def test_selected_automl_fit_excludes_search_and_uses_selected_rows():
     s = summary(); s.update(seconds=100, automatic_pilot_seconds=3,
         budget={'selected_fit_actual_seconds': 2., 'selected_fit_rows': 400})
-    assert measured_cost(s, 105, 4000, 4000) == pytest.approx((2.5 * 10 + .9 + .6) * 1.25 + .2)
+    assert measured_cost(s, 105, 4000, 4000) == pytest.approx((2 * 10 + .5 + .9 + .6) * 1.25 + .2)
 
 
 def test_multioutput_selected_fit_sums_targets():
     s = summary(); s.update(seconds=100, budget={'targets': {
         'a': {'selected_fit_actual_seconds': 2.}, 'b': {'selected_fit_actual_seconds': 3.}}})
-    assert measured_cost(s, 105, 4000, 4000) == pytest.approx((5.5 * 10 + .9 + 3.6) * 1.25 + .2)
+    assert measured_cost(s, 105, 4000, 4000) == pytest.approx((5 * 10 + .5 + .9 + 3.6) * 1.25 + .2)
 
 
 def test_completed_fit_does_not_charge_automatic_pilot_again():

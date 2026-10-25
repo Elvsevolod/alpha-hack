@@ -136,7 +136,10 @@ def exact_history(root,archive):
             assert state['ExitCode']==0 and report['state']==report['control_status']==report['refit_status']=='completed',report
             records=list(server.store.records());kinds={r['kind'] for r in records}
             assert {'qwen_exchange_start','qwen_parse_outcome','operation_started','operation_record','experiment_record','worker_started','worker_finished','phase_transition','snapshot_verified','response_saved','request_link'}<=kinds
-            saved=[r for r in records if r['kind']=='response_saved'];assert len(saved)==len(calls)==10
+            # The malformed third research response has an unknown generation
+            # outcome. A correct agent preserves it and finalizes without retry.
+            saved=[r for r in records if r['kind']=='response_saved'];assert len(saved)==len(calls)==4
+            assert report['qwen_unknown_outcome']
             assert any(r['payload']['usage'] is None for r in saved)
             links=[r['payload'] for r in records if r['kind']=='request_link']
             assert all(r['call_id'] is not None for r in links),links
@@ -164,7 +167,8 @@ def exact_history(root,archive):
             d.write(path/'REPLAY.json',replay)
             return {'calls':len(calls),'archive_sha256':d.digest(archive),'state':report['state'],'control':report['control_status'],
                 'refit':report['refit_status'],'csv_scope':report['publication']['scope'],'replay':replay,'history':verified,
-                'available_bodies_and_headers_saved':True,'missing_usage_unknown':True}
+                'available_bodies_and_headers_saved':True,'missing_usage_unknown':True,
+                'unknown_generation_stopped_without_retry':True}
         finally:
             d.docker('rm','-f',name,check=False)
             with zipfile.ZipFile(archive) as package:
@@ -188,6 +192,9 @@ from automl_agent.tool_results import payload
 from automl_agent.cleanup import reclaim
 c=Controller(Path('task.md'),Limits(seconds=180,cpu=5,memory_mb=5120),run_id='diagnostic')
 c.prepare()
+c.qwen.critique=lambda request,**kw:dict(review_id=request['review_id'],verdict='approve',evaluation_scope='research_validation',
+    comparator_id=c.journal.get('baseline_id'),evidence_assessment='Fixed offline fixture',comparison_assessment='Use the saved baseline',
+    leakage_assessment='Fit rows only',cost_assessment='Bounded technical check',falsification_assessment='Require valid diagnostics',revision_requests=[])
 prior=c.journal.get('publication')
 def execute(operation,source):
     return payload(c.dispatch(ToolCommand(operation_id=operation,tool='run_custom_experiment',arguments={
@@ -254,7 +261,7 @@ print(json.dumps({'good':good,'bad':bad,'limited':limited}))
             assert any(e['category']=='controller' and e['error_code'].startswith('controller:') and 'Traceback' in e['traceback'] for e in controller_errors)
             assert server.store.verify()['passed'] and scan_secrets(guard.directory)['passed']
             return {'exact_archive_worker_over_10mib':True,'loser_snapshot_before_cleanup':True,
-                'worker_traceback':True,'controller_traceback':True,'failed_and_interrupted_trials_retained':True,
+                'worker_traceback':True,'controller_traceback':True,'failed_and_budget_limited_trials_retained':True,
                 'log_limit_explicit':True,'history':server.store.verify()}
         finally:
             d.docker('rm','-f',name,check=False)

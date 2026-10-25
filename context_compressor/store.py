@@ -315,7 +315,7 @@ class ContextStore:
         return result
 
     def _observation_piece(self, row, start):
-        limit = 6144 if self.tool_api_version == 2 else 768
+        limit = 8192 if self.tool_api_version == 2 else 768
         while True:
             piece = self._piece(row["source_id"], row["source_version"], row["section"], row["scope"], start, row["end"], limit)
             value = {**piece, "observation_id": row["observation_id"], "operation_id": row["operation_id"],
@@ -323,7 +323,7 @@ class ContextStore:
                 "requested_range": {"unit": "utf8_bytes", "start": row["start"], "end": row["end"]}}
             if size([value]) <= 8192 or limit <= 768:
                 return value
-            limit //= 2
+            limit = 6144 if limit == 8192 else limit // 2
 
     def observation_status(self, observation_id):
         row = self.db.execute("SELECT * FROM cc_observations WHERE observation_id=?", (observation_id,)).fetchone()

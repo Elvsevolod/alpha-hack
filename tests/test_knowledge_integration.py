@@ -45,8 +45,8 @@ def test_loss_of_evidence_blocks_the_actual_client_before_network_and_budget_cla
     snapshot = c.context_memory.snapshot(SYSTEM)
     compressor = c.context_memory.compressor
     original = compressor.transport.render
-    def lose(context, mode):
-        payload = json.loads(original(context, mode))
+    def lose(context, mode, **kwargs):
+        payload = json.loads(original(context, mode, **kwargs))
         content = json.loads(payload["messages"][1]["content"])
         content.pop("reference_evidence")
         payload["messages"][1]["content"] = canonical(content)
@@ -101,7 +101,7 @@ def test_training_accepts_canonical_new_ids_and_records_verified_outcomes(contro
     c = controller
     c.context_memory.snapshot(SYSTEM)
     result = tool_payload(c.dispatch(ToolCommand(operation_id="knowledge_train", tool="train_model", arguments={
-        "pipeline": {"model": "ridge", "hyperparameters": {"alpha": 3}}, "budget_seconds": 10,
+        "pipeline": {"model": "ridge", "hyperparameters": {"alpha": 3}}, "budget_seconds": 30,
         "method_refs": ["method:linear"], "recipe_ref": "recipe:ridge",
         "reference_ids": ["api_sklearn_linear_model_Ridge"],
         "hypothesis": {"observation": "Fit profile has numeric features", "expected_effect": "Measure regularization",
@@ -128,7 +128,7 @@ def test_mock_model_receives_routed_knowledge_and_applies_registered_card(contro
     identifier = packet["materials"][0]["id"]
     assert identifier.startswith("method:hard_case_ml")
     seen = []
-    arguments = {"pipeline": {"model": "ridge", "hyperparameters": {"alpha": 2}}, "budget_seconds": 10,
+    arguments = {"pipeline": {"model": "ridge", "hyperparameters": {"alpha": 2}}, "budget_seconds": 30,
         "method_refs": [identifier], "hypothesis": {"observation": "Read a complete routed missing-data card",
             "expected_effect": "Compare a bounded regularized candidate", "changed_component": "regularization",
             "acceptance": "Completed candidate on unchanged RMSE protocol"}}

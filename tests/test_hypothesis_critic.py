@@ -52,6 +52,9 @@ def command(identifier='candidate', seconds=120, observation='Nonlinear residual
 
 def execution_spy(c, monkeypatch):
     seen = []
+    # These cases exercise the expensive measured route. Unknown native recipes
+    # now run their bounded pilot before deciding whether review is worthwhile.
+    monkeypatch.setattr('automl_agent.completion.candidate_costs', lambda *a, **k: expensive_costs())
     def execute(spec):
         seen.append(spec)
         return ExperimentResult(experiment_id=spec.experiment_id, status='completed', validation_hash=c.plan.hash,
@@ -59,6 +62,10 @@ def execution_spy(c, monkeypatch):
     monkeypatch.setattr(c, 'execute_experiment', execute)
     monkeypatch.setattr(c, 'accept_result', lambda *_: None)
     return seen
+
+
+def expensive_costs():
+    return CompletionCosts([], {'candidate_fit_seconds': 120., 'seconds': 17.})
 
 
 def test_cheap_candidate_does_not_request_a_review(controller, monkeypatch):
@@ -123,7 +130,7 @@ def test_invalid_critic_cannot_authorize_training(controller, monkeypatch, bad):
 
 
 @pytest.mark.parametrize('estimate,cap,required', [(10, 180, False), (180, 30, False),
-    (120, 180, True), (float('nan'), 120, True), (-1, 120, True), (None, 120, True)])
+    (120, 180, True), (float('nan'), 120, False), (-1, 120, False), (None, 120, False)])
 def test_gate_uses_measured_cost_or_hard_cap(controller, monkeypatch, estimate, cap, required):
     c = controller
     args = c.context_memory.arguments(command(seconds=cap))
@@ -154,7 +161,7 @@ def test_critic_context_does_not_expose_private_results_or_nonfit_profiles(contr
         return answer(request)
     monkeypatch.setattr(c.qwen, 'critique', critique)
     spec = c.make_spec(c.context_memory.arguments(command()), 'private_check')
-    assert review_candidate(c, spec, [])['status'] == 'approved'
+    assert review_candidate(c, spec, expensive_costs())['status'] == 'approved'
     assert scopes == [c.plan.fit]
 
 
@@ -195,7 +202,7 @@ def test_separate_json_transport_is_bounded_accounted_and_restores_research_sett
         seen.append(body)
         assert 'tools' not in body and body['response_format'] == {'type': 'json_object'}
         assert body['reasoning']['effort'] == 'medium'
-        assert request.extensions['timeout']['read'] <= 90
+        assert request.extensions['timeout']['read'] <= 180
         context = json.loads(body['messages'][1]['content'])
         assert 'core' not in context and 'observations' not in context
         return httpx.Response(200, json={'choices': [{'finish_reason': 'stop',
@@ -205,7 +212,7 @@ def test_separate_json_transport_is_bounded_accounted_and_restores_research_sett
     c.qwen.client = httpx.Client(transport=httpx.MockTransport(handler))
     spec = c.make_spec(c.context_memory.arguments(command()), 'transport_check')
     calls = c.budget.counter('llm_calls')
-    assert review_candidate(c, spec, [])['status'] == 'approved'
+    assert review_candidate(c, spec, expensive_costs())['status'] == 'approved'
     assert len(seen) == 1 and c.budget.counter('llm_calls') == calls + 1
     assert c.qwen.effort == 'xhigh' and c.qwen.reasoning_reason == 'research_decision'
     assert c.journal.get('token_usage')['total_tokens'] == 150

@@ -375,7 +375,7 @@ def test_controller_compressed_research_trains_and_finishes(controller, mode, en
         context = json.loads(payload["messages"][1]["content"])
         steps.append(context)
         if len(steps) == 1:
-            args = {"pipeline": {"model": "ridge", "hyperparameters": {"alpha": 3}}, "budget_seconds": 10,
+            args = {"pipeline": {"model": "ridge", "hyperparameters": {"alpha": 3}}, "budget_seconds": 30,
                 "hypothesis": {"observation": "Compare the trained baseline on the fixed split",
                     "expected_effect": "Measure ridge error", "changed_component": "model", "acceptance": "Measured RMSE"}}
             if encoded_objects:
@@ -385,7 +385,8 @@ def test_controller_compressed_research_trains_and_finishes(controller, mode, en
         card = json.loads(next(item["content"] for item in context["observations"] if item["kind"] == "training_card"))
         assert card["status"] == "completed" and isinstance(card["score"], float)
         return httpx.Response(200, json=response(payload, "compressed_finish", tool="finish", arguments={
-            "reason": "Integrated compression verified", "result_ids":["baseline"], "imputation_skip_reason": "Bounded integration check"}))
+            "reason": "Integrated compression verified", "result_ids":["baseline"], "imputation_skip_reason": "Bounded integration check",
+            "skipped_directions": {"all": "This fixture verifies transport and two commands; model quality is measured by the separate development suite."}}))
     mock_client(c, handle)
     report = c.run()
     assert report["state"] == "completed" and report["failure"] is None, report

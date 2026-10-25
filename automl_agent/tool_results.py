@@ -17,7 +17,7 @@ class ToolResult(Contract):
     evidence_ref: dict[str, str]
     status: Literal["success", "no_matches", "ambiguous", "missing_version", "unknown_id", "incompatible",
         "technical_failure", "invalid_cursor", "budget_too_small", "interrupted", "outcome_unknown",
-        "hypothesis_revision_required", "hypothesis_review_unavailable"]
+        "hypothesis_revision_required", "hypothesis_review_unavailable", "useful_directions_remain", "component_confirmation_required"]
     error_code: str | None = None
     provenance: dict[str, Any]
     complete: bool
@@ -158,12 +158,24 @@ class FinishResult(ToolResult):
     data: FinishData
 
 
+class BatchResult(ToolResult):
+    tool: Literal["run_experiments"]
+    data: ReportData
+
+
+class RecipePreviewResult(ToolResult):
+    tool: Literal["preview_recipe"]
+    data: ReportData
+
+
 RESULT_SCHEMAS = dict(zip(("get_dataset_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge",
     "search_run_records", "list_run_records", "read_run_records", "train_model", "run_automl", "tune_model",
     "run_custom_experiment", "build_ensemble", "finish"), (DatasetReportResult, ValidationRevisionResult,
     KnowledgeSearchResult, KnowledgeListResult, KnowledgeReadResult, RunSearchResult, RunListResult, RunReadResult,
     TrainResult, AutoMLResult, TuneResult, CustomResult, EnsembleResult, FinishResult)))
 RESULT_SCHEMAS["get_diagnostic_report"] = DiagnosticReportResult
+RESULT_SCHEMAS["run_experiments"] = BatchResult
+RESULT_SCHEMAS["preview_recipe"] = RecipePreviewResult
 
 
 def envelope(c, operation, payload):
@@ -193,3 +205,15 @@ def envelope(c, operation, payload):
 
 def payload(result):
     return result.get("data", result) if isinstance(result, dict) else result
+
+
+def operation_error(operation):
+    result = operation.get("result") or {}
+    raw = payload(result) or {}
+    measured = raw.get("result") or {}
+    reason = raw.get("error") or measured.get("error") or raw.get("reason")
+    if reason:
+        return str(reason)
+    if operation.get("outcome") == "outcome_unknown" or raw.get("status") == "outcome_unknown":
+        return "unknown outcome"
+    return str(measured.get("status") or raw.get("error_code") or raw.get("status") or operation.get("status") or "failed")

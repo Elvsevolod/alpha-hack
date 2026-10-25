@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 from .contracts import DataProfile, MetricSpec, OutputSpec, TaskResolutionProposal, TaskSpec
-from .util import digest, file_hash, inside
+from .util import atomic_bytes, digest, file_hash, inside
 
 
 class ContractUnresolved(ValueError):
@@ -26,9 +26,42 @@ def csv_header(path: Path) -> list[str]:
     return header
 
 
+def publish_template(task_path: Path) -> str | None:
+    """Publish one unambiguous sample submission before strict inventory.
+
+    A readable submission.csv is required even when semantic resolution or an
+    unrelated malformed table stops the run. An existing output is never
+    overwritten, and every path follows the inventory's exclusion rules.
+    """
+    root = Path(task_path).resolve().parent
+    output = root / "submission.csv"
+    if output.exists():
+        return None
+    excluded = {"outputs", "results", "build", "dist", "node_modules", "__pycache__"}
+    matches = []
+    for path in sorted(root.rglob("sample_submission.csv")):
+        relative = path.relative_to(root)
+        if (path.is_file() and path.resolve().is_relative_to(root)
+                and not any(part.startswith(".") or part in excluded for part in relative.parts[:-1])):
+            matches.append(relative.as_posix())
+    if len(matches) != 1:
+        return None
+    try:
+        atomic_bytes(output, (root / matches[0]).read_bytes(), mode=0o644)
+    except OSError:
+        return None
+    return matches[0]
+
+
 def locate_csv(task_path: Path, text: str, name: str, required: bool = True) -> Path | None:
     root = task_path.parent
-    references = re.findall(r"[A-Za-zА-Яа-яЁё0-9_./ -]*\b" + re.escape(name), text)
+    # Capture the path token itself, never the prose before it. A basename that
+    # follows a space would otherwise arrive as "Use primary/train.csv" and make
+    # an unambiguous citation look unresolved. Quoted citations may contain
+    # spaces, so they are extracted as whole spans first.
+    quoted = re.findall(r"[`'\"]([^`'\"\n]*" + re.escape(name) + r")[`'\"]", text)
+    references = quoted + re.findall(
+        r"(?<![A-Za-zА-Яа-яЁё0-9_.-])(?:[A-Za-zА-Яа-яЁё0-9_.-]+/)*" + re.escape(name), text)
     existing: set[Path] = set()
     for reference in references:
         reference = reference.strip(" `\n-\t")
@@ -59,7 +92,7 @@ def numeric_if_possible(series: pd.Series) -> pd.Series:
     return converted if converted[observed].notna().all() else series
 
 
-def parse_metric(text: str) -> MetricSpec | None:
+def parse_metric(text: str, *, unambiguous=False) -> MetricSpec | None:
     aliases = [
         (r"\bRMSE\b", "rmse", "macro"), (r"\bMSE\b", "mse", "macro"),
         (r"\bMAE\b", "mae", "macro"), (r"\bR[²2]\b", "r2", "macro"),
@@ -81,6 +114,8 @@ def parse_metric(text: str) -> MetricSpec | None:
         if match:
             candidates.append((match.start(), name, average))
     ranking = re.search(r"\b(NDCG|MAP)\s*@\s*(\d+)", section.group() if section else text, re.I)
+    if unambiguous and len({(name, average) for _, name, average in candidates}) + bool(ranking) != 1:
+        return None
     if ranking:
         return MetricSpec(name=ranking[1].lower(), k=int(ranking[2]))
     if not candidates:
@@ -170,6 +205,9 @@ def _explicit_validation_supported(strategy: str, text: str) -> bool:
     clauses = re.split(r"(?<=[.!?;])\s+|\n+|\b(?:but|however|instead\s+of|rather\s+than)\b|\b(?:and|и)\s+(?=(?:do\s+not|don't|never|avoid|mustn't|must\s+not|shouldn't|should\s+not|cannot|can't|не\s+(?:использ|примен|провод|выбира)))|,\s*(?:(?:and\s+)?not)\b|,\s*(?=(?:(?:please\s+)?(?:use|choose|select|apply|perform|adopt|follow|require|split|keep|ensure|prefer|recommend|использ|примен|провод|разб|раздел|выбира|сохраня|обеспеч|предпочт|рекоменду)\b))|(?:,\s*)?но\b", text, flags=re.I)
     for clause in clauses:
         if re.search(r"\b(?:as an example|for example|in the report|as an illustration|to illustrate)\b|(?:в качестве примера|для примера|в отч[её]т[а-я]*)", clause, re.I):
+            continue
+        if re.fullmatch(r"\s*validation\s+must\s+use\s+disjoint\s+groups[.!]?\s*", clause, re.I):
+            signals.add("group")
             continue
         assignments = list(re.finditer(
             r"(?:explicit_validation|validation[_ -]?(?:strategy|protocol)|split[_ -]?strategy)\s*[\"']?\s*[:=]\s*[\"']?(temporal_group|random|group|temporal)\b",
@@ -289,6 +327,7 @@ class Dataset:
         root = self.task_path.parent
         excluded = {"outputs", "results", "build", "dist", "node_modules", "__pycache__"}
         self.catalog = {}
+        self.inventory_errors = {}
         for path in sorted(root.rglob("*")):
             relative = path.relative_to(root)
             if (not path.is_file() or not path.resolve().is_relative_to(root)
@@ -296,7 +335,18 @@ class Dataset:
                     or path.name in {"submission.csv", "predictions.csv"}):
                 continue
             if path.suffix.lower() == ".csv":
-                self.catalog[relative.as_posix()] = {"sha256": file_hash(path), "columns": csv_header(path)}
+                # Periphery tables must not abort a run whose real roles are
+                # usable. Role binding still re-reads the selected files under
+                # the strict header check, so a malformed train/test fails there.
+                try:
+                    columns = csv_header(path)
+                except (OSError, UnicodeError, ValueError, StopIteration) as error:
+                    self.inventory_errors[relative.as_posix()] = str(error)[:300]
+                    columns = []
+                item = {"sha256": file_hash(path), "columns": columns}
+                if relative.as_posix() in self.inventory_errors:
+                    item["error"] = self.inventory_errors[relative.as_posix()]
+                self.catalog[relative.as_posix()] = item
         files = {name: item["sha256"] for name, item in self.catalog.items()}
         files["task.md"] = file_hash(self.task_path)
         explicit = root / "task_spec.json"
@@ -388,6 +438,82 @@ class Dataset:
         self.bind(roles)
         values.update(source_hash=self.source_hash, contract_version=2, file_roles=roles)
         task = TaskSpec.model_validate(values)
+        self.validate(task)
+        return task
+
+    def _fallback_roles(self):
+        """Bind canonical CSV roles from one unique basename or the paths cited in task.md."""
+        roles = {}
+        for role in ("train.csv", "test.csv", "sample_submission.csv", "data_dictionary.csv"):
+            if role in self.catalog:
+                roles[role] = role
+                continue
+            matches = [name for name in self.catalog if name.rsplit("/", 1)[-1] == role]
+            if len(matches) == 1:
+                roles[role] = matches[0]
+                continue
+            try:
+                path = locate_csv(self.task_path, self.text, role, required=False)
+            except ContractUnresolved:
+                return None
+            if path is None:
+                continue
+            relative = path.resolve().relative_to(self.task_path.parent.resolve()).as_posix()
+            if relative in self.catalog:
+                roles[role] = relative
+        return roles
+
+    def local_contract(self):
+        """Confirm only explicit mutually agreeing semantics, before any API call."""
+        primary = re.findall(r"(?:Основная метрика|Метрика оценки|Primary metric|Evaluation metric)[^\n]*", self.text, re.I)
+        explicit = self.task_path.parent / "task_spec.json"
+        if explicit.is_file():
+            supplied = json.loads(explicit.read_text(encoding="utf-8"))
+            # Legacy structural hints still go through semantic resolution when
+            # the prose supplies no corroborating target/metric meaning.
+            if supplied.get("contract_version", 1) != 2 and not re.search(
+                    r"(?:Основная метрика|Метрика оценки|Primary metric|Evaluation metric)[^\n]*", self.text, re.I):
+                return None
+            stated = parse_metric(primary[0], unambiguous=True) if len(primary) == 1 else None
+            if primary and stated is None:
+                # Multiple metrics require semantic resolution; the first regex
+                # match is not proof that an explicit v2 contract is wrong.
+                return None
+            declared = MetricSpec.model_validate(supplied["metric"]) if "metric" in supplied else None
+            if stated and declared and (stated.name != declared.name or stated.name == "f1" and stated.average != declared.average):
+                if supplied.get("contract_version", 1) != 2:
+                    self.local_confirmation_error = "Legacy task hint conflicts with the stated primary metric; semantic resolution is required"
+                    return None
+                raise ContractUnresolved("Explicit contract conflicts with the stated primary metric")
+            # Binding and label-bearing CSV validation happen only after the
+            # supplied semantics agree; rejected hints never enter a request.
+            return self.explicit()
+        if len(primary) != 1 or parse_metric(primary[0], unambiguous=True) is None:
+            return None
+        if not all(re.search(r"\b" + re.escape(name) + r"\b", self.text, re.I) for name in ("train.csv", "test.csv")):
+            return None
+        roles = self._fallback_roles()
+        if roles is None or not {"train.csv", "test.csv"} <= set(roles):
+            return None
+        self.bind(roles)
+        dictionary_targets = None
+        if self.paths.get("data_dictionary.csv"):
+            dictionary = read_csv(self.paths["data_dictionary.csv"])
+            if {"feature", "role"} <= set(dictionary):
+                dictionary_targets = set(dictionary.loc[dictionary["role"].str.casefold() == "target", "feature"])
+        task, unresolved = self.draft()
+        if task is None or unresolved:
+            self.fixed = {}
+            return None
+        # A schema difference alone is insufficient evidence for a target role.
+        if dictionary_targets is not None and dictionary_targets != set(task.targets):
+            self.fixed = {}
+            return None
+        for target in task.targets:
+            if dictionary_targets is None and not re.search(r"(?:target|целевая\s+(?:переменная|колонка)|цель)\s*(?:[:=—-]\s*)?[`\"']?" + re.escape(target) + r"\b", self.text, re.I):
+                self.fixed = {}
+                return None
+        task = task.model_copy(update={"contract_version": 2, "file_roles": roles})
         self.validate(task)
         return task
 
@@ -513,6 +639,9 @@ class Dataset:
         return task, []
 
     def validate(self, task: TaskSpec) -> None:
+        if task.related_tables or hasattr(self, "_related_binding"):
+            from .related_tables import attach
+            attach(self, task)
         if task.source_hash != self.source_hash:
             raise ValueError("Wrong source bundle hash")
         if not set(task.targets) <= set(self.train):
@@ -619,6 +748,9 @@ class Dataset:
         if self.deferred:
             if task.contract_version != 2:raise ValueError("Task contract version 2 is required")
             self.bind(task.file_roles)
+        if task.related_tables:
+            from .related_tables import attach
+            attach(self, task)
         # Deferred v2 resolution does not call draft(), so it must also check
         # explicit column semantics before a missing time role freezes a split.
         _, _, time_candidates, _ = self.role_hints(task.feature_columns)
@@ -688,8 +820,37 @@ class Dataset:
         columns = list(dict.fromkeys(self.task.feature_columns + [c for c in metadata if c]))
         return frame[columns].copy()
 
-    def profile(self, indices: list[int], scope: str = "fit") -> DataProfile:
-        fit = self.train.iloc[indices]
+    def profile(self, indices: list[int], scope: str = "fit", protocol_hash=None) -> DataProfile:
+        if scope not in {"fit", "validation_features", "test_features"}:
+            raise ValueError("Unsupported profile scope")
+        if getattr(self, "profile_mode", "legacy") != "unified":
+            return Dataset._legacy_profile(self, indices, scope)
+        import time
+        try:
+            from .profiling import build_profile, profile_key
+        except ImportError:
+            return Dataset._legacy_profile(self, indices, scope).model_copy(update={"status": "partial", "error": "profiler_unavailable"})
+        key = profile_key(self, indices, scope, protocol_hash)
+        if not hasattr(self, "_profile_cache"):
+            self._profile_cache = {}
+            self.profile_cache_stats = {"hits": 0, "misses": 0, "fallbacks": 0}
+        if key in self._profile_cache:
+            self.profile_cache_stats["hits"] += 1
+            return self._profile_cache[key].model_copy(deep=True)
+        self.profile_cache_stats["misses"] += 1
+        try:
+            value = build_profile(self, indices, scope, deadline=min(time.time() + 20,
+                getattr(self, "profile_deadline", float("inf"))))
+        except (ValueError, TypeError, ArithmeticError, OSError, MemoryError, TimeoutError):
+            value = Dataset._legacy_profile(self, indices, scope).model_copy(update={"status": "partial", "error": "profile_calculation_unavailable"})
+            self.profile_cache_stats["fallbacks"] += 1
+        if len(self._profile_cache) >= 8:
+            self._profile_cache.pop(next(iter(self._profile_cache)))
+        self._profile_cache[key] = value
+        return value.model_copy(deep=True)
+
+    def _legacy_profile(self, indices: list[int], scope: str = "fit") -> DataProfile:
+        fit = self.test if scope == "test_features" else self.train.iloc[indices]
         columns = {}
         for column in self.task.feature_columns:
             values, test = fit[column], self.test[column]
@@ -730,22 +891,9 @@ class Dataset:
             rows={"fit": len(fit), "train": len(self.train), "test": len(self.test)}, columns=columns,
             observations=[{"type": "fit_risks", "flags": {k: bool(v) for k, v in risks.items()}}])
 
-    def inspect(self, args, plan) -> dict[str, Any]:
+    def analysis_frame(self, args, plan):
         if args.scope != "fit" and args.include_target:
             raise ValueError("Target-based analysis is restricted to fit")
-        if args.report == "dictionary":
-            source = self.sources.get("dictionary")
-            if not source:
-                return {"status": "not_found", "scope": "schema", "source": "dictionary"}
-            columns = args.columns
-            if columns and not set(columns) <= set(self.task.feature_columns + self.task.id_columns + self.task.targets):
-                raise ValueError("Unknown dictionary column")
-            lines = source["text"].splitlines()
-            if columns:
-                lines = [line for line in lines if any(re.search(r"(?<![\w])" + re.escape(c) + r"(?![\w])", line) for c in columns)]
-            text = "\n".join(lines)
-            return {"status": "available", "scope": "schema", "source": "dictionary", "sha256": source["sha256"],
-                "content": text[:20000], "truncated": len(text) > 20000, "hint": "Request a named subset of columns if truncated"}
         if args.scope == "fit":
             frame = self.train.iloc[plan.fit]
             allowed = set(self.task.feature_columns + (self.task.targets if args.include_target else []))
@@ -773,9 +921,40 @@ class Dataset:
             else:
                 raise ValueError("Unsupported predicate operator")
             frame = frame.loc[mask]
+        return frame, columns
+
+    def inspect(self, args, plan) -> dict[str, Any]:
+        if args.scope != "fit" and args.include_target:
+            raise ValueError("Target-based analysis is restricted to fit")
+        if args.report == "dictionary":
+            source = self.sources.get("dictionary")
+            if not source:
+                return {"status": "not_found", "scope": "schema", "source": "dictionary"}
+            columns = args.columns
+            if columns and not set(columns) <= set(self.task.feature_columns + self.task.id_columns + self.task.targets):
+                raise ValueError("Unknown dictionary column")
+            lines = source["text"].splitlines()
+            if columns:
+                lines = [line for line in lines if any(re.search(r"(?<![\w])" + re.escape(c) + r"(?![\w])", line) for c in columns)]
+            text = "\n".join(lines)
+            return {"status": "available", "scope": "schema", "source": "dictionary", "sha256": source["sha256"],
+                "content": text[:20000], "truncated": len(text) > 20000, "hint": "Request a named subset of columns if truncated"}
+        frame, columns = self.analysis_frame(args, plan)
         result: dict[str, Any] = {"scope": args.scope, "data_version": self.source_hash,
             "protocol_hash": plan.hash, "rows": len(frame), "report": args.report}
         selected = frame[columns]
+        if args.report == "profile" and not args.group_by and getattr(self, "profile_mode", "legacy") == "unified":
+            if args.predicate:
+                from .profiling import build_profile
+                profile = build_profile(self, [], args.scope, frame=frame)
+            else:
+                rows = plan.fit if args.scope == "fit" else plan.validation if args.scope == "validation_features" else []
+                profile = self.profile(rows, args.scope, protocol_hash=plan.hash)
+            result.update(profile.model_dump(mode="json", exclude={"rows", "scope", "data_version"}))
+            result["columns"] = {name: profile.columns.get(name, profile.targets.get(name, {})) for name in columns}
+            result["targets"] = profile.targets if args.include_target else {}
+            result["profile_rows"] = profile.rows
+            return result
         if args.report == "correlations":
             corr = selected.select_dtypes(include="number").corr().replace([np.inf, -np.inf], np.nan)
             result["correlations"] = json.loads(corr.to_json())

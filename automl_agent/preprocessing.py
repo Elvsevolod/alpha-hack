@@ -17,6 +17,18 @@ from sklearn.preprocessing import OneHotEncoder, PowerTransformer, RobustScaler,
 from .compatibility import native_branch, require_compatible
 
 
+def selected_features(spec, task):
+    include = task.feature_columns if spec.include_features is None else spec.include_features
+    if len(include) != len(set(include)) or len(spec.exclude_features) != len(set(spec.exclude_features)):
+        raise ValueError("Duplicate feature selection entries")
+    if not set(include + spec.exclude_features) <= set(task.feature_columns):
+        raise ValueError("Feature selection must use confirmed features, never targets or service columns")
+    result = [column for column in task.feature_columns if column in include and column not in spec.exclude_features]
+    if not result and not (task.kind == "forecasting" and not task.feature_columns and spec.include_features is None and not spec.exclude_features):
+        raise ValueError("Feature selection must remain nonempty")
+    return result
+
+
 class FrameTransform(BaseEstimator, TransformerMixin):
     """Stateless, explicitly requested feature operations before fitted encoding."""
 
@@ -46,19 +58,49 @@ class FrameTransform(BaseEstimator, TransformerMixin):
                     if (X[column].dropna() < 0).any():
                         raise ValueError("Feature log1p requires nonnegative values")
                     X[column] = np.log1p(X[column])
+            elif operation.name == "aggregate":
+                p = operation.parameters
+                columns, functions = p.get("columns", []), p.get("functions", ["mean"])
+                if not columns or not set(columns) <= set(X) or not set(functions) <= {"mean", "std", "min", "max", "sum"}:
+                    raise ValueError("Aggregates require explicit available columns and bounded row functions")
+                values = X[columns].apply(pd.to_numeric, errors="raise")
+                prefix = p.get("prefix", "aggregate")
+                for function in functions:
+                    name = f"{prefix}__{function}"
+                    if name in X:
+                        raise ValueError("Aggregate output name already exists")
+                    X[name] = values.sum(axis=1, min_count=1) if function == "sum" else getattr(values, function)(axis=1)
+                if p.get("drop_source", False):
+                    X = X.drop(columns=columns)
         return X
 
 
 class FeatureMatrix:
-    def __init__(self, spec, task, cpu=1, memory_mb=1024):
+    def __init__(self, spec, task, cpu=1, memory_mb=1024, strategy="random"):
         self.spec, self.task, self.cpu, self.memory_mb = spec, task, cpu, memory_mb
+        self.strategy = strategy
         self.summary = {}
 
     def fit(self, X, y=None):
         started = time.monotonic()
         require_compatible(self.spec, self.task)
-        self.frame_transform = FrameTransform(self.spec.transformations)
-        frame = self.frame_transform.fit_transform(X[self.task.feature_columns])
+        self.feature_columns = selected_features(self.spec, self.task)
+        from .supervised_features import SupervisedFeatures
+        self.frame_steps = []
+        frame = X[self.feature_columns].copy()
+        supervised_report = []
+        for operation in self.spec.transformations:
+            if operation.name in {"history", "target_encode"}:
+                step = SupervisedFeatures(self.spec.model_copy(update={"transformations": [operation]}), self.task, self.strategy)
+                frame = step.fit_transform(frame, y, X)
+                supervised_report.extend(step.report)
+            elif operation.name in {"datetime", "math", "log1p", "aggregate"}:
+                step = FrameTransform([operation])
+                frame = step.fit_transform(frame)
+            else:
+                continue
+            self.frame_steps.append(step)
+        self.training_frame = frame
         self.text_columns = [c for c in self.task.text_columns if c in frame]
         self.categorical_columns = [c for c in frame if c not in self.text_columns and not pd.api.types.is_numeric_dtype(frame[c])]
         self.numeric_columns = [c for c in frame if c not in self.text_columns + self.categorical_columns]
@@ -151,6 +193,11 @@ class FeatureMatrix:
                     transformer = SplineTransformer(n_knots=params.pop("n_knots", 5), degree=params.pop("degree", 3), **params)
                 numeric = transformer.fit_transform(numeric)
                 self.numeric_transformers.append(transformer)
+        if self.spec.model == "knn" and self.spec.neighbor_scale != "none" and self.numeric_columns and not any(
+                op.name in {"standard_scale", "robust_scale"} for op in self.spec.transformations):
+            transformer = StandardScaler() if self.spec.neighbor_scale == "standard" else RobustScaler()
+            numeric = transformer.fit_transform(numeric)
+            self.numeric_transformers.append(transformer)
         self.vectorizers = {}
         for column in self.text_columns:
             if self.spec.text_analyzer == "hashing":
@@ -174,7 +221,7 @@ class FeatureMatrix:
             self.summary["empty_columns_preserved_outside_iterative_imputer"] = True
             self.summary["actual_iterations"] = int(getattr(self.imputer, "n_iter_", 0))
             self.summary["model_imputation_executed"] = auxiliary > 0
-        transformed = self.transform(X)
+        transformed = self._transform_frame(frame)
         if self.native:
             names = list(transformed.columns)
         else:
@@ -230,6 +277,7 @@ class FeatureMatrix:
         self.processing_summary = {"sequence": [op.model_dump(mode="json") for op in self.spec.transformations],
             "implicit_numeric_transforms": [type(t).__name__ for t in self.numeric_transformers],
             "representation": "native" if self.native else "encoded", "feature_count": self.width}
+        self.processing_summary["supervised_features"] = supervised_report
         return self
 
     def _categorical(self, frame, numeric):
@@ -242,7 +290,16 @@ class FeatureMatrix:
         return result
 
     def transform(self, X):
-        frame = self.frame_transform.transform(X[self.task.feature_columns])
+        return self._transform_frame(self.feature_frame(X))
+
+    def feature_frame(self, X):
+        from .supervised_features import SupervisedFeatures
+        frame = X[self.feature_columns].copy()
+        for step in self.frame_steps:
+            frame = step.transform(frame, X) if isinstance(step, SupervisedFeatures) else step.transform(frame)
+        return frame
+
+    def _transform_frame(self, frame):
         numeric = frame[self.numeric_columns].to_numpy(dtype=float)
         numeric[~np.isfinite(numeric)] = np.nan
         masks = frame[self.numeric_columns].isna().to_numpy(dtype=float)
@@ -312,4 +369,7 @@ class FeatureMatrix:
         return result
 
     def fit_transform(self, X, y=None):
-        return self.fit(X, y).transform(X)
+        self.fit(X, y)
+        result = self._transform_frame(self.training_frame)
+        del self.training_frame
+        return result

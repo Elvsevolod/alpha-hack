@@ -13,10 +13,10 @@ def context(task,tmp_path=None):
         'workdir':str(tmp_path or '.'),'budget_seconds':20,'deadline':9999999999}
 
 
-@pytest.mark.parametrize('model', ['ridge','elastic_net','sgd','random_forest','extra_trees','hist_gradient_boosting','mlp','catboost','lightgbm','xgboost'])
+@pytest.mark.parametrize('model', ['ridge','elastic_net','sgd','random_forest','extra_trees','hist_gradient_boosting','knn','catboost','lightgbm','xgboost'])
 def test_model_fit_predict_and_save_load(tabular,model):
     X,y,task=tabular
-    parameters={'n_estimators':10} if model in {'random_forest','extra_trees','lightgbm','xgboost'} else {'iterations':10} if model=='catboost' else {'max_iter':10} if model in {'mlp','hist_gradient_boosting'} else {}
+    parameters={'n_estimators':10} if model in {'random_forest','extra_trees','lightgbm','xgboost'} else {'iterations':10} if model=='catboost' else {'max_iter':10} if model=='hist_gradient_boosting' else {}
     p=build_pipeline(PipelineSpec(model=model,hyperparameters=parameters),task,{})
     c=context(task); p.fit(X,y,c)
     restored=cloudpickle.loads(cloudpickle.dumps(p)); selected=X.iloc[:15].copy(); selected['category']='unseen'
@@ -62,19 +62,19 @@ def test_multioutput_regression(tabular):
     assert set(b.values)=={'answer','other'}
 
 
-def test_mlp_dense_memory_guard(tabular):
+def test_mlp_scope_guard_is_preserved(tabular):
     X,y,task=tabular
-    p=build_pipeline(PipelineSpec(model='mlp',hyperparameters={'hidden_layer_sizes':[1000000]}),task,{})
-    with pytest.raises(MemoryError):p.fit(X,y,{**context(task),'memory_mb':10})
+    with pytest.raises(ValueError, match='classical_ml_scope'):
+        build_pipeline(PipelineSpec(model='mlp',hyperparameters={'hidden_layer_sizes':[1000000]}),task,{})
 
 
-@pytest.mark.parametrize('model',['logistic','sgd','extra_trees','catboost','lightgbm','xgboost','mlp'])
+@pytest.mark.parametrize('model',['logistic','sgd','extra_trees','catboost','lightgbm','xgboost','knn'])
 def test_multiclass_probability_alignment(tabular,model):
     X,y,t=tabular
     y['answer']=np.where(y.answer>1,'third',np.where(y.answer>0,'first','second'))
     task=t.model_copy(update={'kind':'classification','classes':{'answer':['first','second','third']},'metric':MetricSpec(name='f1'),
         'output':OutputSpec(columns=['identifier','answer'],prediction_type='labels')})
-    params={'n_estimators':8} if model in {'extra_trees','lightgbm','xgboost'} else {'iterations':8} if model=='catboost' else {'max_iter':10} if model=='mlp' else {}
+    params={'n_estimators':8} if model in {'extra_trees','lightgbm','xgboost'} else {'iterations':8} if model=='catboost' else {}
     p=build_pipeline(PipelineSpec(model=model,hyperparameters=params),task,{})
     p.fit(X,y,context(task));b=p.predict(X.iloc[:4],context(task))
     values=align_predictions(b,X.index[:4].tolist(),task,'protocol','test')['answer']

@@ -11,6 +11,27 @@
 !tools/**
 !knowledge_runtime/
 !knowledge_runtime/**
+!context_compressor/
+!context_compressor/**
+!ml_knowledge/
+!ml_knowledge/*.py
+!ml_knowledge/*.json
+!ml_knowledge/*.txt
+!ml_knowledge/*.md
+!ml_knowledge/corpus/
+!ml_knowledge/corpus/**
+!ml_knowledge/catalogs/
+!ml_knowledge/catalogs/**
+# Build-time knowledge inputs are not needed inside either image; only the
+# runtime corpus and package modules are copied by the Dockerfiles.
+ml_knowledge/sources/
+ml_knowledge/releases/
+ml_knowledge/verification/
+ml_knowledge/frozen/
+ml_knowledge/evaluation/
+ml_knowledge/baseline/
+ml_knowledge/reports/
+ml_knowledge/__pycache__/
 !data_for_participants/
 !data_for_participants/requirements.txt
 **/__pycache__

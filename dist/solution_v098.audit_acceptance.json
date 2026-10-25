@@ -1,0 +1,46 @@
+{
+  "version": "v098",
+  "archive_sha256": "c47ceea7e5bc7da8b17fce305b35a3c8ca462b366ee7ce7cc520569e1bdc3cd6",
+  "technical_status": "passed_offline",
+  "active_fixes": [
+    "M1",
+    "M2",
+    "M3",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
+  "M4": "rejected_quality_gate_order_dependence_remains",
+  "previous_A25_A27_preserved": true,
+  "original_28_findings_rechecked": true,
+  "real_qwen_quality_run": false,
+  "quality_advantage_established": false,
+  "uploaded": false,
+  "complete_M1_M8_remediation": false,
+  "coverage": {
+    "archive_sha256": "c47ceea7e5bc7da8b17fce305b35a3c8ca462b366ee7ce7cc520569e1bdc3cd6",
+    "full_continuous_suite": {
+      "collected": 1343,
+      "passed": 1341,
+      "skipped": 2,
+      "failed": 0,
+      "skipped_nodeids": [
+        "tests/test_audit_native_adapters.py::test_lightautoml_fit_save_load_complete_refit",
+        "context_compressor/tests/test_pressure_transport.py::PressureTransportTests::test_serialized_schemas_validate_both_routes_and_all_note_transports"
+      ],
+      "seconds": 1817.362
+    },
+    "new_test_cases": 60,
+    "rejected_M4_tests_outside_archive": 14,
+    "exact_archive_pinned_cases": 55,
+    "pinned_dependencies_matched": 37,
+    "clean_cli_cases": 4,
+    "original_skips_replayed_from_exact_archive": 2,
+    "public_ensemble_cache_integration_cases": 3,
+    "unique_full_collection_cases_verified": 1343,
+    "repeated_cases_not_added_to_unique_count": true,
+    "real_qwen_requests": 0
+  },
+  "report": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/ml_M1_M8_v096_20261025/REPORT.md"
+}

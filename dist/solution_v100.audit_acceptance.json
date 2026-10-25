@@ -1,0 +1,8 @@
+{
+  "version": "v100",
+  "status": "superseded_intermediate",
+  "replacement": "solution_v101.zip",
+  "sha256": "50a4465067f38eff1eff0b8043988c501b830f7bd1ea9b63c20fa63cfce0176e",
+  "reason": "Expanded confirmed OOF worker terminal code handling in v101",
+  "uploaded": false
+}

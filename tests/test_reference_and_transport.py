@@ -35,10 +35,10 @@ def test_ambiguous_or_incomplete_command_messages_are_rejected(text):
 
 
 def test_compact_json_schemas_preserve_every_reference():
-    from automl_agent.contracts import TOOL_SCHEMAS
+    from automl_agent.contracts import TOOL_SCHEMAS, public_tool_schema
     schemas,definitions=json_tool_schemas()
     for name,model in TOOL_SCHEMAS.items():
-        original=model.model_json_schema()
+        original=public_tool_schema(model)
         for identifier,value in original.pop('$defs',{}).items():assert definitions[identifier]==value
         assert schemas[name]==original
     expanded={name:model.model_json_schema() for name,model in TOOL_SCHEMAS.items()}
@@ -108,7 +108,8 @@ def test_official_two_variable_environment_runs_research(tmp_path,monkeypatch,mo
             requests.append(json.loads(self.rfile.read(int(self.headers['Content-Length']))))
             command={'operation_id':'two_variables_finish','tool':'finish',
                 'arguments':{'reason':'Measured baseline is sufficient for this transport check',
-                    'result_ids':['baseline'], 'imputation_skip_reason':'Fixed transport check; no new imputation hypothesis'}}
+                    'result_ids':['baseline'], 'imputation_skip_reason':'Fixed transport check; no new imputation hypothesis',
+                    'skipped_directions': {'all': 'This fixed two-variable fixture verifies transport and finalization only.'}}}
             payload=json.dumps({'choices':[{'message':{'role':'assistant','content':json.dumps(command)},
                 'finish_reason':'stop'}]}).encode()
             self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(payload)

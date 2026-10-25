@@ -13,7 +13,7 @@ from .contracts import PipelineSpec, PredictionBundle, TaskSpec
 from .util import atomic_json, canonical, digest, file_hash, read_json
 
 
-VERSION = 1
+VERSION = 3
 MIN_SUPPORT = 30
 MAX_IMAGE_BYTES = 65536
 
@@ -57,17 +57,17 @@ def confusion_report(actual, predicted, labels):
     from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
     matrix = confusion_matrix(actual, predicted, labels=labels)
     support, predicted_support = matrix.sum(axis=1), matrix.sum(axis=0)
-    if (support < MIN_SUPPORT).any() or (predicted_support < MIN_SUPPORT).any():
-        return {"kind": "confusion_matrix", "status": "suppressed", "reason": "minimum_class_aggregate_support"}
     precision, recall, f1, _ = precision_recall_fscore_support(actual, predicted, labels=labels, zero_division=0)
     pairs = sorted(((int(matrix[i, j]), i, j) for i in range(len(labels)) for j in range(len(labels)) if i != j), reverse=True)
-    result = {"kind": "confusion_matrix", "rows": int(support.sum()),
+    result = {"kind": "confusion_matrix", "status": "available", "rows": int(support.sum()),
         "classes": [{"label": label, "support": int(support[i]), "predicted_support": int(predicted_support[i]),
-                     "precision": float(precision[i]), "recall": float(recall[i]), "f1": float(f1[i])} for i, label in enumerate(labels)],
+                     "precision": float(precision[i]), "recall": float(recall[i]), "f1": float(f1[i]),
+                     "uncertain": bool(support[i] < MIN_SUPPORT or predicted_support[i] < MIN_SUPPORT)} for i, label in enumerate(labels)],
         "macro_f1": float(np.mean(f1)), "top_confusions": [
             {"actual": labels[i], "predicted": labels[j], "count": count} for count, i, j in pairs[:5] if count]}
     if len(labels) <= 20:
-        result.update(matrix=matrix.tolist(), normalized=(matrix / support[:, None]).tolist(), labels=labels)
+        result.update(matrix=matrix.tolist(), normalized=np.divide(matrix, support[:, None],
+            out=np.zeros_like(matrix, dtype=float), where=support[:, None] > 0).tolist(), labels=labels)
     else:
         result["image_unavailable"] = "more_than_20_classes"
     return result
@@ -77,11 +77,11 @@ def residual_report(actual, predicted):
     actual, predicted = np.asarray(actual, dtype=float), np.asarray(predicted, dtype=float)
     if actual.shape != predicted.shape or not np.isfinite(actual).all() or not np.isfinite(predicted).all():
         raise ValueError("Residual inputs must be aligned and finite")
-    if len(actual) < MIN_SUPPORT:
-        return {"kind": "residuals", "status": "suppressed", "reason": "minimum_aggregate_support"}
+    if not len(actual):
+        raise ValueError("Residual diagnostics need a nonempty population")
     residual = actual - predicted
     absolute, square = np.abs(residual), residual ** 2
-    bins = min(10, len(actual) // MIN_SUPPORT)
+    bins = max(1, min(10, len(actual) // MIN_SUPPORT))
     order = np.argsort(predicted, kind="stable")
     groups = np.array_split(order, bins)
     intervals = [{"rows": len(rows), "prediction_mean": float(predicted[rows].mean()),
@@ -89,7 +89,8 @@ def residual_report(actual, predicted):
         "residual_q10": float(np.quantile(residual[rows], .1)), "residual_q90": float(np.quantile(residual[rows], .9))} for rows in groups]
     counts, edges = np.histogram(residual, bins=30)
     tail = np.argsort(absolute)[-max(1, int(np.ceil(len(actual) * .1))):]
-    return {"kind": "residuals", "rows": len(actual), "definition": "y_true_minus_y_pred_original_scale",
+    return {"kind": "residuals", "rows": len(actual), "uncertain": len(actual) < MIN_SUPPORT,
+        "definition": "y_true_minus_y_pred_original_scale",
         "rmse": float(np.sqrt(square.mean())), "mae": float(absolute.mean()), "mean": float(residual.mean()),
         "median": float(np.median(residual)), "absolute_error_quantiles": {
             str(p): float(np.quantile(absolute, p / 100)) for p in (50, 90, 95, 99)},
@@ -121,9 +122,13 @@ def render_report(report, path):
     elif kind == "confusion_matrix":
         import seaborn as sns
         fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+        tick_labels = [str(value) for value in report["labels"]]
+        tick_labels = [value if len(value) <= 20 else value[:9] + "…" + value[-10:] for value in tick_labels]
+        if len(set(tick_labels)) != len(tick_labels):
+            tick_labels = [f"{i}: {value[:16]}" for i, value in enumerate(tick_labels)]
         for ax, values, title, fmt in zip(axes, (report["matrix"], report["normalized"]), ("Counts", "Normalized by actual class"), ("d", ".2f")):
             sns.heatmap(np.asarray(values), annot=True, fmt=fmt, cmap="Blues", cbar=False,
-                xticklabels=[str(x)[:20] for x in report["labels"]], yticklabels=[str(x)[:20] for x in report["labels"]],
+                xticklabels=tick_labels, yticklabels=tick_labels,
                 annot_kws={"fontsize": 8}, ax=ax)
             ax.set(title=title, xlabel="Predicted", ylabel="Actual")
     else:
@@ -141,14 +146,44 @@ def render_report(report, path):
     try:
         fig.suptitle(f"{report.get('evaluation_scope', report['scope'])} | n={report.get('rows', 'suppressed')} | aggregated diagnostics", fontsize=10)
         fig.tight_layout()
-        content = io.BytesIO()
-        fig.savefig(content, format="png", dpi=100)
-        if len(content.getvalue()) > MAX_IMAGE_BYTES:
-            return "png_exceeds_64_kib"
-        path.write_bytes(content.getvalue())
+        resolutions = (100, 100, 85, 70, 55) if kind == "confusion_matrix" else (100, 85, 70, 55)
+        for attempt, dpi in enumerate(resolutions):
+            if attempt == 1 and kind == "confusion_matrix":
+                # Retain annotated counts; normalized values remain in the source.
+                for text in axes[1].texts:
+                    text.set_visible(False)
+            content = io.BytesIO()
+            fig.savefig(content, format="png", dpi=dpi)
+            if len(content.getvalue()) <= MAX_IMAGE_BYTES:
+                path.write_bytes(content.getvalue())
+                return None
+        return "png_exceeds_64_kib"
     finally:
         plt.close(fig)
     return None
+
+
+def diagnostic_summary(report):
+    summary = {name: value for name, value in report.items()
+               if name not in {"matrix", "normalized", "labels", "histogram", "prediction_intervals", "classes"}}
+    if "columns" in summary:
+        summary["columns"] = {name: {key: value for key, value in item.items()
+            if key not in {"histogram", "categories"}} for name, item in summary["columns"].items()}
+    if "classes" in report:
+        summary.update(classes=report["classes"], class_count=len(report["classes"]), classes_complete=True,
+            weakest_classes=sorted(report["classes"], key=lambda row: row["f1"])[:3],
+            matrix_complete="matrix" in report)
+        if "matrix" in report:
+            summary.update(labels=report["labels"], matrix=report["matrix"])
+        if len(canonical(summary).encode()) > 6000:
+            summary.pop("matrix", None)
+            summary.update(matrix_complete=False, details_in_versioned_source=True)
+    if len(canonical(summary).encode()) > 6000:
+        summary = {key: report[key] for key in ("kind", "scope", "evaluation_scope") if key in report}
+        summary["details_in_versioned_source"] = True
+        if "classes" in report:
+            summary.update(class_count=len(report["classes"]), classes_complete=False, matrix_complete=False)
+    return summary
 
 
 def run_worker(request, directory):
@@ -275,7 +310,7 @@ class DiagnosticTools:
                                   mode="visual_diagnostics")
             else:
                 frame = c.dataset.test if args.scope == "test_features" else c.dataset.train.iloc[c.plan.fit if args.scope == "fit" else c.plan.validation]
-                stage_frame(directory / "fit_X.json", frame[columns].copy())
+                stage_frame(directory / "fit_X.json", frame[columns].copy(), deadline=c.budget.deadline, memory_mb=c.executor.memory_mb)
                 request = {"mode": "visual_diagnostics", "context": {"budget_seconds": args.budget_seconds}}
             request.update(kind=args.kind, scope=args.scope, data_version=c.dataset.source_hash, protocol_hash=c.plan.hash,
                 experiment_id=args.experiment_id, source_recipe_hash=spec.pipeline.hash if spec else None,
@@ -293,13 +328,7 @@ class DiagnosticTools:
         report = read_json(directory / "diagnostic_report.json")
         source = Source("diagnostic:" + key, digest(report), canonical(report), args.scope, "external_data", origin="get_diagnostic_report")
         c.context_memory.store.put_source(source)
-        summary = {name: value for name, value in report.items() if name not in {"matrix", "normalized", "labels", "histogram", "prediction_intervals", "classes"}}
-        if "columns" in summary:
-            summary["columns"] = {name: {k: v for k, v in item.items() if k not in {"histogram", "categories"}} for name, item in summary["columns"].items()}
-        if "classes" in report:
-            summary["weakest_classes"] = sorted(report["classes"], key=lambda row: row["f1"])[:3]
-        if len(canonical(summary).encode()) > 3500:
-            summary = {"kind": args.kind, "scope": args.scope, "details_in_versioned_source": True}
+        summary = diagnostic_summary(report)
         artifacts = []
         if "diagnostic.png" in measured["hashes"]:
             import struct

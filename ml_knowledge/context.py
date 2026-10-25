@@ -217,6 +217,14 @@ def select(store, context: SelectionContext, *, memory=None, deadline=None, rese
             if method.get("legacy_id",method["id"].removeprefix("method:")) in obj.get("payload",{}).get("method_refs",[]):
                 recipes.append(row["id"])
         entry["available_recipe_ids"] = recipes
+        signals = {method.get("payload", {}).get("routing_signal")} | risks
+        related = []
+        for row in store.db.execute("SELECT id,meta FROM docs WHERE kind='method' ORDER BY id"):
+            payload = json.loads(row["meta"]).get("payload", {})
+            if signals & set(payload.get("related_routing_signals", [])):
+                related.append(row["id"])
+        if related:
+            entry["related_practice_ids"] = related
         entries.append(entry);seen.add(method["id"])
         for reference in method.get("payload",{}).get("references",[])[:1]:
             source=store.document(reference)

@@ -27,7 +27,7 @@ SCOPES = frozenset({"contract", "policy", "fit", "validation_features", "test_fe
                     "registered_feedback", "reference", "code", "environment", "controller"})
 TRUST = frozenset({"controller_fact", "external_data", "agent_assumption"})
 NOTE_STATUSES = ("preparing", "awaiting_evidence", "ready_to_compare", "closed")
-TOOLS = ("inspect_dataset", "get_reference", "train_model", "run_automl", "tune_model",
+TOOLS = ("preview_recipe", "inspect_dataset", "get_reference", "train_model", "run_automl", "tune_model", "run_experiments",
          "analyze_experiments", "build_ensemble", "run_custom_experiment", "finish",
          "get_dataset_report", "get_diagnostic_report", "revise_validation", "search_knowledge", "list_knowledge", "read_knowledge",
          "search_run_records", "list_run_records", "read_run_records")

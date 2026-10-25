@@ -31,6 +31,7 @@ class ClusteringContract(BaseModel):
     n_clusters: int = Field(ge=2)
     metric: Literal['silhouette'] = 'silhouette'
     seed: int = 42
+    n_clusters_candidates: list[int] = Field(default_factory=list, max_length=8)
 
     @model_validator(mode='after')
     def roles(self):
@@ -45,6 +46,8 @@ class ClusteringContract(BaseModel):
                 raise ValueError('Input must be a task-relative path')
             if Path(name).parts[0] == 'outputs' or Path(name).as_posix() in {'submission.csv', 'request.json', 'worker_result.json', 'run.lock'}:
                 raise ValueError('Input overlaps reserved output or worker paths')
+        if any(value < 2 for value in self.n_clusters_candidates):
+            raise ValueError('Cluster counts must be at least two')
         return self
 
 
@@ -93,16 +96,27 @@ def run(root, spec):
         raise ValueError('Train and test resolve to the same source')
     rows = np.random.default_rng(spec.seed).permutation(len(train))
     boundary = int(.8 * len(rows))
-    research = fit_model(features.iloc[rows[:boundary]], spec)
     validation = features.iloc[rows[boundary:]]
     if validation.empty:
         raise ValueError('No validation rows')
-    transformed = research[:-1].transform(validation)
-    diagnostic = silhouette_diagnostic(transformed, research.predict(validation))
+    candidates=[]
+    for count in spec.n_clusters_candidates or [spec.n_clusters]:
+        candidate=spec.model_copy(update={'n_clusters':count,'n_clusters_candidates':[]})
+        research=fit_model(features.iloc[rows[:boundary]],candidate)
+        diagnostic=silhouette_diagnostic(research[:-1].transform(validation),research.predict(validation))
+        candidates.append((candidate,diagnostic))
+    available=[item for item in candidates if item[1]['score'] is not None]
+    spec,diagnostic=max(available,key=lambda item:item[1]['score']) if available else candidates[0]
     # Freeze this explicit recipe, recreate every preprocessing/model component.
     final = fit_model(features, spec)
     assert final is not research
+    import cloudpickle
+    model_path=root/'clustering_model.pkl'
+    model_path.write_bytes(cloudpickle.dumps(final))
+    restored=cloudpickle.loads(model_path.read_bytes())
     predicted = final.predict(future)
+    if not np.array_equal(predicted,restored.predict(future)):
+        raise ValueError('Clustering save/load changed predictions')
     output = test[spec.id_columns].copy()
     output['cluster'] = predicted.astype(int)
     from .util import atomic_bytes
@@ -110,6 +124,7 @@ def run(root, spec):
     return {'contract': spec.model_dump(), 'validation': diagnostic,
             'publication': {'scope': 'full_train_refit', 'rows': len(output),
                             'sha256': hashlib.sha256((root / 'submission.csv').read_bytes()).hexdigest()},
+            'candidate_diagnostics': [{'clusters':s.n_clusters,**d} for s,d in candidates], 'save_load_verified':True,
             'research_fit_rows': boundary, 'final_fit_rows': len(train),
             'prediction_fits': 0, 'recipe_frozen_before_refit': True}
 
@@ -180,14 +195,17 @@ def execute(root, contract_path, limits, started_at, run_id=None):
             restored = pd.read_csv(output, dtype={column: str for column in spec.id_columns}, keep_default_na=False)
             test, _ = load_input(root, spec.test_file, spec)
             clusters = pd.to_numeric(restored['cluster'], errors='raise')
+            selected_count = result['report']['contract']['n_clusters']
+            if selected_count not in (spec.n_clusters_candidates or [spec.n_clusters]):
+                raise ValueError('Cluster count differs from the frozen candidate set')
             if (list(restored) != spec.id_columns + ['cluster'] or len(restored) != len(test)
                     or not restored[spec.id_columns].equals(test[spec.id_columns])
-                    or not np.isfinite(clusters).all() or not clusters.between(0, spec.n_clusters - 1).all()
+                    or not np.isfinite(clusters).all() or not clusters.between(0, selected_count - 1).all()
                     or not (clusters == np.floor(clusters)).all()):
                 raise ValueError('Clustering CSV failed schema, identifier or cluster validation')
             report = {'state': 'completed', **result['report'], 'source_hashes': source,
                       'contract_hash': binding, 'output': str(root / 'submission.csv'),
-                      'limitations': ['Numeric KMeans only', 'Explicit contract only; semantic Qwen interpretation is not implemented for clustering']}
+                      'limitations': ['Numeric KMeans and silhouette only; task evidence must identify clustering semantics']}
             # Save the verified result before publishing; resume never retrains it.
             journal.put_many({'result': result, 'publication_pending': report})
             atomic_bytes(root / 'submission.csv', output.read_bytes(), mode=0o644)

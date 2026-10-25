@@ -1,0 +1,68 @@
+{
+  "version_tag": "v076",
+  "archive": "solution_v076.zip",
+  "archive_sha256": "7b127b25cecbd6dcfba59e767c01d92d65832de80e1cf61ac3071d215b94fa47",
+  "bytes": 95111293,
+  "base": "solution_v074.zip",
+  "base_sha256": "6e2200131519e02c1feac344dd1f90bb1b4f0b684aab2fa3d95068809798ff56",
+  "base_unchanged": true,
+  "status": "all_19_implemented_internal_verification_passed_live_quality_unverified",
+  "implemented_items": 19,
+  "internal_verified_items": 19,
+  "requested_scope": "offline_internal_only",
+  "requested_scope_complete": true,
+  "full_pytest": {
+    "passed": 1141,
+    "skipped": 2,
+    "warnings": 26,
+    "seconds": 1206.57,
+    "exit_code": 0,
+    "command": "env -u OPENAI_API_KEY -u OPENAI_BASE_URL -u OPENAI_MODEL -u OPENAI_EXTRA_BODY .venv/bin/python -m pytest tests context_compressor/tests ml_knowledge/tests -q --tb=short -o faulthandler_timeout=120",
+    "log": "full_internal_v076.log",
+    "log_sha256": "5f4a88f885ef159dfed0d2b7e89104fbb25f5f474ffe469e0fb832cfa84fd185",
+    "test_sources_sha256": "81dbec96f695d5cb9726d5cc68951f0112b282b11d45a38198887c3700b1c86f",
+    "source_snapshot_unchanged": true,
+    "skip_reasons": [
+      {
+        "test": "tests/test_audit_native_adapters.py::test_lightautoml_fit_save_load_complete_refit",
+        "reason": "LightAutoML unavailable in local venv",
+        "alternate_evidence": [
+          "pinned_native_adapters.json",
+          "pinned_worker_adapters.json",
+          "exact_recipe_v076.json"
+        ]
+      },
+      {
+        "test": "context_compressor/tests/test_pressure_transport.py::PressureTransportTests::test_serialized_schemas_validate_both_routes_and_all_note_transports",
+        "reason": "jsonschema unavailable in local venv",
+        "alternate_evidence": [
+          "pinned_schema_validation.log"
+        ]
+      }
+    ],
+    "real_qwen_requests": 0,
+    "paid_generation_requests": 0
+  },
+  "technical_archive_checks_passed": true,
+  "embedded_payload_checked": true,
+  "dependency_policy_checked": true,
+  "runtime_interface_checked_with_local_mock": true,
+  "exact_archive_mock_cases_passed": 4,
+  "exact_archive_recipe_fit_refit_cases_passed": 4,
+  "exact_archive_mock_control_refit": "completed",
+  "exact_archive_csv_provenance": "full_train_refit",
+  "docker_image_id": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+  "real_qwen_requests": 0,
+  "paid_generation_requests": 0,
+  "additional_paid_calls_allowed": false,
+  "previous_240_unit_authorization": "revoked_by_user",
+  "live_qwen_tested": false,
+  "quality_advantage_established": false,
+  "continuous_three_hour_run_demonstrated": false,
+  "full_live_platform_acceptance": false,
+  "automatic_quality_promotion": false,
+  "submitted_to_platform": false,
+  "documentation": "../outputs/audit_plan_v074_20261024/REPORT.md",
+  "evidence_binding": "../outputs/audit_plan_v074_20261024/EVIDENCE_BINDING.json",
+  "evidence_binding_sha256": "c5437d04e0b97d33d86c11bead355acac28ca27155d5e266cfb7f9c552f7529c"
+}

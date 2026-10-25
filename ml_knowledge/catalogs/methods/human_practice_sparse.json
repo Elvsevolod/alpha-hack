@@ -1,0 +1,47 @@
+{
+  "acceptance": "Evaluate the original metric against a comparable incumbent; disclose uncertainty and full cost.",
+  "applicability_rules": [],
+  "conditions": [
+    "Confirmed task; all learning is fit-only, including inner folds.",
+    "Published cases suggest conditional tests; their results are not measurements on this task."
+  ],
+  "constraints": "zero does not identify its cause. Historical target aggregates must precede prediction; other target aggregates require proper cross-fitting. A published case does not supply an unreported smoothing recipe. Public feedback alone cannot validate an imputation mechanism.",
+  "contraindications": [
+    "zero does not identify its cause. Historical target aggregates must precede prediction; other target aggregates require proper cross-fitting. A published case does not supply an unreported smoothing recipe. Public feedback alone cannot validate an imputation mechanism."
+  ],
+  "cost": "Measure preparation, auxiliary fits, inference and refit.",
+  "diagnostic": "distinguish missing observations, unavailable products and observed zero outcomes when the data supports that distinction. Quantify how much data a filter excludes and evaluate its group inside a suitable inner holdout. Suppressed or small groups remain uncertain.",
+  "evidence_policy": "Project synthesis of author reports; no complete human trace or local reproduction is claimed.",
+  "heuristic_status": "project_hypothesis_not_universal_rule",
+  "hypothesis": "compare an unchanged baseline with one supported fallback, broader-group historical summary, missingness indicator or removal of an unjustified filter. Choose the alternative using the observed mechanism.",
+  "id": "human_practice_sparse",
+  "implementation_path": "mixed",
+  "method_id": "human_practice_sparse",
+  "minimum_experiment": "compare an unchanged baseline with one supported fallback, broader-group historical summary, missingness indicator or removal of an unjustified filter. Choose the alternative using the observed mechanism.",
+  "missing_references": [],
+  "observations": "rare entities have little history; missingness differs between permitted populations; a filter predicts zero or omits a subgroup.",
+  "references": [],
+  "related_routing_signals": [
+    "rare_classes",
+    "high_cardinality",
+    "missingness_shift"
+  ],
+  "research_sources": [
+    "https://tech.instacart.com/predicting-real-time-availability-of-200-million-grocery-items-in-us-canada-stores-61f43a16eafe",
+    "https://medium.com/data-science/review-kaggle-corporaci%C3%B3n-favorita-grocery-sales-forecasting-part-i-9330b7350713"
+  ],
+  "runtime_status": "unverified",
+  "skill_id": "qwen-ml-best-practices",
+  "skill_source_hashes": {
+    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+  },
+  "skill_text": "Rare entities, missingness and zeros\n\n**Signal:** rare entities have little history; missingness differs between permitted populations; a filter predicts zero or omits a subgroup.\n\n**Check:** distinguish missing observations, unavailable products and observed zero outcomes when the data supports that distinction. Quantify how much data a filter excludes and evaluate its group inside a suitable inner holdout. Suppressed or small groups remain uncertain.\n\n**Candidate experiment:** compare an unchanged baseline with one supported fallback, broader-group historical summary, missingness indicator or removal of an unjustified filter. Choose the alternative using the observed mechanism.\n\n**Limits:** zero does not identify its cause. Historical target aggregates must precede prediction; other target aggregates require proper cross-fitting. A published case does not supply an unreported smoothing recipe. Public feedback alone cannot validate an imputation mechanism.\n\nSources: [Instacart engineering report](https://tech.instacart.com/predicting-real-time-availability-of-200-million-grocery-items-in-us-canada-stores-61f43a16eafe); [Favorita author's post-mortem](https://medium.com/data-science/review-kaggle-corporaci%C3%B3n-favorita-grocery-sales-forecasting-part-i-9330b7350713).",
+  "tags": [
+    "rare_classes",
+    "high_cardinality",
+    "missingness_shift"
+  ],
+  "title": "Human ML practice: Rare entities, missingness and zeros",
+  "version": 1
+}

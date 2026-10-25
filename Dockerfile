@@ -5,6 +5,8 @@ WORKDIR /app
 COPY requirements-core.txt /app/
 RUN pip install --no-cache-dir -r requirements-core.txt pytest==8.3.5 'autogluon.tabular[lightgbm,catboost,xgboost]==1.3.1' matplotlib==3.9.4 seaborn==0.13.2
 COPY automl_agent /app/automl_agent
+COPY context_compressor /app/context_compressor
+COPY ml_knowledge /app/ml_knowledge
 COPY solution.py /app/solution.py
 COPY data_for_participants/requirements.txt /app/requirements.txt
 COPY tests /app/tests

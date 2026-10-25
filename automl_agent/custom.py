@@ -12,7 +12,7 @@ from .util import digest
 
 ALLOWED_IMPORTS = {
     "numpy", "pandas", "scipy", "sklearn", "catboost", "lightgbm", "xgboost", "feature_engine",
-    "imblearn", "category_encoders", "statsmodels", "torch", "polars", "pyarrow",
+    "imblearn", "category_encoders", "statsmodels", "polars", "pyarrow",
     "math", "statistics", "collections", "itertools", "functools", "operator", "typing", "dataclasses",
     "re", "json", "datetime", "time", "warnings", "copy", "numbers", "random",
 }
@@ -36,6 +36,8 @@ def validate_code(code: str, component: str) -> None:
         if isinstance(node, (ast.Import, ast.ImportFrom)):
             modules = [alias.name for alias in node.names] if isinstance(node, ast.Import) else [node.module or ""]
             for module in modules:
+                if module == "sklearn.neural_network" or module.startswith("sklearn.neural_network."):
+                    raise ValueError("Neural models are outside classical ML scope")
                 if any(part in {"datasets", "hub", "cpp_extension"} for part in module.split(".")):
                     raise ValueError("Bundled datasets, model hubs and extension builders are outside the data policy")
                 if any(part.startswith("_") for part in module.split(".")):
@@ -51,7 +53,11 @@ def validate_code(code: str, component: str) -> None:
                 raise ValueError("Candidate import exposes a disallowed data-loading or execution operation")
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in FORBIDDEN_CALLS:
             raise ValueError(f"Forbidden candidate operation: {node.func.id}")
+        if isinstance(node, ast.ImportFrom) and node.module == "sklearn" and any(a.name == "neural_network" for a in node.names):
+            raise ValueError("Neural models are outside classical ML scope")
         if isinstance(node, ast.Attribute):
+            if node.attr == "neural_network":
+                raise ValueError("Neural models are outside classical ML scope")
             init = node.attr == "__init__" and isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name) and node.value.func.id == "super"
             json_decode = node.attr == "loads" and isinstance(node.value, ast.Name) and node.value.id == "json"
             private_library = node.attr.startswith("_") and not (isinstance(node.value, ast.Name) and node.value.id == "self") and not init
@@ -99,17 +105,50 @@ class TransformerPipeline:
         return transformed
 
     def fit(self, X, y, context):
-        self.transformer.fit(X.copy(), y.copy())
-        transformed = self._check(X, self.transformer.transform(X.copy()))
+        import copy
+        if self.spec.supervised_transform:
+            from .research_evaluation import folds
+            parts, fold_evidence = [], []
+            for number, (a, b) in enumerate(folds(X, y, self.task, context["strategy"], self.spec.seed)):
+                transform = copy.deepcopy(self.transformer)
+                if hasattr(transform, "fit_transform"):
+                    transform.fit_transform(X.iloc[a].copy(), y.iloc[a].copy())
+                else:
+                    transform.fit(X.iloc[a].copy(), y.iloc[a].copy())
+                parts.append(self._check(X.iloc[b], transform.transform(X.iloc[b].copy())))
+                fold_evidence.append({"fold": number, "fit_keys": X.index[a].tolist(), "heldout_keys": X.index[b].tolist()})
+            transformed = pd.concat(parts).reindex(X.index)
+            covered = X.index.isin(pd.concat(parts).index)
+            transformed = transformed.loc[covered]
+            if not transformed.columns.is_unique or not len(transformed):
+                raise ValueError("Cross-fitted transformer has no valid training matrix")
+            if hasattr(self.transformer, "fit_transform"):
+                self.transformer.fit_transform(X.copy(), y.copy())
+            else:
+                self.transformer.fit(X.copy(), y.copy())
+            self.crossfit = {"scope": "fit_only_external_folds", "folds": fold_evidence,
+                "covered_rows": len(transformed), "uncovered_initial_temporal_rows": int((~covered).sum())}
+        else:
+            if hasattr(self.transformer, "fit_transform"):
+                transformed = self._check(X, self.transformer.fit_transform(X.copy()))
+            else:
+                self.transformer.fit(X.copy())
+                transformed = self._check(X, self.transformer.transform(X.copy()))
+            self.crossfit = {"scope": "unsupervised_no_labels"}
         categorical = [c for c in transformed if not pd.api.types.is_numeric_dtype(transformed[c]) and c not in self.task.text_columns]
         adapted = self.task.model_copy(update={"feature_columns": list(transformed), "categorical_columns": categorical,
             "text_columns": [c for c in self.task.text_columns if c in transformed]})
         direct = self.spec.model_copy(update={"engine": "direct", "custom_module": None, "custom_hash": None})
         self.pipeline = DirectPipeline(direct, adapted)
-        return self.pipeline.fit(transformed, y, context)
+        summary = self.pipeline.fit(transformed, y.loc[transformed.index], context)
+        summary.rows = len(X)
+        summary.preprocessing = {**(summary.preprocessing or {}), "custom_transformer": self.crossfit}
+        return summary
 
     def predict(self, X, context):
         return self.pipeline.predict(self._check(X, self.transformer.transform(X.copy())), context)
 
     def frozen_spec(self):
-        return self.spec
+        frozen = self.pipeline.frozen_spec()
+        return self.spec.model_copy(update={"iteration_schedule": frozen.iteration_schedule,
+            "learned_decision": frozen.learned_decision})

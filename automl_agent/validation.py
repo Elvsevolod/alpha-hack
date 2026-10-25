@@ -11,9 +11,9 @@ from .feedback import freeze_partitions
 
 
 def selection_for(task: TaskSpec) -> SelectionPolicy:
-    if task.metric.name in {"rmse", "mse", "mae", "mape", "log_loss"}:
-        return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=1e-12, min_delta_rel=0.001)
-    return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=0.001)
+    # This is only floating-point equivalence. Practical significance and
+    # uncertainty are reported separately from the measured metric ranking.
+    return SelectionPolicy(maximize=task.metric.maximize, min_delta_abs=1e-12, min_delta_rel=1e-12)
 
 
 def ordered_periods(series: pd.Series) -> pd.Series:
@@ -188,7 +188,9 @@ def choose_validation(dataset, seed: int = 42) -> ValidationPlan:
                         "missing_classes": missing, "boundaries_preserved": strategy != "random",
                         "metric": task.metric.name, "targets_excluded": False})
     # Only masks and classes fixed before any model sees validation feedback are registered.
-    reports = ["missingness"] + (["classes"] if task.classes else [])
+    reports = ["missingness", "seen_unseen"] + (["classes"] if task.classes else [])
+    if task.group_column:
+        reports.append("entity_coverage")
     columns = sorted(set(task.feature_columns + ([task.time_column] if task.time_column else [])
         + ([task.group_column] if task.group_column else [])) - set(task.targets))
     partitions = freeze_partitions(task, train.iloc[fit][columns], train.iloc[validation][columns],
@@ -198,8 +200,13 @@ def choose_validation(dataset, seed: int = 42) -> ValidationPlan:
     class_order = sorted((f"{target}:{label}" for target in task.classes for label in task.classes[target]),
         key=lambda identifier: (next(coverage[target]['fit'][str(label)] for target in task.classes
             for label in task.classes[target] if f"{target}:{label}" == identifier), identifier))
+    if not task.classes and task.kind != "ranking":
+        reports.append("regression_errors")
+        observations.append({"type": "fit_target_tail_thresholds", "thresholds": {
+            target: float(pd.to_numeric(train.iloc[fit][target], errors="raise").quantile(.99)) for target in task.targets}})
     return ValidationPlan(strategy=strategy, reason=reason, fit=fit, validation=validation, control=control,
-        seed=seed, data_version=dataset.source_hash, feedback_policy=FeedbackPolicy(report_ids=reports, class_order=class_order),
+        seed=seed, data_version=dataset.source_hash, feedback_policy=FeedbackPolicy(report_ids=reports, class_order=class_order,
+            version=3, min_slice_rows=1, joint_disclosure="research_v3"),
         selection_policy=selection_for(task), class_coverage=coverage, observations=observations)
 
 
@@ -218,8 +225,12 @@ def inner_split(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str,
                 raise ValueError("Joint inner split requires complete groups")
             held_groups = set(X.iloc[val][task.group_column])
             fit = np.asarray([i for i in fit if X.iloc[i][task.group_column] not in held_groups], dtype=int)
-    elif strategy == "group":
-        groups = X[task.group_column]
+    elif strategy in {"group", "exact_group"}:
+        if strategy == "exact_group":
+            from .identity import feature_groups
+            groups = feature_groups(X[task.feature_columns])
+        else:
+            groups = X[task.group_column]
         fit, val = next(GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=seed).split(X, groups=groups))
     elif task.kind in {"classification", "multioutput_classification", "multilabel"}:
         a, b, c = stratified_parts(y.reset_index(drop=True), seed, task.kind == "multilabel")
@@ -241,20 +252,23 @@ def inner_split(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str,
     return np.asarray(fit), np.asarray(val)
 
 
-def pilot_indices(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str, max_rows: int, seed: int) -> np.ndarray:
+def pilot_indices(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: str, max_rows: int, seed: int,
+                  min_class_rows=3, min_groups=3) -> np.ndarray:
     if len(X) <= max_rows:
         return np.arange(len(X))
     rng = np.random.default_rng(seed)
     if strategy in {"temporal", "temporal_group"}:
         # Preserve all periods. Lower model complexity instead of sampling away a horizon.
         return np.arange(len(X))
-    if strategy == "group":
-        groups = X[task.group_column].drop_duplicates().to_numpy()
+    if strategy in {"group", "exact_group"}:
+        from .identity import feature_groups
+        codes = X[task.group_column].to_numpy() if strategy == "group" else feature_groups(X[task.feature_columns])
+        groups = pd.unique(codes)
         rng.shuffle(groups)
         chosen = []
-        for group in groups:
-            rows = np.flatnonzero((X[task.group_column] == group).to_numpy()).tolist()
-            if len(chosen) + len(rows) > max_rows and len(chosen) > 0:
+        for index, group in enumerate(groups):
+            rows = np.flatnonzero(codes == group).tolist()
+            if len(chosen) + len(rows) > max_rows and index >= min_groups:
                 break
             chosen.extend(rows)
         return np.asarray(chosen, dtype=int)
@@ -263,9 +277,66 @@ def pilot_indices(X: pd.DataFrame, y: pd.DataFrame, task: TaskSpec, strategy: st
         for column in y:
             for label in y[column].unique():
                 rows = np.flatnonzero((y[column] == label).to_numpy())
-                mandatory.update(rng.choice(rows, min(3, len(rows)), replace=False).tolist())
+                mandatory.update(rng.choice(rows, min(min_class_rows, len(rows)), replace=False).tolist())
         if len(mandatory) > max_rows:
             return np.arange(len(X))
         rest = np.asarray(sorted(set(range(len(X))) - mandatory))
         return np.asarray(sorted(mandatory | set(rng.choice(rest, min(max_rows - len(mandatory), len(rest)), replace=False).tolist())))
     return np.sort(rng.choice(len(X), max_rows, replace=False))
+
+
+class InsufficientPilotSupport(ValueError):
+    pass
+
+
+def pseudo_label_split(X, y, task, strategy, seed):
+    """Declare the teacher, pseudo pool and untouched gate before any fit."""
+    try:
+        a, gate = inner_split(X, y, task, strategy, seed)
+        teacher, pool = inner_split(X.iloc[a], y.iloc[a], task, strategy, seed + 1)
+    except ValueError as error:
+        raise InsufficientPilotSupport("Insufficient pseudo-label split support: " + str(error)) from error
+    teacher, pool = a[teacher], a[pool]
+    counts = y.iloc[pool][task.targets[0]].value_counts()
+    if len(pool) < 10 or not (counts >= 5).any():
+        raise InsufficientPilotSupport("Insufficient pseudo-label pool support for ten confident rows and a class with five correct predictions")
+    return teacher, pool, gate
+
+
+def pilot_population(X, y, task, strategy, max_rows, seed, spec):
+    complete_pseudo = spec.shift_strategy == "pseudo_label"
+    nested = (spec.engine != "direct" or spec.early_stopping_rounds or spec.checkpoint_counts
+        or complete_pseudo or spec.prediction_policy != "default" or spec.log_inverse == "oof_smearing"
+        or any(op.name == "target_encode" for op in spec.transformations))
+    # Confidence/student admission is a quality test of the complete recipe.
+    # Reducing its population or model complexity cannot establish infeasibility.
+    positions = np.arange(len(X)) if complete_pseudo else pilot_indices(X, y, task, strategy, max_rows, seed,
+        min_class_rows=12 if nested else 3, min_groups=6 if nested else 3)
+    def check(rows):
+        if not nested:
+            return
+        frame, actual = X.iloc[rows], y.iloc[rows]
+        if complete_pseudo:
+            pseudo_label_split(frame, actual, task, strategy, seed)
+        if spec.postprocess_fit_policy == "pooled_oof" or spec.log_inverse == "oof_smearing" or any(
+                op.name == "target_encode" for op in spec.transformations):
+            from .research_evaluation import oof_plan
+            oof_plan(spec, task, frame, actual, strategy, seed)
+        else:
+            inner_split(frame, actual, task, strategy, seed)
+    expanded = False
+    reason = "Pseudo-label admission requires the complete population and original model complexity" if complete_pseudo and len(X) > max_rows else None
+    try:
+        check(positions)
+    except ValueError as error:
+        reason = str(error)
+        positions = np.arange(len(X))
+        expanded = True
+        try:
+            check(positions)
+        except ValueError as full_error:
+            raise InsufficientPilotSupport("insufficient_pilot_support on full permitted fit: " + str(full_error)) from full_error
+    return positions, {"requested_rows": max_rows, "actual_rows": len(positions),
+        "expanded_for_structural_support": expanded or len(positions) > max_rows,
+        "sample_limitation": reason, "failure_on_small_sample_is_recipe_failure": False,
+        "quality_gate_requires_complete_recipe": complete_pseudo}

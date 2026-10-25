@@ -127,6 +127,8 @@ def score_predictions(task: TaskSpec, y: pd.DataFrame, predictions: dict[str, np
                 if task.metric.positive_label is None:
                     raise ValueError("Binary F1 requires a positive label")
                 kwargs["pos_label"] = task.metric.positive_label
+            else:
+                kwargs["labels"] = classes
             score = metrics.f1_score(actual, labels, **kwargs)
         elif name == "accuracy":
             score = metrics.accuracy_score(actual, labels)
@@ -167,7 +169,7 @@ def score_predictions(task: TaskSpec, y: pd.DataFrame, predictions: dict[str, np
     return float(np.average(scores, weights=weights))
 
 
-def feedback_reports(task, plan, X, y, predictions, prediction_type):
+def feedback_reports(task, plan, X, y, predictions, prediction_type, fit_X=None):
     policy = plan.feedback_policy
     base = {"scope": "external_validation", "data_version": task.source_hash,
         "protocol_hash": plan.hash, "policy_hash": policy.hash}
@@ -175,6 +177,13 @@ def feedback_reports(task, plan, X, y, predictions, prediction_type):
     families = {}
     missing = X[task.feature_columns].isna().any(axis=1).to_numpy()
     families["missingness"] = {"missing": missing, "observed": ~missing}
+    if policy.version >= 3 and fit_X is not None:
+        from .research_evaluation import feature_groups
+        known = np.isin(feature_groups(X[task.feature_columns]), feature_groups(fit_X[task.feature_columns]))
+        families["seen_unseen"] = {"seen_exact_features": known, "unseen_exact_features": ~known}
+        if task.group_column:
+            mask = X[task.group_column].isin(fit_X[task.group_column]).to_numpy()
+            families["entity_coverage"] = {"known_entity": mask, "cold_entity": ~mask}
     if "classes" in policy.report_ids:
         families["classes"] = {f"{target}:{label}": (y[target] == label).to_numpy()
             for target in task.targets for label in task.classes[target]}
@@ -182,10 +191,15 @@ def feedback_reports(task, plan, X, y, predictions, prediction_type):
     for identifier, rule in partitions.items():
         families[identifier] = partition_masks(rule, X)
     for family in policy.report_ids:
+        if policy.version >= 3 and family == "regression_errors":
+            extra = {name: mask for family_name in ("seen_unseen", "entity_coverage")
+                for name, mask in families.get(family_name, {}).items()}
+            reports[family] = regression_errors(task, plan, X, y, predictions, base, extra)
+            continue
         if family == "classes" and policy.version >= 2:
             reports[family] = class_metrics(task, plan, y, predictions, prediction_type, base)
             continue
-        if policy.version >= 2 and task.classes and (policy.history_guard!='initial_protocol' or len(task.targets)>1 or any(
+        if policy.version == 2 and task.classes and (policy.history_guard!='initial_protocol' or len(task.targets)>1 or any(
                 int((y[target]==label).sum())<policy.min_slice_rows for target in task.classes for label in task.classes[target])):
             reports[family] = {**base, "report_id":family, "status":"suppressed", "reason":"joint_class_slice_history_not_established"}
             continue
@@ -194,18 +208,29 @@ def feedback_reports(task, plan, X, y, predictions, prediction_type):
             reports[family] = {**base, "report_id": family, "status": "unsupported", "reason": "single_nonempty_partition"}
             continue
         # Suppress a whole complementary family if a small cell could be reconstructed.
-        if not masks or any(int(mask.sum()) < policy.min_slice_rows for mask in masks.values()):
+        if not masks or policy.version < 3 and any(int(mask.sum()) < policy.min_slice_rows for mask in masks.values()):
             reports[family] = {**base, "report_id": family, "status": "suppressed", "reason": "minimum_support_or_complementary_disclosure"}
             continue
         slices = {}
         unsupported = False
         for label, mask in masks.items():
+            if not int(mask.sum()):
+                slices[label] = {"rows": 0, "status": "empty", "uncertain": True}
+                continue
             try:
                 if task.kind == "ranking" and not whole_ranking_groups(X, task.group_column, mask):
                     raise ValueError("Ranking diagnostics cannot split a query")
                 groups = X.loc[mask, task.group_column].to_numpy() if task.kind == "ranking" else None
                 value = score_predictions(task, y.loc[mask], {t: p[mask] for t, p in predictions.items()}, prediction_type, groups)
                 slices[label] = {"rows": int(mask.sum()), "score": value}
+                if policy.version >= 3:
+                    slices[label].update(status="available", uncertain=int(mask.sum()) < 30)
+                    if task.classes and family in {"seen_unseen", "entity_coverage"}:
+                        slices[label]["targets"] = {}
+                        for target, labels in task.classes.items():
+                            values = predictions[target][mask]
+                            predicted = np.asarray(labels)[np.argmax(values, axis=1)] if prediction_type == "probabilities" else values
+                            slices[label]["targets"][target] = confusion_details(y.loc[mask, target], predicted, labels)
                 if family == "classes":
                     slices[label]["score_semantics"] = "metric_conditioned_on_true_class_not_per_class_f1"
             except ValueError:
@@ -228,6 +253,17 @@ def class_metrics(task, plan, y, predictions, prediction_type, base):
     reports stay immutable; no claim of retroactive secrecy is made.
     """
     policy = plan.feedback_policy
+    if policy.version >= 3:
+        targets = {}
+        rows = []
+        for target in task.targets:
+            labels = task.classes[target]
+            predicted = np.asarray(labels)[np.argmax(predictions[target], axis=1)] if prediction_type == "probabilities" else predictions[target]
+            detail = confusion_details(y[target], predicted, labels)
+            targets[target] = detail
+            rows.extend({**row, "id": f"{target}:{row['class']}"} for row in detail["classes"])
+        return {**base, "report_id": "classes", "status": "available", "policy_version": policy.version,
+            "classes": rows, "targets": targets, "composition": "fixed_research_reports; control_remains_closed"}
     rows = []
     sparse = []
     for target in task.targets:
@@ -254,6 +290,48 @@ def class_metrics(task, plan, y, predictions, prediction_type, base):
     return {**base, "report_id":"classes", "status":"suppressed" if restricted else "available",
         "policy_version":policy.version, "classes":rows,
         "composition":"fixed_all_history_policy; sparse or multi-target details withheld; previous disclosures are not revoked"}
+
+
+def confusion_details(actual, predicted, labels):
+    matrix = metrics.confusion_matrix(actual, predicted, labels=labels)
+    support, predicted_support, tp = matrix.sum(axis=1), matrix.sum(axis=0), matrix.diagonal()
+    rows = [{"class": label, "status": "available", "support": int(support[i]),
+        "predicted_support": int(predicted_support[i]), "true_positive": int(tp[i]),
+        "false_positive": int(predicted_support[i] - tp[i]), "false_negative": int(support[i] - tp[i]),
+        "precision": float(tp[i] / predicted_support[i]) if predicted_support[i] else 0.,
+        "recall": float(tp[i] / support[i]) if support[i] else 0.,
+        "f1": float(2 * tp[i] / (support[i] + predicted_support[i])) if support[i] + predicted_support[i] else 0.,
+        "uncertain": bool(support[i] < 30 or predicted_support[i] < 30)} for i, label in enumerate(labels)]
+    errors = sorted(({"actual": labels[i], "predicted": labels[j], "rows": int(matrix[i, j])}
+        for i in range(len(labels)) for j in range(len(labels)) if i != j and matrix[i, j]), key=lambda row: -row["rows"])
+    return {"labels": labels, "confusion_matrix": matrix.tolist(), "classes": rows, "main_errors": errors[:10]}
+
+
+def regression_errors(task, plan, X, y, predictions, base, extra_masks=None):
+    thresholds = next((item["thresholds"] for item in plan.observations if item.get("type") == "fit_target_tail_thresholds"), {})
+    masks = {"all": np.ones(len(X), dtype=bool), "missing": X[task.feature_columns].isna().any(axis=1).to_numpy()}
+    masks["observed"] = ~masks["missing"]
+    masks.update(extra_masks or {})
+    for identifier, rule in registered_partitions(plan).items():
+        masks.update({identifier + ":" + str(key): value for key, value in partition_masks(rule, X).items()})
+    targets = {}
+    for target in task.targets:
+        actual = y[target].to_numpy(dtype=float)
+        residual = actual - predictions[target]
+        squared = residual ** 2
+        total = float(squared.sum())
+        slices = {}
+        for name, mask in {**masks, "fit_top_1pct_target": actual >= thresholds.get(target, float("inf"))}.items():
+            n = int(mask.sum())
+            slices[name] = {"rows": n, "status": "available" if n else "empty", "uncertain": n < 30,
+                "sse": float(squared[mask].sum()),
+                "residual_bias": float(residual[mask].mean()) if n else None,
+                "rmse": float(np.sqrt(squared[mask].mean())) if n else None,
+                "mae": float(np.abs(residual[mask]).mean()) if n else None,
+                "squared_error_fraction": float(squared[mask].sum() / total) if total else 0.}
+        targets[target] = slices
+    return {**base, "report_id": "regression_errors", "status": "available", "targets": targets,
+        "tail_thresholds_from_fit": thresholds, "residual_definition": "actual_minus_prediction"}
 
 
 def choose_leader(results, policy):

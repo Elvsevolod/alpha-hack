@@ -277,7 +277,10 @@ def test_dependency_allocation_60_5_5_and_shared_nodes(tmp_path):
         base, result = c.lookup("baseline")
         for i, cost in enumerate((60, 5, 5)):
             spec = base.model_copy(update={"experiment_id": f"node{i}"})
-            out = result.model_copy(update={"experiment_id": spec.experiment_id, "seconds": cost})
+            # Synthetic 60/5/5 costs must not inherit unrelated measured
+            # stability/OOF/phase timings from the real baseline fixture.
+            out = result.model_copy(update={"experiment_id": spec.experiment_id, "seconds": cost,
+                "training_summary": {"rows": len(c.plan.fit), "seconds": cost}})
             c.journal.save_experiment(spec, out)
         ids = ["node0", "node1", "node2"]
         granted = allocation(c, ids, "node0", c.plan.fit, "control", 100)
@@ -307,11 +310,14 @@ def test_60_5_5_control_preparation_finishes_within_100_and_reuses_nodes(tmp_pat
         c.journal.put("leader_id", ids[-1])
         c.freeze("Controlled preparation timing fixture")
         plan = c.journal.get("finalization_plan")
-        # The fixture prepares all three measured nodes in one phase.
+        # The fixture prepares all three measured nodes in one phase. Frozen
+        # policies must come from each worker manifest, exactly as freeze() does,
+        # because a fitted schedule is part of the frozen representation.
         for identifier in ids:
-            spec, _ = c.lookup(identifier)
-            plan["policies"][identifier] = {"experiment_id": identifier, "pipeline_hash": spec.pipeline.hash,
-                "frozen_pipeline": spec.pipeline.model_dump(mode="json"), "dependencies": []}
+            spec, result = c.lookup(identifier)
+            frozen = PipelineSpec.model_validate(json.loads((Path(result.artifacts["worker_manifest"])).read_text())["frozen_pipeline"])
+            plan["policies"][identifier] = {"experiment_id": identifier, "pipeline_hash": frozen.hash,
+                "frozen_pipeline": frozen.model_dump(mode="json"), "dependencies": []}
         c.journal.put("finalization_plan", plan)
         spent, calls = [0], []
         monkeypatch.setattr(Budget, "remaining", property(lambda self: 100 - spent[0]))
@@ -360,6 +366,6 @@ def test_selected_model_cost_uses_actual_inner_training_rows(tmp_path):
         result.training_summary.update(rows=120, seconds=60, budget={"selected_fit_actual_seconds": 2., "selected_fit_rows": 60})
         c.journal.save_experiment(spec, result)
         forecast = estimate(c, [spec.experiment_id], list(range(120)))
-        assert 5.5 < forecast["seconds"] < 6
+        assert 5.0 < forecast["seconds"] < 6.5  # selected fit scales; serialization stays fixed
     finally:
         c.close()

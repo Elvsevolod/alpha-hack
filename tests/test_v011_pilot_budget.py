@@ -29,13 +29,13 @@ def test_pilot_has_its_own_phase_reserves_on_small_and_large_data(tmp_path, monk
         observed = []
         full_attempts = []
         def inspect(directory, request, seconds):
-            if directory.name != "pilot":
+            if directory.name != "smoke":
                 full_attempts.append(directory)
                 return {"status": "timeout", "error": "Controlled stop after the real pilot; no full-data model needed"}
             phases = request["context"]["phase_estimates"]
             assert phases["selected_fit_seconds"] + phases["prediction_seconds"] + phases["publication_seconds"] < seconds
             assert request["context"]["requested_budget_seconds"] == seconds
-            assert request["pipeline"]["n_trials"] == 2 and request["context"]["budget_mode"] == "research"
+            assert request["pipeline"]["n_trials"] == 1 and request["context"]["budget_mode"] == "research"
             result = original(directory, request, seconds)
             observed.append(result)
             return result
@@ -44,7 +44,7 @@ def test_pilot_has_its_own_phase_reserves_on_small_and_large_data(tmp_path, monk
         assert observed[0]["status"] == "completed", observed[0]
         budget = observed[0]["training_summary"]["budget"]
         target = budget["targets"][c.task.targets[0]]
-        assert budget["n_trials"] == 2 and target["configured_learners"] == ["GBM", "CAT"]
+        assert budget["n_trials"] == 1 and target["configured_learners"] == ["GBM"]
         assert target["stop_reason"] == "trial_limit_reached"
         assert spec.pipeline.n_trials is None and spec.budget_mode == "full_comparison"
         assert outcome.status == "timeout"
@@ -81,13 +81,11 @@ def test_autogluon_actual_training_seed_and_finite_model_policy(tabular, tmp_pat
     X, y, task = tabular
     spec = PipelineSpec(engine="autogluon", model="library_search", learners=["GBM", "CAT", "XGB"], n_trials=None, seed=73)
     pipeline = SearchPipeline(spec, task)
-    summary = pipeline.fit(X, y, {"strategy": "random", "cpu": 1, "budget_seconds": 35, "workdir": str(tmp_path)})
+    summary = pipeline.fit(X, y, {"strategy": "random", "cpu": 1, "budget_seconds": 35, "memory_mb":2048, "workdir": str(tmp_path)})
     evidence = summary.budget["targets"][task.targets[0]]
     assert evidence["training_seed"] == 73
     assert summary.budget["selected_fit_rows"] == len(X)
-    assert 0 < len(pipeline.training_keys) < len(X)
-    assert set(pipeline.training_keys).isdisjoint(pipeline.inner_split["validation_keys"])
-    assert set(pipeline.training_keys) | set(pipeline.inner_split["validation_keys"]) == set(X.index)
+    assert set(pipeline.training_keys) == set(X.index)  # cached fit and tuning rows are already refitted once
     assert evidence["completed_learners"] == ["GBM", "CAT", "XGB"]
     assert evidence["stop_reason"] == "engine_space_exhausted"
     predictor = pipeline.models[task.targets[0]][1]

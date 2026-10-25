@@ -5,6 +5,8 @@ WORKDIR /app
 COPY data_for_participants/requirements.txt /app/data_for_participants/requirements.txt
 RUN pip install --no-cache-dir -r /app/data_for_participants/requirements.txt
 COPY automl_agent /app/automl_agent
+COPY context_compressor /app/context_compressor
+COPY ml_knowledge /app/ml_knowledge
 COPY solution.py /app/solution.py
 COPY knowledge_runtime /app/knowledge_runtime
 COPY tools /app/tools

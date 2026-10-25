@@ -43,7 +43,8 @@ def test_live_harness_exercises_recovery_and_roles_without_network(tmp_path, mon
                 return httpx.Response(200,json={'choices':[{'finish_reason':'stop','message':{'content':json.dumps(proposal)}}]})
             assert "declared_acceptance_padding" not in body["messages"][-1]["content"]
             arguments = {"operation_id": "after_recovery_finish", "reason": "Finish after the declared context fault and restored research memory",
-                "result_ids":["baseline"], "imputation_skip_reason": "Offline harness test; preserve the verified models and exercise complete finalization"}
+                "result_ids":["baseline"], "imputation_skip_reason": "Offline harness test; preserve the verified models and exercise complete finalization",
+                "skipped_directions": {"all": "This fixed offline recovery fixture verifies finalization without testing model quality."}}
             return httpx.Response(200, json={"choices": [{"finish_reason": "stop", "message": {"tool_calls": [
                 {"id": "mock_finish", "type": "function", "function": {"name": "finish", "arguments": json.dumps(arguments)}}]}}]})
         client.client = httpx.Client(transport=httpx.MockTransport(respond))

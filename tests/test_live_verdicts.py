@@ -20,7 +20,8 @@ def test_safe_trained_csv_does_not_pass_without_failure_response(tmp_path,monkey
                 'code':code,'budget_seconds':30}
         else:
             name='finish';args={'operation_id':'done','reason':'All done successfully. Keep the currently available model.',
-                'result_ids':['baseline'], 'imputation_skip_reason':'No additional hypothesis in this technical test'}
+                'result_ids':['baseline'], 'imputation_skip_reason':'No additional hypothesis in this technical test',
+                'skipped_directions': {'all': 'Fixed technical verdict fixture; model exploration is outside this scenario.'}}
         message={'content':None,'tool_calls':[{'id':str(calls['count']),'type':'function','function':{'name':name,'arguments':json.dumps(args)}}]}
         return {'choices':[{'finish_reason':'tool_calls','message':message}]} if prepared is not None else message
     monkeypatch.setattr(QwenClient,'_request',response)

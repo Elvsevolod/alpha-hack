@@ -32,13 +32,13 @@ def call(c, name, args, op):
     return result
 
 
-def test_all_fifteen_actions_share_one_public_registry_and_bounded_transports(agent):
-    assert len(TOOL_SCHEMAS) == 15 and set(TOOL_SCHEMAS) == set(RESULT_SCHEMAS)
+def test_all_actions_share_one_public_registry_and_bounded_transports(agent):
+    assert len(TOOL_SCHEMAS) == 17 and 'preview_recipe' in TOOL_SCHEMAS and set(TOOL_SCHEMAS) == set(RESULT_SCHEMAS)
     assert set(ToolCommand.model_json_schema()["properties"]["tool"]["enum"]) == set(TOOL_SCHEMAS)
     snapshot = agent.context_memory.snapshot(SYSTEM)
     for mode in ("native", "json"):
         compressor = agent.context_memory.compressor
-        assert compressor.transport.overhead_bytes(mode) <= 49152
+        assert compressor.transport.overhead_bytes(mode) <= 65536
         prepared = compressor.prepare(snapshot, mode, budget=131072)
         assert prepared.conservative_size + 8192 <= 131072
         body = json.loads(prepared.wire_json)
@@ -201,8 +201,8 @@ def test_new_receipt_ids_do_not_turn_repeated_reads_into_progress(agent):
 
 
 def test_legacy_symbol_alias_fit_signature_is_not_lost(agent):
-    result = agent.knowledge_tools.discover(KnowledgeSearchArgs(query="MLPClassifier sample_weight early_stopping", max_chars=12000))
-    expected = agent.references.document("api_sklearn_neural_network_MLPClassifier_fit")["id"]
+    result = agent.knowledge_tools.discover(KnowledgeSearchArgs(query="sklearn.neighbors.KNeighborsClassifier.fit n_neighbors", max_chars=12000))
+    expected = agent.references.document("api_sklearn_neighbors_KNeighborsClassifier_fit")["id"]
     assert expected in [entry["id"] for entry in result["entries"]]
 
 

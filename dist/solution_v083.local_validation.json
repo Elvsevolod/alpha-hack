@@ -1,0 +1,6 @@
+{
+  "status": "superseded_before_final_delivery",
+  "reason": "Optuna diagnostic begin/end events restored in v084; ML operator recipes unchanged",
+  "organizer_requests": 0,
+  "submitted": false
+}

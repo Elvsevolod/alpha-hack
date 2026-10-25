@@ -28,6 +28,16 @@ def test_observed_slowdown_reduces_pool_and_preserves_refit(tmp_path,monkeypatch
         c.prepare();c.freeze('Updated estimates after preparing the first node')
         saved=c.journal.get('finalization_plan');saved['finalists']=['baseline','leader','third']
         c.journal.put('finalization_plan',saved);c.journal.put('leader_id','leader')
+        # Cost-only phantom candidates still need a comparable research score
+        # under the quality/cost policy. They must never reach preparation.
+        lookup = c.lookup
+        def fixture_lookup(identifier):
+            if identifier in {'leader','third'}:
+                spec, measured = lookup('baseline')
+                return spec.model_copy(update={'experiment_id':identifier}), measured.model_copy(
+                    update={'experiment_id':identifier,'score':measured.score+1})
+            return lookup(identifier)
+        monkeypatch.setattr(c, 'lookup', fixture_lookup)
         c.budget.deadline=time.time()+100
         def estimate(controller,identifiers,rows=None,phase=None):
             ready=c.journal.get('prepared_finalists',{}) if phase=='control' else {}

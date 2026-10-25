@@ -1,0 +1,27 @@
+{
+  "status": "locally_verified",
+  "archive": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/dist/solution_v084.zip",
+  "archive_sha256": "be5e38876d15a310af3d84d96780dcabb46cce586678598096a2568947d52b86",
+  "plan_items": 24,
+  "tests": {
+    "passed_locally": 1211,
+    "passed_in_pinned_container": 2
+  },
+  "all_1213_test_scenarios_covered": true,
+  "runtime_source_correspondence": true,
+  "requirements_unchanged": true,
+  "baseline_archives_unchanged": true,
+  "exact_zip_mock_cases": 4,
+  "exact_zip_mock_all_passed": true,
+  "offline_diagnostic_cases": 5,
+  "offline_diagnostic_all_passed": true,
+  "development_runs": 62,
+  "development_completed": 54,
+  "development_timeouts_with_fallback": 8,
+  "all_development_csvs_valid": true,
+  "quality_status": "advantage_over_v076_unestablished",
+  "real_qwen_requests": 0,
+  "platform_submission": false,
+  "automatic_promotion": false,
+  "report": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/plan_v081_implementation/REPORT.md"
+}

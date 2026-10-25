@@ -12,7 +12,8 @@ from conftest import write_task
 
 def finish():
     return {'choices':[{'finish_reason':'stop','message':{'tool_calls':[{'id':'done','type':'function',
-        'function':{'name':'finish','arguments':json.dumps({'operation_id':'done','reason':'Bounded transport test completed','result_ids':['baseline']})}}]}}]}
+        'function':{'name':'finish','arguments':json.dumps({'operation_id':'done','reason':'Bounded transport test completed','result_ids':['baseline'],
+            'skipped_directions': {'all': 'This fixed transport fixture exercises completion after channel recovery only.'}})}}]}}]}
 
 
 @pytest.mark.parametrize('failure',[httpx.ReadTimeout,httpx.ReadError,httpx.WriteError,httpx.RemoteProtocolError])

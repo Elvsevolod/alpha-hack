@@ -1,0 +1,12 @@
+{
+  "archive": "solution_v075.zip",
+  "archive_sha256": "880574dbb6083a6411f3f93d6bc9ed499f66a95f5e4449e26a1a94a0dec9a73f",
+  "base": "v074",
+  "status": "exact_zip_mock_failed",
+  "ready_for_upload": false,
+  "live_qwen_tested": false,
+  "quality_advantage_established": false,
+  "reason": "terminal QwenUnavailable initiated a recovery critic and interrupted finalization",
+  "evidence": "outputs/audit_plan_v074_20261024/exact_zip_v075/REPORT.json",
+  "superseded_by_planned": "v076"
+}

@@ -109,7 +109,7 @@ def test_classification_numeric_bundles_cannot_be_scored_or_published(tmp_path, 
 @pytest.mark.parametrize('mode', ['auto', 'json'])
 def test_focus_uses_available_transport_when_native_overhead_exceeds_cap(controller, mode):
     c = controller
-    c.research_focus = 'Улучшить качество, сохраняя метрику и независимую валидацию. ' * 30
+    c.research_focus = 'Улучшить качество, сохраняя метрику и независимую валидацию. ' * 100
     c.qwen.transport = mode
     seen = []
     def handle(request):
@@ -119,8 +119,8 @@ def test_focus_uses_available_transport_when_native_overhead_exceeds_cap(control
     mock_client(c, handle)
     snapshot = c.context_memory.snapshot(SYSTEM)
     compressor = c.context_memory.compressor
-    assert compressor.transport.overhead_bytes('native') > 49152
-    assert compressor.transport.overhead_bytes('json') < 49152
+    assert compressor.transport.overhead_bytes('native') > 65536
+    assert compressor.transport.overhead_bytes('json') < 65536
     command, _ = c.qwen.next_command(SYSTEM, snapshot)
     assert command.tool == 'get_dataset_report' and c.qwen.transport == 'json'
     assert len(seen) == 1 and 'tools' not in seen[0]

@@ -58,11 +58,13 @@ def test_confusion_matrix_and_per_class_metrics_use_all_predictions(tmp_path):
     assert (tmp_path / "matrix.png").stat().st_size <= 65536
 
 
-def test_sparse_classes_suppress_entire_matrix_and_image(tmp_path):
+def test_sparse_classes_keep_full_matrix_with_uncertainty_and_image(tmp_path):
     report = confusion_report(["a"] * 50 + ["b"] * 2, ["a"] * 52, ["a", "b"])
-    assert report == {"kind": "confusion_matrix", "status": "suppressed", "reason": "minimum_class_aggregate_support"}
-    assert render_report(report, tmp_path / "hidden.png") == "minimum_class_aggregate_support"
-    assert not (tmp_path / "hidden.png").exists()
+    assert report["status"] == "available" and report["matrix"] == [[50, 0], [2, 0]]
+    assert report["classes"][1]["uncertain"] and report["classes"][1]["support"] == 2
+    report["scope"] = "fit_inner_holdout"
+    assert render_report(report, tmp_path / "rare.png") is None
+    assert (tmp_path / "rare.png").is_file()
 
 
 def test_residual_numbers_and_binned_plot_do_not_return_rows():
@@ -237,6 +239,10 @@ def test_diagnostic_image_reaches_real_compressed_client_and_audits(agent, mode)
 @pytest.mark.parametrize("mode", ["native", "json"])
 def test_chart_hypothesis_is_revised_then_approved_before_real_training(agent, monkeypatch, mode):
     c = agent
+    from automl_agent.completion import CompletionCosts
+    # The critic now gates measured expensive work, independently of its cap.
+    monkeypatch.setattr('automl_agent.completion.candidate_costs', lambda *a, **k:
+        CompletionCosts([], {'candidate_fit_seconds': 120., 'seconds': 17.}))
     raw = publish_via_client(c, mode)
     observation = c.journal.operation("make_diagnostic").result["evidence_ref"]
     csv_before = c.publisher.output.read_bytes()

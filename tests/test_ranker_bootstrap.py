@@ -72,7 +72,8 @@ def write_ranking_task(root, explicit_validation=None):
     pd.DataFrame({"row": test["row"], "relevance": 0}).to_csv(root / "sample_submission.csv", index=False)
     spec = rank_task().model_copy(update={"explicit_validation": explicit_validation})
     (root / "task_spec.json").write_text(json.dumps(spec.model_dump(mode="json", exclude={"source_hash"})))
-    (root / "task.md").write_text("Synthetic ranking fixture.\n")
+    protocol = " Use a random validation split." if explicit_validation == "random" else ""
+    (root / "task.md").write_text("Synthetic ranking fixture." + protocol + "\n")
     return root / "task.md"
 
 

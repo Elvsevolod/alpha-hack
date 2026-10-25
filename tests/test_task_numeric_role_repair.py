@@ -41,7 +41,7 @@ def test_controller_requests_semantic_repair_instead_of_failing_after_confirmati
     try:
         task=c._task()
         assert len(requests)==2 and task.categorical_columns==['code']
-        assert not (tmp_path/'submission.csv').exists()
+        assert (tmp_path/'submission.csv').read_bytes()==(tmp_path/'sample_submission.csv').read_bytes()
     finally:c.close()
 
 

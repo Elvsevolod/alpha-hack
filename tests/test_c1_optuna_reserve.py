@@ -9,7 +9,9 @@ from automl_agent.search import SearchPipeline
 
 @pytest.mark.parametrize('fit_seconds,budget,expect_success', [(.4, 2., True), (1.2, 1.5, False)])
 def test_next_trial_cannot_evict_selected_fit(tabular, tmp_path, monkeypatch, fit_seconds, budget, expect_success):
-    import automl_agent.search as search
+    import automl_agent.tuning as tuning
+    import automl_agent.pipelines as pipelines
+    import numpy as np
     clock, calls = [0.], []
     class TimedPipeline:
         def __init__(self, *args):
@@ -22,11 +24,10 @@ def test_next_trial_cannot_evict_selected_fit(tabular, tmp_path, monkeypatch, fi
             return SimpleNamespace(prediction_type='values')
         def frozen_spec(self):
             return self.spec
-    monkeypatch.setattr(search.time, 'monotonic', lambda: clock[0])
-    monkeypatch.setattr(search, 'DirectPipeline', TimedPipeline)
-    monkeypatch.setattr(search, 'align_predictions', lambda *a: {})
-    monkeypatch.setattr(search, 'score_predictions', lambda *a: 1.)
-    monkeypatch.setattr(search, 'trial_event', lambda *a, **kw: None)
+    monkeypatch.setattr(tuning.time, 'monotonic', lambda: clock[0])
+    monkeypatch.setattr(pipelines, 'DirectPipeline', TimedPipeline)
+    monkeypatch.setattr(tuning, 'align_predictions', lambda bundle, keys, *a: {'answer': np.zeros(len(keys))})
+    monkeypatch.setattr(tuning, 'score_predictions', lambda *a: 1.)
     X, y, task = tabular
     spec = PipelineSpec(engine='optuna', model='ridge', n_trials=8,
         search_space={'alpha': {'type': 'float', 'low': .1, 'high': 1.}})

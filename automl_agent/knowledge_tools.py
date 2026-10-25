@@ -51,7 +51,11 @@ def position(token, binding):
 
 
 def continuation(tool, args, token):
-    return {"tool": tool, "arguments": {**args.model_dump(mode="json"), "cursor": token}} if token else None
+    arguments = args.model_dump(mode="json")
+    if tool == "read_knowledge" and arguments.get("view") == "document":
+        arguments.pop("view")
+        arguments.pop("parameter", None)
+    return {"tool": tool, "arguments": {**arguments, "cursor": token}} if token else None
 
 
 class KnowledgeTools:
@@ -73,6 +77,9 @@ class KnowledgeTools:
 
     def binding(self, tool, args, extra=None):
         request = args.model_dump(exclude={"cursor", "max_chars", "limit", "knowledge_gap"}, mode="json")
+        if request.get("view") == "document":
+            request.pop("view")
+            request.pop("parameter", None)
         return {"tool": tool, "corpus": self.store.version, "request": digest(request), **(extra or {})}
 
     def exact(self, query, where, values):
@@ -163,11 +170,17 @@ class KnowledgeTools:
             "read": {"tool": "read_knowledge", "arguments": {"collection": collection, "id": hit["doc"], "corpus_version": self.store.version}}}
 
     def discover(self, args, *, catalog=False):
+        if args.collection == "actions":
+            from .action_cards import discover
+            return discover(self.c, args, catalog)
         tool = "list_knowledge" if catalog else "search_knowledge"
         if self.store.disabled_reason:
             return {"status": "technical_failure", "error_code": "corpus_unavailable"}
         if not catalog and args.collection != "documents" and args.strategy in {"fts", "exact_symbol"}:
             return {"status": "incompatible", "error_code": "unsupported_strategy_for_collection"}
+        if self.store.excluded_by_scope(" ".join(filter(None, (getattr(args, "query", ""), args.filters.library)))):
+            return {"status": "no_matches", "collection": args.collection, "entries": [], "total": 0,
+                "scope_reason": "outside_classical_ml_scope", "answer_confirmed": False, "complete": True}
         where, values = self.where(args)
         binding = self.binding(tool, args, {"fts_enabled": self.store.use_fts})
         offset = position(args.cursor, binding)
@@ -230,6 +243,11 @@ class KnowledgeTools:
         return result
 
     def read(self, args):
+        if args.view == "parameters" and args.collection != "documents":
+            return {"status": "incompatible", "error_code": "parameters_require_documentation"}
+        if args.collection == "actions":
+            from .action_cards import read
+            return read(self.c, args)
         if args.corpus_version != self.store.version:
             return {"status": "missing_version", "error_code": "corpus_version_unavailable"}
         record = self.store.document(args.id)
@@ -237,6 +255,8 @@ class KnowledgeTools:
             return {"status": "unknown_id", "error_code": "unknown_knowledge_id"}
         if record["type"] != KINDS[args.collection]:
             return {"status": "incompatible", "error_code": "collection_mismatch"}
+        if args.view == "parameters":
+            return self.read_parameters(args, record)
         binding = self.binding("read_knowledge", args, {"doc_sha256": record["doc_sha256"]})
         offset = position(args.cursor, binding)
         # Reuse verified fragments and protected warning spans of the existing reader.
@@ -254,3 +274,63 @@ class KnowledgeTools:
             self.c.journal.event("knowledge_fragment_read", {"id": record["id"], "corpus": self.store.version,
                 "range": result["range"], "fragment_sha256": entry["fragment"]["sha256"]})
         return result
+
+    def read_parameters(self, args, record):
+        from .parameter_docs import VERSION, parameter_section, adapter_contract
+        from ml_knowledge.core import digest as corpus_digest
+        if args.collection != "documents":
+            return {"status":"incompatible", "error_code":"parameters_require_documentation",
+                "recovery":"Search documents by exact library API symbol, then read its parameters view."}
+        section = parameter_section(record,args.parameter)
+        if section is None:
+            return {"status":"no_matches", "error_code":"parameter_section_unavailable",
+                "source_status":record.get("content_status"), "recovery":"Read the full versioned document; no parameter schema was inferred."}
+        if section["status"] != "available":
+            return {"status":"no_matches", "error_code":"unknown_parameter",
+                "parameter":args.parameter, "recovery":"Browse view=parameters without a parameter filter."}
+        contract = adapter_contract(record,section["available_names"])
+        binding = {"parameters":digest(self.binding("read_knowledge", args, {"doc_sha256":record["doc_sha256"],
+            "parameter_view_version":VERSION,"adapter_hash":digest(contract)}))}
+        offset = position(args.cursor,binding) if args.cursor else section["start"]
+        if not section["start"] <= offset <= section["end"]:
+            raise CursorError("invalid_cursor: position outside the parameter section")
+        def result_at(end):
+            content = record["text"][offset:end]
+            entry = self.store.entry({"doc":record["id"],"text":content,"start":offset,"end":end,
+                "sha":corpus_digest(content)},context=self.store.context,record=record)
+            entry["parameter_view"] = {"version":VERSION,"parameter":args.parameter,
+                "signature":section["signature"],"adapter":contract,
+                "detail_status":section["detail_status"],
+                **({"declarations":section["declarations"],"forwards_kwargs":section["forwards_kwargs"],
+                    "further_documentation":{"tool":"search_knowledge","arguments":{
+                        "collection":"documents","query":record["title"]+" "+(args.parameter or "parameters"),
+                        "filters":{"library":record["library"],"version":record["version"]}}}}
+                    if section["detail_status"]=="signature_only" else {}),
+                "semantics":"Exact frozen documentation. Defaults and constraints are in the declarations and descriptions; values are not executable code."}
+            if section["detail_status"] == "signature_only":
+                entry["answer_usable"] = False
+            token = cursor(binding,end) if end < section["end"] else None
+            return {"status":"success","entry":entry,"view":"parameters",
+                "complete":token is None and record.get("content_status")=="complete",
+                "answer_confirmed":False,"next_cursor":token,"continuation":continuation("read_knowledge",args,token),
+                "reference":{"kind":"knowledge","collection":"documents","id":record["id"],"version":self.store.version},
+                "range":{"unit":"unicode_characters","start":offset,"end":end}}
+        # Fit the actual public envelope; page boundaries remain original-document offsets.
+        operation = SimpleNamespace(tool="read_knowledge",operation_id="0"*100)
+        low, high = offset, min(section["end"],offset+args.max_chars)
+        best = None
+        while low <= high:
+            middle = (low+high)//2
+            candidate = result_at(middle)
+            if len(canonical(envelope(self.c,operation,candidate))) <= args.max_chars:
+                best = candidate
+                low = middle+1
+            else:
+                high = middle-1
+        if best is None or best["range"]["end"] == offset and offset < section["end"]:
+            return {"status":"budget_too_small","error_code":"parameter_metadata_exceeds_budget",
+                "recovery":"Use a larger max_chars or request one exact parameter."}
+        self.c.journal.event("knowledge_parameters_read",{"id":record["id"],"corpus":self.store.version,
+            "range":best["range"],"parameter":args.parameter,"view_version":VERSION})
+        return best
+

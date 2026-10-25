@@ -1,0 +1,166 @@
+{
+  "status": "complete_for_requested_offline_scope",
+  "archive": "dist/solution_v087.zip",
+  "archive_sha256": "35fa04ee1d47d3793ea594255f160594c70226922e12d888de160a82b3be5bd9",
+  "archive_bytes": 70711500,
+  "parent": "v086",
+  "items": {
+    "A1": "implemented_parameter_projection_with_legacy_cursors",
+    "A2": "implemented_lightgbm_aliases_and_ranker_fit_kwargs",
+    "A3": "implemented_optional_readable_report",
+    "A4": "gap_reproduced_and_exact_phrase_fixed",
+    "B1": "resource_pilot_passed_enabled_for_new_runs_legacy_resume_preserved",
+    "B2": "resource_pilot_passed_explicit_supported_option_only",
+    "B3": "pilot_failed_time_gate_default_remains_bulk",
+    "C1": "deferred_no_positive_window_gap_evidence_after_development_05",
+    "C2": "deferred_pending_authorized_19_AB_preserve_classical_policy",
+    "C3": "deferred_existing_diagnostics_cover_current_needs",
+    "D1": "excluded_autonomous_eda_agent",
+    "D2": "excluded_eda_service_and_mandatory_profile_version",
+    "D3": "excluded_free_evaluation_design",
+    "D4_matrix": "excluded_zero_selection_tolerance",
+    "D5_matrix_D4_card": "excluded_bounded_csv_loader_default",
+    "D5_card": "excluded_whole_branch_merge",
+    "E1": "no_nested_package_guard_and_exact_runtime_source_verification_passed"
+  },
+  "source_commit": "29197532431a0a395e3de07b8bed1f8bc7637ebc",
+  "branch_merge": false,
+  "checkpoint": "checkpoint_sources.zip",
+  "source_files_exact": true,
+  "no_existing_tests_weakened": true,
+  "tests": {
+    "collected_unique_tests": 1265,
+    "passed_local_unique": 1263,
+    "passed_in_pinned_container": 2,
+    "all_current_tests_covered": true,
+    "single_uninterrupted_green_run": false
+  },
+  "exact_zip_mock_cases": 4,
+  "exact_zip_control_and_full_refit": true,
+  "qwen_calls": 0,
+  "resource_gate_decisions": {
+    "regression": {
+      "profile_within_resource_gate": true,
+      "streaming_time_ratio": 1.1495773559506657,
+      "streaming_peak_rss_ratio": 0.43096563217306544,
+      "streaming_gate_passed": false,
+      "correlations_within_budget": true
+    },
+    "classification": {
+      "profile_within_resource_gate": true,
+      "streaming_time_ratio": 1.5165166760605904,
+      "streaming_peak_rss_ratio": 0.6086357010597644,
+      "streaming_gate_passed": false,
+      "correlations_within_budget": true
+    }
+  },
+  "unified_profile_default": true,
+  "streaming_default": false,
+  "context_footprint": {
+    "regression": {
+      "reference_bytes": 1358,
+      "findings_added_bytes": 285,
+      "findings_visible": 3,
+      "full_profile_findings": 4,
+      "scope": "development_only_all_provided_train",
+      "contains_row_values": false,
+      "qwen_calls": 0
+    },
+    "classification": {
+      "reference_bytes": 1354,
+      "findings_added_bytes": 257,
+      "findings_visible": 3,
+      "full_profile_findings": 6,
+      "scope": "development_only_all_provided_train",
+      "contains_row_values": false,
+      "qwen_calls": 0
+    }
+  },
+  "header_measurements": {
+    "v086": {
+      "tools": 17,
+      "system_bytes": 11936,
+      "native_schema_bytes": 46367,
+      "selection_min_delta_abs": 0.001
+    },
+    "delivery": {
+      "tools": 17,
+      "system_bytes": 11936,
+      "native_schema_bytes": 46582,
+      "selection_min_delta_abs": 0.001
+    }
+  },
+  "pinned_image_id": "sha256:6f44ba0f950d31c3a05518f73e08691c3e363705707e378e38b303c75b321a41",
+  "pinned_environment": {
+    "python": "3.12.15 (main, Oct  6 2026, 02:08:11) [GCC 14.2.0]",
+    "pinned_dependencies": 37,
+    "versions": {
+      "numpy": "1.26.4",
+      "scipy": "1.12.0",
+      "pandas": "2.2.3",
+      "polars": "1.26.0",
+      "pyarrow": "19.0.1",
+      "joblib": "1.4.2",
+      "threadpoolctl": "3.6.0",
+      "scikit-learn": "1.5.2",
+      "catboost": "1.2.8",
+      "lightgbm": "4.6.0",
+      "xgboost": "2.1.4",
+      "imbalanced-learn": "0.12.4",
+      "category-encoders": "2.6.4",
+      "feature-engine": "1.8.3",
+      "statsmodels": "0.14.0",
+      "optuna": "4.2.1",
+      "torch": "2.5.1",
+      "autogluon.tabular": "1.3.1",
+      "lightautoml": "0.4.2",
+      "flaml": "2.3.6",
+      "openai": "1.68.2",
+      "httpx": "0.28.1",
+      "tenacity": "9.0.0",
+      "langchain": "0.3.27",
+      "langchain-openai": "0.3.23",
+      "langgraph": "0.6.7",
+      "pydantic": "2.10.6",
+      "python-dotenv": "1.0.1",
+      "PyYAML": "6.0.2",
+      "orjson": "3.10.15",
+      "jsonschema": "4.23.0",
+      "matplotlib": "3.9.4",
+      "seaborn": "0.13.2",
+      "tqdm": "4.67.1",
+      "psutil": "6.1.1",
+      "cloudpickle": "3.1.1",
+      "setuptools": "80.9.0"
+    },
+    "all_organizer_versions_match": true,
+    "network": "none"
+  },
+  "preserved": [
+    "parent recipe inheritance",
+    "finalist component audit",
+    "classical-only",
+    "MLP disabled",
+    "min_delta_abs=0.001",
+    "fixed control",
+    "classical knowledge corpus"
+  ],
+  "constraints_status": "flat_zip_and_local_execution_checked",
+  "decision_quality": "unassessed",
+  "predictive_quality": "effect_unestablished_no_new_quality_AB",
+  "full_three_hour_throughput": "unmeasured",
+  "paid_tests": "excluded_by_user",
+  "platform_upload": false,
+  "evidence": {
+    "SOURCE_AUDIT.json": "673254692ba57f2363ddd9e2ee04e0505996660bfd81f661a4a104eceb5f70e4",
+    "ARCHIVE_AUDIT.json": "ac7571e3088f526be6dec9f76d8654812659421af8cc127accb52ee1886f1756",
+    "TEST_COVERAGE.json": "41f382bf7cb3c314b562e875675133b8069344817db5c8c7efae15e2e6213a94",
+    "PATCH_SERIES.json": "3ecce3162d0214d48b2e25ffb7a19259aa60758909e23529f817068617ab2ca5",
+    "resource_pilot_delivery/report.json": "a0dd2dbfdad7b68a1c70ad62863be0f17eb87420c3878375ace0f18d1bb6a48d",
+    "CONTEXT_FOOTPRINT.json": "6f139e7c0f3fea6fed666e403a6c2b98bc0a41d4d1390067716362dc9a974f95",
+    "checks/zip_runtime/REPORT.json": "ba70414e5c68702ff415446835eec978511a09b5e5a333b34ac63b59569e2fa9",
+    "checks/lightautoml_exact_test.json": "c707a6b1598090bfa427e69c57df24fb272bdf86fd9d35bd52ef6e09bf3ee7c9",
+    "checks/pinned_schema.log": "8af4248cd6d5f876079206870a3d623b840aa9739c47705a908c23ea40109467",
+    "pinned_environment.json": "f310092ea34c3b6818dda19985f04047bab23668ce42d68ba811fe36f0e10932"
+  }
+}

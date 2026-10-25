@@ -31,37 +31,18 @@ def dependency_order(controller, identifiers):
     return ordered
 
 
-def measured_cost(summary, seconds, rows, default_rows, ensemble=False):
-    """The same row-scaled estimate for completed fits and admission pilots."""
-    training_rows = max(1, summary.get("rows", default_rows))
-    base = max(.1 if ensemble else .2, seconds)
-    budget = summary.get("budget") or {}
-    fitted = budget.get("selected_fit_actual_seconds")
-    if fitted is None and budget.get("targets") and all("selected_fit_actual_seconds" in target for target in budget["targets"].values()):
-        fitted = sum(target["selected_fit_actual_seconds"] for target in budget["targets"].values())
-    if fitted is not None:
-        training_rows = max(1, budget.get("selected_fit_rows", training_rows))
-        overhead = max(.2, seconds - summary.get("seconds", 0) - summary.get("automatic_pilot_seconds", 0))
-        base = max(.2, fitted + overhead)
-    phases = summary.get("execution_phases") or {}
-    if all(key in phases for key in ("loaded_fit_rows", "load_and_construct_seconds",
-            "fit_seconds", "save_load_seconds", "predict_and_verify_seconds")):
-        fit = phases["fit_seconds"] if fitted is None else fitted
-        variable = phases["save_load_seconds"] + phases["predict_and_verify_seconds"]
-        loading = phases["load_and_construct_seconds"] + phases.get("controller_staging_seconds", 0)
-        startup = max(.2, seconds - (phases["fit_seconds"] if fitted is None else summary.get("seconds", 0))
-            - variable - loading - summary.get("automatic_pilot_seconds", 0))
-        # Pilot loads/stages the complete fit before sampling. Keep that row
-        # basis distinct; preserve row scaling of model save and prediction work.
-        return ((max(.2, fit) + variable) * max(1, rows / training_rows)
-            + loading * max(1, rows / max(1, phases["loaded_fit_rows"])) + startup) * 1.25 + .2
-    return base * max(1, rows / training_rows) * 1.25 + .2
+def measured_cost(summary, seconds, rows, default_rows, ensemble=False, pipeline=None):
+    """Forecast frozen selected fits separately from auxiliary work and fixed I/O."""
+    from .cost_model import phase_forecast
+    return phase_forecast(summary, seconds, rows, default_rows, ensemble, pipeline)
 
 
 def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
     """Estimate one candidate fit, including HPO that frozen refits skip."""
     frozen_fit = measured_cost(summary, seconds, rows, default_rows)
     budget = summary.get("budget") or {}
+    auxiliary = max(0., float(budget.get("auxiliary_fit_actual_seconds", 0)) - float(budget.get("repeatable_auxiliary_fit_seconds", 0)))
+    frozen_fit += auxiliary * max(1., rows / max(1, summary.get("rows", default_rows))) * 1.25
     targets = budget.get("targets") or {}
     search_seconds = sum(max(0.0, float(item.get("search_seconds", 0))) for item in targets.values())
     if not targets:
@@ -74,6 +55,9 @@ def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
         requested = pipeline.learners or ["GBM", "CAT", "XGB"]
         planned = min(pipeline.n_trials, len(requested)) if pipeline.n_trials is not None else len(requested)
         observed = max((len(item.get("configured_learners", [])) for item in targets.values()), default=0)
+        if getattr(pipeline, 'autogluon_configurations', {}):
+            planned = sum(len(pipeline.autogluon_configurations.get(name, [{}])) for name in requested[:planned])
+            observed = max((item.get("configured_count", 0) for item in targets.values()), default=0)
         trial_scale = max(1.0, planned / max(1, observed))
     elif pipeline.n_trials is not None:
         observed = sum(int(item.get("attempted_trials", item.get("completed_trials", 0))) for item in targets.values())
@@ -87,6 +71,7 @@ def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
 
 
 def estimate(controller, identifiers, rows=None, phase=None):
+    from .cost_model import iteration_multiplier
     c = controller
     rows = c.plan.fit if rows is None else rows
     row_hash = digest([c.dataset.row_keys[i] for i in rows])
@@ -94,17 +79,22 @@ def estimate(controller, identifiers, rows=None, phase=None):
     costs, disk, nodes = {}, 0, []
     for identifier in dependency_order(c, identifiers):
         spec, result = c.lookup(identifier)
-        pipeline = policies.get(identifier, {}).get("frozen_pipeline", spec.pipeline.model_dump(mode="json"))
+        pipeline = policies.get(identifier, {}).get("frozen_pipeline")
+        if pipeline is None:
+            manifest = result.artifacts.get('worker_manifest')
+            pipeline = read_json(Path(manifest)).get('frozen_pipeline') if manifest and Path(manifest).is_file() else None
+            pipeline = pipeline or spec.pipeline.model_dump(mode="json")
         pipeline_hash = digest(pipeline)
         directory = Path(result.artifacts["directory"])
         size = sum(p.stat().st_size for p in directory.rglob("*") if p.is_file())
         training_rows = max(1, result.training_summary.get("rows", len(c.plan.fit)))
         training_rows = max(1, (result.training_summary.get("budget") or {}).get("selected_fit_rows", training_rows))
-        cost = measured_cost(result.training_summary, result.seconds, len(rows), len(c.plan.fit), spec.pipeline.engine == "ensemble")
+        cost = measured_cost(result.training_summary, result.seconds, len(rows), len(c.plan.fit), spec.pipeline.engine == "ensemble", pipeline)
         # Actual earlier phases refine the initial row-scaled upper estimate.
         for observation in c.journal.get("completion_costs", []):
             if observation["experiment_id"] == identifier and observation["pipeline_hash"] == pipeline_hash:
-                cost = max(cost, observation["actual_seconds"] * len(rows) / max(1, observation["rows"]) * 1.25)
+                cost = max(cost, observation["actual_seconds"] * len(rows) / max(1, observation["rows"])
+                    * iteration_multiplier(pipeline, len(rows), observation['rows']) * 1.25)
         ready = False
         if phase:
             path = c.workdir / "finalization" / phase / identifier / "worker_result.json"
@@ -116,6 +106,7 @@ def estimate(controller, identifiers, rows=None, phase=None):
         costs[identifier] = 0 if ready else cost
         nodes.append({"experiment_id": identifier, "seconds": costs[identifier], "rows": len(rows),
             "row_hash": row_hash, "pipeline_hash": pipeline_hash, "ready": ready, "disk_bytes": size,
+            "iteration_multiplier": iteration_multiplier(pipeline, len(rows), training_rows),
             "initial_uncertainty_multiplier": 1.25})
         if not ready:
             disk += int(size * max(1, len(rows) / training_rows))
@@ -158,20 +149,29 @@ def candidate_costs(controller, pipeline, measurement=None):
     if measurement is not None:
         samples.append((measurement["training_summary"], measurement.get("wall_seconds", measurement.get("seconds", 0))))
     else:
-        recipe = pipeline.model_dump(exclude={"seed", "n_trials"})
+        from .cost_model import family, complexity
+        recipe = family(pipeline)
         for spec, result in c.records():
-            if result and result.status == "completed" and result.scope != "pilot" and spec.validation_hash == c.plan.hash and spec.pipeline.model_dump(exclude={"seed", "n_trials"}) == recipe:
-                samples.append((result.training_summary, result.seconds))
+            if result and result.status == "completed" and result.scope != "pilot" and spec.validation_hash == c.plan.hash and family(spec.pipeline) == recipe:
+                summary = dict(result.training_summary)
+                ratio = complexity(pipeline) / complexity(spec.pipeline)
+                from .cost_model import selected_seconds
+                summary["budget"] = {**(summary.get("budget") or {}), "selected_fit_actual_seconds": selected_seconds(summary) * ratio}
+                summary["cost_curve"] = None
+                samples.append((summary, result.seconds))
     if not samples:
         return None
     base = c.finalist_costs()
     current = getattr(base, "forecast", None)
     if current is None:
         current = forecast(c, []).forecast
-    frozen_cost = lambda rows: max(measured_cost(summary, seconds, rows, len(c.plan.fit)) for summary, seconds in samples)
+    frozen_cost = lambda rows: max(measured_cost(summary, seconds, rows, len(c.plan.fit), pipeline=pipeline) for summary, seconds in samples)
     candidate_fit = lambda rows: max(candidate_measured_cost(summary, seconds, rows, len(c.plan.fit), pipeline)
         for summary, seconds in samples)
-    fit = candidate_fit(len(c.plan.fit))
+    search_population = len(c.plan.fit) + len(c.plan.validation) if getattr(c.plan, "evaluation_mode", "holdout") == "rolling" else len(c.plan.fit)
+    fit = candidate_fit(search_population)
+    if getattr(c.plan, "evaluation_mode", "holdout") == "rolling":
+        fit *= 1 + sum(len(part["fit"]) / max(1, search_population) for part in c.plan.development_folds)
     control = frozen_cost(len(c.plan.fit) + len(c.plan.validation))
     refit = frozen_cost(len(c.dataset.train))
     publication = max(2, (sum(base) + fit) * .1)
@@ -179,7 +179,7 @@ def candidate_costs(controller, pipeline, measurement=None):
         + max(current["refit"]["seconds"], refit) + publication + current["safety_seconds"],
         "candidate_fit_seconds": fit, "candidate_control_seconds": control, "candidate_refit_seconds": refit,
         "control_scoring_and_publication_seconds": publication,
-        "cost_basis": "row_and_search_scaled_pilot" if measurement is not None else "measured_same_recipe_and_search",
+        "cost_basis": "row_and_search_scaled_pilot" if measurement is not None else "measured_related_family_and_complexity",
         "uncertainty": ("custom_runtime_not_bounded_by_sample" if pipeline.engine == "custom" else
             "uncapped_trial_search_is_time_limited" if pipeline.n_trials is None and pipeline.engine in {"flaml", "optuna"} else
             "row_and_trial_scaling_is_an_estimate")}

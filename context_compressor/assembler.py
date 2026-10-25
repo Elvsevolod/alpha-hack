@@ -67,8 +67,10 @@ class ContextCompressor:
         result = {}
         for mode in modes:
             overhead = self.transport.overhead_bytes(mode)
-            if overhead > 49152:
-                raise BudgetExceeded(f"{mode} instructions/schemas/framing exceed 49152 bytes: {overhead}")
+            # Typed references and actionable repair schemas need a larger header;
+            # the complete request, observations and output reserve still must fit.
+            if overhead > 65536:
+                raise BudgetExceeded(f"{mode} instructions/schemas/framing exceed 65536 bytes: {overhead}")
             wire = self.transport.render(context, mode)
             estimate = len(wire.encode("utf-8")) + self.transport.response_reserve
             if estimate + SAFETY_MARGIN > budget:
@@ -95,8 +97,8 @@ class ContextCompressor:
         remaining = core["policies_resources"]["deadline_epoch"] - now
         if remaining <= core["policies_resources"]["reserve_seconds"]:
             raise BudgetExceeded("Original deadline/finalization reserve reached; finalize the existing result")
-        if self.transport.overhead_bytes(mode) > 49152:
-            raise BudgetExceeded("Instructions/schemas/framing exceed 49152 UTF-8 bytes")
+        if self.transport.overhead_bytes(mode) > 65536:
+            raise BudgetExceeded("Instructions/schemas/framing exceed 65536 UTF-8 bytes")
         request_id = request_id or uuid.uuid4().hex
         identifier(request_id, "request_id")
         attempts = 0

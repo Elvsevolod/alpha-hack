@@ -34,7 +34,7 @@ class Budget:
         return max(0.0, self.deadline - time.time())
 
     def final_reserve(self, costs=(), train_ratio=1.5):
-        minimum = min(300.0, self.limits.seconds * (5 / 180))
+        minimum = max(min(300.0, self.limits.seconds * (5 / 180)), min(900.0, self.limits.seconds * 0.06))
         forecast = getattr(costs, "forecast", None)
         if forecast is not None:
             return max(minimum, forecast["seconds"])

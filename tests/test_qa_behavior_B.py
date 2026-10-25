@@ -75,7 +75,8 @@ def test_finish_with_one_result_early_and_irreversible(tmp_path):
     try:
         c.prepare()
         result=payload(c.dispatch(ToolCommand(operation_id='enough',tool='finish',arguments={
-            'reason':'Baseline is sufficient for this bounded offline fixture; no justified next hypothesis', 'result_ids':['baseline']})))
+            'reason':'Baseline is sufficient for this bounded offline fixture; no justified next hypothesis', 'result_ids':['baseline'],
+            'skipped_directions': {'all': 'Fixed finish-state fixture; no claim of exhausting useful model directions.'}})))
         assert result['status']=='frozen' and c.budget.remaining>3000
         assert c.journal.get('imputation_skip_reason')
         with pytest.raises(ValueError,match='state searching'):
@@ -127,7 +128,8 @@ def test_control_uses_exact_best_and_is_order_independent(maximize,scores):
 
 def test_third_selection_dominance_ranks_and_recipe_deduplication():
     policy=SelectionPolicy(maximize=True)
-    rows=[{'id':i,'identity':i,'score':score,'windows':dict(zip(['a','b'],windows)),'cost':cost,'created_index':index}
+    rows=[{'id':i,'identity':i,'score':score,'windows':dict(zip(['a','b'],windows)),
+        'windows_hash':'same','protocol':'fixed','cost':cost,'created_index':index}
         for index,(i,score,windows,cost) in enumerate([
             ('baseline',.7,[.7,.7],1),('leader',.8,[.8,.6],2),('dominated',.69,[.6,.6],1),
             ('stable',.79,[.75,.75],2),('risky',.78,[.9,.65],1)])]
@@ -155,8 +157,13 @@ def test_temporal_windows_retrain_pipeline_on_past_only(tmp_path,monkeypatch):
             assert max(c.dataset.train.iloc[window['fit']]['when'])<min(c.dataset.train.iloc[window['validation']]['when'])
             assert set(window['fit']+window['validation'])<=set(c.plan.fit)
         result=c.lookup('baseline')[1]
-        assert result.training_summary['temporal_stability']['status']=='complete'
+        stability=result.training_summary['temporal_stability']
+        # Warmup has a declared fixed cap; later windows can select their
+        # schedule inside their own past. Both remain strictly chronological.
+        assert stability['status']=='complete' and not stability['skipped']
+        assert list(stability['scores'])==['expanding_1','expanding_2']
         assert len(seen)==2 and all(request['mode']=='train' for request,_ in seen)
+        assert seen[0][0]['pipeline']['early_stopping_rounds'] is None
     finally:c.close()
 
 
@@ -219,9 +226,13 @@ def test_ensemble_windows_retrain_all_dependencies_and_optional_failure_is_limit
             'members':['baseline',member],'budget_seconds':30,'hypothesis':{'observation':'Two distinct fitted models','expected_effect':'Measure uniform blend','changed_component':'ensemble','acceptance':'Fixed RMSE'}})))
         assert result['result']['status']=='completed'
         identifier=c.journal.operation('blend').experiment_id;spec,measured=c.lookup(identifier)
-        assert measured.training_summary['temporal_stability']['status']=='complete'
+        stability=measured.training_summary['temporal_stability']
+        # Window 1 has a single period, so the boosting dependency cannot build
+        # its inner early-stopping split; window 2 still measures all members.
+        assert stability['status']=='limited'
+        assert 'expanding_1' in stability['failures'] and 'expanding_2' in stability['scores']
         paths=list((c.workdir/'stability'/identifier).rglob('fit_y.json'))
-        assert len(paths)==4
+        assert len(paths)>=2 and {'baseline',member}<={p.parent.name for p in paths}
         for path in paths:
             assert c.task.targets==['answer']
         monkeypatch.setattr(c,'window_pipeline',lambda *a,**k:(_ for _ in ()).throw(ValueError('synthetic undefined window metric')))

@@ -83,6 +83,12 @@ class AgentReferences(ReferenceStore):
         return result
 
     def catalog_entry(self, directory, identifier, task=None, plan=None):
+        if directory == "recipes" and identifier.startswith("action:") and task:
+            from .action_cards import cards
+            entry = cards(task, plan.strategy if plan else None).get(identifier)
+            if entry is None:
+                raise ValueError("Unknown executable action card")
+            return entry
         kind = {"methods": "method", "recipes": "recipe", "search_spaces": "search_space"}[directory]
         doc = self.document(identifier if identifier.startswith(kind + ":") else kind + ":" + identifier)
         if not doc or doc["type"] != kind:
@@ -136,7 +142,8 @@ class AgentKnowledge:
         note = c.context_memory.store.active_note() or {}
         hypothesis = c.journal.get("active_hypothesis") or {}
         question = str(note.get("question") or hypothesis.get("changed_component") or "")[:1024]
-        last = c.journal.get("last_tool_result") or {}
+        from .tool_results import payload
+        last = payload(c.journal.get("last_tool_result") or {})
         error = str(last.get("error") or (last.get("result") or {}).get("error") or "")[:512]
         return SelectionContext(c.task.kind, aggregate, c.plan.strategy,
             " ".join(str(pipeline.get(key, "")) for key in ("engine", "model", "representation")),

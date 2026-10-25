@@ -2,7 +2,9 @@
 from http.client import HTTPConnection
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import os
-import re
+
+ALLOWED_PATHS = {'/' + arm + '/v1/chat/completions' for arm in os.environ.get('ALLOWED_ARMS',
+    'regression_base,regression_visual,classification_base,classification_visual').split(',')}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -14,7 +16,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         length = int(self.headers.get('Content-Length', '0'))
-        if not re.fullmatch(r'/(regression|classification)_(base|visual)/v1/chat/completions', self.path) or not 0 < length <= 262144:
+        if self.path not in ALLOWED_PATHS or not 0 < length <= 262144:
             self.send_error(403)
             return
         self.forward(self.rfile.read(length))

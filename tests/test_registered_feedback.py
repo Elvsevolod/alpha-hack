@@ -50,6 +50,7 @@ def test_partition_policy_is_independent_of_validation_targets():
 def test_large_ranges_report_without_mutation_and_small_complements_are_hidden():
     data = dataset(numeric_task())
     plan = choose_validation(data)
+    plan.feedback_policy = plan.feedback_policy.model_copy(update={"version":2,"min_slice_rows":30,"joint_disclosure":"conservative_v2"})
     rules = registered_partitions(plan)
     identifier, rule = next(iter(rules.items()))
     X = data.train.iloc[plan.validation].drop(columns="target").reset_index(drop=True)
@@ -152,9 +153,10 @@ def test_tampered_partition_is_rejected_instead_of_silently_changing_the_report(
         registered_partitions(corrupted)
 
 
-def test_small_fixture_keeps_the_original_registered_policy():
+def test_small_fixture_uses_full_v3_research_policy():
     plan = choose_validation(dataset(numeric_task(), 180))
-    assert plan.feedback_policy.report_ids == ["missingness"]
+    assert plan.feedback_policy.report_ids == ["missingness", "seen_unseen", "regression_errors"]
+    assert plan.feedback_policy.version == 3 and plan.feedback_policy.min_slice_rows == 1
     assert not registered_partitions(plan)
 
 

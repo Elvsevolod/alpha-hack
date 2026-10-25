@@ -1,0 +1,166 @@
+{
+  "status": "passed_offline_technical",
+  "archive": "solution_v080.zip",
+  "archive_sha256": "5e71d51df3e05c64a1a2d2033f49b8a6c948d824ab793f67c3ae4d0c35404ab6",
+  "archive_bytes": 70664151,
+  "base_archive": "solution_v079.zip",
+  "base_sha256": "5b676b154a1b50f79f9876a841842fe5633f902329d012ebb0a5e6a13b5bc107",
+  "corpus_unchanged": "491827b56e1f20cca1adca7932832dd95b89ba19c03a1f8e4e6cb48c47dadd7f",
+  "fixed_findings": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "C01"
+  ],
+  "additional_visual_fix": "Long class labels remain distinguishable after shortening.",
+  "C02": "Original response ceilings exposed; unknown outcomes visibly interrupt research, without blind retries; finalization preserved.",
+  "full_pytest": {
+    "tests": 1217,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1217,
+    "seconds": 951.652
+  },
+  "new_regression_cases": 14,
+  "exact_archive_entrypoint_cases": 4,
+  "exact_archive_unknown_outcome_cases": 1,
+  "exact_dependency_versions": 37,
+  "runtime_sources": {
+    "solution.py": "84a303ac0500a27af1f63797e6ba26edf10ebe7f10fc4b8b65435af9c564f819",
+    "requirements.txt": "9173b0388532fbd2a709e4f4b3029e3b9ccab685fce43a85261ffa1ba95efbe6",
+    "automl_agent/__init__.py": "dde79fe7ab0e88fb72d388817fc94eebdcda0a55e1b0e39311b42873a1691426",
+    "automl_agent/api.py": "2df759216d7b3da954411f38225d702b7e809d01012fa354026b7ff4ab211a7d",
+    "automl_agent/batch.py": "6c61ee7f95c8fe0cff1fb9b2ab5b257db807a5e7a46d814c5faaf47721d533bb",
+    "automl_agent/budget.py": "9969f222f5fde7d19c44a777e4e52e431eb3c41983c1ae1aed68d97cb8127b5d",
+    "automl_agent/capabilities.py": "7484d9b413c74c7fdba9a75361abbe99563a2e71f35d10a1b5754c8f57ac53a6",
+    "automl_agent/cleanup.py": "e51e19e1de5a842e21d15eae796edfeddd0d7061b7cfa5fea16ea8405743eab8",
+    "automl_agent/clustering.py": "b70650c63777bf051d4edd1a1543ef179344280033b5526665a8cbff2396923c",
+    "automl_agent/clustering_route.py": "86ffc3b9fd03be176e674305a1ca6a81c8a803a1fe9c9e3d45fe29b86bac718d",
+    "automl_agent/compatibility.py": "97f3f38be2665164502ba3b74a357721c79e5a3af71d70edae408be3d206dba6",
+    "automl_agent/completion.py": "d8c41436f1ff0fb2c8261ac96eea9e33f832eeef2d986187d68ddb94596a371c",
+    "automl_agent/context_memory.py": "781b6295ae4f2c2ba84a6375d1c04f11b25fa1024bffdc92f6ff5891bf73c559",
+    "automl_agent/contracts.py": "e9f20e19717f6bed54c9df8da12dbc4c7d7d7f171bfcd02551d28acbc275854d",
+    "automl_agent/controller.py": "f9279c1e7f8be0ccd4e9c998c7cb40098e067caa612e8e6377848d918ca40ee9",
+    "automl_agent/cost_model.py": "84ac20d62d5a31e3517298c02866b13ec13c9ac286cbf832fbaf07df3fc48ee8",
+    "automl_agent/critic.py": "12daef51b0e432f5ff8c9d6fa8220919b4c2f2e6a3ceb21165ea05e015957397",
+    "automl_agent/custom.py": "c4ac3a1efd1475e2441da34fca9e950851c2f1a87b71093175f819476c76b3d5",
+    "automl_agent/data.py": "148998ff6517a251363651f446b8e5415f6e40c01343afdc05b3d0f88e9e4c50",
+    "automl_agent/dependency_policy.py": "85010725cb6384f9782112336195a556ed51aab5a3a0724469c01d25b8c20a38",
+    "automl_agent/diagnostic_automl.py": "43090f1bc5bf08bc0b675dd6fe5fbff41c4a8275cbcd05046e1d4ca5f3df6be7",
+    "automl_agent/diagnostics.py": "5da661501094d51ca886b7b6b90ee6de84b69dbd23b9991db0ae86db24935838",
+    "automl_agent/evaluation.py": "a69ffb241aea97b2e21f31f4afac742e6c7be38fddd89d53b16a31f428ac9c70",
+    "automl_agent/executor.py": "b07d8494df0cbed4d6290cb91e6cc50cdf7637355e5e77e8fda98b16825577b8",
+    "automl_agent/feedback.py": "71763a28449cce1a3808188c3ab23923e058de4ae21832c954293f9cd8a384c9",
+    "automl_agent/finalists.py": "ef3f5db9af27f30fdf45fae305b30967e0cd2070c1bdad956325fa887a6d9768",
+    "automl_agent/forecasting.py": "03951ffd09f48ed3ac445eb52a7b6b236c566056964774a44c600db5112f1c67",
+    "automl_agent/human_practice.py": "2bbd170a3947edc1054fd4118c68f246bec5aa711c1d8aeaf63c7e985dc2d36e",
+    "automl_agent/journal.py": "787c4ec062e5a3316f98481efe9ad7bb3d430d737cca8bb79a52ff8ab3833e03",
+    "automl_agent/knowledge.py": "c237d5afb1058d3a874748a60a4c469e5d469748d6de492585db90f6d19608c7",
+    "automl_agent/knowledge_tools.py": "90157635c22ed8bfbc6e6a071cac67d63b5eab2f5556f7ad4987676653dfea37",
+    "automl_agent/learned_blend.py": "6473a9296d5e5bf4ef73dfbe503c4720680e0d7a0fbdf898fdfaca816a1ef7ca",
+    "automl_agent/lightautoml_adapter.py": "12d115f03ff22fb36b5afa955e125d593635c4d92a300d325b5a4d99dfcfec2b",
+    "automl_agent/pipelines.py": "f301bd35982665187871a365a3b56659b32baef2b40b15f8f5296c3c5f0fd46a",
+    "automl_agent/preprocessing.py": "a86832d117df2f3b6106e6fd06214594956134057c0bab780d8ed6122b687141",
+    "automl_agent/progress.py": "c45b75d0df59c2f26def417096b1b1a188f401bd9aa6af61ae731c7618105e78",
+    "automl_agent/protocol_revision.py": "711f678ba93786e18583636cb3d03a49719a54dee3837c7a413b01482c2fc77c",
+    "automl_agent/publication.py": "f80c2c0a64c880b6963cd882bb5960daf855a8166d355e0460271699c201ae0c",
+    "automl_agent/qwen.py": "d99457d783ca7ec30e0f69abd9ba283cdf21963a670debccc7420aa5536c7163",
+    "automl_agent/qwen_stream.py": "928a4e77123eae27fc7060831c15479aa8ccea70cabe4d0ffbe5ba46c43caf74",
+    "automl_agent/references.py": "9bf012c5540b4f0797af581cb4508e9d1029147492945634e1514fd92e68453c",
+    "automl_agent/related_tables.py": "370b7397e530a532555f03d0504a36363ca6ea879d166dfa42059496b867c5e7",
+    "automl_agent/research.py": "3d1c6b1c67861315adc9d31a98ed67e449b2a4d3045229b77fa9ccf63c32c7a4",
+    "automl_agent/research_evaluation.py": "5b89d4b7ddad3472970caf60f22babd7acf265e7fdefbdb325e6ec7a084be679",
+    "automl_agent/run_tools.py": "1369f27cac402e3acb073d22af07070fdec0a42a36e057b4866960f7248ca86b",
+    "automl_agent/search.py": "8a05f4ce7ef84f1c2c1ee34a5f6bde88763ad76d78cca19b78828d61866db198",
+    "automl_agent/shift.py": "210d10fc8ae89aa74111cb21dfe26011469674366a25db0975c724dfbd5faeed",
+    "automl_agent/supervised_features.py": "1a3d4805dbcb7145782749432244bd259d2041feeaaf70e9aaae6c5b98ca18db",
+    "automl_agent/tool_results.py": "0c3a62146133f37d7b3f8a62d463b8a5d5db120e4d266545a61f2c56f5f585b8",
+    "automl_agent/training_schedule.py": "cb6e20564f0722553d74f0527a1476e9715606f2e5bd7ec1b4c025dadc7aef57",
+    "automl_agent/util.py": "5fcdc4e075d46ff4ce6018c9684a6534fc28b57b03fb6befc2e27fcb5795f496",
+    "automl_agent/validation.py": "2977c8e60046665ca09aaeee913240dbbe9a13e185a4da6e25d0b3879ea7c4ef",
+    "automl_agent/visual_diagnostics.py": "204cced89ab8cd3a1df74bd2546e7aa5d21de53a8e36d4aace930ae9c248f22b",
+    "automl_agent/worker.py": "4c432b7ee149bf6445dc7acc3a04596788ca420209d45e733d38f2b5e9292b8d",
+    "automl_agent/worker_entry.py": "38f9b4285ce998fcf748e26a728631de543a9beeb3cffdf6052cb013a029238d",
+    "context_compressor/__init__.py": "65bab8ea3cd5b04d5971a868f74779159f62c850931afd56ed8507cf26ca56ed",
+    "context_compressor/contracts.py": "264a84270819eb43295640a45ca748d8aba94da5dd466575d903fd734bc5f073",
+    "context_compressor/store.py": "1e05b0734f21c594813dd9b6f9fe9428d76f25fe5f63c90c7cb7970064c17d89",
+    "context_compressor/core.py": "a24bb727eddf1387391478a94395ccb480435a27ce2989e414e0fef1ea51364e",
+    "context_compressor/transport.py": "3c343f8c3401061421d67f862fcaece1e0ddb591b673f0e46aa05df429d60fa6",
+    "context_compressor/assembler.py": "b919487d53c15e7341a57b034858adc024916ff006ee87cee930ea57e262c09f",
+    "ml_knowledge/__init__.py": "b93033609dcd3ecff48394ef45336444f4a9a94004b2cb596d1fc7f2c068e53e",
+    "ml_knowledge/core.py": "855366ae95173509b5dd1646392c1a0b001dc1f56b401b2c7a2a416c7324e082",
+    "ml_knowledge/lexical.py": "67d830f16cd26a6b9df36d36e327cb0e96ff3d2b7a2acfff96ba119ec3d67fd0",
+    "ml_knowledge/runtime.py": "7255b46303c7ad65bb016c01747fb047ba959c57316c1328fd5fe0a60a1de7ae",
+    "ml_knowledge/memory.py": "aa3aa74208bdb57021af05c5b2f01f653b33f62670db40db5d079ffdea11ac34",
+    "ml_knowledge/context.py": "cc196af0d4a049f329376f215ae6f00e1683789ed5f87ee4d628fd4157527d99"
+  },
+  "flat_files": 169,
+  "embedded_files": 67,
+  "changed_runtime_sources": [
+    "automl_agent/context_memory.py",
+    "automl_agent/contracts.py",
+    "automl_agent/controller.py",
+    "automl_agent/qwen.py",
+    "automl_agent/tool_results.py",
+    "automl_agent/visual_diagnostics.py",
+    "context_compressor/core.py",
+    "context_compressor/store.py",
+    "context_compressor/transport.py"
+  ],
+  "unchanged_flat_files": 168,
+  "requirements_unchanged": true,
+  "global_budget_seconds": 10800,
+  "real_qwen_requests": 0,
+  "paid_generation_requests": 0,
+  "quality_evaluation": "not_run; scripted local model responses and synthetic technical fixtures only",
+  "official_platform_image": false,
+  "uploaded": false,
+  "pointers_promoted": false,
+  "original_project_sources_modified": false,
+  "evidence": {
+    "full.xml": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/full.xml",
+      "sha256": "0b21f27747cb21166c08c0ff6ed38f3cad9556c8fe42ddc3ca41024de893b66e"
+    },
+    "full.log": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/full.log",
+      "sha256": "77bd889640e742a816489399d3d4b6a11d6175dad4c60b76b16c3fad9a3994e2"
+    },
+    "SOURCE_INTEGRITY.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/SOURCE_INTEGRITY.json",
+      "sha256": "b2d7d2cce3e39789c448c33e2814effa1ea5da2116baa3627215ddf24c21a6db"
+    },
+    "FULL_TEST_SOURCES.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/FULL_TEST_SOURCES.json",
+      "sha256": "f05e374ec1db8adfbe64a9c9b8565bde13f525b14cd1d83328fac10516c6b779"
+    },
+    "ENVIRONMENT.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/ENVIRONMENT.json",
+      "sha256": "1427046b9fbab02a34c1fe3efda582329cc6b5ee7d73a022e2f52d113aa09047"
+    },
+    "exact_entrypoint/REPORT.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/exact_entrypoint/REPORT.json",
+      "sha256": "c1c072b1a2f2387c3771d64b645f77f79e193afee6de47c81be35b591e77aae6"
+    },
+    "unknown_endpoint.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/unknown_endpoint.json",
+      "sha256": "82e0a72a4811cb21bea8155773ff27e3fbc7215f95ed0e02ae8983c35f7ba1ee"
+    },
+    "DIAGNOSTIC_RENDER_COMPARISON.json": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/DIAGNOSTIC_RENDER_COMPARISON.json",
+      "sha256": "b78562d178fa276553a2ee0d714546284d320a21fefd5211a16e0a373df30845"
+    },
+    "runtime_from_v079.patch": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/runtime_from_v079.patch",
+      "sha256": "f4bb6bb6750988c038d8b65d4449bead1089e2174fe0292b27526fbf9e4b9dfd"
+    },
+    "workspace/tests/test_interface_replay_regressions.py": {
+      "path": "/Users/elvsevolod/Desktop/учеба/Учёба 4 курс/хакатон альфа/outputs/interface_fixes_v079_20261024/workspace/tests/test_interface_replay_regressions.py",
+      "sha256": "a4bf5a05762defecff025c707e511b98de790f295ca37c0ed66d797f60f233ac"
+    }
+  }
+}

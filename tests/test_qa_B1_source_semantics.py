@@ -342,7 +342,11 @@ def test_ambiguous_source_roles_halt_before_csv_loading(tmp_path,monkeypatch):
     try:
         result=c.run()
         assert result['state']=='contract_unresolved' and len(requests)==1
-        assert not hasattr(c.dataset,'train') and not (tmp_path/'submission.csv').exists()
+        assert not hasattr(c.dataset,'train')
+        # The safety template is published before role resolution; no trained or
+        # guessed output is written for the unresolved contract.
+        output=tmp_path/'submission.csv'
+        assert output.exists() and output.read_bytes()==(tmp_path/'sample_submission.csv').read_bytes()
     finally:c.close()
 
 

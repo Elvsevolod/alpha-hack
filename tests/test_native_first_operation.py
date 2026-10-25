@@ -94,5 +94,5 @@ def test_real_controller_keeps_native_with_one_request_and_executes_only_first(a
     assert c.journal.operation('never_execute_finish') is None
     assert c.context_memory.store.db.execute('SELECT COUNT(*) FROM cc_commands').fetchone()[0]==1
     rows=c.journal.db.execute("SELECT payload FROM events WHERE kind='extra_native_calls_deferred'").fetchall()
-    assert len(rows)==1 and json.loads(rows[0][0])=={'received':2,'accepted':1,'discarded':1,'queued':0,
-        'reason':'One operation per updated research state; only the first call was validated'}
+    assert len(rows)==1 and json.loads(rows[0][0])=={'received':2,'accepted':1,'retained_for_reconsideration':1,'queued':0,
+        'reason':'Only the first action was validated; remaining intentions require a new decision on updated state'}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+import time
 from typing import Literal
 
 from pydantic import Field, model_validator
@@ -61,14 +62,24 @@ class Critique(Contract):
         return self
 
 
-def review_candidate(c, spec, costs, custom_code=None, requested_budget=None):
+def review_candidate(c, spec, costs, custom_code=None, requested_budget=None, candidate_deadline=None):
     """Return a durable review, or None for a measured/bounded cheap experiment."""
+    if getattr(c, "no_llm", False) or getattr(c.qwen, "disabled", False):
+        c.journal.event("hypothesis_review_route", {"experiment_id": spec.experiment_id,
+            "review": False, "reason": "no_llm"})
+        return None
     forecast = getattr(costs, "forecast", {})
     estimate = forecast.get("candidate_fit_seconds")
     measured = type(estimate) in (int, float) and math.isfinite(estimate) and estimate >= 0
     seconds = min(spec.budget_seconds, estimate) if measured else spec.budget_seconds
-    if seconds < EXPENSIVE_SECONDS:
+    high_risk = spec.pipeline.engine == "custom" or custom_code is not None
+    if not high_risk and (not measured or seconds < EXPENSIVE_SECONDS):
+        c.journal.event("hypothesis_review_route", {"experiment_id": spec.experiment_id, "review": False,
+            "reason": "bounded_native_pilot_before_review" if not measured else "measured_cheap_native_recipe",
+            "estimated_seconds": estimate if measured else None, "candidate_cap_seconds": spec.budget_seconds})
         return None
+    if c.journal.get("channel_state", {}).get("status") == "degraded":
+        raise ValueError("Degraded channel cannot authorize a new hypothesis review")
 
     # Allowlist public scalars; feedback, predictions, inner labels and artifacts
     # are deliberately absent from the critic's independent context.
@@ -114,6 +125,14 @@ def review_candidate(c, spec, costs, custom_code=None, requested_budget=None):
         return saved
     request.update(review_id=review_id, response_schema=Critique.model_json_schema(), resources={
         "remaining_seconds": c.budget.remaining, "finalization_reserve_seconds": c.budget.final_reserve(costs)})
+    if candidate_deadline is not None:
+        window = min(candidate_deadline - time.time(), c.budget.remaining - c.budget.final_reserve(costs))
+        review_window = window - (estimate if measured else spec.budget_seconds) - 1.
+        if review_window < 10:
+            c.journal.event("hypothesis_review_deferred", {"review_id": review_id,
+                "reason": "critic_and_selected_fit_exceed_local_budget", "window_seconds": max(0., window)})
+            return {"review_id": review_id, "status": "insufficient_review_and_fit_budget"}
+        request["resources"]["critic_max_seconds"] = review_window
     record = {"review_id": review_id, "status": "pending", "cost": request["cost"], "request": request}
     c.journal.put(key, record)
     atomic_json(path, record)

@@ -15,7 +15,7 @@ def main():
     load_dotenv(Path(__file__).resolve().parent / ".env", override=False)
     parser = argparse.ArgumentParser(description="Qwen autonomous CSV ML agent")
     parser.add_argument("task", nargs="?", default="task.md", type=Path)
-    parser.add_argument("--time-limit", type=float, default=180 * 60)
+    parser.add_argument("--time-limit", type=float, default=170 * 60)
     parser.add_argument("--memory-mb", type=float, default=28000)
     parser.add_argument("--cpu", type=int, default=7)
     parser.add_argument("--max-candidates", type=int, help="Optional development limit; platform runs use the shared time budget")
@@ -40,6 +40,16 @@ def main():
         report = execute(args.task.parent.resolve(), args.clustering_contract, limits, started, args.run_id)
         print(json.dumps(report, ensure_ascii=False))
         return 0 if report["state"] == "completed" else 1
+    if not args.no_llm:
+        from automl_agent.clustering_route import resolve_and_run
+        try:
+            clustering = resolve_and_run(args.task.resolve(), limits, started, args.run_id)
+        except Exception as error:  # fail open: the supervised controller still owns a valid task
+            print(json.dumps({"state": "clustering_route_failed", "error": type(error).__name__}, ensure_ascii=False))
+            clustering = None
+        if clustering is not None:
+            print(json.dumps(clustering, ensure_ascii=False))
+            return 0 if clustering["state"] == "completed" else 1
     controller = Controller(args.task, limits, started, args.run_id, args.transport, args.research_focus, args.seed)
     try:
         report = controller.run(args.no_llm)

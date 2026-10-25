@@ -57,7 +57,7 @@ def test_forecasting_accepts_a_time_identifier_without_exogenous_features(tmp_pa
 
 
 def test_only_no_argument_model_eval_is_permitted():
-    validate_code('import torch\ndef build_pipeline(context):\n model=torch.nn.Linear(1,1)\n model.eval()\n return model', 'pipeline')
+    validate_code('class Estimator:\n def eval(self): return self\ndef build_pipeline(context):\n model=Estimator()\n model.eval()\n return model', 'pipeline')
     with pytest.raises(ValueError):
         validate_code('import pandas as pd\ndef build_pipeline(context):\n return pd.eval("1+1")', 'pipeline')
 
@@ -129,8 +129,16 @@ def test_ensemble_refits_complete_graph_and_rejects_a_lost_model(tmp_path, monke
         controller.finalize()
         assert controller.journal.get('control_status') == 'completed'
         assert controller.journal.get('refit_status') == 'completed'
-        assert controller.journal.get('control_winner') == nested['experiment']['experiment_id']
-        assert len(calls) == len(set(calls)) == 4  # two shared fitted nodes, once in each phase
+        scores = controller.journal.get('control_scores')
+        winner = controller.journal.get('control_winner')
+        assert scores[winner] == min(scores.values())
+        from automl_agent.completion import dependency_order
+        # Blends are local arithmetic; only fitted base nodes launch workers.
+        expected = sum(controller.lookup(identifier)[0].pipeline.engine != 'ensemble'
+            for identifier in dependency_order(controller, controller.journal.get('finalization_plan')['finalists']))
+        expected += sum(controller.lookup(identifier)[0].pipeline.engine != 'ensemble'
+            for identifier in dependency_order(controller, [winner]))
+        assert len(calls) == len(set(calls)) == expected
         _, result = controller.lookup(member)
         model = Path(result.artifacts['directory']) / 'model.pkl'
         model.unlink()
@@ -158,7 +166,7 @@ def test_panel_forecast_pilot_uses_future_features_without_external_targets(tmp_
         probes = []
         original = controller.executor.run
         def inspect_staging(directory, request, seconds):
-            if directory.name == 'pilot':
+            if directory.name in {'smoke','performance_1','performance_2'}:
                 probes.append(json.loads((directory / 'probe_X.json').read_text()))
                 assert not (directory / 'probe_y.json').exists()
             return original(directory, request, seconds)
@@ -168,7 +176,7 @@ def test_panel_forecast_pilot_uses_future_features_without_external_targets(tmp_
         result = tool_payload(controller.dispatch(ToolCommand(operation_id='lag_model', tool='train_model', arguments=arguments)))
         assert result['result']['status'] == 'completed', result
         spec, outcome = controller.lookup(result['experiment']['experiment_id'])
-        pilot = Path(outcome.artifacts['directory']) / 'pilot'
+        pilot = Path(outcome.artifacts['directory']) / 'smoke'
         probe = probes[0]
         assert set(probe['index']) <= {controller.dataset.row_keys[i] for i in controller.plan.validation}
         assert not (pilot / 'probe_y.json').exists()

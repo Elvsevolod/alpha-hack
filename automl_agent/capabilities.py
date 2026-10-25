@@ -9,8 +9,8 @@ from .util import atomic_json, digest, read_json
 
 MODEL_PACKAGES = {
     "ridge": "scikit-learn", "spline": "scikit-learn", "elastic_net": "scikit-learn", "logistic": "scikit-learn",
-    "sgd": "scikit-learn", "constant": "scikit-learn", "random_forest": "scikit-learn", "extra_trees": "scikit-learn",
-    "mlp": "scikit-learn", "hist_gradient_boosting": "scikit-learn", "catboost": "catboost", "lightgbm": "lightgbm",
+    "sgd": "scikit-learn", "knn": "scikit-learn", "constant": "scikit-learn", "random_forest": "scikit-learn", "extra_trees": "scikit-learn",
+    "hist_gradient_boosting": "scikit-learn", "catboost": "catboost", "lightgbm": "lightgbm",
     "lgbm_ranker": "lightgbm", "xgboost": "xgboost", "naive": "scikit-learn", "sarimax": "statsmodels", "exponential_smoothing": "statsmodels",
 }
 
@@ -49,16 +49,18 @@ class CapabilityRegistry:
         self.records = read_json(path) if path.is_file() else {}
 
     def key(self, spec, task, strategy):
-        package = spec.engine if spec.engine in {"flaml", "optuna"} else "autogluon.tabular" if spec.engine == "autogluon" else MODEL_PACKAGES.get(spec.model, "custom")
+        package = spec.engine if spec.engine in {"flaml", "optuna", "lightautoml"} else "autogluon.tabular" if spec.engine == "autogluon" else MODEL_PACKAGES.get(spec.model, "custom")
         return digest({"package": package, "version": self.versions.get(package), "task": task.kind,
             "environment_hash": digest(self.versions),
-            "pipeline_hash": spec.hash,
+            "interface": {"custom": spec.custom_hash, "transformations": [op.name for op in spec.transformations],
+                "resampling": spec.resampling, "early_stopping": bool(spec.early_stopping_rounds),
+                "autogluon_profile": spec.autogluon_profile},
             "model": spec.model, "engine": spec.engine, "representation": spec.representation,
             "imputation": spec.imputation.model_dump(), "strategy": strategy,
             "output": task.output.prediction_type, "postprocess": spec.prediction_policy})
 
     def require_available(self, spec):
-        package = "autogluon.tabular" if spec.engine == "autogluon" else spec.engine if spec.engine in {"flaml", "optuna"} else MODEL_PACKAGES.get(spec.model)
+        package = "autogluon.tabular" if spec.engine == "autogluon" else spec.engine if spec.engine in {"flaml", "optuna", "lightautoml"} else MODEL_PACKAGES.get(spec.model)
         if package is None and spec.engine not in {"custom", "ensemble"}:
             raise ValueError(f"Unknown model: {spec.model}")
         if package and self.versions.get(package, "absent") == "absent":

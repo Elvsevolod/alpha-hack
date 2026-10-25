@@ -9,7 +9,7 @@ from pathlib import Path
 FORMAT_VERSION = "mlkb-1"
 NORMALIZER_VERSION = "text-1"
 CHUNKER_VERSION = "paragraph-1"
-RANKING_VERSION = "lexical-1"
+RANKING_VERSION = "public-executable-2"
 
 
 def canonical(value):

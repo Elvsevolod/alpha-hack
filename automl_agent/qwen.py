@@ -9,7 +9,7 @@ from typing import Any
 
 import httpx
 
-from .contracts import TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand
+from .contracts import TOOL_SCHEMAS, TOOL_DESCRIPTIONS, ToolCommand, public_tool_schema
 from .util import atomic_json, canonical, digest
 from .diagnostics import emit
 from .qwen_stream import IncompleteModelStream, ProviderStreamError, completion_from_sse, validate_completion
@@ -17,7 +17,8 @@ from .qwen_stream import IncompleteModelStream, ProviderStreamError, completion_
 
 GENERATION = {"temperature": 1.0, "top_p": .95, "top_k": 20, "min_p": 0.0,
     "presence_penalty": 0.0, "frequency_penalty": 0.0, "repetition_penalty": 1.0}
-OUTPUT_TOKENS = {"medium": 16384, "xhigh": 32768}
+OUTPUT_TOKENS = {"medium": 4096, "xhigh": 12288}
+OUTPUT_CEILINGS = {"medium": 8192, "xhigh": 24576}
 
 
 class QwenError(RuntimeError):
@@ -69,8 +70,8 @@ def native_tools():
     result = []
     descriptions = TOOL_DESCRIPTIONS
     for name, schema in TOOL_SCHEMAS.items():
-        parameters = schema.model_json_schema()
-        parameters.setdefault("properties", {})["operation_id"] = {"type": "string", "description": "Stable unique ID; reuse for retries only"}
+        parameters = public_tool_schema(schema)
+        parameters.setdefault("properties", {})["operation_id"] = {"type": "string", "pattern": "^[A-Za-z0-9_-]{1,96}$", "description": "Stable unique ID, 1-96 ASCII characters; reuse for retries only"}
         parameters.setdefault("required", []).append("operation_id")
         result.append({"type": "function", "function": {"name": name, "description": descriptions[name], "parameters": parameters}})
     return result
@@ -79,7 +80,7 @@ def native_tools():
 def json_tool_schemas():
     definitions, arguments = {}, {}
     for name, model in TOOL_SCHEMAS.items():
-        schema = model.model_json_schema()
+        schema = public_tool_schema(model)
         for identifier, value in schema.pop("$defs", {}).items():
             if identifier in definitions and definitions[identifier] != value:
                 raise ValueError("Conflicting tool schema definitions")
@@ -124,9 +125,18 @@ class QwenClient:
         self.client = httpx.Client(follow_redirects=False)
         self.select_reasoning("medium", "ordinary_step")
 
+    @property
+    def response_limit_seconds(self):
+        if self.reasoning_reason == "hypothesis_critic":
+            return 180
+        if self.reasoning_reason == "resolve_task_contract":
+            return 180
+        return 420 if self.effort == "xhigh" else 180
+
     def select_reasoning(self, effort, reason):
         self.effort = effort
-        self.output_tokens = max(OUTPUT_TOKENS[effort], self.output_floor, self.output_by_effort.get(effort, 0))
+        ceiling = max(OUTPUT_CEILINGS[effort], self.output_floor)
+        self.output_tokens = min(ceiling, max(OUTPUT_TOKENS[effort], self.output_floor, self.output_by_effort.get(effort, 0)))
         self.extra["reasoning"] = {"enabled": True, "effort": effort}
         self.reasoning_reason = reason
         self.journal.put("qwen_configuration", {"model": self.model, "model_fingerprint": digest(self.model),
@@ -147,7 +157,7 @@ class QwenClient:
             self.select_reasoning("xhigh", "reconsider_search_direction")
         elif note and note.get("status") == "ready_to_compare":
             self.select_reasoning("xhigh", "evidence_ready_for_complex_step")
-        elif tool in {"train_model", "run_automl", "tune_model", "run_custom_experiment", "analyze_experiments", "build_ensemble", "revise_validation"}:
+        elif tool in {"run_custom_experiment", "run_experiments", "build_ensemble", "revise_validation"}:
             self.select_reasoning("xhigh", "interpret_experiment_and_plan_next_change")
         elif tool is None:
             self.select_reasoning("xhigh", "initial_research_plan")
@@ -159,6 +169,8 @@ class QwenClient:
         return bool(self.key and self.base_url and self.model)
 
     def _request(self, messages, tools=None, *, prepared=None, max_seconds=None):
+        if getattr(self, "disabled", False):
+            raise QwenUnavailable("Model requests are disabled by no_llm")
         if threading.current_thread() is not threading.main_thread():
             raise QwenError("Model requests require the controller main thread for deadline enforcement")
         unknown = self.journal.get('qwen_unknown_outcome')
@@ -192,6 +204,8 @@ class QwenClient:
         if prepared is not None:
             self.context_memory.c.knowledge.audit(prepared, payload)
         reserve = max(self.reserve_seconds, self.budget.final_reserve())
+        if self.budget.remaining - reserve < 10:
+            raise TimeoutError("Model window is smaller than the minimum useful request; stop research before finalization")
         call_id = self.budget.claim_call(reserve)
         self.last_call_id = call_id
         request_path = self.journal.directory / "requests" / f"{call_id:08d}.json"
@@ -210,7 +224,8 @@ class QwenClient:
             available = min(available, self.budget.limits.max_llm_seconds - self.journal.get("llm_seconds", 0))
         if max_seconds is not None:
             available = min(available, max_seconds)
-        timeout = max(.01, available)
+        stage_ceiling = self.response_limit_seconds
+        timeout = max(.01, min(available, stage_ceiling))
         wire = prepared.wire_json.encode('utf-8') if prepared is not None else json.dumps(payload, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode('utf-8')
         import hashlib
         emit('qwen_exchange_start', call_id=call_id, request_id=prepared.request_id if prepared is not None else None,
@@ -227,6 +242,9 @@ class QwenClient:
                 **({"content": prepared.wire_json.encode("utf-8")} if prepared is not None else {"json": payload}),
                 headers={"Authorization": "Bearer " + self.key, "Content-Type": "application/json"},
                 timeout=httpx.Timeout(timeout, connect=min(15, timeout), pool=min(15, timeout))) as response:
+                self.journal.event('qwen_http_identity', {'call_id':call_id, 'status':response.status_code,
+                    'provider_request_id':response.headers.get('x-request-id'),
+                    'provider_response_id':response.headers.get('x-response-id')})
                 if response.status_code == 200 and 'text/event-stream' in response.headers.get('content-type', '').lower():
                     try:
                         body = completion_from_sse(response.iter_lines())
@@ -259,6 +277,9 @@ class QwenClient:
                     raise QwenContextError("Provider rejected the request context size")
                 raise QwenError(f"Model API returned HTTP {response.status_code}")
             self.journal.put('qwen_provider_failure_streak', 0)
+            self.journal.event('qwen_provider_identity', {'call_id': call_id,
+                'response_id': body.get('id'), 'provider_request_id': response.headers.get('x-request-id'),
+                'recovery_lookup': 'unsupported_by_chat_completions_endpoint; no blind retry of unknown billing'})
             if prepared is not None:
                 self.context_memory.c.knowledge.provided(prepared)
             usage = body.get("usage", {})
@@ -282,9 +303,10 @@ class QwenClient:
             if choices[0].get("finish_reason") == "length":
                 previous = self.output_tokens
                 input_size = request_size(payload, 0)
-                self.output_tokens = max(previous, min(previous * 2, self.context_tokens - input_size))
+                self.output_tokens = max(previous, min(previous * 2, self.context_tokens - input_size,
+                    max(OUTPUT_CEILINGS[self.effort], self.output_floor)))
                 if self.output_tokens == previous:
-                    raise QwenContextError("Truncated response cannot grow within the context window; compact before retrying")
+                    raise QwenUnavailable("Bounded output repair exhausted; retain saved results instead of repeating the generation")
                 self.output_by_effort[self.effort] = self.output_tokens
                 configuration = self.journal.get("qwen_configuration", {})
                 configuration["output_tokens"] = self.output_tokens
@@ -337,11 +359,37 @@ class QwenClient:
         self.reserve_seconds = max(self.reserve_seconds, reserve_seconds)
         try:
             message = self._request([{"role": "system", "content": SYSTEM},
-                {"role": "user", "content": canonical(request)}], max_seconds=90)
+                {"role": "user", "content": canonical(request)}],
+                max_seconds=min(self.response_limit_seconds, request.get("resources", {}).get("critic_max_seconds", self.response_limit_seconds)))
             return parse_json_object(message.get("content") or "")
         finally:
             self.select_reasoning(previous[0], previous[1])
             self.reserve_seconds = previous[2]
+
+    def remember_native_intents(self, calls, selected):
+        """Retain proposals for reconsideration, never execute stale extra calls."""
+        pending = self.journal.get("unexecuted_native_intents", [])
+        identity = digest({"tool": selected.tool, "arguments": selected.arguments})
+        pending = [item for item in pending if item["identity"] != identity]
+        for call in calls[1:]:
+            function = call.get("function") or {}
+            try:
+                arguments = parse_json_object(function.get("arguments") or "")
+                original_id = arguments.pop("operation_id", call.get("id"))
+                note = arguments.pop("research_note", None)
+                item = {"tool": function.get("name"), "arguments": arguments, "original_operation_id": original_id}
+                if note is not None:
+                    item['research_note'] = note
+                item["identity"] = digest({"tool": item["tool"], "arguments": arguments})
+                if not any(old["identity"] == item["identity"] for old in pending):
+                    pending.append(item)
+            except ValueError as error:
+                self.journal.event("native_intent_unparseable", {"tool": function.get("name"), "reason": str(error)[:200]})
+        self.journal.put("unexecuted_native_intents", pending)
+        if len(calls) > 1:
+            self.journal.event("extra_native_calls_deferred", {"received": len(calls), "accepted": 1,
+                "queued": 0, "retained_for_reconsideration": len(calls)-1,
+                "reason": "Only the first action was validated; remaining intentions require a new decision on updated state"})
 
     def next_command(self, system, context):
         from context_compressor.contracts import Snapshot
@@ -352,25 +400,31 @@ class QwenClient:
         self.reserve_seconds = state.get("remaining", {}).get("reserve_seconds", 0) if isinstance(state, dict) else 0
         messages = command_messages(system, context, True)
         if self.transport in {"auto", "native"}:
+            argument_error = False
             try:
                 message = self._request(messages, native_tools())
                 calls = message.get("tool_calls", [])
                 if not calls:
                     raise ValueError("Expected a tool call, received none")
-                if len(calls) > 1:
-                    self.journal.event("extra_native_calls_deferred", {"received": len(calls),
-                        "executed": 1, "reason": "One operation per updated research state"})
                 call = calls[0]
                 arguments = parse_json_object(call["function"]["arguments"])
                 operation_id = arguments.pop("operation_id", call["id"])
                 command = ToolCommand(operation_id=operation_id, tool=call["function"]["name"], arguments=arguments)
-                TOOL_SCHEMAS[command.tool].model_validate(command.arguments)
+                # Argument errors do not establish native transport incompatibility.
+                try:
+                    TOOL_SCHEMAS[command.tool].model_validate(command.arguments)
+                except ValueError:
+                    argument_error = True
+                    raise
+                self.remember_native_intents(calls, command)
                 self.transport = "native"
                 self.journal.put("transport", self.transport)
                 return command, message.get("content") or ""
             except (QwenUnavailable, QwenRetryableError, QwenContextError):
                 raise
             except (ValueError, KeyError, TypeError, QwenError) as error:
+                if argument_error:
+                    raise
                 self.journal.event("native_fallback", {"reason": str(error)[:500]})
                 self.transport = "json"
                 self.journal.put("transport", self.transport)
@@ -398,14 +452,19 @@ class QwenClient:
                     self.transport = "json"
                     self.journal.put("transport", "json")
                     break
+                argument_error = False
                 try:
                     response = self._request(None, prepared=prepared)
-                    command = compressor.accept_response(prepared.request_id, response, memory.validate)
+                    def validate(command):
+                        nonlocal argument_error
+                        try:
+                            memory.validate(command)
+                        except (ValueError, TypeError, KeyError):
+                            argument_error = True
+                            raise
+                    command = compressor.accept_response(prepared.request_id, response, validate)
                     calls = response['choices'][0]['message'].get('tool_calls') or []
-                    if mode == 'native' and len(calls) > 1:
-                        self.journal.event('extra_native_calls_deferred', {'received': len(calls),
-                            'accepted': 1, 'discarded': len(calls) - 1, 'queued': 0,
-                            'reason': 'One operation per updated research state; only the first call was validated'})
+                    self.remember_native_intents(calls, ToolCommand.model_validate({k: v for k, v in command.as_dict().items() if k != "research_note"}))
                     emit('qwen_parse_outcome', call_id=getattr(self,'last_call_id',None), request_id=prepared.request_id,
                          accepted=True, command=command.as_dict())
                     self.transport = mode
@@ -432,6 +491,9 @@ class QwenClient:
                          accepted=False, error_type=type(error).__name__, error=str(error))
                     from .util import redact
                     memory.store.channel_error(prepared.request_id, type(error).__name__, redact(str(error)))
+                    if argument_error:
+                        self.journal.event("command_arguments_rejected", {"transport": mode, "reason": redact(str(error))[:500]})
+                        raise
                     if mode == "json":
                         raise
                     self.journal.event("native_fallback", {"reason": redact(str(error))[:500]})

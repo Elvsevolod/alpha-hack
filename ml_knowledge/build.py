@@ -235,6 +235,8 @@ def freeze(root):
                 "Execution: " + payload["implementation_path"] + "; unverified until concrete capability check.",
                 "Cost: " + payload["cost"], "Evidence status: project hypothesis, not measured improvement.",
                 "Research sources: " + ", ".join(payload.get("research_sources", []))])
+        if payload.get("skill_text"):
+            record["text"] = payload["skill_text"]
     for record in records.values():
         versions = {(record["library"], record["version"])}
         payload = record.get("payload", {})

@@ -13,12 +13,14 @@ from .util import atomic_json
 PERMITTED_NAMESPACES = {
     "numpy", "scipy", "pandas", "polars", "pyarrow", "joblib", "threadpoolctl", "sklearn", "catboost",
     "lightgbm", "xgboost", "imblearn", "category_encoders", "feature_engine", "statsmodels", "optuna",
-    "torch", "flaml", "lightautoml", "openai", "httpx", "tenacity", "langchain", "langchain_openai", "langgraph",
+    "flaml", "lightautoml", "openai", "httpx", "tenacity", "langchain", "langchain_openai", "langgraph",
     "pydantic", "dotenv", "yaml", "orjson", "jsonschema", "matplotlib", "seaborn", "tqdm", "psutil", "cloudpickle", "setuptools",
 }
 
 
 def permitted_module(name):
+    if name == "sklearn.neural_network" or name.startswith("sklearn.neural_network."):
+        return False
     if name == "candidate_module":
         return True
     if name.startswith("automl_agent."):

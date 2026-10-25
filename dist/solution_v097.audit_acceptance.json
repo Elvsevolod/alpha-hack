@@ -1,0 +1,8 @@
+{
+  "source": "dist/solution_v097.zip",
+  "status": "superseded_intermediate_not_for_submission",
+  "sha256": "410b62da80ff9f21fb3125dc5d556a4df223942ce27d88846c131f08a31d5627",
+  "reason": "OOF request_hash captured after worker-mutated context; corrected in next version",
+  "replacement": "solution_v098.zip",
+  "not_uploaded": true
+}
