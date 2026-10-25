@@ -33,7 +33,7 @@
   "runtime_status": "unverified",
   "skill_id": "qwen-ml-best-practices",
   "skill_source_hashes": {
-    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
     "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
   },
   "skill_text": "Decision metric and output\n\n**Signal:** probability quality and the required label or set metric move differently; minority-class errors dominate an allowed aggregate report.\n\n**Check:** confirm whether output is a value, mutually exclusive label, multilabel set, probability or ranking score. Verify the exact primary metric. Separate errors of probability estimation from errors introduced by the decision rule.\n\n**Candidate experiment:** compare the supported default rule with a rule learned inside fit. For mutually exclusive multiclass labels, use an appropriate joint decision rule; binary thresholds cannot simply be applied independently. Set-level expected-F1 procedures require a genuine set-prediction task and an implementation supported by the host.\n\n**Limits:** tuning and evaluating a decision rule on the same labels inflates evidence. Outer evaluation must also be unseen by all fitted dependencies. Threshold changes do not improve the ordering measured by AUC. Keep probability outputs probabilistic.\n\nSource: [Instacart author's report, F1 maximization](https://github.com/KazukiOnodera/Instacart#f1-maximization). Inner/outer evaluation requirements here are project guidance, not a claim that the README documents that protocol.",

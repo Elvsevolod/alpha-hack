@@ -1,0 +1,68 @@
+{
+  "branch": "feat/strong-reference-search",
+  "api_calls": 0,
+  "decisions": [
+    {
+      "problem": "Comparison with weak baseline could exaggerate usefulness",
+      "decision": "Use strongest persisted pair, exact saved splits, reproduce metrics before reporting",
+      "status": "implemented"
+    },
+    {
+      "problem": "Feature universality was interpreted too narrowly",
+      "decision": "Agent may choose semantic task-specific hypotheses; retain generic executors and no hardcoded task router",
+      "status": "methodological rule"
+    },
+    {
+      "problem": "Context features improved development but worsened reused audit",
+      "decision": "Do not promote; retain 39.03614722027966 regression reference",
+      "status": "negative evidence"
+    },
+    {
+      "problem": "Finite budgets cannot enumerate every parameter combination",
+      "decision": "Cover distinct error mechanisms; record tested and untested approaches rather than claim global optimum",
+      "status": "search discipline"
+    },
+    {
+      "problem": "Temporal validation errors concentrate when an informative input is missing",
+      "evidence": {
+        "period": "second development origin",
+        "input_observed_rmse": 35.936,
+        "input_missing_rmse": 52.036
+      },
+      "decision": "Consider more flexible leaf models and explicit missingness; do not remove difficult rows",
+      "status": "next candidate family"
+    },
+    {
+      "problem": "Native CatBoost and DART need substantially more CPU than a small pilot",
+      "decision": "Retain explicit worker deadlines, fixed iterations for DART, and measured cost in report",
+      "status": "resource accounting"
+    },
+    {
+      "problem": "Macro F1 may be limited by a few conditional class confusions",
+      "decision": "Fit at most three pair specialists chosen on calibration; preserve total probability mass and evaluate on a different selection population",
+      "status": "implementation tested; full comparison pending"
+    },
+    {
+      "problem": "Search-early-stopped cached regression predictions were compared with fixed new recipes",
+      "decision": "Preserve earlier evidence; use a separately frozen fair comparison and genuine fixed-round OOF for meta-training",
+      "status": "corrected; negative audit of newly selected deeper model retained"
+    },
+    {
+      "problem": "Systematic category residuals may remain after strong boosting",
+      "decision": "Use only strictly earlier out-of-fit residuals; choose shrinkage policy on later development origins before audit",
+      "status": "positive local reference result",
+      "baseline_rmse": 39.03614722027966,
+      "candidate_rmse": 38.83714138257429
+    },
+    {
+      "problem": "Final refit legitimately expands training scope",
+      "decision": "Freeze method first; include former control labels only through honest forecasts at final fit; never rescore that final calibrator on former control",
+      "status": "separate CSV exported"
+    },
+    {
+      "problem": "One development improvement is not official contest quality",
+      "decision": "Retain canonical submissions and all negative studies; publish a separate candidate and explicit limits",
+      "status": "ready for review"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "api_calls": 0,
+  "audit_not_rescored_after_final_refit": true,
+  "audit_score_before_final_refit": 38.83714138257429,
+  "baseline_members": {
+    "outputs/literature_reference_20261025/regression/engineered_cb_final/model.joblib": "56fb643e4b236b0fedcf9d76b6b66e455229e20f81b287012f7ef4f423f54331",
+    "outputs/literature_reference_20261025/regression/regularized_lgb_final/model.joblib": "6ac8780e5a3abfd5cf7e3bb5bba349f28a2060aa03de711846fb0b9d99bf32a5"
+  },
+  "calibrator": {
+    "categorical": [
+      "State_Factor",
+      "building_class",
+      "facility_type"
+    ],
+    "shrinkage": 100,
+    "strength": 0.5
+  },
+  "canonical_csv_untouched": true,
+  "columns": [
+    "id",
+    "site_eui"
+  ],
+  "data_hash": "89d50a68fe41977dcdc3f9a105cd1e6db39d5dbdfa03216c1bc648fa6f33b5a5",
+  "final_fit_includes_former_control_labels": true,
+  "final_oof_rows": 51191,
+  "format": 1,
+  "frozen_policy": "residual_half",
+  "official_score_unknown": true,
+  "rows": 22449,
+  "scope": "separate_research_candidate_not_official_submission",
+  "selection_sha256": "2e24f849d6cd1bc74e7f94a56f95731d7e56d1c2b0f206776018ae9011ed4235",
+  "study_sha256": "1ffb19666950d91c232346b35387b4523e098bb52868a035cd6ff8a54681375a",
+  "submission_sha256": "a52f186403e072d2e46e3a24376d52e9aba5d1ac850a3dde0c93f63e4c8151c8",
+  "candidate_file": "2026-10-25-regression-residual.csv"
+}
