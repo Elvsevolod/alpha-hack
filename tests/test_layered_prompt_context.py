@@ -60,6 +60,7 @@ def test_guides_and_last_operation_survive_every_compaction_stage(controller, mo
         policy = next(entry for entry in catalog['guides'] if entry['id'] == 'research_policy')
         assert read_all(c, policy['read']) == c.prompt_contract['guides']['research_policy']
         assert '<authority_and_scope>' in wire['messages'][0]['content']
+        assert 'Finite unsuccessful variants do not establish a local or global optimum' in wire['messages'][0]['content']
         assert 'provided Qwen API' in wire['messages'][0]['content']
         assert (len(wire['tools']) if mode == 'native' else len(context['tool_argument_schemas'])) == 17
 
@@ -140,6 +141,9 @@ def test_parameter_guide_is_derived_from_executor_contract_not_library_guess(con
     assert 'is_unbalance' not in guide['models']['lightgbm']
     assert 'class_weight' in guide['models']['lightgbm']
     assert 'n_jobs' not in guide['models']['logistic']
+    from automl_agent.contracts import Transformation
+    assert guide['declared_transformations'] == Transformation.model_json_schema()['properties']['name']['enum']
+    assert 'math' in guide['declared_transformations']
 
 
 @pytest.mark.parametrize('mode', ['native', 'json'])

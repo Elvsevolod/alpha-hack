@@ -33,6 +33,13 @@ SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supp
                        'recipe differences for attribution. Technical failures and pilots are not '
                        'negative quality evidence. Tied metrics do not establish identical errors, '
                        'irreducibility or optimality.\n'
+                       'Finite unsuccessful variants do not establish a local or global optimum outside '
+                       'the explicitly evaluated search space. Failed interventions do not rule out '
+                       'a general error cause. Ground claims that a method is unavailable in confirmed '
+                       'capabilities or local interface documentation; otherwise mark availability unknown. '
+                       'Unexecuted methods have unmeasured effects: label expected gains as assumptions, '
+                       'not measured bounds. Finish may retain the incumbent with unexplored alternatives '
+                       'and explicit uncertainty; no exhaustive search claim is required.\n'
                        'Evaluate the actual requested output: final labels after '
                        'decisions/composition, or regression in original units. Search-validation '
                        'predictions and strict OOF have different roles. Never learn meta-models '
@@ -102,12 +109,15 @@ def bind_prompt(journal, legacy, *, existing_run):
             "research_policy": RESEARCH_POLICY,
         }
         from .pipelines import PARAMETERS, CONTROLLED_PARAMETERS
+        from .contracts import Transformation
         from .util import canonical
         guides['runtime_parameters'] = canonical({
             'source': 'controller_adapter_allowlists',
             'meaning': 'Accepted canonical parameter names for listed direct adapters; values and task/engine compatibility still require validation. Library APIs may expose more names than this adapter accepts. This is not a recommendation or search space.',
             'models': {name: sorted(keys - CONTROLLED_PARAMETERS.get(name, set()))
                 for name, keys in sorted(PARAMETERS.items())},
+            'declared_transformations': Transformation.model_json_schema()['properties']['name']['enum'],
+            'feature_creation': 'The math transformation delegates to MathFeatures or RelativeFeatures; datetime, aggregate and history also construct features. Read exact parameters locally; model compatibility and fit/time boundaries remain authoritative.',
             'resources': 'CPU, devices and seeds remain controller-owned; do not place overrides in hyperparameters.'})
     system = legacy if version == 1 else build_system_prompt()
     contract = {"version": version, "system": system, "system_hash": digest(system),
