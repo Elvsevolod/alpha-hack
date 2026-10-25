@@ -25,7 +25,7 @@ TASKS = ('adult', 'bank', 'bike', 'har')
 FILES = ('task.md', 'train.csv', 'test.csv', 'data_dictionary.csv', 'sample_submission.csv')
 
 
-def prepare(output, candidate, tasks=TASKS):
+def prepare(output, candidate, tasks=TASKS, reverse_order=False):
     if not tasks or len(set(tasks)) != len(tasks) or not set(tasks) <= set(TASKS):
         raise ValueError('Select distinct registered benchmark tasks')
     output.mkdir(parents=True, exist_ok=False)
@@ -54,7 +54,8 @@ def prepare(output, candidate, tasks=TASKS):
     for index, task in enumerate(tasks):
         expected = original_manifest[task]['prepared_sha256']
         hashes = {}
-        for arm in (('A', 'B') if index % 2 == 0 else ('B', 'A')):
+        arms = ('A', 'B') if index % 2 == 0 else ('B', 'A')
+        for arm in (arms[::-1] if reverse_order else arms):
             case = output / 'runs' / (task + '_' + arm) / 'task'
             case.mkdir(parents=True)
             for name in FILES:
@@ -68,6 +69,7 @@ def prepare(output, candidate, tasks=TASKS):
                 'max_calls': None, 'max_candidates': None, 'seed': 42,
                 'input_hashes': hashes.copy(), 'outer_labels_opened': False})
     manifest = {'version': 1, 'commits': resolved, 'runs': runs, 'real_model': 'qwen/qwen3.8-27b',
+        'order_reversed': reverse_order,
         'monetary_series_cap': None, 'monetary_override': 'Human explicitly removed test budget cap',
         'datasets_known_to_development': True, 'labels_source_outside_tasks': str(original / 'sealed')}
     atomic_json(output / 'protocol.json', manifest)
@@ -179,10 +181,12 @@ if __name__ == '__main__':
     p.add_argument('--candidate', help='Frozen candidate commit for prepare')
     p.add_argument('--tasks', nargs='+', choices=TASKS, default=TASKS,
         help='Prepare only the selected benchmark tasks, e.g. one corrective pair')
+    p.add_argument('--reverse-order', action='store_true',
+        help='Reverse A/B inside each task for a counterbalanced corrective pair')
     a = p.parse_args()
     if a.action == 'prepare':
         if not a.candidate:
             p.error('--candidate is required')
-        prepare(a.output.resolve(), a.candidate, a.tasks)
+        prepare(a.output.resolve(), a.candidate, a.tasks, a.reverse_order)
     else:
         live(a.output.resolve())
