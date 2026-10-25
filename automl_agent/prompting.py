@@ -77,7 +77,10 @@ def build_system_prompt():
         "representations of one model family are distinct options, never a required quota. "
         "Deferred native intentions are optional unvalidated proposals, not queued operations or unknown outcomes. "
         "They do not require recovery or reading; ignore stale proposals or make a new deliberate action. "
-        "Do not repeatedly read the proposal container merely to discharge it.")
+        "Do not repeatedly read the proposal container merely to discharge it. "
+        "Keep action arguments concise: omit unchanged defaults and inherited fields, and use the existing "
+        "recipe preview/patch tools for deliberate changes instead of repeatedly serializing complete recipes. "
+        "Retain the required hypothesis and evidence; return one action that fits the response allocation.")
 
 
 def bind_prompt(journal, legacy, *, existing_run):
