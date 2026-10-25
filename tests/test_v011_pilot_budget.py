@@ -1,4 +1,5 @@
 import pandas as pd
+import importlib.util
 import pytest
 
 from automl_agent.budget import Limits
@@ -9,6 +10,8 @@ from conftest import write_task
 
 
 @pytest.mark.parametrize("copies", [1, 100])
+@pytest.mark.skipif(importlib.util.find_spec('autogluon') is None,
+    reason='Real AutoGluon pilot requires organizer dependency environment')
 def test_pilot_has_its_own_phase_reserves_on_small_and_large_data(tmp_path, monkeypatch, copies):
     path = write_task(tmp_path, kind="classification")
     frame = pd.read_csv(tmp_path / "train.csv", dtype=str, keep_default_na=False)
@@ -77,6 +80,8 @@ def test_infeasible_phase_reserve_is_rejected_before_calling_engine(tabular, tmp
             "phase_estimates": {"selected_fit_seconds": 10, "prediction_seconds": 1, "publication_seconds": 1}})
 
 
+@pytest.mark.skipif(importlib.util.find_spec('autogluon') is None,
+    reason='Real AutoGluon seed integration requires organizer dependency environment')
 def test_autogluon_actual_training_seed_and_finite_model_policy(tabular, tmp_path):
     X, y, task = tabular
     spec = PipelineSpec(engine="autogluon", model="library_search", learners=["GBM", "CAT", "XGB"], n_trials=None, seed=73)

@@ -1,13 +1,32 @@
 import pandas as pd
 import pytest
+import sys
+from types import ModuleType
 
 from automl_agent.contracts import PipelineSpec
 from automl_agent.search import SearchPipeline
 
 
+@pytest.fixture
+def predictor_api(monkeypatch):
+    """These tests supply a fake predictor already; no real learner is exercised."""
+    package = ModuleType('autogluon')
+    package.__path__ = []
+    tabular = ModuleType('autogluon.tabular')
+    tabular.__path__ = []
+    tabular.TabularPredictor = None
+    trainer = ModuleType('autogluon.tabular.trainer')
+    trainer.AutoTrainer = type('AutoTrainer', (), {'_train_single_full': lambda *_a, **_kw: []})
+    package.tabular = tabular
+    tabular.trainer = trainer
+    for module in (package, tabular, trainer):
+        monkeypatch.setitem(sys.modules, module.__name__, module)
+    return tabular
+
+
 @pytest.mark.parametrize("second_type,expected", [("LGBModel", "engine_stopped_unclassified"),
     ("CatBoostModel", "engine_space_exhausted")])
-def test_two_models_of_one_family_do_not_prove_all_learners_completed(tabular, tmp_path, monkeypatch, second_type, expected):
+def test_two_models_of_one_family_do_not_prove_all_learners_completed(tabular, tmp_path, monkeypatch, second_type, expected, predictor_api):
     import autogluon.tabular
 
     class Predictor:
@@ -47,7 +66,7 @@ def test_two_models_of_one_family_do_not_prove_all_learners_completed(tabular, t
     assert evidence["stop_reason"] == expected
 
 
-def test_autogluon_refit_retrains_frozen_selection_on_every_permitted_row(tabular, tmp_path, monkeypatch):
+def test_autogluon_refit_retrains_frozen_selection_on_every_permitted_row(tabular, tmp_path, monkeypatch, predictor_api):
     import autogluon.tabular
 
     instances = []

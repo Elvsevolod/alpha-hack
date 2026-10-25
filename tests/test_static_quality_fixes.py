@@ -1,5 +1,6 @@
 """Behavioral acceptance for A01–A28 of the v076–v091 quality audit."""
 import copy
+import importlib.util
 import json
 import time
 from types import SimpleNamespace
@@ -57,6 +58,8 @@ def classification(X, y, task):
     return X, pd.DataFrame({"answer": labels}, index=y.index), task
 
 
+@pytest.mark.skipif(importlib.util.find_spec('autogluon') is None,
+    reason='Real AutoGluon integration requires organizer dependency environment')
 def test_A01_automl_decision_freeze_audit_and_refit(tabular, tmp_path):
     X, y, task = classification(*tabular)
     # Real engine, OOF decision, serialization, finalist audit and larger refit.
@@ -79,6 +82,8 @@ def test_A01_automl_decision_freeze_audit_and_refit(tabular, tmp_path):
 
 
 @pytest.mark.parametrize("profile", ["bagging", "stacking"])
+@pytest.mark.skipif(importlib.util.find_spec('autogluon') is None,
+    reason='Real AutoGluon integration requires organizer dependency environment')
 def test_A02_A16_explicit_graph_and_exact_groups_replay(tabular, tmp_path, profile):
     X, y, task = tabular
     X = pd.DataFrame({"number": np.repeat(np.arange(30, dtype=float), 4)})

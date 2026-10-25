@@ -109,7 +109,14 @@ def test_classification_numeric_bundles_cannot_be_scored_or_published(tmp_path, 
 @pytest.mark.parametrize('mode', ['auto', 'json'])
 def test_focus_uses_available_transport_when_native_overhead_exceeds_cap(controller, mode):
     c = controller
-    c.research_focus = 'Улучшить качество, сохраняя метрику и независимую валидацию. ' * 100
+    unit = 'Улучшить качество, сохраняя метрику и независимую валидацию. '
+    c.research_focus = unit
+    c.context_memory.snapshot(SYSTEM)
+    native_overhead = c.context_memory.compressor.transport.overhead_bytes('native')
+    # Calibrate pressure against the actual prompt, whose size is versioned.
+    # The test exercises fallback, not an incidental historical SYSTEM length.
+    extra = max(0, (65536 - native_overhead) // len(unit.encode()) + 2)
+    c.research_focus = unit * (1 + extra)
     c.qwen.transport = mode
     seen = []
     def handle(request):

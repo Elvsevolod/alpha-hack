@@ -80,7 +80,9 @@ def snapshot(output, phase, before=None):
     if before:
         command.extend(['--before', str(before)])
     result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=40)
-    if result.returncode:
+    # The limits skill returns 3 for a valid exhausted/blocked snapshot.
+    # Preserve its known balance instead of calling successful accounting unknown.
+    if result.returncode not in {0, 3}:
         return None
     return json.loads(output.read_text())
 
@@ -93,6 +95,15 @@ def live(output):
     protocol = json.loads((output / 'protocol.json').read_text())
     if protocol.get('stopped_reason') or protocol.get('evaluation_frozen_at'):
         raise ValueError('Series stopped or evaluated; inspect evidence before registering a new series')
+    harness_hash = file_hash(Path(__file__))
+    previous_harness = protocol.get('harness_sha256')
+    if previous_harness is not None and previous_harness != harness_hash:
+        raise ValueError('Frozen series harness changed; register a reviewed continuation')
+    if previous_harness is None and any((output / 'runs' / row['id'] / 'started.json').exists()
+            for row in protocol['runs']):
+        raise ValueError('Legacy series already started; audit its original harness before resuming')
+    protocol['harness_sha256'] = harness_hash
+    atomic_json(output / 'protocol.json', protocol)
     expected_key = hashlib.sha256(config['OPENAI_API_KEY'].encode()).hexdigest()[:16]
     period = protocol.get('account_period')
     for row in protocol['runs']:

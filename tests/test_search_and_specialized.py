@@ -1,4 +1,5 @@
 import cloudpickle
+import importlib.util
 import numpy as np
 import pandas as pd
 import pytest
@@ -10,7 +11,9 @@ from automl_agent.search import suggest_parameters
 from test_pipelines import context
 
 
-@pytest.mark.parametrize('engine',['optuna','flaml','autogluon'])
+@pytest.mark.parametrize('engine',['optuna','flaml',pytest.param('autogluon',
+    marks=pytest.mark.skipif(importlib.util.find_spec('autogluon') is None,
+        reason='AutoGluon unavailable locally; requires organizer dependency environment'))])
 @pytest.mark.parametrize('classification',[False,True])
 def test_search_fit_save_load_and_fixed_refit(tabular,tmp_path,engine,classification):
     X,y,task=tabular

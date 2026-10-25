@@ -24,3 +24,38 @@ def test_registration_is_balanced_and_excludes_sealed_labels_from_inputs():
     assert tuple(dict.fromkeys(r['task'] for r in rows)) == TASKS
     assert set(FILES) == {'task.md', 'train.csv', 'test.csv', 'sample_submission.csv', 'data_dictionary.csv'}
     assert not any(row['outer_labels_opened'] for row in rows)
+
+
+def test_exhausted_account_snapshot_is_known_not_a_network_failure(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from tools import research_memory_series
+    path = tmp_path / 'after.json'
+    value = {'remaining_budget': 0, 'budget_exhausted': True, 'limits': {'blocked': True},
+        'comparison': {'increase': 2.5}}
+    path.write_text(json.dumps(value))
+    monkeypatch.setattr(research_memory_series.subprocess, 'run',
+        lambda *a, **kw: SimpleNamespace(returncode=3))
+    assert research_memory_series.snapshot(path, 'after') == value
+    monkeypatch.setattr(research_memory_series.subprocess, 'run',
+        lambda *a, **kw: SimpleNamespace(returncode=2))
+    assert research_memory_series.snapshot(path, 'after') is None
+
+
+def test_unavailable_automl_package_is_rejected_before_execution(tmp_path, monkeypatch):
+    import pytest
+    from automl_agent.capabilities import CapabilityRegistry
+    from automl_agent.contracts import PipelineSpec
+    registry = CapabilityRegistry(tmp_path / 'capabilities.json')
+    monkeypatch.setitem(registry.versions, 'autogluon.tabular', 'absent')
+    with pytest.raises(ImportError, match='autogluon.tabular'):
+        registry.require_available(PipelineSpec(engine='autogluon', model='automl'))
+
+
+def test_changed_series_harness_is_rejected_without_an_api_request(tmp_path, monkeypatch):
+    import pytest
+    from tools import research_memory_series
+    monkeypatch.setenv('OPENAI_API_KEY', 'fixture-no-paid-requests')
+    (tmp_path / 'protocol.json').write_text(json.dumps({'runs': [], 'harness_sha256': 'changed'}))
+    monkeypatch.setattr(research_memory_series, 'snapshot', lambda *_a, **_kw: pytest.fail('API called'))
+    with pytest.raises(ValueError, match='harness changed'):
+        research_memory_series.live(tmp_path)
