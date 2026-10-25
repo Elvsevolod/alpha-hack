@@ -128,6 +128,20 @@ def test_v3_guides_keep_historical_byte_continuations(controller):
     assert read_all(c, interface['read']) == INTERFACE
 
 
+def test_parameter_guide_is_derived_from_executor_contract_not_library_guess(controller):
+    from automl_agent.pipelines import PARAMETERS, CONTROLLED_PARAMETERS
+    from automl_agent.decision_context import publish_guides
+    c = controller
+    catalog = json.loads(read_all(c, publish_guides(c, c.context_memory.store)))
+    route = next(item['read'] for item in catalog['guides'] if item['id'] == 'runtime_parameters')
+    guide = json.loads(read_all(c, route))
+    assert guide['models'] == {name: sorted(keys - CONTROLLED_PARAMETERS.get(name, set()))
+        for name, keys in sorted(PARAMETERS.items())}
+    assert 'is_unbalance' not in guide['models']['lightgbm']
+    assert 'class_weight' in guide['models']['lightgbm']
+    assert 'n_jobs' not in guide['models']['logistic']
+
+
 def test_frame_never_copies_predictions_or_treats_rejected_generation_as_fit(controller):
     c = controller
     c.journal.put('last_tool_result', {'status': 'command_validation', 'error': 'PRIVATE_SENTINEL'})

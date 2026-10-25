@@ -25,7 +25,9 @@ TASKS = ('adult', 'bank', 'bike', 'har')
 FILES = ('task.md', 'train.csv', 'test.csv', 'data_dictionary.csv', 'sample_submission.csv')
 
 
-def prepare(output, candidate):
+def prepare(output, candidate, tasks=TASKS):
+    if not tasks or len(set(tasks)) != len(tasks) or not set(tasks) <= set(TASKS):
+        raise ValueError('Select distinct registered benchmark tasks')
     output.mkdir(parents=True, exist_ok=False)
     original = ROOT / 'outputs/eda_autonomy_20261024'
     original_manifest = json.loads((original / 'manifest.json').read_text())
@@ -49,7 +51,7 @@ def prepare(output, candidate):
             shutil.rmtree(corpus)
         corpus.symlink_to(ROOT / 'ml_knowledge/corpus', target_is_directory=True)
     runs = []
-    for index, task in enumerate(TASKS):
+    for index, task in enumerate(tasks):
         expected = original_manifest[task]['prepared_sha256']
         hashes = {}
         for arm in (('A', 'B') if index % 2 == 0 else ('B', 'A')):
@@ -127,14 +129,13 @@ def live(output):
                 process = subprocess.Popen(cmd, cwd=runtime, env=env, stdout=log,
                     stderr=subprocess.STDOUT, start_new_session=True)
                 try:
-                    process.wait(timeout=row['seconds'] + 30)
+                    process.wait(timeout=max(.001, row['seconds'] - (time.monotonic() - started)))
                 except subprocess.TimeoutExpired:
-                    os.killpg(process.pid, signal.SIGTERM)
-                    try:
-                        process.wait(timeout=10)
-                    except subprocess.TimeoutExpired:
-                        os.killpg(process.pid, signal.SIGKILL)
-                        process.wait()
+                    csv = directory / 'task/submission.csv'
+                    row['csv_at_deadline_sha256'] = file_hash(csv) if csv.exists() else None
+                    row['hard_deadline_reached'] = True
+                    os.killpg(process.pid, signal.SIGKILL)
+                    process.wait()
             row.update(state='exited', returncode=process.returncode, wall_seconds=time.monotonic()-started)
         finally:
             if process is not None and process.poll() is None:
@@ -165,10 +166,12 @@ if __name__ == '__main__':
     p.add_argument('action', choices=['prepare', 'live'])
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--candidate', help='Frozen candidate commit for prepare')
+    p.add_argument('--tasks', nargs='+', choices=TASKS, default=TASKS,
+        help='Prepare only the selected benchmark tasks, e.g. one corrective pair')
     a = p.parse_args()
     if a.action == 'prepare':
         if not a.candidate:
             p.error('--candidate is required')
-        prepare(a.output.resolve(), a.candidate)
+        prepare(a.output.resolve(), a.candidate, a.tasks)
     else:
         live(a.output.resolve())

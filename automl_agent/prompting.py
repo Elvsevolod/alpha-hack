@@ -98,6 +98,14 @@ def bind_prompt(journal, legacy, *, existing_run):
             "runtime_guidance": legacy.removesuffix(INTERFACE).removesuffix(RESEARCH_POLICY),
             "research_policy": RESEARCH_POLICY,
         }
+        from .pipelines import PARAMETERS, CONTROLLED_PARAMETERS
+        from .util import canonical
+        guides['runtime_parameters'] = canonical({
+            'source': 'controller_adapter_allowlists',
+            'meaning': 'Accepted canonical parameter names for listed direct adapters; values and task/engine compatibility still require validation. Library APIs may expose more names than this adapter accepts. This is not a recommendation or search space.',
+            'models': {name: sorted(keys - CONTROLLED_PARAMETERS.get(name, set()))
+                for name, keys in sorted(PARAMETERS.items())},
+            'resources': 'CPU, devices and seeds remain controller-owned; do not place overrides in hyperparameters.'})
     system = legacy if version == 1 else build_system_prompt()
     contract = {"version": version, "system": system, "system_hash": digest(system),
         "sections": {} if version == 1 else {k: digest(v) for k, v in SECTIONS.items()},

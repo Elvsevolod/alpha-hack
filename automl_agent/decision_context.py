@@ -27,6 +27,7 @@ def publish_guides(c, store):
             'candidate_interface': 'Before implementing an unfamiliar custom component',
             'runtime_guidance': 'Exact report, model, transport and resource adapter rules',
             'research_policy': 'Recipe inheritance, composition and evidence interpretation',
+            'runtime_parameters': 'Before choosing unfamiliar direct-model or HPO parameter names; actual adapter contract',
         }[name], 'read': route})
     content = canonical({'version': 1, 'guides': entries,
         'use': 'Read a relevant interface before unfamiliar operations. No mandatory reading sequence.',
