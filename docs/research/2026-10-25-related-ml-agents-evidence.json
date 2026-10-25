@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-25",
+  "api_calls": 0,
+  "external_projects_executed": false,
+  "dependencies_installed": false,
+  "contest_runtime_changed": false,
+  "repositories": {
+    "aide": {
+      "url": "https://github.com/WecoAI/aideml",
+      "commit": "ad73d227af481bea3de06f884f41b2993dd6453a",
+      "working_tree_clean": true,
+      "files": {
+        "aide/agent.py": "2748e393b4fa1bd9291a50d03dcaf0d62aaea908b4576c9131e9fb7d2b04607a",
+        "aide/journal.py": "6539cac937ef65af1ee6f05c6434ec66c2d3c268460c74f13eba4fa7bf9b6020",
+        "LICENSE": "723b16d1701dfb2d280d229ff84f3056df65b6b00ad8419ec6cb7da2fdd8f616"
+      },
+      "inspection_level": "selected source files and official README; not execution or complete audit"
+    },
+    "mlzero": {
+      "url": "https://github.com/autogluon/autogluon-assistant",
+      "commit": "f228cd7028e197750391c02d94afcb7eea8da5ff",
+      "working_tree_clean": true,
+      "files": {
+        "src/autogluon/assistant/managers/node_manager.py": "b72ddce4b5a4149ec77c3e2ebae9f6952dd927bae5243a6495a550ee7e262ab1",
+        "src/autogluon/assistant/prompts/python_coder_prompt.py": "8d7acca2a3356b56d3379de9ae7cc90f6ee2b3e4566e35d3da7d43bdd47b2176",
+        "src/autogluon/assistant/agents/data_perception_agent.py": "284ea4eaf5aebea64a59ea3e788346875ca26f47bb467e9e43ce2a581b3539ed",
+        "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "inspection_level": "selected source files and official README; not execution or complete audit"
+    }
+  },
+  "additional_projects": [
+    {
+      "url": "https://github.com/microsoft/RD-Agent",
+      "inspection_level": "official documentation or README, not full code audit"
+    },
+    {
+      "url": "https://github.com/FoundationAgents/MetaGPT/tree/main/metagpt/ext/sela",
+      "inspection_level": "official documentation or README, not full code audit"
+    },
+    {
+      "url": "https://github.com/DeepAuto-AI/automl-agent",
+      "inspection_level": "official documentation or README, not full code audit"
+    },
+    {
+      "url": "https://github.com/snap-stanford/MLAgentBench",
+      "inspection_level": "official documentation or README, not full code audit"
+    }
+  ]
+}
