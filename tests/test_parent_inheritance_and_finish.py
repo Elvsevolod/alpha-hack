@@ -90,14 +90,14 @@ def prepared(tmp_path):
 def train_parent(c):
     result = payload(c.dispatch(ToolCommand(operation_id="parent", tool="train_model", arguments={
         "pipeline": {"model": "ridge", "hyperparameters": {"alpha": 2}, "transformations": [{"name": "standard_scale"}]},
-        "budget_seconds": 12, "hypothesis": hypothesis().model_dump(mode="json")})))
+        "budget_seconds": 45, "hypothesis": hypothesis().model_dump(mode="json")})))
     assert result["result"]["status"] == "completed", result
     return result["experiment"]["experiment_id"]
 
 
 def child(parent, alpha=7):
     return {"parent_id": parent, "search_action": "improve", "pipeline": {"model": "ridge", "hyperparameters": {"alpha": alpha}},
-        "budget_seconds": 12, "hypothesis": hypothesis().model_dump(mode="json")}
+        "budget_seconds": 45, "hypothesis": hypothesis().model_dump(mode="json")}
 
 
 def assert_child(c, result, operation_id):
@@ -133,7 +133,7 @@ def test_admitted_queue_and_batch_preserve_omission_provenance(prepared):
     assert drain(c, "Offline HTTP 402 fixture") == ["queued"]
     assert_child(c, payload(c.journal.operation("queued").result), "queued")
     result = payload(c.dispatch(ToolCommand(operation_id="batch", tool="run_experiments", arguments={
-        "candidates": [child(parent, 9), child(parent, 10)], "budget_seconds": 30})))
+        "candidates": [child(parent, 9), child(parent, 10)], "budget_seconds": 120})))
     assert len(result["results"]) == 2 and all(row["status"] == "completed" for row in result["results"]), result
     for row in result["results"]:
         assert_child(c, payload(c.journal.operation(row["operation_id"]).result), row["operation_id"])
@@ -240,10 +240,10 @@ def test_research_options_first_read_is_bounded_and_details_and_leader_remain_re
     core = json.loads(c.context_memory.snapshot(SYSTEM).core_json)
     work = core["current_work"]
     assert work["leader_pipeline"] == {"tool": "read_run_records", "arguments": {"ids": [c.journal.get("leader_id")], "view": "pipeline"}}
-    ref = work["research_options"]["arguments"]["source"]
-    row = c.context_memory.store.db.execute("SELECT content FROM cc_sources WHERE source_id=? AND version=? AND section=''", (ref["source_id"], ref["version"])).fetchone()
-    compact = json.loads(row[0])
-    assert len(row[0]) <= 3072 and "direction_map" not in compact
+    from test_layered_prompt_context import read_all
+    content = read_all(c, work['research_options'])
+    compact = json.loads(content)
+    assert len(content.encode()) <= 3072 and "direction_map" not in compact
     details = compact["details"]
     assert details["tool"] == "read_run_records" and details["arguments"]["source"]["section"] == "details"
     response = payload(c.dispatch(ToolCommand(operation_id="options_details", tool=details["tool"], arguments=details["arguments"])))

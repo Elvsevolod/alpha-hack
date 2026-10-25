@@ -12,6 +12,13 @@ from .validation import ordered_periods
 from .identity import feature_groups, artifact_scope
 
 
+def stability_design(strategy):
+    return {"split_strategy": strategy or "unknown", "varied_axis": "rows_not_features",
+        "temporal_order_required": strategy in {"temporal", "temporal_group"} if strategy else None,
+        "group_basis": "declared_group" if strategy in {"group", "temporal_group"}
+            else "exact_feature_duplicates_not_entities" if strategy == "random" else None}
+
+
 def folds(X, y, task, strategy, seed=42, count=3, min_folds=2):
     if strategy in {"temporal", "temporal_group"}:
         periods = ordered_periods(X[task.time_column])

@@ -33,7 +33,7 @@
   "runtime_status": "unverified",
   "skill_id": "qwen-ml-best-practices",
   "skill_source_hashes": {
-    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
     "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
   },
   "skill_text": "Lost feature information\n\n**Signal:** errors concentrate in a meaningful group; text processing loses quantities or units; event aggregation hides differences between histories.\n\n**Check:** use worker-local fit analysis to test a concrete explanation. Report allowed aggregates with adequate support rather than individual examples. Establish that the proposed information exists at prediction time.\n\n**Candidate experiment:** preserve one discarded piece of information with a transformer compatible with the current pipeline. For repeated events, consider richer time-aware aggregates; a model-derived event summary is a later option if honest cross-fitting and full refit fit the budget.\n\n**Limits:** high feature importance does not establish improvement. Auxiliary predictions for training rows require appropriate out-of-fold generation; repeated entities and time constraints survive every fold. If related tables are unavailable, record that limitation.\n\nSources: [Home Credit author report](https://github.com/NoxMoon/home-credit-default-risk#feature-engineering); [Mercari authors' report, Feature preprocessing](https://www.kaggle.com/competitions/mercari-price-suggestion-challenge/writeups/pawe-and-konstantin-1st-place-solution).",

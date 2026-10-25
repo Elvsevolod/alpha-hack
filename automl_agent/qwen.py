@@ -306,6 +306,17 @@ class QwenClient:
                 self.output_tokens = max(previous, min(previous * 2, self.context_tokens - input_size,
                     max(OUTPUT_CEILINGS[self.effort], self.output_floor)))
                 if self.output_tokens == previous:
+                    controller = getattr(getattr(self, 'context_memory', None), 'c', None)
+                    version = getattr(controller, 'prompt_contract', {}).get('version', 0)
+                    if prepared is not None and self.effort == 'medium' and version >= 5:
+                        # A known truncated ordinary response is not loss of API
+                        # access. The existing error policy selects xhigh next.
+                        # No partial command is accepted and no ceiling grows.
+                        self.journal.event('qwen_ordinary_capacity_reached', {
+                            'call_id': call_id, 'output_tokens': previous,
+                            'next_policy': 'existing_complex_reasoning_budget',
+                            'outcome': 'known_truncated_no_action_accepted'})
+                        raise QwenRetryableError('Ordinary response capacity reached; reconsider with the configured complex-step budget')
                     raise QwenUnavailable("Bounded output repair exhausted; retain saved results instead of repeating the generation")
                 self.output_by_effort[self.effort] = self.output_tokens
                 configuration = self.journal.get("qwen_configuration", {})

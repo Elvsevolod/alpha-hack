@@ -4,6 +4,9 @@ from .util import digest
 
 
 def direction_map(c):
+    from .research_memory import branch_axes, branch_key, enabled, identity_version
+    structured = enabled(c)
+    version = identity_version(c)
     measured, failures = {}, set()
     for spec, result in c.records():
         if spec.validation_hash != c.plan.hash:
@@ -13,9 +16,20 @@ def direction_map(c):
             "features": digest([p.include_features, p.exclude_features, [x.model_dump() for x in p.transformations]]),
             "objective": p.training_objective, "decision": p.prediction_policy, "transfer": p.shift_strategy,
             "composition": p.ensemble_strategy if p.engine == "ensemble" else "single"}
-        key = digest(axes)
+        if structured:
+            axes = branch_axes(p, version=version)
+        key = branch_key(p, version=version) if structured else digest(axes)
         if result and result.status == "completed" and result.scope != "pilot":
-            measured[key] = {"axes": axes, "experiment_id": spec.experiment_id, "score": result.score, "seconds": result.seconds}
+            old = measured.get(key)
+            row = {"axes": axes, "experiment_id": spec.experiment_id, "score": result.score, "seconds": result.seconds}
+            if structured:
+                best = old
+                if old is None or (result.score is not None and (old['score'] is None or
+                        (result.score > old['score'] if c.task.metric.maximize else result.score < old['score']))):
+                    best = row
+                row = {**best, 'variant_count': (old or {}).get('variant_count', 0) + 1,
+                    'latest_experiment_id': spec.experiment_id, 'latest_score': result.score}
+            measured[key] = row
         elif result:
             failures.add(p.hash)
     alternatives = []
@@ -26,8 +40,9 @@ def direction_map(c):
         and result.scope != 'pilot' and spec.validation_hash == c.plan.hash}
     for card in cards(c.task, c.plan.strategy).values():
         p = PipelineSpec.model_validate(card["pipeline"])
-        already_measured = p.model in models if p.engine == 'direct' else p.engine in engines
-        if card['id'].endswith('offsets'):
+        already_measured = (branch_key(p, version=version) in measured if structured else
+            p.model in models if p.engine == 'direct' else p.engine in engines)
+        if not structured and card['id'].endswith('offsets'):
             already_measured = any(row['axes']['decision'] == 'class_offsets' for row in measured.values())
         if not card["applicable"] or already_measured or p.hash in failures:
             continue
@@ -54,13 +69,19 @@ def direction_map(c):
 
 def finish_readiness(c, args):
     mapping = direction_map(c)
+    if not args.reason.strip():
+        raise ValueError("Finish requires a concrete reason")
     skipped = args.skipped_directions
     if any(not reason.strip() for reason in skipped.values()):
         raise ValueError("Skipped directions require a concrete reason")
     if "all" in skipped and len(skipped["all"].strip()) < 20:
         raise ValueError("A global finish limitation must explain why the remaining actions are not useful")
     remaining = [row for row in mapping["affordable_unattempted"] if row["id"] not in skipped and "all" not in skipped]
-    return {"ready": not remaining, "available_actions": remaining, "skipped_directions": skipped,
+    # The dispatcher separately verifies completed current-protocol evidence
+    # and all finalization guarantees. Untried catalog entries do not establish
+    # useful experiments and must not impose a method quota or exact-ID ritual.
+    return {"ready": True, "available_actions": remaining, "skipped_directions": skipped,
+        "remaining_actions_are_advisory": True, "optimality_established": False,
         "completed_directions": len(mapping["directions"]), "reason": args.reason,
         "catalog_exhaustion_is_research_exhaustion": False,
         "diagnostic_questions": mapping['diagnostic_questions'],

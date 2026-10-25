@@ -35,7 +35,7 @@
   "runtime_status": "unverified",
   "skill_id": "qwen-ml-best-practices",
   "skill_source_hashes": {
-    "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+    "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
     "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
   },
   "skill_text": "Validation and time\n\n**Signal:** plausible future or unseen-entity use; an unexplained gap between comparable evaluations; performance varying across permitted periods.\n\n**Check:** establish time and entity meaning from the task and dictionary. Inspect permitted temporal or entity-level error aggregates. A small fit-only stress test can distinguish dependence on familiar entities from transferable signal. Propose an external protocol revision only through the controller and with semantic evidence.\n\n**Candidate experiment:** remove or replace one suspected unstable feature block and compare under the same valid protocol. An isolated weak feature is not enough to justify removal when interactions may matter.\n\n**Limits:** do not choose splits by their scores, infer identities from convenient coincidences or read future labels. A recovered time order needs independent justification. Batch contest features that use later intervals do not become causal forecasting features.\n\nSources: [Rossmann author interview](https://medium.com/kaggle-blog/rossmann-store-sales-winners-interview-1st-place-gert-jacobusse-a14b271659b); [Kaggle's adaptation of the IEEE-CIS authors' report](https://www.kaggle.com/solution-write-up-documentation); [Optiver author report](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction/discussion/274970).",

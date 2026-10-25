@@ -55,8 +55,8 @@ def test_recipe_ref_is_reference_only_in_public_schema_and_agent_policy():
     description = TOOL_SCHEMAS["train_model"].model_json_schema()["properties"]["recipe_ref"]["description"]
     assert "does not choose or apply a pipeline" in description
     assert "Encode recipe settings in pipeline" in description
-    assert "`recipe_ref` only records/checks" in SYSTEM
-    assert "Copy chosen settings into `pipeline`" in SYSTEM
+    assert "recipe_ref records/checks a recipe" in SYSTEM
+    assert "encode chosen settings in pipeline" in SYSTEM
 
 
 def test_exact_symbol_version_missing_and_no_substitution(agent):

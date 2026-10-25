@@ -63,7 +63,9 @@ def test_only_no_argument_model_eval_is_permitted():
 
 
 def test_custom_analysis_returns_only_declared_large_aggregates(tmp_path):
-    controller = Controller(write_task(tmp_path), Limits(seconds=90, cpu=1), run_id='analysis')
+    # This checks disclosure, not cold-start throughput. Deadline enforcement
+    # has separate tests; leave headroom for the isolated worker imports.
+    controller = Controller(write_task(tmp_path), Limits(seconds=180, cpu=1), run_id='analysis')
     try:
         controller.prepare()
         code = '''def analyze(X,y,context):
@@ -72,7 +74,7 @@ def test_custom_analysis_returns_only_declared_large_aggregates(tmp_path):
         {"name":"small","aggregation":"mean","columns":["answer"],"value":123.456,"support_rows":1}]}
 '''
         arguments = {'pipeline': PipelineSpec(engine='custom', model='analysis', custom_component='analysis').model_dump(mode='json'),
-            'hypothesis': HYPOTHESIS.model_dump(), 'budget_seconds': 20, 'code': code}
+            'hypothesis': HYPOTHESIS.model_dump(), 'budget_seconds': 45, 'code': code}
         result = tool_payload(controller.dispatch(ToolCommand(operation_id='aggregate', tool='run_custom_experiment', arguments=arguments)))
         assert result['result']['status'] == 'completed', result
         analysis = result['result']['training_summary']['analysis']

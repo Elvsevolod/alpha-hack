@@ -37,8 +37,10 @@ def experiment_summary(c, spec, result, source, change):
     training = result.get('training_summary', {})
     stability = training.get('temporal_stability', result.get('temporal_stability', {}))
     if stability:
+        from .research_evaluation import stability_design
         scores = list(stability.get('scores', {}).items())[-3:]
         item = {key: stability.get(key) for key in ('status', 'scope', 'windows_hash')}
+        item['evaluation_design'] = stability.get('evaluation_design') or stability_design(getattr(getattr(c,'plan',None),'strategy',None))
         item['windows'] = [{'id': short(name, 48), 'score': score} for name, score in scores]
         if scores:
             bias = stability.get('diagnostics', {}).get(scores[-1][0], {}).get('residual_bias', {})
@@ -143,6 +145,12 @@ class ContextMemory:
             engines = {"train_model": {"direct"}, "run_automl": {"flaml", "autogluon", "lightautoml"}, "tune_model": {"optuna"}}
             if typed.tool in engines and args.pipeline.engine not in engines[typed.tool]:
                 raise ValueError("Tool and pipeline engine disagree")
+            if args.pipeline.engine in {"direct", "optuna"}:
+                # Preserve typed public parameter errors before the generic
+                # compatibility aggregator converts failures into plain text.
+                # This mirrors train() and inspects no training rows.
+                from .pipelines import validate_parameters
+                validate_parameters(args.pipeline, c.task)
             require_compatible(args.pipeline, c.task, c.plan.strategy, c.capabilities)
             c.make_spec(args, "admissibility_check")
             c.validate_evidence(args.hypothesis.evidence_refs)
@@ -282,6 +290,8 @@ class ContextMemory:
     def snapshot(self, system):
         started = time.perf_counter()
         c = self.c
+        if getattr(c, "prompt_contract", None):
+            system = c.prompt_contract["system"]
         c.qwen.select_for_step()
         self.index_experiments()
         unified = getattr(c.dataset, "profile_mode", "legacy") == "unified"
@@ -312,6 +322,8 @@ class ContextMemory:
             "validation_reason": c.plan.reason, "execution": c.journal.get("execution_policy"),
             "budget_mode": c.budget_mode, "training_seed": c.training_seed,
             "model_response_limit_seconds": c.qwen.response_limit_seconds}
+        if getattr(c, "prompt_contract", {}).get("version", 1) >= 2:
+            policies["prompt"] = {key: c.prompt_contract[key] for key in ("version", "system_hash", "guides_hash")}
         active = c.journal.get("active_hypothesis")
         work = {"baseline_id": c.journal.get("baseline_id"), "leader_id": c.journal.get("leader_id"),
             "suggested_new_operation_id": "step_" + str(counters["calls"] + 1)}
@@ -323,13 +335,17 @@ class ContextMemory:
         details = self.store.put_source(Source("research_options", version, canonical(options),
             "controller", section="details", origin="research_coverage"))
         options = compact_research_options(options, details)
-        work["research_options"] = self.store.put_source(Source("research_options", version, canonical(options),
-            "controller", origin="research_coverage"))
+        from .decision_context import bounded_read_route
+        work["research_options"] = bounded_read_route(c, self.store, Source("research_options", version, canonical(options),
+            "controller", origin="research_coverage"), 'research_options')
         intents = c.journal.get("unexecuted_native_intents", [])
         if intents:
             content = {"requires_new_decision": True, "executed": False, "proposals": intents}
-            work["unexecuted_intents"] = self.store.put_source(Source("unexecuted_native_intents", digest(content), canonical(content),
-                "controller", "agent_assumption", origin="unexecuted_model_proposals"))
+            if c.prompt_contract['version'] >= 4:
+                content.update(optional=True, recovery_required=False,
+                    meaning='Unvalidated proposals, not queued operations; ignore stale intentions or choose a fresh action')
+            work["unexecuted_intents"] = bounded_read_route(c, self.store, Source("unexecuted_native_intents", digest(content), canonical(content),
+                "controller", "agent_assumption", origin="unexecuted_model_proposals"), 'unexecuted_native_intents')
         work["related_ids"] = [self.research_guide_id]
         latest = c.journal.db.execute("SELECT id FROM experiments WHERE result IS NOT NULL ORDER BY rowid DESC LIMIT 1").fetchone()
         if latest:
@@ -337,12 +353,19 @@ class ContextMemory:
             work["related_ids"].append(self.latest_research_review)
         last = payload(c.journal.get("last_tool_result") or {})
         last_error = last.get("error") or (last.get("result") or {}).get("error")
+        parameter_read = None
         if last_error:
             diagnostic = {'status': last.get('status'), 'error': redact(last_error),
                 'read_routes': last.get('read_routes', [])}
-            content = canonical(diagnostic)
-            self.store.put_source(Source("last_command_error", digest(content), content, "controller", origin="controller_error"))
+            parameter_help = (last.get('repair') if last.get('status') == 'command_validation'
+                and c.prompt_contract['version'] >= 6 else None)
+            content = canonical({**diagnostic, **({'repair': parameter_help} if parameter_help else {})})
+            error_source = Source("last_command_error", digest(content), content, "controller", origin="controller_error")
+            self.store.put_source(error_source)
             work["diagnostic"] = short(canonical({**diagnostic, 'error': short(diagnostic['error'], 160)}))
+            if parameter_help:
+                parameter_read = bounded_read_route(c, self.store, error_source, 'parameter_repair')
+                work['parameter_repair'] = parameter_help
         if active:
             reference = self.store.put_source(Source("active_hypothesis", digest(active), canonical(active), "controller",
                 "agent_assumption", origin="agent_hypothesis"))
@@ -367,6 +390,47 @@ class ContextMemory:
                 rejected.append(item)
         if rejected:
             work["rejected_operations"] = rejected
+        from .research_memory import enabled as branch_memory_enabled, project as branch_projection
+        if branch_memory_enabled(c):
+            memory = branch_projection(c, self.branch_reviews)
+            source = Source("research_memory", digest(memory), canonical(memory), "registered_feedback",
+                "external_data", origin="research_memory")
+            read = bounded_read_route(c, self.store, source, 'research_memory')
+            work["research_memory"] = {"version": 1, "read": read}
+            if len(canonical(memory).encode()) <= 1536 and len(canonical({**work, "research_memory": memory}).encode()) < 2800:
+                work["research_memory"] = memory
+        if getattr(c, "prompt_contract", {}).get("version", 1) >= 2:
+            from .decision_context import publish_guides, decision_frame
+            work["local_guides"] = publish_guides(c, self.store)
+            frame = decision_frame(c)
+            source = Source("decision_frame", digest(frame), canonical(frame), "controller",
+                origin="controller_decision_frame")
+            route = bounded_read_route(c, self.store, source, 'decision_frame')
+            # Do not crowd out existing protected work. Full facts remain readable.
+            work["decision_frame"] = {"version": 1, "read": route}
+            if len(canonical({**work, "decision_frame": frame}).encode()) < 3000:
+                work["decision_frame"] = frame
+            from context_compressor.core import project_work
+            from context_compressor.contracts import CORE_LIMITS
+            if len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS["current_work"]:
+                work["decision_frame"] = {"version": 1, "read": route}
+            # Existing protected state wins over optional new inline projections.
+            if "research_memory" in work and len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS["current_work"]:
+                work["research_memory"] = {"version": 1, "read": read}
+            for field in ("local_guides", "decision_frame", "research_memory"):
+                if len(canonical(project_work(self.store, work)).encode()) <= CORE_LIMITS["current_work"]:
+                    break
+                work.pop(field, None)
+        if parameter_read:
+            from context_compressor.core import project_work
+            from context_compressor.contracts import CORE_LIMITS
+            if len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS['current_work']:
+                work['parameter_repair'] = {'model': parameter_help['model'], 'read': parameter_read,
+                    'next_action': 'Read the exact public parameter repair; no recipe was substituted.'}
+            if len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS['current_work']:
+                work.pop('parameter_repair')
+                work['diagnostic'] = short(canonical({'status': last.get('status'),
+                    'error': short(redact(last_error), 120), 'read_routes': [parameter_read]}))
         flags = {**REQUIRED_FLAGS, "stagnation": c.budget.counter("stagnation_count"),
             "unproductive_reads": c.budget.counter("unproductive_reads"),
             "model_imputation_attempted": c.journal.get("model_imputation_attempted", False)}
@@ -379,7 +443,9 @@ class ContextMemory:
             system += "\nDevelopment objective, subject to all fixed contracts and permissions: " + canonical(c.research_focus)
         transport = Transport(system=system, tool_schemas={k: {**public_tool_schema(v), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},
             model=c.qwen.model, response_reserve=c.qwen.output_tokens, extra=c.qwen.extra,
-            reference_packet=c.knowledge.select_packet(profile))
+            reference_packet=(c.knowledge.select_packet(profile) if
+                getattr(c, "prompt_contract", {}).get("version", 1) == 1 or
+                self.store.active_note() or c.journal.get("active_hypothesis") else c.knowledge.deferred_packet(profile)))
         self.compressor = ContextCompressor(self.store, transport)
         images = []
         image_operation = self.store.get_meta("diagnostic_image_operation")

@@ -11,6 +11,7 @@ Use human ML cases to choose a useful next experiment. They suggest conditional 
 
 - Start from an observed problem or a specific unresolved question. Distinguish task meaning, validation, representation, decision metric and execution cost. Name plausible alternatives; use the cheapest informative check to distinguish them.
 - Ground the question in available data reports or completed experiments. Use permitted fit analysis and fit-only inner holdouts for exploratory error analysis. External validation reports stay fixed; suppression binds. Workers keep individual errors and labels local.
+- Task-specific feature hypotheses are allowed when grounded in the task and dictionary: ratios, category-relative values or a meaningful hierarchy need not be identical across tasks. Generality belongs to the reasoning and executable interfaces; do not invent hardcoded task-name routing or assume a column is available at prediction time.
 - Match the check to intended generalization: later dates, unseen entities, rare categories or ordinary random observations. A convenient identifier does not establish entity or time semantics.
 - Search the local corpus by the observed problem and current metric. Read the relevant conditions before using a source. Existing source IDs and search hits alone do not prove support or applicability. Record a knowledge gap when material is unavailable.
 
@@ -20,12 +21,17 @@ Use the existing `Hypothesis` fields: `observation`, `expected_effect`, `changed
 
 Prefer one main change for a diagnostic comparison. Keep the protocol, metric and learning scope comparable; disclose other differences. Fit preprocessing, target aggregates and learned decision rules inside training folds. Temporal history must precede the predicted event. Check the concrete adapter before proposing unsupported operations.
 
+Compare against the strongest valid incumbent on the same permitted scope, including its learned decision rule. A small feasibility baseline does not replace that incumbent. For an ensemble, name the expected complementary errors and measure full cost; additional seeds, deeper models and more features are conditional candidates, not a mandatory sweep.
+
+Before learning blend weights or residual corrections, verify prediction lineage. Forecasts early-stopped on their evaluated rows are search validation, not strict OOF. Use the existing guarded OOF path; systematic group residuals are a possible calibration question only when an executable fit-only adapter and a separate check are available.
+
 Count preparation, auxiliary fits, inference and frozen refit in the cost. Use a pilot for feasibility and cost, not as comparable quality evidence. The existing critic reviews costly proposals; it does not need another automatic review call.
 
 ## Interpret the result
 
 - Improvement: review the acceptance criterion, affected error groups and cost. Preserve the result as task-local evidence; a positive score delta does not establish a causal explanation.
 - No material gain: preserve the incumbent, record what was tested and choose a different supported question when useful.
+- Reversal across comparable permitted checks: preserve both results and avoid claiming a transferable gain. Do not keep tuning against a protected final evaluation; respect its access and suppression rules. Historical developer audits are not fresh blind evidence or official scores.
 - Inconclusive: keep the uncertainty explicit; do not force acceptance or rejection.
 - Timeout, OOM or unknown outcome: resolve the technical outcome before drawing an ML conclusion or repeating the operation.
 

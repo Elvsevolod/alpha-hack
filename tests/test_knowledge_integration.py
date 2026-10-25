@@ -19,6 +19,12 @@ def controller(tmp_path, monkeypatch):
     monkeypatch.delenv("OPENAI_EXTRA_BODY", raising=False)
     c = Controller(write_task(tmp_path), Limits(seconds=180, cpu=1), run_id="knowledge")
     c.prepare()
+    # Routed-evidence tests have an explicit research question. Cold-start
+    # deferral is independently covered in test_layered_prompt_context.
+    c.context_memory.store._put_meta("active_note", {
+        "question": "Which fit-only missing-data comparison is informative?",
+        "reading_goal": "Read the relevant local method and its conditions",
+        "expected_evidence": "A supported bounded experiment", "related_ids": [], "status": "preparing"})
     yield c
     c.close()
 
@@ -136,7 +142,7 @@ def test_mock_model_receives_routed_knowledge_and_applies_registered_card(contro
         payload = json.loads(request.content)
         actual = json.loads(payload["messages"][1]["content"])
         assert actual["reference_evidence"] == packet
-        assert "No imputer is mandatory" in payload["messages"][0]["content"]
+        assert "model family, imputer, transform" in payload["messages"][0]["content"]
         seen.append(identifier)
         message = {"role": "assistant"}
         if mode == "native":
@@ -170,7 +176,8 @@ def test_memory_projection_recovers_without_repeating_the_completed_tool(tmp_pat
     c = Controller(task, Limits(seconds=180, cpu=1), run_id="resume_knowledge")
     try:
         c.prepare()
-        c.context_memory.snapshot(SYSTEM)
+        initial = c.context_memory.snapshot(SYSTEM)
+        guide_route = json.loads(initial.core_json)["current_work"]["local_guides"]
         original = c.knowledge.completed
         def interrupted(operation):
             raise RuntimeError("crash after durable tool completion")
@@ -188,7 +195,8 @@ def test_memory_projection_recovers_without_repeating_the_completed_tool(tmp_pat
     try:
         resumed.prepare()
         assert resumed.budget.deadline == deadline
-        resumed.context_memory.snapshot(SYSTEM)
+        restored = resumed.context_memory.snapshot(SYSTEM)
+        assert json.loads(restored.core_json)["current_work"]["local_guides"] == guide_route
         rows = resumed.knowledge.memory.current(resumed.references, resumed.knowledge.selection_context().binding())
         assert any(r["type"] == "project_recommendation" and r["source"]["reference_id"] == "method:linear" for r in rows)
         assert resumed.journal.db.execute("SELECT count(*) FROM operations WHERE id='read_before_crash'").fetchone()[0] == 1

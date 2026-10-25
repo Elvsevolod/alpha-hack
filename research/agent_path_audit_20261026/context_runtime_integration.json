@@ -1,0 +1,370 @@
+{
+  "pre_integration_commit": "ee7ce015726488e9b1e1d44ae85ec4f8ad3f9e585a",
+  "common_source_base": "1c463e9",
+  "upstream_snapshot": "53304a0",
+  "selected_paths": [
+    "automl_agent/context_memory.py",
+    "automl_agent/controller.py",
+    "automl_agent/decision_context.py",
+    "automl_agent/directions.py",
+    "automl_agent/human_practice.py",
+    "automl_agent/knowledge.py",
+    "automl_agent/pipelines.py",
+    "automl_agent/prompting.py",
+    "automl_agent/qwen.py",
+    "automl_agent/research.py",
+    "automl_agent/research_memory.py",
+    "automl_agent/resolution_feedback.py",
+    "automl_agent/research_evaluation.py",
+    "context_compressor/core.py",
+    "ml_knowledge/catalogs/methods/human_practice_cost.json",
+    "ml_knowledge/catalogs/methods/human_practice_decision.json",
+    "ml_knowledge/catalogs/methods/human_practice_representation.json",
+    "ml_knowledge/catalogs/methods/human_practice_sparse.json",
+    "ml_knowledge/catalogs/methods/human_practice_validation.json",
+    "tests/test_workflow_bottleneck_fixes.py",
+    "tests/test_layered_prompt_context.py",
+    "tests/test_branch_research_memory.py",
+    "tests/test_context_structure_audit.py",
+    "tests/test_public_context_findings.py",
+    "tests/test_qwen_capacity_handoff.py",
+    "tests/test_knowledge_integration.py",
+    "tests/test_final_boundaries.py",
+    "tests/test_parent_inheritance_and_finish.py",
+    "tests/test_tool_api_v2.py",
+    "tools/context_structure_audit.py",
+    "skills/qwen-ml-best-practices/SKILL.md",
+    "tests/test_context_ml_composition.py"
+  ],
+  "selection": "Context/prompt/research memory, bounded parameter guidance and supporting tests only. No research CSVs, residual/group/pair calibrator modules, submission bundles or frozen source snapshots were imported.",
+  "new_findings": [
+    "Actual Qwen acceptance validated compatibility before dispatch, converting UnsupportedParameters into generic ValueError",
+    "Controller model-error path did not attach the public parameter repair",
+    "Compressed snapshot diagnostic whitelisted only status/error/read_routes, dropping the repair even after metadata was fixed"
+  ],
+  "repair": "Preserve typed public errors before compatibility aggregation; attach parameter repair on command-validation failure; bounded protected projection with exact read fallback under existing 4096-byte current_work limit. No operation/model fit is fabricated for a rejected generation.",
+  "readiness": {
+    "corpus": {
+      "status": "verified",
+      "corpus": "491827b56e1f20cca1adca7932832dd95b89ba19c03a1f8e4e6cb48c47dadd7f"
+    },
+    "bytes": 281751552,
+    "sha256": "06ca0504692d9f00696f50bec19e413f9d0e59dbad136eaf3aa57d25932302db",
+    "compiled_method_card_comparison": [
+      {
+        "id": "human_practice_cost",
+        "differing_fields": [
+          "skill_source_hashes",
+          "supporting_sections"
+        ],
+        "text_and_conditions_identical": true,
+        "compiled_source_hashes": {
+          "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        },
+        "catalog_source_hashes": {
+          "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        }
+      },
+      {
+        "id": "human_practice_decision",
+        "differing_fields": [
+          "skill_source_hashes",
+          "supporting_sections"
+        ],
+        "text_and_conditions_identical": true,
+        "compiled_source_hashes": {
+          "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        },
+        "catalog_source_hashes": {
+          "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        }
+      },
+      {
+        "id": "human_practice_representation",
+        "differing_fields": [
+          "skill_source_hashes",
+          "supporting_sections"
+        ],
+        "text_and_conditions_identical": true,
+        "compiled_source_hashes": {
+          "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        },
+        "catalog_source_hashes": {
+          "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        }
+      },
+      {
+        "id": "human_practice_sparse",
+        "differing_fields": [
+          "skill_source_hashes",
+          "supporting_sections"
+        ],
+        "text_and_conditions_identical": true,
+        "compiled_source_hashes": {
+          "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        },
+        "catalog_source_hashes": {
+          "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        }
+      },
+      {
+        "id": "human_practice_validation",
+        "differing_fields": [
+          "skill_source_hashes",
+          "supporting_sections"
+        ],
+        "text_and_conditions_identical": true,
+        "compiled_source_hashes": {
+          "SKILL.md": "3991a7909361de557b1235bace5371a0665c319c4a6b4181c3301b832ef10b3b",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        },
+        "catalog_source_hashes": {
+          "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+          "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+        }
+      }
+    ],
+    "prompt_version": 6,
+    "system_sha256": "dc8b6cc65d42d92dbfde7f34f2e6655fc8d8c89583a811d953237d76e85a6346",
+    "tool_count": 17,
+    "guide_sources": {
+      "SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+      "references/diagnostic-patterns.md": "0e4b8021ef44e96aa85f69282e4aeb37bf9400833c5f3552975c0fc40bcd94bb"
+    },
+    "real_api_calls": 0
+  },
+  "protected_ml_sources": {
+    "automl_agent/class_weight.py": "881deadf69403e9ce4cd967b79725a0c15960d889a42b4ef3af27dc53afbdf92",
+    "automl_agent/training_schedule.py": "3ebf659921695c3593b5d5b3368b4cb928e6226fe02ad3505775413bd9d31a9e",
+    "automl_agent/tuning.py": "4d0d1207a964a51c519920e3be585cf774ebcdece2575c389e20e545cd5dd2a8",
+    "automl_agent/completion.py": "1ee2215fd7b52f2fa06d7396b7a3a3d3393ed280256188cc863fac25edb992e9",
+    "automl_agent/executor.py": "cf806340f068310c7fb9a971ff6bd7d90fe6e32e278a8a134abef22aa1a5f882",
+    "automl_agent/preprocessing.py": "1f202b0f85a317d0770b5ef8b20fd85881955fd567c0c28738338cd0e6197f45",
+    "automl_agent/torch_pipeline.py": "09e7b5c930edb2f2bded616afbdbdeb6cdd97c195635f6170f6dd0b10e97ac6a",
+    "automl_agent/torch_tabular.py": "7afaad455bd7e848a97205b918df34d322680637c78c419a73d09fd8646514a7"
+  },
+  "new_source_sha256": {
+    "automl_agent/context_memory.py": "5134cebda8160be0f2322eb2099f066b9d78774c07d77aa899e41467b884bd7d",
+    "automl_agent/controller.py": "b180087f14b9b16a033a52b1cdca91f5d0cce400f5912b3c433d274976781270",
+    "automl_agent/decision_context.py": "427ce025f5cf22f9ac538982567603737f39226b7cfcb65112f039750dbd60ae",
+    "automl_agent/directions.py": "f0073e6bdda9fd29b6e0a58eccc9c7bb8e9f3fbd0fe2955a50d387141fdad2e8",
+    "automl_agent/human_practice.py": "ec5f84c5866d042617f4b46e1ac2a51bdcadfe4b353ea6e1edc5c92e3ca9aed1",
+    "automl_agent/knowledge.py": "152af9842e2c52925713f0c731878844a5f89c48eaf72704c23cc61f45136fbe",
+    "automl_agent/pipelines.py": "465df975d3e49fbd2779eb45cb2f051b197df8c7113cec62d0b3da2c804b8acd",
+    "automl_agent/prompting.py": "d0cc6d18781b46e0b9c5e88c1b7fd4c5859f6baf3dbfa2500fcdd5633e9717bf",
+    "automl_agent/qwen.py": "a46f673dd590ebf43ce57ceedd7dc70f49b0e5e8b7ab42a9084e2f1401ae9ef3",
+    "automl_agent/research.py": "5ce0e4657857068ee4fc10835fb8405b4cd4d43b5f224161da3b049234a1ecbb",
+    "automl_agent/research_memory.py": "19f119bef56ef32d106a4c261f95f428b351a2ba9c4bcf0bcf2238ddbd674c4c",
+    "automl_agent/resolution_feedback.py": "428b1881ed52e5ed669cfade771599282c782af5a5fd2e599fd9eba30531969b",
+    "automl_agent/research_evaluation.py": "bf9754e2ecdc3907d28249eb08aa61e6d3c10c469a7008ad74341662363d96ad",
+    "context_compressor/core.py": "c502eae95745633cd165ad54ddf09bc877e0f8ec45f5c0ca1449b989e4c72304",
+    "ml_knowledge/catalogs/methods/human_practice_cost.json": "3df7b7b60ac34264d899e7782601deb25affc51371a3c7d366ab332bf8567b60",
+    "ml_knowledge/catalogs/methods/human_practice_decision.json": "66b992c0ddaff9d9ede9437a2fdf957dc4308ddafabb520ef2ae5a30e7458897",
+    "ml_knowledge/catalogs/methods/human_practice_representation.json": "58cdac82309a8caed1a53dc9dd2691ae2a2f095155556805a6bfd6bfe3abe2c6",
+    "ml_knowledge/catalogs/methods/human_practice_sparse.json": "59fb63ea1c388860805244d74c378a8c8d91a419ce7668036a698537b1755df6",
+    "ml_knowledge/catalogs/methods/human_practice_validation.json": "fd9d96f0c1a0f9b0edd60d00ea3542c8b9613d882a1510ba006c15e8c411b109",
+    "tests/test_workflow_bottleneck_fixes.py": "37ec577d1e5f40c06da4d3b203cf6efc3489622d1e0cb6fc4695e88e745ba334",
+    "tests/test_layered_prompt_context.py": "05c04a9bd05e94e3986f1470360c253c1008fae0d69e642e1de54e7d4fe17cb5",
+    "tests/test_branch_research_memory.py": "b86f1ee7e755aa1ff84208015dc89b08fdd140dea90b4790687774e0e3cfa8bd",
+    "tests/test_context_structure_audit.py": "025a3c847f9adede5703e3fb79ec31cb9e43de53a597f470b854e5d5208d1794",
+    "tests/test_public_context_findings.py": "17a7299c0db6f9d533bec67a9ce800bf3197e2f75e05d1025e03cb468d5d15b5",
+    "tests/test_qwen_capacity_handoff.py": "ddf4ac30cf479f682fa309a5f47f6661a33a0828a291ebee5153f5338c78399c",
+    "tests/test_knowledge_integration.py": "bc4ff9a8da43b93f83036c6ce38d9c141719bc423088157fcaec6370136f2800",
+    "tests/test_final_boundaries.py": "ca0beb3540fff4cf37d3b126761707a5a263b6e8764e93b5bd17331d9451c74d",
+    "tests/test_parent_inheritance_and_finish.py": "67569329b01e4f8ced7ad3a854460319f8c66a35946943ab026ea2960d118bac",
+    "tests/test_tool_api_v2.py": "4dfcafa70b74be778eceaf7c11461c8362626f57758f4faff6bcc916d624a593",
+    "tools/context_structure_audit.py": "418c07e9aa43d0b26f06ed442479189d99d9db96fcc7254e3b7ae06a38cc1634",
+    "skills/qwen-ml-best-practices/SKILL.md": "1fa9ba42ec406567db9625f9a124af8c85ea1d4aedf3116cc4de059fc1a063b9",
+    "tests/test_context_ml_composition.py": "5500ce2b1d0fbd69ddac75b54dc2723b4a1cf4c5f5b0c081baaf9a10b69cf4ad"
+  },
+  "real_organizer_model_calls": 0,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "checks": [
+    {
+      "path": "outputs/context_runtime_integration_20261026/context.xml",
+      "sha256": "b50ba47d7988aa4924951d338f8fc44493f21ab2a39734927da0662cb2f9d1e4",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "tests.test_context_structure_audit",
+          "message": "collection failure"
+        }
+      ]
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/context_v2.xml",
+      "sha256": "01e46e948e9d9cd92ba5d75500f5fba5cc8550b789ea27903119f3bbb5bb2928",
+      "counts": {
+        "tests": 82,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_guides_and_last_operation_survive_every_compaction_stage[native]",
+          "message": "AssertionError: assert 'integrity_error' == 'deferred'\n  \n  - deferred\n  + integrity_error"
+        },
+        {
+          "case": "test_guides_and_last_operation_survive_every_compaction_stage[json]",
+          "message": "AssertionError: assert 'integrity_error' == 'deferred'\n  \n  - deferred\n  + integrity_error"
+        },
+        {
+          "case": "test_http_mock_reads_catalog_then_sees_its_operation_and_selects_guide[native]",
+          "message": "AssertionError: assert 'integrity_error' == 'deferred'\n  \n  - deferred\n  + integrity_error"
+        },
+        {
+          "case": "test_http_mock_reads_catalog_then_sees_its_operation_and_selects_guide[json]",
+          "message": "AssertionError: assert 'integrity_error' == 'deferred'\n  \n  - deferred\n  + integrity_error"
+        }
+      ]
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/first_failure.xml",
+      "sha256": "b7da909cc2feedc0454f8256e339d3cd47c16a8f2cd1ba6d5cc1d83f056641c8",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_guides_and_last_operation_survive_every_compaction_stage[native]",
+          "message": "AssertionError: assert 'integrity_error' == 'deferred'\n  \n  - deferred\n  + integrity_error"
+        }
+      ]
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/contracts.xml",
+      "sha256": "369f7939e32f11b51e9a339e77bd2701612985a4b8a6ffbe8de19968d7c3ab81",
+      "counts": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/ml_dl_composition.xml",
+      "sha256": "ad48bc0d3949ad5f9aadae9f24764c333a28e2cb5213f677b162650476ed5865",
+      "counts": {
+        "tests": 112,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_parameter_repair_reaches_weighted_catboost_worker_and_final_csv[native]",
+          "message": "AssertionError: {'control_scores': {'baseline': 1.0}, 'control_status': 'completed', 'control_winner': 'baseline', 'effective_cpu': 1, ...}\nassert (0 == 1)\n +  where 0 = len([])"
+        },
+        {
+          "case": "test_parameter_repair_reaches_weighted_catboost_worker_and_final_csv[json]",
+          "message": "AssertionError: {'control_scores': {'baseline': 1.0}, 'control_status': 'completed', 'control_winner': 'baseline', 'effective_cpu': 1, ...}\nassert (0 == 1)\n +  where 0 = len([])"
+        }
+      ]
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/real_loop_repair_after.xml",
+      "sha256": "853a3fe97386719ce9c05812ea4ac500d341adc158f948261b2a32b94a51a707",
+      "counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "case": "test_parameter_repair_reaches_weighted_catboost_worker_and_final_csv[native]",
+          "message": "AssertionError: {'control_scores': {'baseline': 1.0}, 'control_status': 'completed', 'control_winner': 'baseline', 'effective_cpu': 1, ...}\nassert (0 == 1)\n +  where 0 = len([])"
+        },
+        {
+          "case": "test_parameter_repair_reaches_weighted_catboost_worker_and_final_csv[json]",
+          "message": "AssertionError: {'control_scores': {'baseline': 1.0}, 'control_status': 'completed', 'control_winner': 'baseline', 'effective_cpu': 1, ...}\nassert (0 == 1)\n +  where 0 = len([])"
+        }
+      ]
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/real_loop_repair_after_v2.xml",
+      "sha256": "7ea6f10fcc3b69a36c170a64e8d90e79d123e4562ddd51eb429b91d088f2f93e",
+      "counts": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/real_loop_repair_final.xml",
+      "sha256": "e41eaa95d6395bf250ab43486f33559d1d6953f0fafb17ba36de65c7eaf89d38",
+      "counts": {
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/final_guardrails.xml",
+      "sha256": "b874560117dafa1093f0cd0070d1a1655c15aa70c314fe2d062113cc07342a2a",
+      "counts": {
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "path": "outputs/context_runtime_integration_20261026/ml_dl_composition_final.xml",
+      "sha256": "2a955b72b3208799f2ac2ecccfe2cde07e6f61914b01bb64e90a6b3d4c187318",
+      "counts": {
+        "tests": 114,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    }
+  ],
+  "commands": [
+    "python -m pytest -q tests/test_layered_prompt_context.py tests/test_branch_research_memory.py tests/test_context_structure_audit.py tests/test_public_context_findings.py tests/test_qwen_capacity_handoff.py tests/test_context_integration.py",
+    "python -m pytest -q tests/test_context_ml_composition.py tests/test_class_weight_contract.py tests/test_catboost_weight_contract.py tests/test_schedule_execution_identity.py tests/test_completion_recipe_identity.py tests/test_hpo_failure_evidence.py tests/test_torch_pipeline.py",
+    "python -m pytest -q tests/test_qwen_capacity_handoff.py tests/test_layered_prompt_context.py::test_existing_run_keeps_legacy_prompt_and_new_run_is_pinned tests/test_context_integration.py::test_invalid_engine_cannot_acknowledge_a_result tests/test_context_integration.py::test_forbidden_external_predicate_does_not_acknowledge_observations tests/test_workflow_bottleneck_fixes.py"
+  ],
+  "environment_repairs": {
+    "missing_supporting_audit_tool": "Selective port initially omitted this test dependency; copied from 53304a0 before rerun",
+    "corpus_lfs_pointer": "git lfs checkout restored the already local immutable object; no network or corpus-version change",
+    "compiled_cards": "Bodies and conditions unchanged; source-hash metadata and compiler supporting_sections are distinct and explicitly retained"
+  },
+  "final_combined_suite": {
+    "tests": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "public_repair_largest_probed_bytes": {
+    "lightgbm": 1580,
+    "catboost": 1511,
+    "xgboost": 1463
+  },
+  "context_budgets_unchanged": true
+}

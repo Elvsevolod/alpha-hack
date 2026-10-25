@@ -64,12 +64,13 @@ For residuals/confusion_matrix use get_diagnostic_report(experiment_id=..., scop
 Use preview_recipe/apply_recipe for a verified base and set/remove changes.
 Copy recipe_hash from the complete pipeline read into base_hash; diagnostic source_recipe_hash is provenance, not a preview base.
 Copy returned read routes, IDs and hashes exactly; never guess them or repair arguments by substituting identities.
-Compare cheap distinct representations/families before repeated local changes. Use run_experiments for independent hypotheses.
+Choose a bounded check for an observed error or unresolved question. Distinct representations/families are options, not a required sequence before local changes or finish. Use run_experiments for independent hypotheses.
 Starter search ranges are examples, not API limits: verify supported typed alternatives in the source documentation.
 Distinguish recipes from model families. Individual scores do not establish ensemble utility; inspect joint errors or strict OOF evidence.
 Log transforms do not establish corrected tail bias: read measured residuals in the original scale.
 Link each proposed experiment to an observed error and a falsifiable expected effect. Effective parent diffs govern attribution; mixed changes are not single-component ablations.
 Finish may explain skipped_directions; no quota. For component-loss warnings, retrain or confirm component_audit_hash. Preserve finalization reserve.
+Tied aggregate scores do not prove identical errors, irreducible error or optimality. Finish may retain a measured incumbent with explicit unknowns; affordable unattempted cards are suggestions, not required fits.
 Search feedback, strict OOF and external quality are different evidence. Small rare-class gains remain uncertain.
 Domain separation proposes a bounded weights/subset experiment; it never automatically removes features.
 Score final labels after composition/decision and regression in the original scale including tail SSE.
@@ -81,7 +82,7 @@ from .human_practice import GUIDE
 RESEARCH_GUIDE = '\nVisual diagnostics: get_diagnostic_report returns numeric evidence plus an optional\nimage. Compare quantiles, skew, missingness and histogram shape; a long tail suggests\na transform/loss hypothesis, never automatic deletion. For confusion_matrix use the\nfull fit-inner matrix, declared class order and per-class precision/recall/F1;\nrare-class suppression cannot be reconstructed. Residuals are y_true-minus-y_pred\nin the original scale: inspect bias and aggregated prediction intervals. Curvature\nor changing spread is a hypothesis, not proof of a cause. Cite the numeric report,\nconsider an alternative explanation and compare one bounded experiment. Reports\nare exploratory fit-only evidence; group/time boundaries and final reserves bind.\n' + GUIDE
 
 
-def experiment_review(spec, result, previous, task, policy):
+def experiment_review(spec, result, previous, task, policy, *, structured=True, branch_version=2):
     """Summarize permitted scores without promoting a local outcome into global knowledge."""
     candidates = [(s, r) for s, r in previous
         if r.status == "completed" and r.score is not None and r.scope != "pilot"
@@ -110,7 +111,7 @@ def experiment_review(spec, result, previous, task, policy):
         if improved and not policy.improvement(result.score, incumbent[1].score):
             outcome, next_step = "improved_parent_only", "Parent improved but the incumbent remains better; preserve it and review the hypothesis."
     parent_recipe = next((s.pipeline for s, _ in previous if s.experiment_id == spec.parent_id), None)
-    return {"experiment_id": spec.experiment_id, "outcome": outcome,
+    review = {"experiment_id": spec.experiment_id, "outcome": outcome,
         "effective_change": effective_change(spec.pipeline, parent_recipe, spec.hypothesis),
         "hypothesis": {"source": "agent_assumption", **spec.hypothesis.model_dump(mode="json")},
         "measurement": {"status": result.status, "score": result.score, "scope": result.scope,
@@ -132,6 +133,16 @@ def experiment_review(spec, result, previous, task, policy):
             "reference_ids": spec.reference_ids},
         "source_status": "citations_are_not_proof_of_reading_or_application",
         "next_step": next_step, "transfer_status": "task_local_requires_revalidation"}
+    if structured:
+        from .research_memory import branch_axes, branch_key
+        review.update(review_version=2, branch_id=branch_key(spec.pipeline, version=branch_version),
+            branch_axes=branch_axes(spec.pipeline, version=branch_version), parent_id=spec.parent_id,
+            learning={"measured_outcome": outcome, "interpretation": "unknown",
+                "interpretation_source": "agent_assumption_not_supplied",
+                "revisit_condition": "Requires changed evidence, conditions or implementation; none established",
+                "acceptance": "not_established_by_numeric_score",
+                "limitation": "Technical failure, pilot and local metric differences have distinct meanings"})
+    return review
 
 
 def index_reviews(context_memory):
@@ -147,6 +158,7 @@ def index_reviews(context_memory):
             checked_change="Read once: source-led research cycle; conditional methods, honest validation and negative results.")])
     context_memory.research_guide_id = guide_id
     previous, latest = [], None
+    context_memory.branch_reviews = []
     for row in c.journal.experiments():
         spec = ExperimentSpec.model_validate(row["spec"])
         if row["result"] is None:
@@ -157,7 +169,9 @@ def index_reviews(context_memory):
         public = c.public_result(result)
         measured = result.model_copy(update={"score": public.get("score"), "seconds": public.get("seconds", 0),
             "training_summary": public.get("training_summary", {})})
-        review = experiment_review(spec, measured, previous, c.task, c.plan.selection_policy)
+        from .research_memory import enabled, identity_version
+        review = experiment_review(spec, measured, previous, c.task, c.plan.selection_policy,
+            structured=enabled(c), branch_version=identity_version(c))
         identifier = "research_review:" + digest(review)[:24]
         if not store.record(identifier):
             source = Source(identifier, digest(review), canonical(review), "registered_feedback",
@@ -170,6 +184,8 @@ def index_reviews(context_memory):
                 parent_id=spec.experiment_id, metric=c.task.metric.name, maximize=c.task.metric.maximize,
                 evaluation_scope=result.scope, checked_change=review["outcome"] + ": " + review["next_step"])])
         previous.append((spec, measured))
+        context_memory.branch_reviews.append({'spec': spec, 'review': review, 'id': identifier,
+            'sequence': len(previous)})
         latest = identifier
     return latest
 
