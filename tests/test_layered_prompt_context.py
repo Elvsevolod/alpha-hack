@@ -142,6 +142,58 @@ def test_parameter_guide_is_derived_from_executor_contract_not_library_guess(con
     assert 'n_jobs' not in guide['models']['logistic']
 
 
+@pytest.mark.parametrize('mode', ['native', 'json'])
+@pytest.mark.parametrize('improved', [False, True])
+def test_http_next_action_receives_changed_measured_memory(controller, mode, improved):
+    import httpx
+    from automl_agent.tool_results import payload
+    c = controller
+    base, measured = c.lookup(c.journal.get('baseline_id'))
+    spec = base.model_copy(update={'experiment_id': 'observed_change', 'parent_id': base.experiment_id,
+        'status': 'full'})
+    result = measured.model_copy(update={'experiment_id': spec.experiment_id, 'scope': 'full',
+        'score': measured.score * .5 if improved else measured.score + 100})
+    c.journal.save_experiment(spec, result)
+    c.qwen.disabled = False
+    c.qwen.key = 'fixture-not-a-real-key'
+    c.qwen.base_url = 'http://fixture.invalid/v1'
+    c.qwen.transport = mode
+    c.qwen.client.close()
+    requests = []
+
+    def handler(request):
+        context = json.loads(json.loads(request.content)['messages'][1]['content'])
+        requests.append(context)
+        if len(requests) == 1:
+            memory = context['core']['current_work']['research_memory']
+            if 'read' in memory:
+                tool, arguments = 'read_run_records', memory['read']['arguments']
+            else:
+                tool, arguments = 'read_run_records', {'ids': [c.context_memory.latest_research_review], 'max_chars': 12000}
+        else:
+            evidence = json.dumps(context['observations'])
+            assert ('improved_locally' if improved else 'no_material_gain') in evidence
+            tool, arguments = 'get_dataset_report', {'scope': 'fit',
+                'report': 'profile' if 'improved_locally' in evidence else 'correlations'}
+        op = 'memory_http_' + str(len(requests))
+        command = {'operation_id': op, 'tool': tool, 'arguments': arguments}
+        if mode == 'native':
+            message = {'role': 'assistant', 'content': None, 'tool_calls': [{'id': op, 'type': 'function',
+                'function': {'name': tool, 'arguments': json.dumps({'operation_id': op, **arguments})}}]}
+        else:
+            message = {'role': 'assistant', 'content': json.dumps(command)}
+        return httpx.Response(200, json={'choices': [{'message': message,
+            'finish_reason': 'tool_calls' if mode == 'native' else 'stop'}],
+            'usage': {'prompt_tokens': 100, 'completion_tokens': 10, 'total_tokens': 110}})
+
+    c.qwen.client = httpx.Client(transport=httpx.MockTransport(handler))
+    command, _ = c.qwen.next_command(c.system_prompt, c.context_memory.snapshot(c.system_prompt))
+    assert payload(c.dispatch(command))['status'] == 'success'
+    command, _ = c.qwen.next_command(c.system_prompt, c.context_memory.snapshot(c.system_prompt))
+    assert command.arguments['report'] == ('profile' if improved else 'correlations')
+    assert len(requests) == 2
+
+
 def test_frame_never_copies_predictions_or_treats_rejected_generation_as_fit(controller):
     c = controller
     c.journal.put('last_tool_result', {'status': 'command_validation', 'error': 'PRIVATE_SENTINEL'})

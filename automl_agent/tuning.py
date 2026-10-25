@@ -104,12 +104,16 @@ def tune(owner, X, y, context):
         atomic_json(directory / "hpo_history.json", {"identity": identity, "trials": history})
         atomic_json(directory / "optuna_trials.json", history)
 
+    def direct_recipe(parameters):
+        return spec.model_copy(update={"engine": "direct", "search_owner": "none",
+            "search_space": {}, "hyperparameters": parameters})
+
     def evaluate(parameters, trial=None):
         nonlocal selected_fit
         scores, truth, predictions, schedules = [], [], {}, []
         for number, part in enumerate(parts):
             a, b = part["fit"], part["validation"]
-            direct = spec.model_copy(update={"engine": "direct", "search_owner": "none", "search_space": {}, "hyperparameters": parameters})
+            direct = direct_recipe(parameters)
             pipeline = DirectPipeline(direct, task)
             local = {**context, "split_id": f"inner_{number}", "rolling_folds": None,
                 "fit_row_keys": X.index[a].tolist(), "schedule_selection": True,
@@ -153,14 +157,23 @@ def tune(owner, X, y, context):
         trial_event(context, "trial_started", trial_id=f"optuna_{trial.number}", engine="optuna", parameters=parameters)
         fit_started = time.monotonic()
         try:
+            # These checks inspect only the public recipe and task contract,
+            # never X/y values. Preserve their reasons if a smoke search has no
+            # valid trial; arbitrary backend exceptions stay private.
+            from .compatibility import incompatibilities
+            issues = incompatibilities(direct_recipe(parameters), task, context['strategy'])
+            if issues:
+                record['recipe_issues'] = issues[:8]
+                raise ValueError('; '.join(issues))
             metric, schedule, _, boundaries = evaluate(parameters, trial)
             record.update(state="completed", value=metric, iteration_schedule=schedule, folds=boundaries)
             return metric
         except optuna.TrialPruned:
             record["state"] = "pruned"
             raise
-        except BaseException:
+        except BaseException as error:
             record["state"] = "failed"
+            record['failure_type'] = type(error).__name__
             raise
         finally:
             record["seconds"] = time.monotonic() - fit_started
@@ -191,7 +204,11 @@ def tune(owner, X, y, context):
         remaining() - selected_fit * fit_multiplier - prediction - publication)), n_jobs=1,
         catch=errors, show_progress_bar=False, callbacks=[protect])
     if not any(item["state"] == "completed" for item in history):
-        raise ValueError("Optuna completed no valid inner trial")
+        from .util import canonical
+        reasons = sorted({reason for item in history for reason in item.get('recipe_issues', [])})[:8]
+        types = sorted({item['failure_type'] for item in history if item.get('failure_type')})
+        raise ValueError('Optuna completed no valid inner trial; failure types=' + canonical(types)
+            + '; public recipe constraints=' + canonical(reasons)[:1800])
     winner = next(item for item in history if item["id"] == study.best_trial.user_attrs["record_id"])
     if remaining() < selected_fit * fit_multiplier + prediction + publication:
         raise ValueError("Optuna selected fit exceeds its measured phase reserve")
