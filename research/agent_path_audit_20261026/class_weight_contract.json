@@ -1,0 +1,179 @@
+{
+  "historical_trace": {
+    "source": "/Users/semolik/Developer/alpha-hack/outputs/research_memory_ab_live_20261025/runs/bank_A/task/.agent_work/research_memory_ab/journal.sqlite",
+    "sha256": "4a7f997167fdc8cffeab722963efaebd5890503aa681e49a5d2c166f0611afd7",
+    "access": "SQLite mode=ro; original trace unchanged",
+    "confirmed_classes": {
+      "y": [
+        "no",
+        "yes"
+      ]
+    },
+    "records": [
+      {
+        "experiment_id": "exp_10918a2b4d332b4b",
+        "engine": "direct",
+        "model": "lightgbm",
+        "class_weight": {
+          "1": 2
+        },
+        "status": "error",
+        "error": "KeyError: '<value>'"
+      },
+      {
+        "experiment_id": "exp_c952c79d55f66b99",
+        "engine": "direct",
+        "model": "lightgbm",
+        "class_weight": {
+          "1": 8
+        },
+        "status": "error",
+        "error": "KeyError: '<value>'"
+      }
+    ]
+  },
+  "baseline_probe": {
+    "base_commit": "b4eeea42a419e3ba61c4d48e18aa5998475a5fba",
+    "results": {
+      "invalid_string_labels": {
+        "preflight_admitted": true,
+        "fit_status": "KeyError"
+      },
+      "valid_numeric_labels": {
+        "preflight_admitted": true,
+        "fit_status": "KeyError"
+      }
+    },
+    "source": "git archive of immutable pre-fix commit; synthetic rows only",
+    "api_calls": 0
+  },
+  "checks": [
+    {
+      "source": "outputs/class_weight_contract_first.xml",
+      "sha256": "aabf8f8917ca2ed1ae97fe840b48d5fcb14d2299a28f72a40d8f4ad75aaff49c",
+      "counts": {
+        "tests": 14,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "source": "outputs/class_weight_contract_checks.xml",
+      "sha256": "51d0ba59dd4331978ffd77fa61f5676ba6cd646ef0f69498ed53074a41970d06",
+      "counts": {
+        "tests": 77,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "source": "outputs/class_weight_contract_final.xml",
+      "sha256": "197e0290ce84bf599d32a039989d39fc4769ef7e005931b3cbbff488c1038cf0",
+      "counts": {
+        "tests": 21,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cases": [
+        "test_invalid_weights_fail_before_preprocessing[weights0]",
+        "test_invalid_weights_fail_before_preprocessing[weights1]",
+        "test_invalid_weights_fail_before_preprocessing[weights2]",
+        "test_invalid_weights_fail_before_preprocessing[weights3]",
+        "test_invalid_weights_fail_before_preprocessing[weights4]",
+        "test_invalid_weights_fail_before_preprocessing[weights5]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-lightgbm]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-logistic]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-sgd]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-random_forest]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-extra_trees]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-lightgbm]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-logistic]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-sgd]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-random_forest]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-extra_trees]",
+        "test_declared_absent_class_is_filtered_only_for_current_fit",
+        "test_forest_multioutput_maps_each_dictionary_to_its_target",
+        "test_string_labels_are_not_reinterpreted_as_numeric_codes",
+        "test_controller_json_weights_reach_worker_and_unknown_labels_start_no_candidate",
+        "test_optuna_keeps_numeric_class_weights_in_trials_and_frozen_replay"
+      ]
+    },
+    {
+      "source": "outputs/class_weight_contract_final_v2.xml",
+      "sha256": "5c923ca58d285b70ab4d05911716179a4f124dba56465055c44dac3063d263a1",
+      "counts": {
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cases": [
+        "test_invalid_weights_fail_before_preprocessing[weights0]",
+        "test_invalid_weights_fail_before_preprocessing[weights1]",
+        "test_invalid_weights_fail_before_preprocessing[weights2]",
+        "test_invalid_weights_fail_before_preprocessing[weights3]",
+        "test_invalid_weights_fail_before_preprocessing[weights4]",
+        "test_invalid_weights_fail_before_preprocessing[weights5]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-lightgbm]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-logistic]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-sgd]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-random_forest]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels0-extra_trees]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-lightgbm]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-logistic]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-sgd]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-random_forest]",
+        "test_numeric_label_keys_survive_json_and_native_fit[labels1-extra_trees]",
+        "test_declared_absent_class_is_filtered_only_for_current_fit",
+        "test_forest_multioutput_maps_each_dictionary_to_its_target",
+        "test_string_labels_are_not_reinterpreted_as_numeric_codes",
+        "test_controller_json_weights_reach_worker_and_unknown_labels_start_no_candidate",
+        "test_optuna_keeps_numeric_class_weights_in_trials_and_frozen_replay"
+      ]
+    },
+    {
+      "source": "outputs/class_weight_hpo_composition.xml",
+      "sha256": "b020b47e70626b123982b593315911c1d7e04464401a902e52e07c348e3aa739",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cases": [
+        "test_batch_domain_and_learned_blend_controller",
+        "test_domain_weights_are_clipped_and_target_free",
+        "test_ensemble_windows_retrain_all_dependencies_and_optional_failure_is_limited"
+      ]
+    },
+    {
+      "source": "outputs/class_weight_contract_final_v3.xml",
+      "sha256": "bd6c86dd97c3e1e0c0f8af38bdaf5b56f0d34f594ba72d8ab1ff6119c418a3b3",
+      "counts": {
+        "tests": 33,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "scope": "final complete label-type matrix, preflight, worker, absent-fold, multioutput and Optuna replay"
+    }
+  ],
+  "final_sources": {
+    "automl_agent/class_weight.py": "eb2859587c15567772f621eede400a3ec609ee1c8ee45354d1595a76363f2114",
+    "automl_agent/pipelines.py": "bccfec28d4b953cefed6f4893cfc74b13f67683ee6aebe98516aadc17235daeb",
+    "tests/test_class_weight_contract.py": "0e2abe18b4b0cdb8e8a582ae96e61cf1d1973b52766274c9036e65f4efa6c395"
+  },
+  "first_test_attempt_failure": "test expected an incorrect public rejection status; production preflight correctly rejected; fixture corrected before successful integration",
+  "dependencies_verified": {
+    "scikit-learn": "1.5.2",
+    "lightgbm": "4.6.0"
+  },
+  "api_calls": 0,
+  "hidden_labels_used": false,
+  "competition_quality_gain_claimed": false,
+  "goal_complete": false,
+  "additional_fixture_correction": "Optuna fixture used integer row index; corrected to canonical string staged keys, row-key guard unchanged"
+}

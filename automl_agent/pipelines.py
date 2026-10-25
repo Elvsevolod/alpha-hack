@@ -76,6 +76,10 @@ def validate_parameters(spec, task):
     p = effective_parameters(spec)
     if spec.model in PARAMETERS and not set(p) <= PARAMETERS[spec.model]:
         raise ValueError(f"Unsupported parameters for {spec.model}: {sorted(set(p) - PARAMETERS[spec.model])}")
+    if 'class_weight' in p:
+        from .class_weight import resolve_class_weight
+        for target in task.targets:
+            resolve_class_weight(spec,task,target)
     if spec.model == "knn":
         if p.get("metric", "minkowski") not in {"minkowski", "euclidean", "manhattan", "cosine"} or p.get("weights", "uniform") not in {"uniform", "distance"}:
             raise ValueError("KNN requires a verified metric and weighting rule")
@@ -295,6 +299,10 @@ class DirectPipeline:
             model_spec = self.spec
             if iterations and self.spec.model in ITERATION_PARAMETER:
                 model_spec = self.spec.model_copy(update={"hyperparameters": {**self.spec.hyperparameters, ITERATION_PARAMETER[self.spec.model]: iterations}})
+            if 'class_weight' in model_spec.hyperparameters:
+                from .class_weight import resolve_class_weight
+                model_spec = model_spec.model_copy(update={'hyperparameters':{**model_spec.hyperparameters,
+                    'class_weight':resolve_class_weight(model_spec,self.task,target,values)}})
             model = make_estimator(model_spec, classification, context)
             if classification and len(pd.unique(values)) == 1:
                 model = DummyClassifier(strategy="prior")
