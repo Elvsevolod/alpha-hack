@@ -73,7 +73,19 @@ def reference_splits(frame, classification):
     return dict(fit=fit, tune=tune, control=control, development=development, all=np.arange(len(frame)))
 
 
-def run_case(root, kind, deadline, *, config_override=None, reuse_root=None):
+def diverse_pairs(ordered_singles, completed):
+    """Retain model-family diversity before testing blends on development data."""
+    unique = list(dict.fromkeys(r['names'][0] for r in ordered_singles))
+    families = {}
+    for name in unique:
+        config = completed[name]['config']
+        family = (config['spec']['model'], config.get('alternative'))
+        families.setdefault(family, name)
+    pool = list(dict.fromkeys(unique[:3] + list(families.values())))
+    return [(pool[a], pool[b]) for a in range(len(pool)) for b in range(a + 1, len(pool))]
+
+
+def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, baseline_override=None, reference_pair=None):
     classification = kind == 'classification'
     directory = ROOT / 'data_for_participants' / ('Многоклассовая классификация' if classification else 'Регрессия')
     target = 'attack_cat' if classification else 'site_eui'
@@ -82,7 +94,7 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None):
     input_hashes = {f: sha(directory / f) for f in ['train.csv', 'test.csv', 'task.md']}
     if evidence['protocol']['source_hashes'] != input_hashes:
         raise ValueError('Historical baseline scores refer to different input data')
-    previous = evidence['summary']
+    previous = evidence['summary'] if baseline_override is None else {'control': {'selected_score': baseline_override}}
     out = root / kind
     out.mkdir()
     original = ROOT / 'outputs/participant_reference_20261025' / kind
@@ -114,15 +126,21 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None):
     split_path = out / 'splits.npz'
     np.savez(split_path, **split)
     configs = candidates(classification) if config_override is None else config_override
-    worker_sources = {name: sha(ROOT / name) for name in [
-        'tools/solve_participant_examples.py', 'tools/reference_features.py', 'automl_agent/pipelines.py']}
+    worker_files = ['tools/solve_participant_examples.py', 'tools/reference_features.py', 'automl_agent/pipelines.py']
+    if any(c.get('alternative') for c in configs):
+        worker_files.append('tools/reference_alternatives.py')
+    worker_sources = {name: sha(ROOT / name) for name in worker_files}
     dependencies = {name: version(name) for name in ['numpy', 'pandas', 'scikit-learn', 'catboost', 'lightgbm', 'xgboost']}
     dependencies['python'] = sys.version.split()[0]
+    if any(c.get('alternative') == 'tabm_mini' for c in configs):
+        dependencies['torch'] = version('torch')
     write(out / 'protocol.json', {'candidate_freeze_unix': time.time(), 'candidates': configs,
         'worker_source_sha256': worker_sources,
         'dependencies': dependencies,
         'source_hashes': input_hashes,
         'split_sha256': sha(split_path), 'previous_control_reused': True,
+        'baseline_audit_score': previous['control']['selected_score'],
+        'ensemble_pair_policy': 'top three single recipes plus best recipe per (model, alternative) family',
         'selection': 'two complementary calibration/selection group partitions, calibration only for stopping and offsets' if classification else 'mean RMSE on next-period validation years 3 and 4',
         'policy_search': {'tau': [0, .5, 1.], 'offset_bound': 1., 'support_shrinkage': 50., 'coordinate_passes': 2},
         'resources': {'cpu_per_worker': 4, 'timeout_per_worker_seconds': 180},
@@ -197,9 +215,8 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None):
             assess([name], [1.])
     direction = -1 if classification else 1
     best_single = sorted(recipes, key=lambda r: direction * r['score'])
-    top = list(dict.fromkeys(r['names'][0] for r in best_single))[:3]
-    pairs = [(top[a], top[b]) for a in range(len(top)) for b in range(a + 1, len(top))]
-    anchors = ('anchor31', 'anchor63') if classification else ('anchor_cb', 'anchor_lgb')
+    pairs = diverse_pairs(best_single, completed)
+    anchors = tuple(reference_pair) if reference_pair else ('anchor31', 'anchor63') if classification else ('anchor_cb', 'anchor_lgb')
     if all(n in completed for n in anchors) and anchors not in pairs:
         pairs.append(anchors)
     for a, b in pairs:
@@ -222,6 +239,8 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None):
         iterations[name] = iteration
         key = 'iterations' if q['spec']['model'] == 'catboost' else 'max_iter' if q['spec']['model'] == 'mlp' else 'n_estimators'
         q['spec'] = dict(q['spec'], hyperparameters=dict(q['spec']['hyperparameters'], **{key: iteration}))
+        if q.get('alternative') == 'hierarchical':
+            q['alternative_component_iterations'] = {stage: int(np.median([r['component_iterations'][stage] for r in entry['folds']])) for stage in ['gate', 'attack']}
         q.update(directory=str(directory), target=target, split=str(split_path), train='development', evaluate='control', final=True, timeout_seconds=300)
         if run_job(out, f'{name}_audit', q, deadline) is None:
             raise RuntimeError('Audit fit failed; sealed selection saved')

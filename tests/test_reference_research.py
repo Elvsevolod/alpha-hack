@@ -134,7 +134,7 @@ def test_prediction_reuse_rejects_changed_runtime_before_any_fit(monkeypatch, tm
     evidence.parent.mkdir(parents=True)
     evidence.write_text(json.dumps({'cases': {'classification': {
         'protocol': {'source_hashes': {name: 'fixed' for name in ['train.csv', 'test.csv', 'task.md']}},
-        'summary': {}}}}))
+        'summary': {'control': {'selected_score': .5}}}}}))
     prior = tmp_path / 'prior/classification'
     prior.mkdir(parents=True)
     workers = {name: 'fixed' for name in ['tools/solve_participant_examples.py', 'tools/reference_features.py', 'automl_agent/pipelines.py']}
@@ -158,3 +158,54 @@ def test_recreated_temporal_partitions_preserve_forward_boundary():
     np.testing.assert_array_equal(result['tune'], [3])
     np.testing.assert_array_equal(result['control'], [4])
     np.testing.assert_array_equal(result['development'], [0, 1, 2, 3])
+
+
+@pytest.mark.parametrize('alternative,classification', [('tabm_mini', False), ('tabm_mini', True), ('hierarchical', True)])
+def test_new_alternative_worker_round_trip(alternative, classification, tmp_path):
+    if alternative == 'tabm_mini':
+        pytest.importorskip('torch')
+    rng = np.random.default_rng(42)
+    frame = pd.DataFrame({'id': np.arange(150), 'number': rng.normal(size=150), 'category': np.tile(['a', 'b', 'c'], 50)})
+    target = 'attack_cat' if classification else 'site_eui'
+    frame[target] = np.tile(['A', 'B', 'C'], 50) if classification else 3 * frame.number + 20
+    frame.to_csv(tmp_path / 'train.csv', index=False)
+    np.savez(tmp_path / 'split.npz', fit=np.arange(100), tune=np.arange(100, 150))
+    model = 'mlp' if alternative == 'tabm_mini' else 'lightgbm'
+    parameters = {'max_iter': 2} if model == 'mlp' else {'n_estimators': 5}
+    q = {'directory': str(tmp_path), 'target': target, 'split': str(tmp_path / 'split.npz'),
+         'train': 'fit', 'evaluate': 'tune', 'alternative': alternative, 'normal_class': 'B',
+         'spec': {'model': model, 'hyperparameters': parameters},
+         'prediction': str(tmp_path / 'prediction.npy'), 'model': str(tmp_path / 'model.joblib'),
+         'result': str(tmp_path / 'result.json')}
+    request = tmp_path / 'request.json'
+    request.write_text(json.dumps(q))
+    worker(request)
+    actual = predict_saved(tmp_path / 'model.joblib', frame.iloc[100:])
+    np.testing.assert_allclose(actual, np.load(tmp_path / 'prediction.npy'), atol=1e-6)
+    assert np.isfinite(actual).all()
+    if classification:
+        np.testing.assert_allclose(actual.sum(axis=1), 1, atol=1e-6)
+    if alternative == 'hierarchical':
+        assert json.loads((tmp_path / 'result.json').read_text())['auxiliary_fits'] == 1
+
+
+def test_blend_search_does_not_drop_weaker_single_neural_family():
+    from tools.literature_reference_study import diverse_pairs
+    names = ['tree_a', 'tree_b', 'tree_c', 'neural']
+    recipes = [{'names': [name]} for name in names]
+    completed = {name: {'config': {'spec': {'model': 'lightgbm' if name != 'neural' else 'mlp'},
+                                  'alternative': None if name != 'neural' else 'tabm_mini'}} for name in names}
+    pairs = diverse_pairs(recipes, completed)
+    assert ('tree_a', 'neural') in pairs
+    assert len(pairs) == len(set(pairs))
+
+
+def test_reference_job_persists_native_failure_exit_code(monkeypatch, tmp_path):
+    import subprocess
+    import time
+    from tools.solve_participant_examples import run_job
+    monkeypatch.setattr(subprocess, 'run', lambda *a, **k: subprocess.CompletedProcess(a[0], -11))
+    result = run_job(tmp_path, 'failed', {}, time.monotonic() + 10)
+    assert result is None
+    failure = json.loads((tmp_path / 'failed/failure.json').read_text())
+    assert failure == {'status': 'technical_failure', 'exit_code': -11, 'reason': 'terminated_by_signal'}

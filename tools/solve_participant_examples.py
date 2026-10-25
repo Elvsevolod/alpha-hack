@@ -81,7 +81,18 @@ def worker(request):
     target = q['target']
     classification = target == 'attack_cat'
     spec = PipelineSpec.model_validate(q['spec'])
-    model = make_estimator(spec, classification, {'cpu': 4})
+    if q.get('alternative') == 'tabm_mini':
+        from tools.reference_alternatives import MiniEnsembleEstimator
+        model = MiniEnsembleEstimator(classification=classification,
+            epochs=spec.hyperparameters.get('max_iter', 40), seed=spec.seed)
+    elif q.get('alternative') == 'hierarchical':
+        from tools.reference_alternatives import HierarchicalLGBM
+        normal = sorted(data[target].unique()).index(q.get('normal_class', 'Normal'))
+        model = HierarchicalLGBM(q['spec'], normal, q.get('alternative_component_iterations'))
+    else:
+        model = make_estimator(spec, classification, {'cpu': 4})
+    if not classification and q.get('regression_eval_metric'):
+        model.set_params(metric=q['regression_eval_metric'])
     columns = [c for c in data if c not in [target, 'id']]
     if q.get('building_only'):
         columns = ['State_Factor', 'building_class', 'facility_type', 'floor_area',
@@ -135,6 +146,8 @@ def worker(request):
         fit_args['sample_weight'] = (frequency.max() / frequency)[encoded.iloc[train]] ** q['class_weight_exponent']
     if spec.model == 'catboost':
         fit_args['cat_features'] = categorical
+    if q.get('alternative') == 'tabm_mini' and not q.get('final'):
+        fit_args['eval_set'] = (stopping_x, transformed.iloc[stop_rows])
     if not q.get('final') and not q.get('fixed_iterations') and spec.model in {'catboost', 'lightgbm', 'xgboost'}:
         fit_args['eval_set'] = (stopping_x, transformed.iloc[stop_rows])
         if spec.model == 'catboost':
@@ -196,7 +209,11 @@ def worker(request):
     importance = dict(zip(columns, map(float, model.feature_importances_))) if preprocessor is None and hasattr(model, 'feature_importances_') else {}
     write(q['result'], {'status': 'completed', 'iterations': iterations,
           'seconds': time.monotonic() - started, 'classes': classes,
-          'auxiliary_fits': int(feature_imputer is not None),
+          'auxiliary_fits': int(feature_imputer is not None) + int(q.get('alternative') == 'hierarchical'),
+          'alternative': q.get('alternative'),
+          'component_iterations': getattr(model, 'component_iterations_', None),
+          'epochs_run': getattr(model, 'epochs_run_', None),
+          'stop_reason': getattr(model, 'stop_reason_', None),
           'feature_importance': sorted(importance.items(), key=lambda z: -z[1])[:15]})
 
 
@@ -222,6 +239,8 @@ def run_job(out, name, base, deadline):
             print('TIMEOUT', name, flush=True)
             return None
     if result.returncode:
+        write(job / 'failure.json', {'status': 'technical_failure', 'exit_code': result.returncode,
+              'reason': 'terminated_by_signal' if result.returncode < 0 else 'process_exit'})
         print('FAILED', name, flush=True)
         return None
     r = json.loads((job / 'result.json').read_text())
