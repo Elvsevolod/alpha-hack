@@ -1,0 +1,174 @@
+{
+  "baseline_commit": "daf24c1f09ad3e4b151116b234f408a971088a52",
+  "candidate_commit": "61944302c3789bd3ff8f8e4f95f9a2863efe4100",
+  "selection_budget_seconds": 90,
+  "per_process_external_timeout_seconds": 120,
+  "cases": {
+    "regression": {
+      "baseline": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          7.500953083006607,
+          7.857449459006602
+        ],
+        "total_cpu_seconds": [
+          7.3310830000000005,
+          7.376631
+        ],
+        "peak_rss_mib": [
+          484.484375,
+          491.28125
+        ],
+        "refit_full_process_wall_seconds": [
+          2.7110387920038193,
+          2.711619375004375
+        ],
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_fit_calls_select": 9,
+        "native_fit_calls_refit": 1,
+        "trial_score": 0.808752897341865,
+        "model_bytes": 911605
+      },
+      "candidate": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          7.537390791003418,
+          7.563951750002161
+        ],
+        "total_cpu_seconds": [
+          7.318588,
+          7.356052
+        ],
+        "peak_rss_mib": [
+          470.34375,
+          482.421875
+        ],
+        "refit_full_process_wall_seconds": [
+          2.7152182499994524,
+          2.7295619580036146
+        ],
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_fit_calls_select": 9,
+        "native_fit_calls_refit": 1,
+        "trial_score": 0.808752897341865,
+        "model_bytes": 911605
+      }
+    },
+    "opposing_regression": {
+      "baseline": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          3.973443333998148,
+          3.9837361669997335
+        ],
+        "total_cpu_seconds": [
+          3.744293,
+          3.787538
+        ],
+        "peak_rss_mib": [
+          450.765625,
+          456.765625
+        ],
+        "refit_full_process_wall_seconds": [
+          1.5204144589952193,
+          1.5440619590008282
+        ],
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_fit_calls_select": 4,
+        "native_fit_calls_refit": 1,
+        "trial_score": 4.244068258289263,
+        "model_bytes": 662868
+      },
+      "candidate": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          3.9637394999954267,
+          3.9682439160023932
+        ],
+        "total_cpu_seconds": [
+          3.736989,
+          3.770313
+        ],
+        "peak_rss_mib": [
+          455.59375,
+          501.140625
+        ],
+        "refit_full_process_wall_seconds": [
+          1.5126421249951818,
+          1.5478375410020817
+        ],
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_fit_calls_select": 4,
+        "native_fit_calls_refit": 1,
+        "trial_score": 3.614434476884264,
+        "model_bytes": 662868
+      }
+    },
+    "ten_classes": {
+      "baseline": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          6.721383250005601,
+          6.766378166998038
+        ],
+        "total_cpu_seconds": [
+          6.572121000000001,
+          6.575792
+        ],
+        "peak_rss_mib": [
+          278.375,
+          281.25
+        ],
+        "refit_full_process_wall_seconds": [
+          2.2858138750016224,
+          2.332417457997508
+        ],
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_fit_calls_select": 5,
+        "native_fit_calls_refit": 1,
+        "trial_score": 0.570853760393246,
+        "model_bytes": 980870
+      },
+      "candidate": {
+        "pairs": 2,
+        "total_wall_seconds": [
+          6.712874625001859,
+          6.717120293003973
+        ],
+        "total_cpu_seconds": [
+          6.5203560000000005,
+          6.524404
+        ],
+        "peak_rss_mib": [
+          277.234375,
+          287.296875
+        ],
+        "refit_full_process_wall_seconds": [
+          2.2884760410015588,
+          2.300905709002109
+        ],
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_fit_calls_select": 5,
+        "native_fit_calls_refit": 1,
+        "trial_score": 0.5779392057650647,
+        "model_bytes": 980870
+      }
+    }
+  },
+  "reported_scope": "Fresh-process synthetic one-trial HPO, selected fit, prediction, save/load verification plus separate fresh-process full refit and inference. No controller, Qwen, data loading from external files or official platform claim.",
+  "real_api_calls": 0,
+  "competition_quality_gain_claimed": false,
+  "overall_goal_complete": false
+}

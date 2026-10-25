@@ -1,0 +1,40 @@
+{
+  "evidence_sha256": {
+    "README.md": "4f34032f4a9d7d8c8488f327ba575b6823887957f202ed8ef8ba9c3b408462b4",
+    "first_attempt.json": "d9871be10d80f5256e945ae52db48860c95a64baab5c0e1ca4ef077720c5aa6f",
+    "freeze.json": "17561de9ec458288ecede52db88cb46d675da993ad7196b4f3258fa95f219c22",
+    "independent_checks.json": "2879a62f2fedf7667c3eafed31ed38c6992c4490909fbe665310def1b0217e7e",
+    "opposing_regression_0_baseline/refit/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_0_baseline/select/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_1_candidate/refit/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_1_candidate/select/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_2_candidate/refit/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_2_candidate/select/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_3_baseline/refit/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "opposing_regression_3_baseline/select/frozen.json": "af637637c20ebf3d4412937fd97d287155e2e09ce044de7a8b1842c1d6c88a37",
+    "regression_0_baseline/refit/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_0_baseline/select/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_1_candidate/refit/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_1_candidate/select/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_2_candidate/refit/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_2_candidate/select/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_3_baseline/refit/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "regression_3_baseline/select/frozen.json": "0cba34ce45b796eb536347c7830e25a771ceb4806c277e0c78e62e05224bdad4",
+    "runs.json": "d2a9529a597e793a2d655504cd06585da720a558edad5a8902bac30944a26bc4",
+    "state.json": "77fd99264c08a0b117cfec7cb921b64623c585f572d39ab58a2e7f6cad825bce",
+    "summary.json": "a6fdb245eb92b4e532a35e6de13999be86dee2d4d14250f2bc780a38785c5a28",
+    "ten_classes_0_baseline/refit/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_0_baseline/select/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_1_candidate/refit/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_1_candidate/select/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_2_candidate/refit/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_2_candidate/select/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_3_baseline/refit/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc",
+    "ten_classes_3_baseline/select/frozen.json": "8aeb5b1051c5a5ba1025128cf606ee085dbd7328f45bfec5ff2f647d76d9fdcc"
+  },
+  "scripts_sha256": {
+    "tools/measure_hgb_snapshot_cost.py": "c2989e9e235aa997afceded915f4ffee67d194cd6a7fbe67186d1679d91cd079",
+    "tools/check_hgb_snapshot_cost.py": "d4fdb169915d8874d49cbe65806fe0afcee03ddc2676c3c1f23416664aba14b0"
+  },
+  "no_raw_rows_or_trained_models_in_evidence": true
+}

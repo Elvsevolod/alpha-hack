@@ -1,0 +1,34 @@
+{
+  "status": "verified",
+  "completed_pairs": 12,
+  "fresh_processes": 24,
+  "sources_unchanged": true,
+  "replay_checks": [
+    {
+      "case": "regression",
+      "frozen_recipes_identical": true,
+      "native_fit_sequences_identical": true,
+      "frozen_inner_replay_primary": 0.808752897341865,
+      "candidate_trial_score_verified": true,
+      "baseline_trial_score_matches_frozen_replay": true
+    },
+    {
+      "case": "opposing_regression",
+      "frozen_recipes_identical": true,
+      "native_fit_sequences_identical": true,
+      "frozen_inner_replay_primary": 3.614434476884264,
+      "candidate_trial_score_verified": true,
+      "baseline_trial_score_matches_frozen_replay": false
+    },
+    {
+      "case": "ten_classes",
+      "frozen_recipes_identical": true,
+      "native_fit_sequences_identical": true,
+      "frozen_inner_replay_primary": 0.5779392057650647,
+      "candidate_trial_score_verified": true,
+      "baseline_trial_score_matches_frozen_replay": false
+    }
+  ],
+  "real_api_calls": 0,
+  "quality_gain_claimed": false
+}

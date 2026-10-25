@@ -1,0 +1,1646 @@
+[
+  {
+    "case": "regression",
+    "order": 0,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 4.051951624998765,
+        "prediction_seconds": 0.003616916001192294,
+        "save_load_verify_seconds": 0.010241041993140243,
+        "model_bytes": 1050577,
+        "cpu_seconds": 4.77196,
+        "peak_rss_mib": 491.28125,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.30399766699702013
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.28239437499723863
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.26182079200225417
+          },
+          {
+            "rows": 40000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.2652471670007799
+          },
+          {
+            "rows": 40000,
+            "max_iter": 50,
+            "n_iter": 50,
+            "seconds": 0.25708837500133086
+          },
+          {
+            "rows": 40000,
+            "max_iter": 60,
+            "n_iter": 60,
+            "seconds": 0.24400554199382896
+          },
+          {
+            "rows": 40000,
+            "max_iter": 70,
+            "n_iter": 70,
+            "seconds": 0.2557713749993127
+          },
+          {
+            "rows": 40000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 0.2532652500012773
+          },
+          {
+            "rows": 50000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.3381072500051232
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.808752897341865,
+              "iteration_schedule": {
+                "answer": 80
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.449761874995602
+            }
+          ],
+          "best": 0.808752897341865,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 5.146410667002783
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.9058566250023432,
+        "prediction_seconds": 0.0036122090023127384,
+        "save_load_verify_seconds": 0.009412041996256448,
+        "model_bytes": 911605,
+        "cpu_seconds": 2.6046709999999997,
+        "peak_rss_mib": 428.609375,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.6370632920006756
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.7110387920038193
+      }
+    ],
+    "total_wall_seconds": 7.857449459006602,
+    "total_cpu_seconds": 7.376631,
+    "peak_rss_mib": 491.28125
+  },
+  {
+    "case": "regression",
+    "order": 1,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 3.983741874995758,
+        "prediction_seconds": 0.0036862080014543608,
+        "save_load_verify_seconds": 0.009291291004046798,
+        "model_bytes": 1050577,
+        "cpu_seconds": 4.6940990000000005,
+        "peak_rss_mib": 482.421875,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.2944041250011651
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.2782456670029205
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.2612072080009966
+          },
+          {
+            "rows": 40000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.26317733299947577
+          },
+          {
+            "rows": 40000,
+            "max_iter": 50,
+            "n_iter": 50,
+            "seconds": 0.255079750000732
+          },
+          {
+            "rows": 40000,
+            "max_iter": 60,
+            "n_iter": 60,
+            "seconds": 0.24339449999388307
+          },
+          {
+            "rows": 40000,
+            "max_iter": 70,
+            "n_iter": 70,
+            "seconds": 0.25451704199804226
+          },
+          {
+            "rows": 40000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 0.2512593339997693
+          },
+          {
+            "rows": 50000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.335417749993212
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.808752897341865,
+              "iteration_schedule": {
+                "answer": 80
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.406837667003856
+            }
+          ],
+          "best": 0.808752897341865,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.807828832999803
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.9195522500012885,
+        "prediction_seconds": 0.0036459580005612224,
+        "save_load_verify_seconds": 0.009385208002640866,
+        "model_bytes": 911605,
+        "cpu_seconds": 2.624489,
+        "peak_rss_mib": 431.421875,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.644828584001516
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.7295619580036146
+      }
+    ],
+    "total_wall_seconds": 7.537390791003418,
+    "total_cpu_seconds": 7.318588,
+    "peak_rss_mib": 482.421875
+  },
+  {
+    "case": "regression",
+    "order": 2,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 4.015891791998001,
+        "prediction_seconds": 0.003598957999201957,
+        "save_load_verify_seconds": 0.012066165996657219,
+        "model_bytes": 1050577,
+        "cpu_seconds": 4.726659,
+        "peak_rss_mib": 470.34375,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.296855583001161
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.2810782919987105
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.2665215840024757
+          },
+          {
+            "rows": 40000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.2664221669983817
+          },
+          {
+            "rows": 40000,
+            "max_iter": 50,
+            "n_iter": 50,
+            "seconds": 0.25978766700427514
+          },
+          {
+            "rows": 40000,
+            "max_iter": 60,
+            "n_iter": 60,
+            "seconds": 0.24645954099833034
+          },
+          {
+            "rows": 40000,
+            "max_iter": 70,
+            "n_iter": 70,
+            "seconds": 0.2550441250059521
+          },
+          {
+            "rows": 40000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 0.2557492080013617
+          },
+          {
+            "rows": 50000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.3390181249997113
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.808752897341865,
+              "iteration_schedule": {
+                "answer": 80
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.4355469590009307
+            }
+          ],
+          "best": 0.808752897341865,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.848733500002709
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.9217510419985047,
+        "prediction_seconds": 0.003710999997565523,
+        "save_load_verify_seconds": 0.009416583001438994,
+        "model_bytes": 911605,
+        "cpu_seconds": 2.629393,
+        "peak_rss_mib": 435.0625,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.6481945419945987
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.7152182499994524
+      }
+    ],
+    "total_wall_seconds": 7.563951750002161,
+    "total_cpu_seconds": 7.356052,
+    "peak_rss_mib": 470.34375
+  },
+  {
+    "case": "regression",
+    "order": 3,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 4.000293833996693,
+        "prediction_seconds": 0.0035255830007372424,
+        "save_load_verify_seconds": 0.00982549999753246,
+        "model_bytes": 1050577,
+        "cpu_seconds": 4.70244,
+        "peak_rss_mib": 484.484375,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.29451775000052294
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.27746320799633395
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.2656642500005546
+          },
+          {
+            "rows": 40000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.2659877499972936
+          },
+          {
+            "rows": 40000,
+            "max_iter": 50,
+            "n_iter": 50,
+            "seconds": 0.25602429200080223
+          },
+          {
+            "rows": 40000,
+            "max_iter": 60,
+            "n_iter": 60,
+            "seconds": 0.24446170900046127
+          },
+          {
+            "rows": 40000,
+            "max_iter": 70,
+            "n_iter": 70,
+            "seconds": 0.25762474999646656
+          },
+          {
+            "rows": 40000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 0.2540697500007809
+          },
+          {
+            "rows": 50000,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.336386582996056
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.808752897341865,
+              "iteration_schedule": {
+                "answer": 80
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.4211763339990284
+            }
+          ],
+          "best": 0.808752897341865,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.789333708002232
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.9198960840003565,
+        "prediction_seconds": 0.0036393749978742562,
+        "save_load_verify_seconds": 0.009285375002946239,
+        "model_bytes": 911605,
+        "cpu_seconds": 2.6286430000000003,
+        "peak_rss_mib": 427.875,
+        "frozen_iterations": {
+          "answer": 80
+        },
+        "native_iterations": 80,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 80,
+            "n_iter": 80,
+            "seconds": 1.6475251250012661
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.711619375004375
+      }
+    ],
+    "total_wall_seconds": 7.500953083006607,
+    "total_cpu_seconds": 7.3310830000000005,
+    "peak_rss_mib": 484.484375
+  },
+  {
+    "case": "opposing_regression",
+    "order": 0,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "opposing_regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.6365268340014154,
+        "prediction_seconds": 0.00189387499995064,
+        "save_load_verify_seconds": 0.006666708999546245,
+        "model_bytes": 801840,
+        "cpu_seconds": 2.337913,
+        "peak_rss_mib": 450.765625,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.29603024999960326
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.2794450000001234
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.26523925000219606
+          },
+          {
+            "rows": 50000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.3409672080015298
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 4.244068258289263,
+              "iteration_schedule": {
+                "answer": 10
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 1.0583087499981048
+            }
+          ],
+          "best": 4.244068258289263,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.4530288750029285
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "opposing_regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 0.705239791997883,
+        "prediction_seconds": 0.0019181250027031638,
+        "save_load_verify_seconds": 0.0060824169995612465,
+        "model_bytes": 662868,
+        "cpu_seconds": 1.40638,
+        "peak_rss_mib": 417.15625,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.4300565839948831
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 1.5204144589952193
+      }
+    ],
+    "total_wall_seconds": 3.973443333998148,
+    "total_cpu_seconds": 3.744293,
+    "peak_rss_mib": 450.765625
+  },
+  {
+    "case": "opposing_regression",
+    "order": 1,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "opposing_regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.632543457999418,
+        "prediction_seconds": 0.0019775000037043355,
+        "save_load_verify_seconds": 0.006530999999085907,
+        "model_bytes": 801840,
+        "cpu_seconds": 2.333605,
+        "peak_rss_mib": 455.59375,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.2968727499974193
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.28118891600024654
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.2639390410040505
+          },
+          {
+            "rows": 50000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.33687579200341133
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 3.614434476884264,
+              "iteration_schedule": {
+                "answer": 10
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 1.0541067499943892
+            }
+          ],
+          "best": 3.614434476884264,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.451097375000245
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "opposing_regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 0.7079391250008484,
+        "prediction_seconds": 0.0020184169989079237,
+        "save_load_verify_seconds": 0.00631012500525685,
+        "model_bytes": 662868,
+        "cpu_seconds": 1.403384,
+        "peak_rss_mib": 424.625,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.43361387500044657
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 1.5126421249951818
+      }
+    ],
+    "total_wall_seconds": 3.9637394999954267,
+    "total_cpu_seconds": 3.736989,
+    "peak_rss_mib": 455.59375
+  },
+  {
+    "case": "opposing_regression",
+    "order": 2,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "opposing_regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.6413666669977829,
+        "prediction_seconds": 0.0019968330016126856,
+        "save_load_verify_seconds": 0.006830708996858448,
+        "model_bytes": 801840,
+        "cpu_seconds": 2.345644,
+        "peak_rss_mib": 501.140625,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.29230024999560555
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.2798121249943506
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.2639683750021504
+          },
+          {
+            "rows": 50000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.33944658400287153
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 3.614434476884264,
+              "iteration_schedule": {
+                "answer": 10
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 1.0546707920002518
+            }
+          ],
+          "best": 3.614434476884264,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.4204063750003115
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "opposing_regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 0.717544999999518,
+        "prediction_seconds": 0.0020247080028639175,
+        "save_load_verify_seconds": 0.006600166998396162,
+        "model_bytes": 662868,
+        "cpu_seconds": 1.424669,
+        "peak_rss_mib": 429.578125,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.43710162499337457
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 1.5478375410020817
+      }
+    ],
+    "total_wall_seconds": 3.9682439160023932,
+    "total_cpu_seconds": 3.770313,
+    "peak_rss_mib": 501.140625
+  },
+  {
+    "case": "opposing_regression",
+    "order": 3,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "opposing_regression",
+        "rows": 50000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.6538770420011133,
+        "prediction_seconds": 0.0019217500012018718,
+        "save_load_verify_seconds": 0.006554499996127561,
+        "model_bytes": 801840,
+        "cpu_seconds": 2.357434,
+        "peak_rss_mib": 456.765625,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 40000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.29679541600489756
+          },
+          {
+            "rows": 40000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.279267207995872
+          },
+          {
+            "rows": 40000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.26382520900369855
+          },
+          {
+            "rows": 50000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.3458933750007418
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "a2df6102cd3a563dddaa609ef8c4067f94bbaf15863bd591fb9189e177b51341",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 4.244068258289263,
+              "iteration_schedule": {
+                "answer": 10
+              },
+              "folds": [
+                {
+                  "fit_rows": 40000,
+                  "evaluation_rows": 10000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 1.0623797919979552
+            }
+          ],
+          "best": 4.244068258289263,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.4396742079989053
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "opposing_regression",
+        "rows": 62500,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 0.7074358750032843,
+        "prediction_seconds": 0.0019645830034278333,
+        "save_load_verify_seconds": 0.005661915995005984,
+        "model_bytes": 662868,
+        "cpu_seconds": 1.430104,
+        "peak_rss_mib": 417.4375,
+        "frozen_iterations": {
+          "answer": 10
+        },
+        "native_iterations": 10,
+        "native_fit_calls": [
+          {
+            "rows": 62500,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.43360725000093225
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 1.5440619590008282
+      }
+    ],
+    "total_wall_seconds": 3.9837361669997335,
+    "total_cpu_seconds": 3.787538,
+    "peak_rss_mib": 456.765625
+  },
+  {
+    "case": "ten_classes",
+    "order": 0,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "ten_classes",
+        "rows": 20000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 3.6436568749995786,
+        "prediction_seconds": 0.008696083998074755,
+        "save_load_verify_seconds": 0.014268291997723281,
+        "model_bytes": 1039257,
+        "cpu_seconds": 4.349506000000001,
+        "peak_rss_mib": 278.375,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 14000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.4767176660025143
+          },
+          {
+            "rows": 14000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.4993149169968092
+          },
+          {
+            "rows": 14000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.5039074159940355
+          },
+          {
+            "rows": 14000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.5280070000007981
+          },
+          {
+            "rows": 20000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.205136999997194
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "c62cde205998e61d62cb3fdd966ffaa3cf00a23ca444334dfa7ead58d4c964ce",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.570853760393246,
+              "iteration_schedule": {
+                "answer": 20
+              },
+              "folds": [
+                {
+                  "fit_rows": 14000,
+                  "evaluation_rows": 6000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.349359749998257
+            }
+          ],
+          "best": 0.570853760393246,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.43396070900053
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "ten_classes",
+        "rows": 25000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.5192463749990566,
+        "prediction_seconds": 0.009277375000237953,
+        "save_load_verify_seconds": 0.013242875000287313,
+        "model_bytes": 980870,
+        "cpu_seconds": 2.222615,
+        "peak_rss_mib": 247.484375,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 25000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.440248792001512
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.332417457997508
+      }
+    ],
+    "total_wall_seconds": 6.766378166998038,
+    "total_cpu_seconds": 6.572121000000001,
+    "peak_rss_mib": 278.375
+  },
+  {
+    "case": "ten_classes",
+    "order": 1,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "ten_classes",
+        "rows": 20000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 3.6152932090044487,
+        "prediction_seconds": 0.008423458006291185,
+        "save_load_verify_seconds": 0.013870875001884997,
+        "model_bytes": 1039257,
+        "cpu_seconds": 4.313145,
+        "peak_rss_mib": 287.296875,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 14000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.47629679199599195
+          },
+          {
+            "rows": 14000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.5055689169967081
+          },
+          {
+            "rows": 14000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.5039984159957385
+          },
+          {
+            "rows": 14000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.5279908750017057
+          },
+          {
+            "rows": 20000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.2065482500038343
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "c62cde205998e61d62cb3fdd966ffaa3cf00a23ca444334dfa7ead58d4c964ce",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.5779392057650647,
+              "iteration_schedule": {
+                "answer": 20
+              },
+              "folds": [
+                {
+                  "fit_rows": 14000,
+                  "evaluation_rows": 6000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.3198237500037067
+            }
+          ],
+          "best": 0.5779392057650647,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.416214584001864
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "ten_classes",
+        "rows": 25000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.5170433329985826,
+        "prediction_seconds": 0.009505459005595185,
+        "save_load_verify_seconds": 0.0138539999970817,
+        "model_bytes": 980870,
+        "cpu_seconds": 2.211259,
+        "peak_rss_mib": 250.421875,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 25000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.4376350000020466
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.300905709002109
+      }
+    ],
+    "total_wall_seconds": 6.717120293003973,
+    "total_cpu_seconds": 6.524404,
+    "peak_rss_mib": 287.296875
+  },
+  {
+    "case": "ten_classes",
+    "order": 2,
+    "source": "candidate",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "ten_classes",
+        "rows": 20000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 3.60199441700388,
+        "prediction_seconds": 0.008528500002285,
+        "save_load_verify_seconds": 0.013832374999765307,
+        "model_bytes": 1039257,
+        "cpu_seconds": 4.29865,
+        "peak_rss_mib": 240.328125,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 14000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.4734119999993709
+          },
+          {
+            "rows": 14000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.503742916000192
+          },
+          {
+            "rows": 14000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.5039500830025645
+          },
+          {
+            "rows": 14000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.5268181670035119
+          },
+          {
+            "rows": 20000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.2041342919983435
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "c62cde205998e61d62cb3fdd966ffaa3cf00a23ca444334dfa7ead58d4c964ce",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.5779392057650647,
+              "iteration_schedule": {
+                "answer": 20
+              },
+              "folds": [
+                {
+                  "fit_rows": 14000,
+                  "evaluation_rows": 6000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.309428166001453
+            }
+          ],
+          "best": 0.5779392057650647,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.424398584000301
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "ten_classes",
+        "rows": 25000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.5193510000026436,
+        "prediction_seconds": 0.00936020800145343,
+        "save_load_verify_seconds": 0.014381624998350162,
+        "model_bytes": 980870,
+        "cpu_seconds": 2.221706,
+        "peak_rss_mib": 277.234375,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 25000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.4388841660038452
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.2884760410015588
+      }
+    ],
+    "total_wall_seconds": 6.712874625001859,
+    "total_cpu_seconds": 6.5203560000000005,
+    "peak_rss_mib": 277.234375
+  },
+  {
+    "case": "ten_classes",
+    "order": 3,
+    "source": "baseline",
+    "phases": [
+      {
+        "status": "completed",
+        "phase": "select",
+        "case": "ten_classes",
+        "rows": 20000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 3.656998583996028,
+        "prediction_seconds": 0.00879470899963053,
+        "save_load_verify_seconds": 0.014415334000659641,
+        "model_bytes": 1039257,
+        "cpu_seconds": 4.358551,
+        "peak_rss_mib": 281.25,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 14000,
+            "max_iter": 10,
+            "n_iter": 10,
+            "seconds": 0.4735966659936821
+          },
+          {
+            "rows": 14000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 0.5030982080061221
+          },
+          {
+            "rows": 14000,
+            "max_iter": 30,
+            "n_iter": 30,
+            "seconds": 0.5040886249989853
+          },
+          {
+            "rows": 14000,
+            "max_iter": 40,
+            "n_iter": 40,
+            "seconds": 0.5317845419995137
+          },
+          {
+            "rows": 20000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.2141491250004037
+          }
+        ],
+        "trial_summary": {
+          "trials": [
+            {
+              "id": "c62cde205998e61d62cb3fdd966ffaa3cf00a23ca444334dfa7ead58d4c964ce",
+              "number": 0,
+              "state": "completed",
+              "parameters": {
+                "max_iter": 80,
+                "min_samples_leaf": 20,
+                "learning_rate": 0.1
+              },
+              "parameters_hash": "d803cd4362c8c5e197be4c483021994d4e06aa7af23801bd1574b852900b3ffd",
+              "params": {
+                "learning_rate": 0.1
+              },
+              "distributions": {
+                "learning_rate": "{\"name\": \"CategoricalDistribution\", \"attributes\": {\"choices\": [0.1]}}"
+              },
+              "scope": "search_validation_inside_allowed_fit",
+              "value": 0.570853760393246,
+              "iteration_schedule": {
+                "answer": 20
+              },
+              "folds": [
+                {
+                  "fit_rows": 14000,
+                  "evaluation_rows": 6000,
+                  "prediction_role": "search_validation"
+                }
+              ],
+              "seconds": 2.3539600410003914
+            }
+          ],
+          "best": 0.570853760393246,
+          "scope": "search_validation_inside_fit",
+          "unbiased_quality_claimed": false,
+          "duplicate_proposals": []
+        },
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 4.435569375003979
+      },
+      {
+        "status": "completed",
+        "phase": "refit",
+        "case": "ten_classes",
+        "rows": 25000,
+        "source_root": "/Users/semolik/.codex/worktrees/445f/alpha-hack/outputs/hgb_snapshot_cost_20261026/baseline_source",
+        "sklearn": "1.5.2",
+        "python": "3.12.7",
+        "fit_seconds": 1.5191294589967583,
+        "prediction_seconds": 0.009456624997255858,
+        "save_load_verify_seconds": 0.014013457999681123,
+        "model_bytes": 980870,
+        "cpu_seconds": 2.217241,
+        "peak_rss_mib": 243.0,
+        "frozen_iterations": {
+          "answer": 20
+        },
+        "native_iterations": 20,
+        "native_fit_calls": [
+          {
+            "rows": 25000,
+            "max_iter": 20,
+            "n_iter": 20,
+            "seconds": 1.4404549579994637
+          }
+        ],
+        "trial_summary": null,
+        "pickle_prediction_identity_verified": true,
+        "full_process_wall_seconds": 2.2858138750016224
+      }
+    ],
+    "total_wall_seconds": 6.721383250005601,
+    "total_cpu_seconds": 6.575792,
+    "peak_rss_mib": 281.25
+  }
+]

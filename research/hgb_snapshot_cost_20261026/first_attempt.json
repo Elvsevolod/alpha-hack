@@ -1,0 +1,8 @@
+{
+  "status": "incomplete_excluded",
+  "completed_pairs": 0,
+  "cause": "Measurement fixture omitted required context task; KeyError task; repaired before the complete frozen series",
+  "freeze_sha256": "e8e2d0c27e3e3075bfa75e42794fc1b5be7b740248643efbdbe3815155ae1640",
+  "log_sha256": "b4c15a07ce271abd70410180b9699366f6f3b94ff5fb33351baed429e2d85b9d",
+  "source": "outputs/hgb_snapshot_cost_20261026/series"
+}
