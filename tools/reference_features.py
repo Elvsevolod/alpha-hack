@@ -7,7 +7,7 @@ def engineer(frame, plan=None):
     from scipy.special import ndtri
 
     result = frame.copy()
-    if plan in {'energy_building', 'energy_all'}:
+    if plan in {'energy_building', 'energy_all', 'energy_interactions'}:
         result['year_built'] = result.year_built.mask(result.year_built <= 0)
         result['ref_log_area'] = np.log1p(result.floor_area.clip(lower=0))
         rating = result.energy_star_rating
@@ -17,6 +17,14 @@ def engineer(frame, plan=None):
         result['ref_rating_normal'] = ndtri(((rating + .5) / 101).clip(.005, .995))
         result['ref_state_facility'] = result.State_Factor.astype(str) + '|' + result.facility_type.astype(str)
         result['ref_facility_area'] = result.facility_type.astype(str) + '|' + np.floor(result.ref_log_area).astype('Int64').astype(str)
+        if plan == 'energy_interactions':
+            complement = (100 - rating) / 100
+            result['ref_rating_complement_squared'] = complement ** 2
+            result['ref_rating_area'] = complement * result.ref_log_area
+            result['ref_facility_rating_bin'] = result.facility_type.astype(str) + '|' + np.floor(rating / 10).astype('Int64').astype(str)
+            vintage = np.floor(result.year_built / 20).astype('Int64').astype(str)
+            result['ref_facility_vintage'] = result.facility_type.astype(str) + '|' + vintage
+            result['ref_state_vintage'] = result.State_Factor.astype(str) + '|' + vintage
         if plan == 'energy_all':
             monthly = [c for c in result if c.endswith('_avg_temp_c')]
             if monthly:

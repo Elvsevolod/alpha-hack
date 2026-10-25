@@ -81,7 +81,15 @@ def worker(request):
     target = q['target']
     classification = target == 'attack_cat'
     spec = PipelineSpec.model_validate(q['spec'])
-    if q.get('alternative') == 'tabm_mini':
+    if q.get('alternative') == 'rating':
+        if classification or spec.model != 'lightgbm' or spec.target_transform != 'none' or not q.get('fixed_iterations'):
+            raise ValueError('Rating factorization requires fixed LightGBM regression in original target units')
+        from tools.reference_factorization import RatingLGBM
+        model = RatingLGBM(q['spec'], q['rating_shape'])
+    elif q.get('alternative') == 'pattern':
+        from tools.reference_specialists import PatternLGBM
+        model = PatternLGBM(q['spec'])
+    elif q.get('alternative') == 'tabm_mini':
         from tools.reference_alternatives import MiniEnsembleEstimator
         model = MiniEnsembleEstimator(classification=classification,
             epochs=spec.hyperparameters.get('max_iter', 40), seed=spec.seed)
@@ -209,7 +217,7 @@ def worker(request):
     importance = dict(zip(columns, map(float, model.feature_importances_))) if preprocessor is None and hasattr(model, 'feature_importances_') else {}
     write(q['result'], {'status': 'completed', 'iterations': iterations,
           'seconds': time.monotonic() - started, 'classes': classes,
-          'auxiliary_fits': int(feature_imputer is not None) + int(q.get('alternative') == 'hierarchical'),
+          'auxiliary_fits': int(feature_imputer is not None) + (model.fit_count_ - 1 if hasattr(model, 'fit_count_') else int(q.get('alternative') == 'hierarchical')),
           'alternative': q.get('alternative'),
           'component_iterations': getattr(model, 'component_iterations_', None),
           'epochs_run': getattr(model, 'epochs_run_', None),

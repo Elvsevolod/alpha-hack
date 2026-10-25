@@ -149,6 +149,7 @@ def test_prediction_reuse_rejects_changed_runtime_before_any_fit(monkeypatch, tm
     with pytest.raises(ValueError, match='worker source|dependencies'):
         study.run_case(output, 'classification', time.monotonic() + 10, config_override=[], reuse_root=tmp_path / 'prior')
     assert not list(output.rglob('request.json'))
+    assert not (output / 'classification/source_snapshot').exists()
 
 
 def test_recreated_temporal_partitions_preserve_forward_boundary():

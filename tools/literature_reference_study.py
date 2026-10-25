@@ -10,6 +10,7 @@ import argparse
 from importlib.metadata import version
 import json
 from pathlib import Path
+import shutil
 import sys
 import time
 
@@ -99,7 +100,7 @@ def diverse_pairs(ordered_singles, completed):
     return [(pool[a], pool[b]) for a in range(len(pool)) for b in range(a + 1, len(pool))]
 
 
-def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, baseline_override=None, reference_pair=None, locked_recipes=None):
+def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, baseline_override=None, reference_pair=None, locked_recipes=None, additional_recipes=None):
     classification = kind == 'classification'
     directory = ROOT / 'data_for_participants' / ('Многоклассовая классификация' if classification else 'Регрессия')
     target = 'attack_cat' if classification else 'site_eui'
@@ -143,6 +144,10 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
     worker_files = ['tools/solve_participant_examples.py', 'tools/reference_features.py', 'automl_agent/pipelines.py']
     if any(c.get('alternative') for c in configs):
         worker_files.append('tools/reference_alternatives.py')
+    if any(c.get('alternative') == 'pattern' for c in configs):
+        worker_files.append('tools/reference_specialists.py')
+    if any(c.get('alternative') == 'rating' for c in configs):
+        worker_files.append('tools/reference_factorization.py')
     worker_sources = {name: sha(ROOT / name) for name in worker_files}
     dependencies = {name: version(name) for name in ['numpy', 'pandas', 'scikit-learn', 'catboost', 'lightgbm', 'xgboost']}
     dependencies['python'] = sys.version.split()[0]
@@ -156,6 +161,7 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
         'baseline_audit_score': previous['control']['selected_score'],
         'ensemble_pair_policy': 'top three single recipes plus best recipe per (model, alternative) family',
         'locked_recipes': locked_recipes,
+        'additional_recipes': additional_recipes,
         'selection': 'two complementary calibration/selection group partitions, calibration only for stopping and offsets' if classification else 'mean RMSE on next-period validation years 3 and 4',
         'policy_search': {'tau': [0, .5, 1.], 'offset_bound': 1., 'support_shrinkage': 50., 'coordinate_passes': 2},
         'resources': {'cpu_per_worker': 4, 'timeout_per_worker_seconds': 180},
@@ -177,6 +183,11 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
         if any(key not in previous_split or not np.array_equal(values, previous_split[key]) for key, values in split.items()):
             raise ValueError('Cannot reuse predictions for changed splits')
         reusable = json.loads((reuse / 'completed.json').read_text())
+    # Reject incompatible cache metadata before opening/copying source files.
+    for name in worker_files:
+        snapshot = out / 'source_snapshot' / name
+        snapshot.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / name, snapshot)
     for config in configs:
         name = config['name']
         if name in reusable and reusable[name]['config'] == config:
@@ -245,6 +256,10 @@ def run_case(root, kind, deadline, *, config_override=None, reuse_root=None, bas
                     assess([a, b], [weight, 1 - weight], tau, False)
                     if classification:
                         assess([a, b], [weight, 1 - weight], tau, True)
+    if additional_recipes:
+        validate_locked_recipes(additional_recipes, completed)
+        for settings in additional_recipes:
+            assess(**settings)
     recipes.sort(key=lambda r: direction * r['score'])
     chosen = recipes[0]
     selection = dict(chosen, sealed_before_reused_audit=True, at_unix=time.time())
