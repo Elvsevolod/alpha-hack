@@ -1,0 +1,403 @@
+{
+  "protocol": {
+    "api_calls": 0,
+    "cases": [
+      "wine",
+      "digits",
+      "diabetes",
+      "friedman"
+    ],
+    "folds": 3,
+    "models": [
+      "linear",
+      "rbf",
+      "nystroem",
+      "extra_trees",
+      "lightgbm"
+    ],
+    "no_tuning": true,
+    "old_wdbc_holdout_not_used": true,
+    "outer_evaluation_not_used_for_recipe_selection": true,
+    "seed": 42,
+    "source_sha256": "3cd00fc1de066355b3767cd665005b3dcc056c058c883ed3e80cb27b9cf0edf7",
+    "svc_probability": false,
+    "target_standardized_inside_fit_for_all_regressors": true,
+    "threads": 1,
+    "versions": {
+      "lightgbm": "4.6.0",
+      "numpy": "1.26.4",
+      "scikit-learn": "1.5.2"
+    }
+  },
+  "cases": [
+    {
+      "agent_test": false,
+      "api_calls": 0,
+      "classification": true,
+      "columns": 13,
+      "data_hash": "178a1cdae36d3bd7dfcdb8de397498faf9f4e5eee354268ade421e048e62cb4b",
+      "dataset": "wine",
+      "folds_hash": "ced67079e240486a9ee2bb3fad39f058a2bad15f870a12cdcd23a62d3d73d5c5",
+      "joint": {
+        "both_wrong": 1,
+        "disagree": 6,
+        "ensemble_gain_claimed": false,
+        "rbf_correct_tree_wrong": 3,
+        "tree_correct_rbf_wrong": 3
+      },
+      "metric": "macro_f1",
+      "peak_rss_bytes": 200556544,
+      "results": [
+        {
+          "fit_predict_seconds": [
+            0.00332250000019485,
+            0.0011952919999203004,
+            0.0012213330001031864
+          ],
+          "fold_scores": [
+            0.9658994032395567,
+            0.9821551132463967,
+            1.0
+          ],
+          "mean": 0.9826848388286512,
+          "model": "linear"
+        },
+        {
+          "fit_predict_seconds": [
+            0.0013176249999560241,
+            0.0007209170003079635,
+            0.0006844999998065759
+          ],
+          "fold_scores": [
+            0.9674630924630924,
+            0.9638888888888889,
+            1.0
+          ],
+          "mean": 0.9771173271173271,
+          "model": "rbf"
+        },
+        {
+          "fit_predict_seconds": [
+            0.00910683300025994,
+            0.001977833000182727,
+            0.002175166999677458
+          ],
+          "fold_scores": [
+            0.9674630924630924,
+            0.9821551132463967,
+            1.0
+          ],
+          "mean": 0.9832060685698297,
+          "model": "nystroem"
+        },
+        {
+          "fit_predict_seconds": [
+            0.04733287499993821,
+            0.04474758300011672,
+            0.04358325000021068
+          ],
+          "fold_scores": [
+            0.9828067913174295,
+            1.0,
+            0.966859227728793
+          ],
+          "mean": 0.9832220063487408,
+          "model": "extra_trees"
+        },
+        {
+          "fit_predict_seconds": [
+            0.021394249999957538,
+            0.013694458000372833,
+            0.015263792000041576
+          ],
+          "fold_scores": [
+            0.9672761549749884,
+            1.0,
+            0.9685672514619883
+          ],
+          "mean": 0.9786144688123256,
+          "model": "lightgbm"
+        }
+      ],
+      "rows": 178,
+      "scope": "fixed recipes, IID 3-fold exploratory comparison; not tuned best models or fresh contest evidence"
+    },
+    {
+      "agent_test": false,
+      "api_calls": 0,
+      "classification": true,
+      "columns": 64,
+      "data_hash": "a5950bdaa060bd8432e65ae502347827ec2b2a67b7a9d9abb5211bf8d9418a7c",
+      "dataset": "digits",
+      "folds_hash": "9bb8152fd6fc6cbf1b062ed1d9526574923bcfc6cebffe78285115525075994d",
+      "joint": {
+        "both_wrong": 12,
+        "disagree": 72,
+        "ensemble_gain_claimed": false,
+        "rbf_correct_tree_wrong": 51,
+        "tree_correct_rbf_wrong": 17
+      },
+      "metric": "macro_f1",
+      "peak_rss_bytes": 261079040,
+      "results": [
+        {
+          "fit_predict_seconds": [
+            0.009040707999702136,
+            0.008280625000224973,
+            0.007788333000007697
+          ],
+          "fold_scores": [
+            0.9630770182818857,
+            0.9832690732648404,
+            0.9664080316310653
+          ],
+          "mean": 0.9709180410592637,
+          "model": "linear"
+        },
+        {
+          "fit_predict_seconds": [
+            0.04534200000034616,
+            0.0425939169999765,
+            0.04330462500001886
+          ],
+          "fold_scores": [
+            0.9866699987064038,
+            0.9900266160400288,
+            0.9747611371523254
+          ],
+          "mean": 0.9838192506329193,
+          "model": "rbf"
+        },
+        {
+          "fit_predict_seconds": [
+            0.021165708000353334,
+            0.01579620900020018,
+            0.014395791999959329
+          ],
+          "fold_scores": [
+            0.9365900480020782,
+            0.9546067714109817,
+            0.9265390202605802
+          ],
+          "mean": 0.9392452798912134,
+          "model": "nystroem"
+        },
+        {
+          "fit_predict_seconds": [
+            0.14896929199994702,
+            0.1667896250000922,
+            0.15373624999983804
+          ],
+          "fold_scores": [
+            0.9849376956114471,
+            0.9731430729906891,
+            0.978301543705081
+          ],
+          "mean": 0.9787941041024059,
+          "model": "extra_trees"
+        },
+        {
+          "fit_predict_seconds": [
+            0.29100900000003094,
+            0.2822614169999724,
+            0.2818752499997572
+          ],
+          "fold_scores": [
+            0.9581890928758534,
+            0.9733663437647806,
+            0.9633475529059556
+          ],
+          "mean": 0.9649676631821965,
+          "model": "lightgbm"
+        }
+      ],
+      "rows": 1797,
+      "scope": "fixed recipes, IID 3-fold exploratory comparison; not tuned best models or fresh contest evidence"
+    },
+    {
+      "agent_test": false,
+      "api_calls": 0,
+      "classification": false,
+      "columns": 10,
+      "data_hash": "d9f7d5f6f8453b62785d1ce120738c9752a250b90a2262a8554ec715cb384730",
+      "dataset": "diabetes",
+      "folds_hash": "0e1884eb67f34d370afe3d3316cd664ee497aa2228d87aac9db1c728ef7ea3fc",
+      "joint": {
+        "uniform_mix_oof_rmse": 62.14380939258369,
+        "weights_learned": false
+      },
+      "metric": "rmse",
+      "peak_rss_bytes": 198033408,
+      "results": [
+        {
+          "fit_predict_seconds": [
+            0.0026502910000090196,
+            0.0010674589998416195,
+            0.0006652919996668061
+          ],
+          "fold_scores": [
+            52.78815453960538,
+            56.489104272392325,
+            57.140727014698726
+          ],
+          "mean": 55.47266194223215,
+          "model": "linear"
+        },
+        {
+          "fit_predict_seconds": [
+            0.0062801250001029985,
+            0.006375417000072048,
+            0.005832416999965062
+          ],
+          "fold_scores": [
+            65.67185133219662,
+            69.45597701136745,
+            67.84352261421353
+          ],
+          "mean": 67.65711698592587,
+          "model": "rbf"
+        },
+        {
+          "fit_predict_seconds": [
+            0.006521875000089494,
+            0.003634542000327201,
+            0.004609584000263567
+          ],
+          "fold_scores": [
+            55.335398680614674,
+            59.539429066329866,
+            61.839193574312226
+          ],
+          "mean": 58.90467377375225,
+          "model": "nystroem"
+        },
+        {
+          "fit_predict_seconds": [
+            0.0891463749999275,
+            0.08658254100009799,
+            0.08490583299999344
+          ],
+          "fold_scores": [
+            52.401721977197354,
+            59.997662716107804,
+            58.23813520583459
+          ],
+          "mean": 56.87917329971325,
+          "model": "extra_trees"
+        },
+        {
+          "fit_predict_seconds": [
+            0.02180020899959345,
+            0.019078791000083584,
+            0.01922420900018551
+          ],
+          "fold_scores": [
+            58.610545400942584,
+            65.78283059332136,
+            62.775421523113096
+          ],
+          "mean": 62.389599172459015,
+          "model": "lightgbm"
+        }
+      ],
+      "rows": 442,
+      "scope": "fixed recipes, IID 3-fold exploratory comparison; not tuned best models or fresh contest evidence"
+    },
+    {
+      "agent_test": false,
+      "api_calls": 0,
+      "classification": false,
+      "columns": 20,
+      "data_hash": "9b4a655c7e4013cfc7bb5fb68f07000513fe6d057ac3064d06833b094791470b",
+      "dataset": "friedman",
+      "folds_hash": "59efc604980d3f619f0c76390c8e4a63c17da66eec4c557670074890abac22cb",
+      "joint": {
+        "uniform_mix_oof_rmse": 1.5765483329740266,
+        "weights_learned": false
+      },
+      "metric": "rmse",
+      "peak_rss_bytes": 207339520,
+      "results": [
+        {
+          "fit_predict_seconds": [
+            0.001434583999980532,
+            0.0008307920002152969,
+            0.0009564169999976002
+          ],
+          "fold_scores": [
+            2.5161553788235183,
+            2.6055700366602883,
+            2.7262137786568634
+          ],
+          "mean": 2.6159797313802233,
+          "model": "linear"
+        },
+        {
+          "fit_predict_seconds": [
+            0.03560154100023283,
+            0.03603608399998848,
+            0.03339675000006537
+          ],
+          "fold_scores": [
+            2.031590641901785,
+            2.0431082353769145,
+            2.1487140555224804
+          ],
+          "mean": 2.0744709776003933,
+          "model": "rbf"
+        },
+        {
+          "fit_predict_seconds": [
+            0.008123500000237982,
+            0.005673416999798064,
+            0.005646541999794863
+          ],
+          "fold_scores": [
+            3.0737688287472626,
+            3.4548038890887622,
+            3.4551931822019215
+          ],
+          "mean": 3.3279219666793156,
+          "model": "nystroem"
+        },
+        {
+          "fit_predict_seconds": [
+            0.3424953749999986,
+            0.338234625000041,
+            0.34008466699970086
+          ],
+          "fold_scores": [
+            1.9291585618274154,
+            1.8571208597729203,
+            2.030070159032567
+          ],
+          "mean": 1.9387831935443007,
+          "model": "extra_trees"
+        },
+        {
+          "fit_predict_seconds": [
+            0.08129733399982797,
+            0.0744381669996983,
+            0.07143425000003845
+          ],
+          "fold_scores": [
+            1.4127411711305085,
+            1.37687624786392,
+            1.4381785396752174
+          ],
+          "mean": 1.4092653195565485,
+          "model": "lightgbm"
+        }
+      ],
+      "rows": 1500,
+      "scope": "fixed recipes, IID 3-fold exploratory comparison; not tuned best models or fresh contest evidence"
+    }
+  ],
+  "verification": {
+    "fits": 60,
+    "complete_finite_results": true,
+    "source_hash_matches": true,
+    "production_runtime_changed": false,
+    "paid_agent_calls": 0
+  }
+}
