@@ -1,0 +1,627 @@
+{
+  "protocol": {
+    "api_calls": 0,
+    "fits": 0,
+    "all_control_labels_previously_used": true,
+    "scope": "read-only development research; no external-test labels; no model promotion",
+    "source_sha256": "b623e565e9222d46f62982feab5adf1723677f2cb196e0b2b1b8ab523166acc7",
+    "data_sha256": {
+      "data_for_participants/Многоклассовая классификация/test.csv": "ce1bd44e4ab852af086f3a9773275e0c3b158346264deecdbae169e5106558c0",
+      "data_for_participants/Многоклассовая классификация/train.csv": "cda6241b9298322fab1ee530f6dca73c5da8777f746b6c76db780e411c9c0779",
+      "data_for_participants/Регрессия/test.csv": "a7c64db92a07e1a5b1e7f637bdd434da7a5e98a1676c854ec6a645c9e5827095",
+      "data_for_participants/Регрессия/train.csv": "096dac951cf44fade5417ddd0465c41beee3009663dbea34e8d464a4d3c7f775"
+    }
+  },
+  "audit": {
+    "classification": {
+      "rows": 87670,
+      "distinct_feature_groups": 54228,
+      "duplicate_rows_beyond_first": 33442,
+      "conflicting_groups": 1458,
+      "rows_in_conflicting_groups": 14829,
+      "feature_only_deterministic_training_accuracy_upper_bound": 0.9151020873731037,
+      "upper_bound_scope": "empirical train labels only; not a bound on external-test performance or Macro F1",
+      "test_rows": 41166,
+      "test_rows_with_train_feature_key": 3556,
+      "exact_feature_equality_is_not_session_identity": true
+    },
+    "regression_periods": [
+      {
+        "period": 1,
+        "rows": 2117,
+        "missing_rating": 0.2786962683042041,
+        "target_mean": 93.82141985284694,
+        "target_q95": 216.3854653
+      },
+      {
+        "period": 2,
+        "rows": 9058,
+        "missing_rating": 0.7897990726429676,
+        "target_mean": 82.70937519282722,
+        "target_q95": 147.33100253499964
+      },
+      {
+        "period": 3,
+        "rows": 10879,
+        "missing_rating": 0.7405092379814321,
+        "target_mean": 85.54410505247274,
+        "target_q95": 164.72076733000006
+      },
+      {
+        "period": 4,
+        "rows": 12946,
+        "missing_rating": 0.22246253669086977,
+        "target_mean": 86.99140414479847,
+        "target_q95": 168.471015325
+      },
+      {
+        "period": 5,
+        "rows": 18308,
+        "missing_rating": 0.1934673366834171,
+        "target_mean": 80.35815836249895,
+        "target_q95": 158.33733476499987
+      }
+    ],
+    "regression_test": {
+      "rows": 22449,
+      "periods": [
+        6
+      ],
+      "missing_rating": 0.19987527284066106,
+      "target_accessed": false
+    },
+    "incumbent": {
+      "selection": {
+        "names": [
+          "current_weighted",
+          "hierarchy_balanced"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "tau": 0.5,
+        "offsets": true,
+        "fold_scores": [
+          0.6476582933693851,
+          0.6395338752111228
+        ],
+        "score": 0.643596084290254,
+        "learned_offsets": [
+          [
+            -0.635036496350365,
+            -0.647887323943662,
+            0.9215070643642073,
+            0.9705535924617197,
+            0.47517378351539225,
+            0.488339552238806,
+            0.4911378943637008,
+            0.0,
+            -0.5,
+            0.0
+          ],
+          [
+            -0.33766233766233766,
+            -0.6527777777777778,
+            0.9347258485639687,
+            0.9726626571897211,
+            0.47384937238493724,
+            0.9728997289972899,
+            0.49130737134909597,
+            0.0,
+            -0.576271186440678,
+            0.0
+          ]
+        ],
+        "sealed_before_reused_audit": true,
+        "at_unix": 1792901148.035606
+      },
+      "classes": [
+        "Analysis",
+        "Backdoor",
+        "DoS",
+        "Exploits",
+        "Fuzzers",
+        "Generic",
+        "Normal",
+        "Reconnaissance",
+        "Shellcode",
+        "Worms"
+      ],
+      "cells": [
+        {
+          "model_training_stage": "inner_fit",
+          "prior_count_stage": "inner_fit",
+          "macro_f1": 0.6342593466009798,
+          "predicted_counts": [
+            110,
+            104,
+            2843,
+            2182,
+            2157,
+            3646,
+            5068,
+            844,
+            170,
+            17
+          ]
+        },
+        {
+          "model_training_stage": "inner_fit",
+          "prior_count_stage": "development",
+          "macro_f1": 0.6357413888165058,
+          "predicted_counts": [
+            110,
+            104,
+            2843,
+            2183,
+            2156,
+            3646,
+            5069,
+            844,
+            170,
+            16
+          ]
+        },
+        {
+          "model_training_stage": "development",
+          "prior_count_stage": "inner_fit",
+          "macro_f1": 0.6565164891417937,
+          "predicted_counts": [
+            101,
+            59,
+            2921,
+            2129,
+            2169,
+            3645,
+            5071,
+            855,
+            171,
+            20
+          ]
+        },
+        {
+          "model_training_stage": "development",
+          "prior_count_stage": "development",
+          "macro_f1": 0.6565257846316546,
+          "predicted_counts": [
+            101,
+            59,
+            2908,
+            2140,
+            2165,
+            3645,
+            5075,
+            857,
+            171,
+            20
+          ]
+        }
+      ],
+      "data_hashes_match_fitted_study": true,
+      "model_sources": [
+        {
+          "name": "current_weighted",
+          "stage": "inner_fit",
+          "path": "outputs/further_reference_20261025/classification/current_weighted_cv0/model.joblib",
+          "sha256": "98f9ec99d5e5a459bb7c8a00060e2159074e9cc31cb5b9dcd534df7385b72f3b"
+        },
+        {
+          "name": "current_weighted",
+          "stage": "development",
+          "path": "outputs/further_reference_20261025/classification/current_weighted_audit/model.joblib",
+          "sha256": "02dc549166703cba24087e2ffe381cb580c11641ea8c8ca0600889b55a4c274a"
+        },
+        {
+          "name": "hierarchy_balanced",
+          "stage": "inner_fit",
+          "path": "outputs/further_reference_20261025/classification/hierarchy_balanced_cv0/model.joblib",
+          "sha256": "a3df63732368d256c59696df524e871a0e81a4ed51d28f7ee668dcf33646cbfe"
+        },
+        {
+          "name": "hierarchy_balanced",
+          "stage": "development",
+          "path": "outputs/further_reference_20261025/classification/hierarchy_balanced_audit/model.joblib",
+          "sha256": "3760f8baa8968047895f02364e8171c07e769a64ddd6248cc18c5caf63cb11e7"
+        }
+      ],
+      "fit_rows": 52903,
+      "development_rows": 70529,
+      "control_rows": 17141,
+      "cv_fit_rows_identical": true,
+      "cv_evaluation_rows_identical": true,
+      "interpretation": "descriptive counterfactual on reused control; no new fit or policy selection; training rows, learned vocabularies and fit-derived weights may change together"
+    },
+    "compact_catboost": {
+      "selection": {
+        "names": [
+          "current_hierarchy",
+          "compact_native_catboost"
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "tau": 0,
+        "offsets": true,
+        "fold_scores": [
+          0.6574090235544865,
+          0.6439337895482046
+        ],
+        "score": 0.6506714065513455,
+        "learned_offsets": [
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.976679104477612,
+            0.0,
+            0.0,
+            -0.5,
+            0.21875
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.9099099099099099,
+            -0.576271186440678,
+            0.09016393442622951
+          ]
+        ],
+        "sealed_before_reused_audit": true,
+        "at_unix": 1792918905.2544682
+      },
+      "classes": [
+        "Analysis",
+        "Backdoor",
+        "DoS",
+        "Exploits",
+        "Fuzzers",
+        "Generic",
+        "Normal",
+        "Reconnaissance",
+        "Shellcode",
+        "Worms"
+      ],
+      "cells": [
+        {
+          "model_training_stage": "inner_fit",
+          "prior_count_stage": "inner_fit",
+          "macro_f1": 0.6293472645789174,
+          "predicted_counts": [
+            140,
+            45,
+            2558,
+            2464,
+            2302,
+            3639,
+            4972,
+            840,
+            169,
+            12
+          ]
+        },
+        {
+          "model_training_stage": "inner_fit",
+          "prior_count_stage": "development",
+          "macro_f1": 0.6293472645789174,
+          "predicted_counts": [
+            140,
+            45,
+            2558,
+            2464,
+            2302,
+            3639,
+            4972,
+            840,
+            169,
+            12
+          ]
+        },
+        {
+          "model_training_stage": "development",
+          "prior_count_stage": "inner_fit",
+          "macro_f1": 0.6381805257454539,
+          "predicted_counts": [
+            121,
+            56,
+            2547,
+            2457,
+            2312,
+            3637,
+            4979,
+            852,
+            160,
+            20
+          ]
+        },
+        {
+          "model_training_stage": "development",
+          "prior_count_stage": "development",
+          "macro_f1": 0.6381805257454539,
+          "predicted_counts": [
+            121,
+            56,
+            2547,
+            2457,
+            2312,
+            3637,
+            4979,
+            852,
+            160,
+            20
+          ]
+        }
+      ],
+      "data_hashes_match_fitted_study": true,
+      "model_sources": [
+        {
+          "name": "current_hierarchy",
+          "stage": "inner_fit",
+          "path": "outputs/reduction_classification_20261025/classification/current_hierarchy_cv0/model.joblib",
+          "sha256": "08880902848fbf05b6ae751b0381c27d5b86adb26b5ee9a2e341902322cd4baa"
+        },
+        {
+          "name": "current_hierarchy",
+          "stage": "development",
+          "path": "outputs/reduction_compact_20261025/classification/current_hierarchy_audit/model.joblib",
+          "sha256": "3a44255a498c3c2c28b52ebeb046cba25ef85a626b297d72bc4cc449d714f714"
+        },
+        {
+          "name": "compact_native_catboost",
+          "stage": "inner_fit",
+          "path": "outputs/reduction_compact_20261025/classification/compact_native_catboost_cv0/model.joblib",
+          "sha256": "57331ee6a5c51a2a0956a78f475ccea34b80a63177e74acf7898a8bee3d5e134"
+        },
+        {
+          "name": "compact_native_catboost",
+          "stage": "development",
+          "path": "outputs/reduction_compact_20261025/classification/compact_native_catboost_audit/model.joblib",
+          "sha256": "d7dfdb764eb36d1e539e4de13a047f96f57e8eb1d04afc881e23f089685a0d8d"
+        }
+      ],
+      "fit_rows": 52903,
+      "development_rows": 70529,
+      "control_rows": 17141,
+      "cv_fit_rows_identical": true,
+      "cv_evaluation_rows_identical": true,
+      "interpretation": "descriptive counterfactual on reused control; no new fit or policy selection; training rows, learned vocabularies and fit-derived weights may change together"
+    },
+    "rmse_aggregation": [
+      {
+        "names": [
+          "current_cb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "equal_period_mean_rmse": 48.651898571600015,
+        "equal_period_root_mean_mse": 49.27153487221182,
+        "pooled_row_rmse": 48.599650951566495
+      },
+      {
+        "names": [
+          "current_cb",
+          "current_lgb"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "equal_period_mean_rmse": 48.66170753095087,
+        "equal_period_root_mean_mse": 49.2488077711351,
+        "pooled_row_rmse": 48.59452654315667
+      },
+      {
+        "names": [
+          "current_lgb",
+          "current_cb"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "equal_period_mean_rmse": 48.66170753095087,
+        "equal_period_root_mean_mse": 49.2488077711351,
+        "pooled_row_rmse": 48.59452654315667
+      },
+      {
+        "names": [
+          "current_cb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "equal_period_mean_rmse": 48.67344360502367,
+        "equal_period_root_mean_mse": 49.18012967420477,
+        "pooled_row_rmse": 48.57176740895905
+      },
+      {
+        "names": [
+          "current_cb",
+          "current_lgb"
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "equal_period_mean_rmse": 48.71113029623846,
+        "equal_period_root_mean_mse": 49.203767656220236,
+        "pooled_row_rmse": 48.60358655084638
+      },
+      {
+        "names": [
+          "current_lgb",
+          "current_cb"
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "equal_period_mean_rmse": 48.71113029623846,
+        "equal_period_root_mean_mse": 49.203767656220236,
+        "pooled_row_rmse": 48.60358655084638
+      },
+      {
+        "names": [
+          "current_cb",
+          "current_lgb"
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "equal_period_mean_rmse": 49.16201539476468,
+        "equal_period_root_mean_mse": 49.841084332614365,
+        "pooled_row_rmse": 49.134407421522596
+      },
+      {
+        "names": [
+          "current_lgb",
+          "current_cb"
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "equal_period_mean_rmse": 49.16201539476468,
+        "equal_period_root_mean_mse": 49.841084332614365,
+        "pooled_row_rmse": 49.134407421522596
+      },
+      {
+        "names": [
+          "current_cb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "equal_period_mean_rmse": 49.24537064086415,
+        "equal_period_root_mean_mse": 49.97827251110236,
+        "pooled_row_rmse": 49.243885811058725
+      },
+      {
+        "names": [
+          "current_cb"
+        ],
+        "weights": [
+          1.0
+        ],
+        "equal_period_mean_rmse": 49.305085728227255,
+        "equal_period_root_mean_mse": 49.70745156933761,
+        "pooled_row_rmse": 49.16128395007952
+      },
+      {
+        "names": [
+          "current_lgb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "equal_period_mean_rmse": 50.05791513421058,
+        "equal_period_root_mean_mse": 50.87545499968693,
+        "pooled_row_rmse": 50.094021413575945
+      },
+      {
+        "names": [
+          "current_lgb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "equal_period_mean_rmse": 50.06371249789308,
+        "equal_period_root_mean_mse": 50.85762662821958,
+        "pooled_row_rmse": 50.08733668404836
+      },
+      {
+        "names": [
+          "current_lgb",
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "equal_period_mean_rmse": 50.18254395424783,
+        "equal_period_root_mean_mse": 51.01487840615059,
+        "pooled_row_rmse": 50.22552766855946
+      },
+      {
+        "names": [
+          "current_lgb"
+        ],
+        "weights": [
+          1.0
+        ],
+        "equal_period_mean_rmse": 50.19938159177946,
+        "equal_period_root_mean_mse": 50.961520908279304,
+        "pooled_row_rmse": 50.20552333894612
+      },
+      {
+        "names": [
+          "gamma_rating_16.0"
+        ],
+        "weights": [
+          1.0
+        ],
+        "equal_period_mean_rmse": 50.43690658316689,
+        "equal_period_root_mean_mse": 51.274904957131525,
+        "pooled_row_rmse": 50.48087995177477
+      },
+      {
+        "names": [
+          "gamma_rating_4.0"
+        ],
+        "weights": [
+          1.0
+        ],
+        "equal_period_mean_rmse": 50.487303289733106,
+        "equal_period_root_mean_mse": 51.323382155582145,
+        "pooled_row_rmse": 50.529848719504976
+      }
+    ]
+  },
+  "tests": {
+    "tests": 72,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_xml_sha256": "ecf0bb19860ff3572e5756e341ea11b6b8a709a23849f16318b29dfa054f0177",
+  "source_catalog_sha256": "cab878ad0e1355d9b612220093460b0c45ac570eee0f027f251bbe7ae6a9b945",
+  "experiment_plan_sha256": "9736db6416dc55721f51fa5a0652b39e80c16cb7933391faad0e49095c100283",
+  "canonical_csvs": {
+    "Регрессия": {
+      "sha256": "33443b9d9b93d709a69f472b393470b1b71b93fdb0a4082924f2150d732564fd",
+      "unchanged": true
+    },
+    "Многоклассовая классификация": {
+      "sha256": "31a52b15c3490d53506b1804b8d1d923b894323726435cef9c659cb5a5b9fda2",
+      "unchanged": true
+    }
+  },
+  "api_calls": 0,
+  "quality_improvement_claimed": false,
+  "limitations": [
+    "Read-only descriptive audit on previously inspected labels",
+    "No new blind test",
+    "No architecture/runtime/model capability changes in this research delivery"
+  ],
+  "new_reference_model_fits": 0
+}

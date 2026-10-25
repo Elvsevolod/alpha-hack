@@ -1,0 +1,260 @@
+{
+  "format_version": 1,
+  "created": "2026-10-25",
+  "status": "research_design_only",
+  "automatic_execution": false,
+  "objective": "Choose useful ML experiments from task contract, observations and remaining budget; validate the selection procedure before expanding model search",
+  "baseline_commit": "fc8c619e66052785282044b30975fb241309f01b",
+  "mandatory_guarantees": [
+    "Organizer task/data contract",
+    "No prohibited labels in transformations, retrieval, fitting or policy search",
+    "Only supplied Qwen as contest controlling model",
+    "No runtime downloads, installations, external training data or pretrained weights",
+    "Reproducible lineage and correct output before deadline",
+    "Separate compliance, autonomous decision quality and predictive quality"
+  ],
+  "engineering_choices": [
+    "No universal improvement floor, bootstrap requirement or fixed sequence",
+    "Conditional portfolio and pilot sizes; not permanent contest budgets",
+    "Recipe includes preprocessing, fit protocol, decision policy, refit and inference strategy",
+    "Existing executors reused; new model implementations must pass dependency and resource checks"
+  ],
+  "completed_here": [
+    "41-source targeted primary-source review",
+    "Exact input-group conflict and train/test feature overlap audit",
+    "Frozen-policy saved-model refit/prior counterfactual without new fitting",
+    "RMSE aggregation comparison",
+    "Read-only audit script and regression tests"
+  ],
+  "not_completed_here": [
+    "ModernNCA/RealMLP/full TabM reproduction",
+    "New selection protocol or runtime API changes",
+    "New model fitting or promotion",
+    "Qwen runs or contest-container acceptance"
+  ],
+  "experiments": [
+    {
+      "id": "E0",
+      "priority": 0,
+      "status": "proposed",
+      "question": "Which predeclared evaluation design predicts deployment-relevant recipe performance more reliably?",
+      "triggers": [
+        "Temporal or group transfer",
+        "Repeated development/control rank inversions"
+      ],
+      "source_ids": [
+        "S14",
+        "S15",
+        "S16",
+        "S17"
+      ],
+      "arms": [
+        "Current selector",
+        "Contract-aware temporal/group selector with prespecified aggregation and refit"
+      ],
+      "measurement": [
+        "Per-origin/per-group metrics and supports",
+        "Selection stability",
+        "Outer evaluation of the selection procedure",
+        "Refit and inference outcomes"
+      ],
+      "pilot": {
+        "example_candidate_count": 3,
+        "example_outer_count": 3,
+        "example_inner_count": 2,
+        "example_inner_fit_count": 18,
+        "additional_outer_refits_at_least": 3,
+        "final_refit_additional": true,
+        "second_seed_doubles_corresponding_fit_counts": true
+      },
+      "limitations": [
+        "Previously inspected labels cannot provide a fresh blind final acceptance",
+        "Changing window or grouping changes the estimand; do not compare incompatible hashes"
+      ]
+    },
+    {
+      "id": "E1",
+      "priority": 1,
+      "status": "proposed",
+      "question": "Does a faithful strong neural baseline with numeric embeddings add useful errors beyond trees?",
+      "triggers": [
+        "Numerical nonlinear structure",
+        "Available CPU and inference reserve"
+      ],
+      "source_ids": [
+        "S03",
+        "S04",
+        "S07",
+        "S01"
+      ],
+      "arms": [
+        "Same backbone without numeric embeddings",
+        "Same backbone with fit-only numeric embeddings",
+        "Frozen blend with tree baseline"
+      ],
+      "measurement": [
+        "Original target metric",
+        "Complementary errors",
+        "CPU wall time and peak memory",
+        "Saved-model inference equality"
+      ],
+      "constraints": [
+        "Train from scratch with allowed PyTorch",
+        "Do not label simplified variants as full author reproductions",
+        "No imported pretrained weights"
+      ],
+      "pilot": "Two or three recipes across two task-appropriate parts after a bounded resource pilot; actual counts chosen from budget"
+    },
+    {
+      "id": "E2",
+      "priority": 2,
+      "status": "proposed",
+      "question": "Does learned local similarity improve predictions or provide complementary errors?",
+      "triggers": [
+        "Successful CPU/memory pilot",
+        "Useful neighborhood hypothesis"
+      ],
+      "source_ids": [
+        "S05",
+        "S06"
+      ],
+      "arms": [
+        "ModernNCA with declared preprocessing and neighbor sampling",
+        "Same tree baseline",
+        "Blend only after out-of-sample evidence"
+      ],
+      "measurement": [
+        "Primary metric and per-class/segment support",
+        "Training and complete test inference cost",
+        "Memory high-water mark",
+        "Query-label exclusion and self-match handling"
+      ],
+      "constraints": [
+        "Fit-only neighbor labels",
+        "Chunking changes memory, not pair count",
+        "Top-k inference is a separate approximation"
+      ],
+      "pilot": "One bounded fit plus full-size inference pilot before allocating a comparison series"
+    },
+    {
+      "id": "E3",
+      "priority": 2,
+      "status": "proposed",
+      "question": "Does an OOF combiner beat a simple stable blend under the actual transfer setting?",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "arms": [
+        "Simple blend",
+        "Regularized shallow OOF combiner"
+      ],
+      "constraints": [
+        "Forward OOF for time",
+        "Group OOF for new groups",
+        "Evaluation labels excluded from all meta-training and weight tuning",
+        "Shared-fit calibration halves are not an OOF matrix"
+      ],
+      "measurement": [
+        "Outer primary metric",
+        "Variance and support",
+        "Number of base fits",
+        "Full refit cost"
+      ],
+      "pilot": "Single meta-level, small diverse library"
+    },
+    {
+      "id": "E4",
+      "priority": 2,
+      "status": "proposed",
+      "question": "Does one feature representation or feature-only error gate address a confirmed error region?",
+      "source_ids": [
+        "S07",
+        "S08",
+        "S32",
+        "S36",
+        "S38",
+        "S40"
+      ],
+      "arms": [
+        "Existing representation",
+        "One prespecified feature-group transformation or fitted feature-only gate"
+      ],
+      "constraints": [
+        "No true query tail/target used for routing",
+        "All fitted preprocessing within fit",
+        "Retain and report negative prior feature experiments"
+      ],
+      "measurement": [
+        "Raw-scale RMSE or declared classification metric",
+        "Gate errors and segment supports",
+        "Original-scale retransformation behavior"
+      ],
+      "pilot": "One hypothesis per comparison; tail mixture requires one gate and two regressors"
+    },
+    {
+      "id": "E5",
+      "priority": 3,
+      "status": "conditional_proposal",
+      "question": "Is a specific shift assumption sufficiently plausible to test bounded correction?",
+      "source_ids": [
+        "S20",
+        "S21",
+        "S22"
+      ],
+      "entry_conditions": [
+        "Specified covariate-shift or label-shift assumption",
+        "Overlap or identifiable class confusion structure",
+        "Usable support and stable estimation"
+      ],
+      "arms": [
+        "No correction",
+        "Cross-fitted bounded correction"
+      ],
+      "measurement": [
+        "Effective sample size",
+        "Weight stability and sensitivity",
+        "Deployment-relevant outer metric"
+      ],
+      "constraints": [
+        "Domain separability does not prove conditional invariance",
+        "No hidden-label online feedback",
+        "Clipping is a bias/variance tradeoff"
+      ]
+    },
+    {
+      "id": "E6",
+      "priority": 4,
+      "status": "feasibility_first",
+      "question": "Can a local learned-kernel prototype be implemented and evaluated inside the fixed CPU dependency budget?",
+      "source_ids": [
+        "S39"
+      ],
+      "constraints": [
+        "No KerMac runtime installation",
+        "No pretrained embedding path",
+        "Distinguish approximation from author reproduction"
+      ],
+      "measurement": [
+        "Dependency audit",
+        "Pilot fit and complete inference time",
+        "Kernel-memory bound",
+        "Primary metric only after feasibility"
+      ],
+      "pilot": "Small resource prototype before any full-series allocation"
+    }
+  ],
+  "acceptance_axes": {
+    "compliance": "Offline boundary and complete runtime checks; research alone insufficient",
+    "autonomy": "Supplied-Qwen traces, evidence-linked next decisions and justified stopping; not measured by reference fits",
+    "prediction": "Same task/evaluation design and resources; old inspected controls descriptive; hidden-test quality unknown"
+  },
+  "stop_conditions": [
+    "No feasible full inference/finalization reserve",
+    "Assumptions for proposed method unsupported",
+    "Experiment cannot distinguish the hypothesis",
+    "Repeated negative outcomes without a materially different question"
+  ],
+  "source_registry": "docs/research/2026-10-25-mega-sources.json"
+}

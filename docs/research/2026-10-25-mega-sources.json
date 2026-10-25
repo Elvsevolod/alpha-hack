@@ -1,0 +1,376 @@
+{
+  "access_date": "2026-10-25",
+  "source_count": 41,
+  "review_scope": "Targeted primary-source review; abstracts and selected relevant sections, not full-paper reproductions or an exhaustive systematic review",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "TabArena, NeurIPS 2025",
+      "url": "https://arxiv.org/abs/2506.16791",
+      "source_claim": "Валидация, настройка и ансамбли меняют сравнение моделей.",
+      "project_limitation_or_interpretation": "Основной протокол IID, не доказательство временного переноса.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S02",
+      "title": "Why do tree-based models still outperform DL?, 2022",
+      "url": "https://arxiv.org/abs/2207.08815",
+      "source_claim": "Сильный деревьевый ориентир и особенности табличных функций.",
+      "project_limitation_or_interpretation": "Нет универсального победителя на любой задаче.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S03",
+      "title": "Better by Default / RealMLP, 2024",
+      "url": "https://arxiv.org/abs/2407.04491",
+      "source_claim": "Согласованные preprocessing и обучение усиливают MLP.",
+      "project_limitation_or_interpretation": "Наш sklearn MLP не воспроизводит RealMLP.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S04",
+      "title": "TabM, ICLR 2025",
+      "url": "https://arxiv.org/abs/2410.24210",
+      "source_claim": "Эффективное ансамблирование MLP.",
+      "project_limitation_or_interpretation": "Наш mini-style не полная авторская конфигурация.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S05",
+      "title": "ModernNCA, ICLR 2025",
+      "url": "https://arxiv.org/abs/2407.03257",
+      "source_claim": "Обучение метрики и мягкое соседство.",
+      "project_limitation_or_interpretation": "Основные измерения на V100, наш CPU-перенос неизвестен.",
+      "source_type": "primary_research",
+      "review_depth": "abstract_and_selected_full_text_sections"
+    },
+    {
+      "id": "S06",
+      "title": "TabR, ICLR 2024",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/4ef594af0d9a519db8fb292452c461fa-Abstract-Conference.html",
+      "source_claim": "Retrieval признаков и меток из fit.",
+      "project_limitation_or_interpretation": "Нужны fit-only индекс и замер стоимости.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S07",
+      "title": "Numerical embeddings, NeurIPS 2022",
+      "url": "https://arxiv.org/abs/2203.05556",
+      "source_claim": "Piecewise-linear и periodic представления чисел.",
+      "project_limitation_or_interpretation": "Все обучаемые границы внутри fit.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S08",
+      "title": "CatBoost, NeurIPS 2018",
+      "url": "https://papers.neurips.cc/paper_files/paper/2018/file/14491b756b3a51daac41c24863285549-Paper.pdf",
+      "source_claim": "Ordered statistics против prediction shift.",
+      "project_limitation_or_interpretation": "Обычный leave-one-out encoding не устраняет всю утечку.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S09",
+      "title": "LightGBM, NIPS 2017",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html",
+      "source_claim": "Эффективный GBDT-ориентир.",
+      "project_limitation_or_interpretation": "Больше параметров не заменяет валидацию.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S10",
+      "title": "XGBoost, 2016",
+      "url": "https://arxiv.org/abs/1603.02754",
+      "source_claim": "Регуляризованный бустинг деревьев.",
+      "project_limitation_or_interpretation": "Иная библиотека не гарантирует разнообразия ошибок.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S11",
+      "title": "AutoGluon-Tabular, 2020",
+      "url": "https://arxiv.org/abs/2003.06505",
+      "source_claim": "Bagging и многоуровневый stacking.",
+      "project_limitation_or_interpretation": "Нужны корректный splitter и бюджет OOF-fit.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S12",
+      "title": "Super Learner, 2007",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/17910531/",
+      "source_claim": "Cross-validated выбор весов библиотеки.",
+      "project_limitation_or_interpretation": "Асимптотическая теория не гарантирует temporal stacking.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S13",
+      "title": "Ensemble Selection, ICML 2004",
+      "url": "https://www.cs.cornell.edu/~alexn/papers/shotgun.icml04.revised.rev2.pdf",
+      "source_claim": "Выбор дополняющих моделей по метрике.",
+      "project_limitation_or_interpretation": "Поиск смесей тоже переобучается.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S14",
+      "title": "Cawley and Talbot, JMLR 2010",
+      "url": "https://www.jmlr.org/papers/v11/cawley10a.html",
+      "source_claim": "Переобучение критерия выбора.",
+      "project_limitation_or_interpretation": "Больше поиска на том же validation может вредить.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S15",
+      "title": "Roberts et al., Ecography 2017",
+      "url": "https://www.wsl.ch/lud/biodiversity_events/papers/Roberts_et_al-2017-Ecography.pdf",
+      "source_claim": "Структурное разбиение под цель переноса.",
+      "project_limitation_or_interpretation": "Слишком жёсткие блоки меняют оценочную задачу.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S16",
+      "title": "Bengio and Grandvalet, JMLR 2004",
+      "url": "https://www.jmlr.org/papers/v5/grandvalet04a.html",
+      "source_claim": "Нет универсальной несмещённой дисперсии K-fold CV.",
+      "project_limitation_or_interpretation": "Перекрывающиеся folds зависимы.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S17",
+      "title": "Bates, Hastie, Tibshirani, JASA 2024",
+      "url": "https://arxiv.org/abs/2104.00673",
+      "source_claim": "CV и ошибка конкретной финальной модели различаются.",
+      "project_limitation_or_interpretation": "Не общий запрет refit; границы выводов зависят от модели.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S18",
+      "title": "Random Search, JMLR 2012",
+      "url": "https://jmlr.org/papers/v13/bergstra12a.html",
+      "source_claim": "Базовый эффективный поиск гиперпараметров.",
+      "project_limitation_or_interpretation": "Требует осмысленного пространства и проверки выбора.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S19",
+      "title": "Hyperband, JMLR 2018",
+      "url": "https://www.jmlr.org/papers/v18/16-558.html",
+      "source_claim": "Адаптивное распределение ресурсов.",
+      "project_limitation_or_interpretation": "Ранний ранг не всегда совпадает с поздним.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S20",
+      "title": "Importance Weighted CV, JMLR 2007",
+      "url": "https://www.jmlr.org/papers/v8/sugiyama07a.html",
+      "source_claim": "Перевзвешивание при covariate shift.",
+      "project_limitation_or_interpretation": "Нужны стабильное p(y∣x), поддержка и устойчивые веса.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S21",
+      "title": "BBSE, ICML 2018",
+      "url": "https://proceedings.mlr.press/v80/lipton18a.html",
+      "source_claim": "Оценка label shift через confusion matrix.",
+      "project_limitation_or_interpretation": "Нужны стабильное p(x∣y) и идентифицируемость.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S22",
+      "title": "Group DRO, ICLR 2020",
+      "url": "https://arxiv.org/abs/1911.08731",
+      "source_claim": "Оптимизация худших групп с регуляризацией.",
+      "project_limitation_or_interpretation": "Содержательные группы; objective отличается от общей метрики.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S23",
+      "title": "SMOTE, JAIR 2002",
+      "url": "https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume16/chawla02a.pdf",
+      "source_claim": "Синтез объектов меньшинства.",
+      "project_limitation_or_interpretation": "Нереалистичные сетевые объекты и категории; исходная оценка в ROC.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S24",
+      "title": "Focal Loss, ICCV 2017",
+      "url": "https://arxiv.org/abs/1708.02002",
+      "source_claim": "Снижать вклад простых примеров.",
+      "project_limitation_or_interpretation": "Детекция, не доказательство Macro F1; риск усилить шум.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S25",
+      "title": "Balanced Meta-Softmax, NeurIPS 2020",
+      "url": "https://arxiv.org/abs/2007.10740",
+      "source_claim": "Обучение при long-tail распределении.",
+      "project_limitation_or_interpretation": "Visual recognition; перенос в наши задачи не установлен.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S26",
+      "title": "Logit adjustment, ICLR 2021",
+      "url": "https://arxiv.org/abs/2007.07314",
+      "source_claim": "Поправка по частотам классов.",
+      "project_limitation_or_interpretation": "Balanced error не равен multiclass Macro F1.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S27",
+      "title": "Thresholding for F1, 2014",
+      "url": "https://arxiv.org/abs/1402.1892",
+      "source_claim": "Роль порогов в F1.",
+      "project_limitation_or_interpretation": "Бинарные выводы нельзя буквально переносить на multiclass argmax.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S28",
+      "title": "Complex multiclass measures, ICML 2015",
+      "url": "https://proceedings.mlr.press/v37/narasimhanb15.html",
+      "source_claim": "Отдельная оптимизация функций confusion matrix.",
+      "project_limitation_or_interpretation": "Нет готовой гарантии произвольному поиску offsets.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S29",
+      "title": "Confident Learning, JAIR 2021",
+      "url": "https://research.google/pubs/confident-learning-estimating-uncertainty-in-dataset-labels/",
+      "source_claim": "Диагностика шума меток.",
+      "project_limitation_or_interpretation": "Уверенная ошибка модели не доказывает ошибку разметки.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S30",
+      "title": "Conformalized Quantile Regression, NeurIPS 2019",
+      "url": "https://arxiv.org/abs/1905.03222",
+      "source_claim": "Интервалы при неоднородном шуме.",
+      "project_limitation_or_interpretation": "Обычная гарантия требует exchangeability; не улучшает RMSE сама.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S31",
+      "title": "Adaptive Conformal Inference, NeurIPS 2021",
+      "url": "https://arxiv.org/abs/2106.00170",
+      "source_claim": "Онлайн-подстройка покрытия.",
+      "project_limitation_or_interpretation": "Нужен поток доступных истинных ответов, которого нет на test.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S32",
+      "title": "EPA ENERGY STAR Score, 2021",
+      "url": "https://portfoliomanager.energystar.gov/pdf/reference/ENERGY%20STAR%20Score.pdf",
+      "source_claim": "Efficiency ratio на основе source EUI.",
+      "project_limitation_or_interpretation": "Наш site EUI и неполные операционные характеристики.",
+      "source_type": "official_domain_source",
+      "review_depth": "abstract_and_selected_full_text_sections"
+    },
+    {
+      "id": "S33",
+      "title": "Leonie, WiDS 2022 writeup",
+      "url": "https://www.kaggle.com/competitions/widsdatathon2022/writeups/leonie-solution-writeup",
+      "source_claim": "Imputation и категориальные взаимодействия.",
+      "project_limitation_or_interpretation": "Авторский отчёт о 112-м месте, иной протокол.",
+      "source_type": "author_solution",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S34",
+      "title": "Imputers, WiDS 2022 code",
+      "url": "https://github.com/nd265/wids-2022-datathon",
+      "source_claim": "Ансамбль XGBoost, CatBoost, LightGBM и MLP.",
+      "project_limitation_or_interpretation": "Место 16 и score 19.425 сообщены авторами, не наш результат.",
+      "source_type": "author_solution",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S35",
+      "title": "UNSW-NB15 original description",
+      "url": "https://research.unsw.edu.au/projects/unsw-nb15-dataset",
+      "source_claim": "Происхождение сетевой задачи и девять атак.",
+      "project_limitation_or_interpretation": "Не источник разрешённых дополнительных меток.",
+      "source_type": "official_domain_source",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S36",
+      "title": "Duan smearing estimate, JASA 1983",
+      "url": "https://doi.org/10.1080/01621459.1983.10478017",
+      "source_claim": "Возврат среднего из преобразованной шкалы.",
+      "project_limitation_or_interpretation": "Общий множитель может быть неверен при гетероскедастичности.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S37",
+      "title": "Multiclass to binary, JMLR 2000",
+      "url": "https://www.jmlr.org/papers/v1/allwein00a.html",
+      "source_claim": "OvA, пары и коды.",
+      "project_limitation_or_interpretation": "OvA уже проверен ограниченно; не гарантирует улучшение.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S38",
+      "title": "Missing Data and Prediction, 2017",
+      "url": "https://arxiv.org/abs/1704.08192",
+      "source_claim": "Модели по паттернам пропусков.",
+      "project_limitation_or_interpretation": "Наш простой pattern LightGBM проиграл; теория не отменяет опыта.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S39",
+      "title": "xRFM v3, 2026",
+      "url": "https://arxiv.org/html/2508.10053v3",
+      "source_claim": "Локальное обучение ядра и дерева.",
+      "project_limitation_or_interpretation": "GPU KerMac вне списка; CPU-версия требует реализации и профилирования.",
+      "source_type": "primary_research",
+      "review_depth": "abstract_and_selected_full_text_sections"
+    },
+    {
+      "id": "S40",
+      "title": "Neural Additive Models, NeurIPS 2021",
+      "url": "https://papers.nips.cc/paper_files/paper/2021/hash/251bd0442dfcc53b5a761e050f8022b8-Abstract.html",
+      "source_claim": "Сумма гладких одномерных нейронных функций.",
+      "project_limitation_or_interpretation": "Ограничены взаимодействия; возможный дополняющий ориентир.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    },
+    {
+      "id": "S41",
+      "title": "TabFM, 2026 preprint",
+      "url": "https://arxiv.org/abs/2609.37959",
+      "source_claim": "Новая pretrained foundation-модель.",
+      "project_limitation_or_interpretation": "Готовые внешние веса исключены контрактом.",
+      "source_type": "primary_research",
+      "review_depth": "primary_abstract_or_author_report"
+    }
+  ]
+}
