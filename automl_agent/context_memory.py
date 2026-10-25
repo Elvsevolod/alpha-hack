@@ -284,6 +284,8 @@ class ContextMemory:
     def snapshot(self, system):
         started = time.perf_counter()
         c = self.c
+        if getattr(c, "prompt_contract", None):
+            system = c.prompt_contract["system"]
         c.qwen.select_for_step()
         self.index_experiments()
         unified = getattr(c.dataset, "profile_mode", "legacy") == "unified"
@@ -314,6 +316,8 @@ class ContextMemory:
             "validation_reason": c.plan.reason, "execution": c.journal.get("execution_policy"),
             "budget_mode": c.budget_mode, "training_seed": c.training_seed,
             "model_response_limit_seconds": c.qwen.response_limit_seconds}
+        if getattr(c, "prompt_contract", {}).get("version", 1) >= 2:
+            policies["prompt"] = {key: c.prompt_contract[key] for key in ("version", "system_hash", "guides_hash")}
         active = c.journal.get("active_hypothesis")
         work = {"baseline_id": c.journal.get("baseline_id"), "leader_id": c.journal.get("leader_id"),
             "suggested_new_operation_id": "step_" + str(counters["calls"] + 1)}
@@ -369,6 +373,26 @@ class ContextMemory:
                 rejected.append(item)
         if rejected:
             work["rejected_operations"] = rejected
+        if getattr(c, "prompt_contract", {}).get("version", 1) >= 2:
+            from .decision_context import publish_guides, decision_frame
+            work["local_guides"] = publish_guides(c, self.store)
+            frame = decision_frame(c)
+            source = Source("decision_frame", digest(frame), canonical(frame), "controller",
+                origin="controller_decision_frame")
+            route = self.store.put_source(source)
+            # Do not crowd out existing protected work. Full facts remain readable.
+            work["decision_frame"] = {"version": 1, "read": route}
+            if len(canonical({**work, "decision_frame": frame}).encode()) < 3000:
+                work["decision_frame"] = frame
+            from context_compressor.core import project_work
+            from context_compressor.contracts import CORE_LIMITS
+            if len(canonical(project_work(self.store, work)).encode()) > CORE_LIMITS["current_work"]:
+                work["decision_frame"] = {"version": 1, "read": route}
+            # Existing protected state wins over optional new inline projections.
+            for field in ("local_guides", "decision_frame"):
+                if len(canonical(project_work(self.store, work)).encode()) <= CORE_LIMITS["current_work"]:
+                    break
+                work.pop(field, None)
         flags = {**REQUIRED_FLAGS, "stagnation": c.budget.counter("stagnation_count"),
             "unproductive_reads": c.budget.counter("unproductive_reads"),
             "model_imputation_attempted": c.journal.get("model_imputation_attempted", False)}
@@ -381,7 +405,9 @@ class ContextMemory:
             system += "\nDevelopment objective, subject to all fixed contracts and permissions: " + canonical(c.research_focus)
         transport = Transport(system=system, tool_schemas={k: {**public_tool_schema(v), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},
             model=c.qwen.model, response_reserve=c.qwen.output_tokens, extra=c.qwen.extra,
-            reference_packet=c.knowledge.select_packet(profile))
+            reference_packet=(c.knowledge.select_packet(profile) if
+                getattr(c, "prompt_contract", {}).get("version", 1) == 1 or
+                self.store.active_note() or c.journal.get("active_hypothesis") else c.knowledge.deferred_packet(profile)))
         self.compressor = ContextCompressor(self.store, transport)
         images = []
         image_operation = self.store.get_meta("diagnostic_image_operation")

@@ -152,7 +152,8 @@ class AgentKnowledge:
             metric=c.task.metric.name + ("_" + c.task.metric.average if c.task.metric.name == "f1" else ""),
             research_question=question)
 
-    def select_packet(self, profile):
+    def _sync_context(self, profile):
+        """Replay evidence independently of automatic reference selection."""
         c = self.c
         c.journal.put("knowledge_fit_summary", profile["summary"])
         context = self.selection_context(profile["summary"])
@@ -168,6 +169,11 @@ class AgentKnowledge:
         for spec, result in self.memory.db.execute("""SELECT spec,result FROM host_journal.experiments e
             WHERE result IS NOT NULL AND NOT EXISTS (SELECT 1 FROM host_operations h WHERE h.id='experiment:'||e.id)""").fetchall():
             self.experiment(ExperimentSpec.model_validate_json(spec), ExperimentResult.model_validate_json(result), context.binding())
+        return context
+
+    def select_packet(self, profile):
+        c = self.c
+        context = self._sync_context(profile)
         packet_key = digest({"context": context.binding(), "progress": self.memory.progress_count,
             "corpus": c.references.version, "disabled": c.references.disabled_reason})
         if packet_key == self.packet_key and self.packet is not None:
@@ -178,6 +184,16 @@ class AgentKnowledge:
             self.packet = select(c.references, context, memory=self.memory,
                 deadline=c.budget.deadline, reserve_seconds=c.budget.final_reserve(c.finalist_costs()))
         self.packet_key = packet_key
+        return self.packet
+
+    def deferred_packet(self, profile):
+        """An explicit auditable cold-start state, never missing evidence."""
+        self._sync_context(profile)
+        self.packet_key = None
+        self.packet = ({"status": "integrity_error", "answer_usable": False, "materials": []}
+            if self.c.references.disabled_reason else
+            {"status": "deferred", "answer_usable": False, "materials": [],
+             "reason": "No active research question; explicit local discovery remains available"})
         return self.packet
 
     def remember(self, result, context):

@@ -134,7 +134,8 @@ def test_review_is_durable_discoverable_and_survives_wire_compression(tmp_path, 
             wire = json.loads(prepared.wire_json)
             actual = json.loads(wire["messages"][1]["content"])
             assert identifier in actual["core"]["current_work"]["related_ids"]
-            assert RESEARCH_POLICY in wire["messages"][0]["content"]
+            assert c.prompt_contract["guides"]["research_policy"] == RESEARCH_POLICY
+            assert actual["core"]["current_work"]["local_guides"]["tool"] == "read_run_records"
             assert c.knowledge.audit(prepared, wire)["send_allowed"]
         # Read the review with the same public tools available to Qwen.
         from automl_agent.contracts import RunReadArgs

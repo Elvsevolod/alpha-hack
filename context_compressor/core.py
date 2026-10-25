@@ -116,8 +116,8 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
         if type(value) is not int or value < 0:
             raise ContextError("Counters must be nonnegative integers")
     work = dict(work or {})
-    routes = {"leader_pipeline", "research_options", "unexecuted_intents"}
-    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations"} | routes):
+    routes = {"leader_pipeline", "research_options", "unexecuted_intents", "local_guides"}
+    if set(work) - (WORK_IDS | {"related_ids", "dependencies", "diagnostic", "hypothesis", "rejected_operations", "decision_frame"} | routes):
         raise ContextError("Unsupported current-work fields")
     for name in routes & set(work):
         route = work[name]
@@ -137,6 +137,13 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
         bounded(work["diagnostic"], 512, "current diagnostic", empty=True)
     if size(work.get("hypothesis")) > 2048 or size(work.get("rejected_operations")) > 1024:
         raise ContextError("Current hypothesis or rejection summaries exceed their bounded projection")
+    frame = work.get("decision_frame")
+    if frame is not None:
+        if not isinstance(frame, dict) or type(frame.get("version")) is not int or frame.get("version") != 1 or size(frame) > 768:
+            raise ContextError("Unsupported or oversized decision frame")
+        allowed_frame = {"version", "read", "facts_source", "last_operation", "analysis_status", "last_request_status", "limitation"}
+        if set(frame) - allowed_frame:
+            raise ContextError("Unknown decision frame fields")
     task_hash, policy_hash = digest(task), digest(policies)
     identity = {"run_id": run_id, "task_hash": task_hash, "data_hash": data_hash,
                 "protocol_hash": protocol_hash, "environment_hash": environment_hash,
@@ -266,8 +273,9 @@ class ProfileCache:
         return reference
 
 
-def _core(store, state):
-    work = dict(state["current_work"])
+def project_work(store, current_work):
+    """One projection for sizing and final rendering of protected work."""
+    work = dict(current_work)
     for key in ("baseline_id", "leader_id", "latest_id"):
         if work.get(key):
             record = store.record(work[key])
@@ -275,6 +283,11 @@ def _core(store, state):
                 work[key.removesuffix("_id") + "_result"] = {name: record[name] for name in
                     ("record_id", "status", "score", "metric", "evaluation_scope", "protocol")}
     work["observation_queue"] = {"pending": store.pending_count(), "acknowledgement": "validated_durable_command"}
+    return work
+
+
+def _core(store, state):
+    work = project_work(store, state["current_work"])
     reading = {"contract": state["task"]["contract"],
                "search": {"tool": "analyze_experiments", "arguments": {"context_search": {"filters": {}, "limit": 10}}},
                "notes_filter": {"kind": "research_note"}, "source_catalog": {"kind": "source"}}

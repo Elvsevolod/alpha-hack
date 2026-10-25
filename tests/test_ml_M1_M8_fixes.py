@@ -351,8 +351,11 @@ def test_M2_M5_snapshot_routes_and_all_compaction_stages(ml_controller, mode):
         assert context['compaction']['stage'] == stage
         assert context['core']['reading_routes'] and context['core']['current_work']['leader_pipeline']
         instructions = body['messages'][0]['content']
-        assert 'source_recipe_hash' in instructions and 'Starter search ranges' in instructions
-        assert 'view=pipeline, include_code=false' in instructions
+        assert context['core']['current_work']['local_guides']['tool'] == 'read_run_records'
+        policy = c.prompt_contract['guides']['research_policy']
+        assert 'source_recipe_hash' in policy and 'Starter search ranges' in policy
+        assert 'view=pipeline, include_code=false' in policy
+        assert 'Copy identities' in instructions
         if stage == 0:
             assert '16.5136' in prepared.wire_json
         assert 'CONTROL_SENTINEL' not in prepared.wire_json
