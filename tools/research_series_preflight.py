@@ -1,7 +1,8 @@
-"""Read-only gateway metadata and deterministic registration of the 100-unit series.
+"""Historical capped preflight, superseded by the human's uncapped test instruction.
 
 No chat/completions call, credential export or external-label access exists here.
 Market USD prices and observed charges are not gateway-unit upper bounds.
+The active runner is research_memory_series.py; it does not use this price gate.
 """
 from __future__ import annotations
 import argparse

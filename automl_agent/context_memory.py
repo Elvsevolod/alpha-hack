@@ -329,13 +329,17 @@ class ContextMemory:
         details = self.store.put_source(Source("research_options", version, canonical(options),
             "controller", section="details", origin="research_coverage"))
         options = compact_research_options(options, details)
-        work["research_options"] = self.store.put_source(Source("research_options", version, canonical(options),
-            "controller", origin="research_coverage"))
+        from .decision_context import bounded_read_route
+        work["research_options"] = bounded_read_route(c, self.store, Source("research_options", version, canonical(options),
+            "controller", origin="research_coverage"), 'research_options')
         intents = c.journal.get("unexecuted_native_intents", [])
         if intents:
             content = {"requires_new_decision": True, "executed": False, "proposals": intents}
-            work["unexecuted_intents"] = self.store.put_source(Source("unexecuted_native_intents", digest(content), canonical(content),
-                "controller", "agent_assumption", origin="unexecuted_model_proposals"))
+            if c.prompt_contract['version'] >= 4:
+                content.update(optional=True, recovery_required=False,
+                    meaning='Unvalidated proposals, not queued operations; ignore stale intentions or choose a fresh action')
+            work["unexecuted_intents"] = bounded_read_route(c, self.store, Source("unexecuted_native_intents", digest(content), canonical(content),
+                "controller", "agent_assumption", origin="unexecuted_model_proposals"), 'unexecuted_native_intents')
         work["related_ids"] = [self.research_guide_id]
         latest = c.journal.db.execute("SELECT id FROM experiments WHERE result IS NOT NULL ORDER BY rowid DESC LIMIT 1").fetchone()
         if latest:
@@ -354,8 +358,6 @@ class ContextMemory:
                 "agent_assumption", origin="agent_hypothesis"))
             work["active_operation_id"] = active.get("operation_id")
             caps = {"changed_component": 1024, "observation": 256, "expected_effect": 256, "acceptance": 128}
-            if getattr(c, "prompt_contract", {}).get("version", 1) >= 3:
-                caps = {"changed_component": 256, "observation": 128, "expected_effect": 128, "acceptance": 128}
             hypothesis = {key: short(active.get(key, ""), cap) for key, cap in caps.items()}
             hypothesis.update(source="agent_assumption", read=reference)
             while len(canonical(hypothesis).encode()) > 1664:
@@ -380,7 +382,7 @@ class ContextMemory:
             memory = branch_projection(c, self.branch_reviews)
             source = Source("research_memory", digest(memory), canonical(memory), "registered_feedback",
                 "external_data", origin="research_memory")
-            read = self.store.put_source(source)
+            read = bounded_read_route(c, self.store, source, 'research_memory')
             work["research_memory"] = {"version": 1, "read": read}
             if len(canonical(memory).encode()) <= 1536 and len(canonical({**work, "research_memory": memory}).encode()) < 2800:
                 work["research_memory"] = memory
@@ -390,7 +392,7 @@ class ContextMemory:
             frame = decision_frame(c)
             source = Source("decision_frame", digest(frame), canonical(frame), "controller",
                 origin="controller_decision_frame")
-            route = self.store.put_source(source)
+            route = bounded_read_route(c, self.store, source, 'decision_frame')
             # Do not crowd out existing protected work. Full facts remain readable.
             work["decision_frame"] = {"version": 1, "read": route}
             if len(canonical({**work, "decision_frame": frame}).encode()) < 3000:

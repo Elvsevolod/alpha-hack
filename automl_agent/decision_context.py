@@ -6,12 +6,23 @@ from .util import canonical, digest, utf8_short
 from .tool_results import payload
 
 
+def bounded_read_route(c, store, source, component):
+    """Use existing record pagination for v4; retain old byte routes for old runs."""
+    route = store.put_source(source)
+    if c.prompt_contract['version'] < 4:
+        return route
+    identifier = source.source_id + ':' + source.version[:16]
+    store.publish_records([Record(identifier, source.source_id, source.version, source.scope,
+        kind='reference', component=component, engine='controller', status='available')])
+    return {'tool': 'read_run_records', 'arguments': {'ids': [identifier], 'max_chars': 12000}}
+
+
 def publish_guides(c, store):
     entries = []
     for name, content in sorted(c.prompt_contract['guides'].items()):
         source = Source('guide:' + name, digest(content), content, 'reference',
             'external_data', origin='project_runtime_guide')
-        route = store.put_source(source)
+        route = bounded_read_route(c, store, source, name)
         entries.append({'id': name, 'when': {
             'candidate_interface': 'Before implementing an unfamiliar custom component',
             'runtime_guidance': 'Exact report, model, transport and resource adapter rules',
@@ -22,7 +33,7 @@ def publish_guides(c, store):
         'authority': 'Local reference; execution contracts and controller permissions remain authoritative.'})
     source = Source('startup_guides', digest(content), content, 'reference',
         'external_data', origin='project_guide_catalog')
-    route = store.put_source(source)
+    route = bounded_read_route(c, store, source, 'startup_guides')
     store.publish_records([Record('startup_guides:' + source.version[:16], source.source_id, source.version, source.scope,
         kind='reference', component='startup_guides', engine='controller', status='available')])
     return route

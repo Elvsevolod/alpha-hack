@@ -147,13 +147,14 @@ def test_real_controller_delivers_negative_memory_after_maximum_compression(tmp_
         c.close()
 
 
-def test_saved_prompt_v2_is_not_silently_upgraded(tmp_path):
+@pytest.mark.parametrize('version', [2, 3])
+def test_saved_prompt_is_not_silently_upgraded(tmp_path, version):
     from automl_agent.prompting import bind_prompt
     from automl_agent.journal import Journal
     from automl_agent.util import digest
     j = Journal(tmp_path)
     try:
-        predecessor = {'version': 2, 'system': 'Pinned predecessor', 'system_hash': digest('Pinned predecessor'),
+        predecessor = {'version': version, 'system': 'Pinned predecessor', 'system_hash': digest('Pinned predecessor'),
             'guides': {}, 'guides_hash': digest({}), 'sections': {}}
         j.put('llm_prompt_contract', predecessor)
         assert bind_prompt(j, 'legacy', existing_run=True) == predecessor

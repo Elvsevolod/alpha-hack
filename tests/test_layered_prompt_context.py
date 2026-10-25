@@ -26,13 +26,19 @@ def controller(tmp_path, monkeypatch):
 
 def read_all(c, route):
     text = ''
+    records = None
     while route:
         args = TOOL_SCHEMAS['read_run_records'].model_validate(route['arguments'])
         result = c.run_tools.read(args)
         assert result['status'] == 'success'
+        if 'records' in result:
+            records = result['records']
+            break
         text += result['content']
-        route = result['continuation']
-    return text
+        route = result.get('continuation')
+    if records is None and 'ids' in args.model_dump() and args.ids:
+        records = json.loads(text)
+    return records[0]['content'] if records is not None else text
 
 
 @pytest.mark.parametrize('mode', ['native', 'json'])
@@ -79,6 +85,49 @@ def test_existing_run_keeps_legacy_prompt_and_new_run_is_pinned(tmp_path):
         j.close()
 
 
+def test_v4_reads_complete_interface_in_one_existing_public_action(controller, monkeypatch):
+    c = controller
+    snapshot = c.context_memory.snapshot(c.system_prompt)
+    body = json.loads(json.loads(c.context_memory.compressor.fit(
+        snapshot, 'native', budget=262144).wire_json)['messages'][1]['content'])
+    catalog = json.loads(read_all(c, body['core']['current_work']['local_guides']))
+    route = next(item['read'] for item in catalog['guides'] if item['id'] == 'candidate_interface')
+    calls = []
+    original = c.run_tools.read
+    def counted(args):
+        calls.append(args)
+        return original(args)
+    monkeypatch.setattr(c.run_tools, 'read', counted)
+    assert read_all(c, route) == INTERFACE
+    assert len(calls) == 1
+    assert calls[0].max_chars == 12000
+    assert 'source' not in route['arguments']
+
+
+def test_deferred_intentions_are_optional_and_never_replayed(controller):
+    c = controller
+    c.journal.put('unexecuted_native_intents', [{'identity': 'unvalidated',
+        'tool': 'train_model', 'arguments': {'model': 'not_an_admitted_recipe'}}])
+    count = len(c.records())
+    snapshot = c.context_memory.snapshot(c.system_prompt)
+    work = json.loads(snapshot.core_json)['current_work']
+    value = json.loads(read_all(c, work['unexecuted_intents']))
+    assert value['optional'] and not value['recovery_required'] and not value['executed']
+    assert len(c.records()) == count
+
+
+def test_v3_guides_keep_historical_byte_continuations(controller):
+    from automl_agent.decision_context import publish_guides
+    c = controller
+    c.prompt_contract = {**c.prompt_contract, 'version': 3}
+    route = publish_guides(c, c.context_memory.store)
+    assert 'source' in route['arguments']
+    catalog = json.loads(read_all(c, route))
+    interface = next(item for item in catalog['guides'] if item['id'] == 'candidate_interface')
+    assert 'source' in interface['read']['arguments']
+    assert read_all(c, interface['read']) == INTERFACE
+
+
 def test_frame_never_copies_predictions_or_treats_rejected_generation_as_fit(controller):
     c = controller
     c.journal.put('last_tool_result', {'status': 'command_validation', 'error': 'PRIVATE_SENTINEL'})
@@ -116,7 +165,7 @@ def test_controller_resume_uses_pinned_legacy_when_no_prompt_metadata(tmp_path, 
 
 
 @pytest.mark.parametrize('mode', ['native', 'json'])
-def test_http_mock_reads_guide_then_sees_its_operation_and_continuation(controller, mode):
+def test_http_mock_reads_catalog_then_sees_its_operation_and_selects_guide(controller, mode):
     import httpx
     from automl_agent.tool_results import payload
     c = controller
@@ -156,9 +205,13 @@ def test_http_mock_reads_guide_then_sees_its_operation_and_continuation(controll
         command, _ = c.qwen.next_command(c.system_prompt, c.context_memory.snapshot(c.system_prompt))
         result = payload(c.dispatch(command))
         assert result['status'] == 'success'
-        next_route[0] = result['continuation']
         if i == 0:
-            assert next_route[0]  # first catalog fragment is incomplete
+            assert result['complete']
+            catalog = json.loads(result['records'][0]['content'])
+            next_route[0] = next(item['read'] for item in catalog['guides'] if item['id'] == 'candidate_interface')
+        else:
+            assert result['complete']
+            assert result['records'][0]['content'] == INTERFACE
     assert len(calls) == 2
     metadata = c.report()['prompt_contract']
     assert metadata['version'] == PROMPT_VERSION and 'guides' not in metadata and 'system' not in metadata
