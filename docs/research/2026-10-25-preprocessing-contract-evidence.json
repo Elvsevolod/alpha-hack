@@ -1,0 +1,101 @@
+{
+  "api_calls": 0,
+  "datetime_collision": {
+    "input": [
+      7.0,
+      8.0
+    ],
+    "rejection": null,
+    "reproduced": true
+  },
+  "multioutput_selection": {
+    "forward_features": [
+      "code"
+    ],
+    "forward_target_order": [
+      "first",
+      "second"
+    ],
+    "metric_target_aggregation": "uniform",
+    "reproduced": true,
+    "reversed_features": [
+      "value"
+    ],
+    "reversed_target_order": [
+      "second",
+      "first"
+    ]
+  },
+  "numeric_categorical_role": {
+    "fit_rows": 480,
+    "held_out_rows": 120,
+    "ordinary_csv_path_protected_by_string_loading": true,
+    "reproduced": true,
+    "roles": {
+      "numeric_codes": {
+        "categorical": [],
+        "numeric": [
+          "code",
+          "value"
+        ]
+      },
+      "string_codes": {
+        "categorical": [
+          "code"
+        ],
+        "numeric": [
+          "value"
+        ]
+      }
+    },
+    "seed": 42,
+    "standard_csv_loader_value_type": "str",
+    "synthetic_rmse": {
+      "numeric_codes": 4.153272809831782,
+      "string_codes": 0.04131184430358354
+    },
+    "target": "fixed nonmonotonic category effects; no tuning"
+  },
+  "runtime_changed": false,
+  "runtime_source_sha256": "ec8ca2e79cc27bb2a366a8e17fb470cf862dc0b1e25c90cceb104fdcd3e0f7e4",
+  "source_sha256": "4176bd6fbeba2cffadff13ae971d4029e75350af58761d57aa38f080871c4fe3",
+  "supervised_summary": {
+    "first_features": [
+      "code"
+    ],
+    "interpretation": "Scope is serialized under imputation; do not infer the entire pipeline is target-free",
+    "reported_scopes": [
+      "fit_only_no_target",
+      "fit_only_no_target"
+    ],
+    "reproduced": true,
+    "second_features": [
+      "value"
+    ]
+  },
+  "synthetic_example_not_agent_evaluation": true,
+  "test_audit": {
+    "targeted": {
+      "passed": 96,
+      "errors": 14,
+      "seconds": 61.75,
+      "all_errors": "setup missing historical m4_candidate/decision.py",
+      "files": [
+        "tests/test_pipelines.py",
+        "tests/test_ml_M1_M8_fixes.py",
+        "tests/test_audit_learning.py",
+        "tests/test_public_context_findings.py"
+      ]
+    },
+    "full_collection_only": {
+      "collected": 1302,
+      "errors": 2,
+      "seconds": 1.69,
+      "full_execution_performed": false,
+      "modules": [
+        "tests/test_ml_M4_canonical_offsets.py",
+        "tests/test_v055_new_period_queue.py"
+      ]
+    }
+  }
+}
