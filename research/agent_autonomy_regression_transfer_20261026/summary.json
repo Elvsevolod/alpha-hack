@@ -1,0 +1,305 @@
+{
+  "source_commit": "06f6b257a4b209f3dd81d96125e065008dbc4013",
+  "protocol": "docs/research/2026-10-26-autonomy-regression-protocol.md",
+  "budget": {
+    "seconds": 900,
+    "cpu": 1,
+    "memory_mb": 3072,
+    "max_model_calls": 12,
+    "max_candidates": 2,
+    "seed": 42
+  },
+  "outcome": {
+    "status": "terminal",
+    "returncode": 0,
+    "wall_seconds": 522.8920869580033,
+    "sampled_peak_process_tree_rss_mib": 1263.828125,
+    "child_cpu_seconds": 53.92999399999999,
+    "sources_unchanged": true,
+    "child_terminal": true,
+    "current": {
+      "state": "completed",
+      "llm_calls": 9,
+      "llm_seconds": 473.8372237090007,
+      "candidate_count": 2,
+      "control_status": "completed",
+      "refit_status": "completed",
+      "publication_scope": "full_train_refit",
+      "experiments": [
+        {
+          "id": "baseline",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 45.500814255033106,
+          "scope": "baseline"
+        },
+        {
+          "id": "exp_0406c1d90804ca04",
+          "model": "lightgbm",
+          "status": "error",
+          "score": null,
+          "scope": "full"
+        },
+        {
+          "id": "exp_738f96236b6a3ed0",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 44.30985539775415,
+          "scope": "full"
+        }
+      ],
+      "failure_present": false
+    }
+  },
+  "agent": {
+    "control_scores": {
+      "baseline": 47.98521328331368,
+      "exp_738f96236b6a3ed0": 45.636788901933535
+    },
+    "control_winner": "exp_738f96236b6a3ed0",
+    "first_trained_csv_seconds": 14.506908893585205,
+    "token_usage": {
+      "completion_tokens": 41285,
+      "prompt_tokens": 276999,
+      "reasoning_tokens": 37219,
+      "total_tokens": 318284
+    },
+    "qwen_unknown_outcome": null
+  },
+  "experiments": [
+    {
+      "id": "baseline",
+      "parent": null,
+      "search_action": "draft",
+      "parameters": {
+        "colsample_bytree": 0.7,
+        "learning_rate": 0.03,
+        "min_child_samples": 20,
+        "n_estimators": 1500,
+        "num_leaves": 63,
+        "reg_lambda": 1.0,
+        "subsample": 0.8,
+        "subsample_freq": 1
+      },
+      "target_transform": "none",
+      "log_inverse": "naive",
+      "early_stopping_rounds": 100,
+      "status": "completed",
+      "score": 45.500814255033106,
+      "seconds": 8.964617666002596,
+      "peak_memory_mb": 576.8125,
+      "error": null,
+      "scope": "baseline"
+    },
+    {
+      "id": "exp_0406c1d90804ca04",
+      "parent": "baseline",
+      "search_action": "improve",
+      "parameters": {
+        "colsample_bytree": 0.7,
+        "learning_rate": 0.03,
+        "min_child_samples": 20,
+        "n_estimators": 1500,
+        "num_leaves": 63,
+        "reg_lambda": 1.0,
+        "subsample": 0.8,
+        "subsample_freq": 1
+      },
+      "target_transform": "log1p",
+      "log_inverse": "oof_smearing",
+      "early_stopping_rounds": 100,
+      "status": "error",
+      "score": null,
+      "seconds": 1.4284367079962976,
+      "peak_memory_mb": 311.609375,
+      "error": "ValueError: insufficient_oof_support: at least two independently fitted folds are required for learned postprocessing",
+      "scope": "full"
+    },
+    {
+      "id": "exp_738f96236b6a3ed0",
+      "parent": "baseline",
+      "search_action": "improve",
+      "parameters": {
+        "colsample_bytree": 0.7,
+        "learning_rate": 0.03,
+        "min_child_samples": 20,
+        "n_estimators": 1500,
+        "num_leaves": 63,
+        "reg_lambda": 1,
+        "subsample": 0.8,
+        "subsample_freq": 1
+      },
+      "target_transform": "log1p",
+      "log_inverse": "naive",
+      "early_stopping_rounds": 100,
+      "status": "completed",
+      "score": 44.30985539775415,
+      "seconds": 12.248302791005699,
+      "peak_memory_mb": 575.765625,
+      "error": null,
+      "scope": "full"
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "step_1",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_3",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_4",
+      "tool": "train_model",
+      "status": "succeeded",
+      "experiment_id": "exp_0406c1d90804ca04"
+    },
+    {
+      "operation_id": "step_5a",
+      "tool": "search_knowledge",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_9",
+      "tool": "train_model",
+      "status": "succeeded",
+      "experiment_id": "exp_738f96236b6a3ed0"
+    }
+  ],
+  "event_counts": {
+    "qwen_request": 9,
+    "qwen_response": 9,
+    "qwen_decision": 5,
+    "qwen_failure": 4,
+    "command_arguments_rejected": 3,
+    "qwen_response_truncated": 1,
+    "native_fallback": 0
+  },
+  "prediction_csv_audit": {
+    "metrics": [
+      {
+        "id": "baseline",
+        "scope": "validation",
+        "rows": 12946,
+        "rmse": 45.500814255033106,
+        "matches_report": true,
+        "prediction_sha256": "489c985c7f467e17843b8413a170da2bb8902840959437079394b28c01a344ae"
+      },
+      {
+        "id": "baseline",
+        "scope": "control",
+        "rows": 18308,
+        "rmse": 47.98521328331368,
+        "matches_report": true,
+        "prediction_sha256": "b2b6d7857daaa68b4fbc2e37261ebec508420fa0010771fad9fab26152af68ab"
+      },
+      {
+        "id": "exp_738f96236b6a3ed0",
+        "scope": "validation",
+        "rows": 12946,
+        "rmse": 44.30985539775415,
+        "matches_report": true,
+        "prediction_sha256": "dfe570a86ad48b4d19a474b721841f6cd1bf36fb8b8e7bf4db3dcd4339f6aecd"
+      },
+      {
+        "id": "exp_738f96236b6a3ed0",
+        "scope": "control",
+        "rows": 18308,
+        "rmse": 45.636788901933535,
+        "matches_report": true,
+        "prediction_sha256": "7d2825894d39544d477a278fa680bece8d0ac97021e86337557551e1947fc5da"
+      }
+    ],
+    "csv": {
+      "rows": 22449,
+      "full_refit_rows": 53308,
+      "columns": [
+        "id",
+        "site_eui"
+      ],
+      "ids_and_order_match": true,
+      "finite_values": true,
+      "input_hashes_unchanged": true,
+      "publication_sha_matches": true,
+      "csv_sha256": "891feba3545f26126d062ac1cc263c3bbb38b3a286d835689784cd02114ebb38"
+    },
+    "serialized_model_transform": "log1p",
+    "serialized_model_inverse": "naive",
+    "full_refit_seconds": 3.4026457500003744
+  },
+  "validation_rmse_reduction": 1.1909588572789573,
+  "internal_control_rmse_reduction": 2.3484243813801484,
+  "control_scope": {
+    "previously_viewed": true,
+    "internal_control_selects_finalist": true,
+    "fresh_independent_confirmation": false,
+    "same_author_control_set": true,
+    "same_author_source_hash": true,
+    "sizes": {
+      "fit": 22054,
+      "validation": 12946,
+      "control": 18308
+    }
+  },
+  "historical_strong_tree_control": {
+    "score": 42.184717665384625,
+    "agent_worse_by": 3.4520712365489103,
+    "new_equal_budget_comparison": false
+  },
+  "api": {
+    "remaining_before": 588.8470138599606,
+    "remaining_after": 577.6851795626409,
+    "maximum": 600.0,
+    "comparison": {
+      "counter": "total_spend",
+      "increase": 11.161834297319047
+    },
+    "checked_before": "2026-10-26T03:14:59.566954+00:00",
+    "checked_after": "2026-10-26T03:23:42.459975+00:00",
+    "fingerprint_matched": true,
+    "counter_change_not_exclusively_attributed": true
+  },
+  "autonomous_candidate_completed": true,
+  "independent_gain_claimed": false,
+  "overall_goal_complete": false,
+  "runtime_fix_was_applied_after_terminal": true,
+  "runtime_fix_evidence": "research/stopping_smearing_scope_20261026/summary.json",
+  "input_sha256": {
+    "task.md": "33f743ead4840336856cb9db8e25867f44512231beebff927326e8580e14d9d0",
+    "train.csv": "096dac951cf44fade5417ddd0465c41beee3009663dbea34e8d464a4d3c7f775",
+    "test.csv": "a7c64db92a07e1a5b1e7f637bdd434da7a5e98a1676c854ec6a645c9e5827095",
+    "sample_submission.csv": "0016b18d58c47bbbe842556b4957ba215b3ad50121c9923260537d936a09eae1",
+    "data_dictionary.csv": "ffd7a8574fa4b203c43915e26a53e4072637c0dce8f1e6e7bcf93374a89a26a3"
+  },
+  "artifact_sha256": {
+    "freeze.json": "993814a02251e550fb7de9c6ba2020b3ec8270740475ddb53e2aa0cecbbe5f40",
+    "result.json": "7c7577422eae90ddd0798e9cdfed2731976b9915a254c54a517e667eba1401e3",
+    "api_limits_before_start.json": "873a722f7a831648496830a264d9c38a82cf7b55f21fab64b4abe8c2a6cbab96",
+    "api_limits_after.json": "61be6cc6884be3338633a42e33c3c290bd9bb12880b10100595d2b069eef5aa3",
+    "prediction_csv_audit.json": "b66ed0a626f9f5458f84d41ba3f2d3fc4a9da150e0d1bd0215800dd9ce64483f"
+  },
+  "model_command_to_recipe_audit": [
+    {
+      "id": "exp_0406c1d90804ca04",
+      "operation_id": "step_4",
+      "route": "apply_recipe",
+      "model_recipe_matches_executed_spec": true,
+      "recipe_hash": "c46790c541b58e4e6efe1f5e87f45f445fa6fd724e0c0aed6303c41185de4299"
+    },
+    {
+      "id": "exp_738f96236b6a3ed0",
+      "operation_id": "step_9",
+      "route": "pipeline",
+      "model_recipe_matches_executed_spec": true,
+      "recipe_hash": "f2f43bbd0918905081219f25ce85001374717ee262e79bb6b6f1f44e99c4737d"
+    }
+  ],
+  "apply_recipe_exercised_live": true,
+  "preview_recipe_exercised_live": false
+}

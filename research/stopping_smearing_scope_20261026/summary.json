@@ -1,0 +1,61 @@
+{
+  "baseline_source_commit": "06f6b25",
+  "originating_live_run": "research/agent_autonomy_regression_transfer_20261026/summary.json",
+  "defect": "Raw native stopping helper learned an inverse not consumed by the stopping callback; unnecessary nested OOF caused three-period failure",
+  "fix_scope": "Stopping helper uses naive inverse; complete fit retains independent learned inverse. Explicit final-output checkpoints unchanged.",
+  "checks": {
+    "before": {
+      "tests": 4,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.844,
+      "xml_sha256": "3f0aa7987edfd25ed7b6ae545b817fd5917985fc6d6c64cbcc5c20326619b22f"
+    },
+    "related": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 11.293,
+      "xml_sha256": "283b0dec5d3c4a5bd354680c0e15347c7b89e50fc3d424a3b089133e43d3e3ed"
+    },
+    "schedule": {
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 31.541,
+      "xml_sha256": "eb401903c2d7bcfba9e5fe883ae9dee5e97482ef6db2f556f9e60e65fd2cd1db"
+    }
+  },
+  "overlapping_checks_not_summed": true,
+  "actual_failed_input_replay": {
+    "original_phase": "performance_1",
+    "original_request_sha256": "ec60a4042c1fcc9b92d3b5a80f7d03b3a850ea322ee18af75d1a3fdedffe0617",
+    "fit_X_sha256": "e1154b066282d7daaa3cb70c810b1f58464dd14a444370186df31b60a60d21a0",
+    "fit_y_sha256": "bcb75ce9cd5697c0e18176360b9c821d9208138ad5fe58ba2136d89a577c85cf",
+    "rows": 22054,
+    "periods": 3,
+    "status": "completed",
+    "independent_inverse_folds": 2,
+    "stopping_iterations": 521,
+    "learning_scope": "fit_only_oof_residuals",
+    "technical_replay_wall_seconds": 5.462990332998743,
+    "technical_replay_budget_seconds": 90,
+    "quality_measured": false,
+    "new_api_calls": 0,
+    "harness_context_note": "Explicit task restored as worker.train normally injects; first direct-harness attempt omitted it.",
+    "original_worker_budget_seconds": 35.28
+  },
+  "actual_replay_sha256": "026fd60cce9b5c4807c83e9144f98224e4bae6f4314888ada1efcae2075d4e69",
+  "source_sha256": {
+    "automl_agent/pipelines.py": "facbf4661798abaa8e1ad0c0ce82f8050771495dc4ed0e4ea36fefd723db5720",
+    "tests/test_stopping_smearing_scope.py": "043e01ddeb1703b92fafb206ceca8c390efc61b5327cbddf2dff107f1318207e"
+  },
+  "new_real_api_calls": 0,
+  "postfix_live_quality_measured": false,
+  "quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "harness_note": "One command named a nonexistent test file and ran zero tests; it is not included in successful counts."
+}

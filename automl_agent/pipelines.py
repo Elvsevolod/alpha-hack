@@ -268,11 +268,20 @@ class DirectPipeline:
             self._select_checkpoints(X, y, context, counts)
         elif self.spec.early_stopping_rounds and not self.spec.iteration_schedule and not self.spec.frozen_iterations and not context.get("schedule_selection"):
             a, b = inner_split(X, y, self.task, context["strategy"], self.spec.seed)
-            inner_spec = self.spec.model_copy(update={"prediction_policy": "default", "postprocess_fit_policy": "none", "fit_diagnostics": "none"})
+            # Native stopping scores naive original-scale predictions. A fitted
+            # inverse is not consumed by its callback; learn the final inverse
+            # separately below, on the complete permitted fit population.
+            inner_spec = self.spec.model_copy(update={"prediction_policy": "default", "postprocess_fit_policy": "none",
+                "fit_diagnostics": "none", "log_inverse": "naive", "learned_inverse": {}})
             inner = DirectPipeline(inner_spec, self.task)
             inner.fit(X.iloc[a], y.iloc[a], {**context, "schedule_selection": True,
                 "skip_history_diagnostics": True, "schedule_validation": (X.iloc[b], y.iloc[b])})
             self.schedules = inner.schedules
+            if self.spec.target_transform == "log1p":
+                for schedule in self.schedules.values():
+                    schedule.update(stopping_log_inverse="naive", final_log_inverse=self.spec.log_inverse)
+                    if self.spec.log_inverse != "naive":
+                        schedule["surrogate_differs_from_final_decision"] = True
             self.inner_auxiliary_fits += 1 + inner.summary.auxiliary_fits
         if self.spec.prediction_policy != "default" or self.spec.fit_diagnostics != "none":
             self._fit_postprocessing(X, y, context)
