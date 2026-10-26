@@ -67,6 +67,7 @@ def run(out):
         source_hashes={str(p.relative_to(ROOT)):file_hash(p) for p in paths},data_hashes=dict(classification=d.source_hash),
         split_sha256=file_hash(out/'agent_split.npz'),original_agent_protocol=plan,templates=templates,
         seed=42,arm_wall_seconds=900,memory_mb=3072,threads=1,
+        control_status=dict(classification='previously viewed agent internal control; not an independent confirmation'),
         source_recipe='unchanged author-study fixed tree arm, fit-only grouped decision selection; only outer split replaced',
         control_previously_viewed=True,independent_confirmation=False,production_promotion=False,api_calls=0))
     atomic_json(directory/'request.json',dict(freeze=str(out/'freeze.json'),task='classification',arm='trees',phase='control'))
