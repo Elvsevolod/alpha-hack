@@ -38,7 +38,7 @@ def worker(out):
         assert all(s['feature_plan']==state['feature_plan'] and s['columns']==state['columns'] for s in states)
         assert states[1]['normal_index']==classes.index('Normal')
         X=refs.engineer(d.train,state['feature_plan'])
-        prepared.update(dataset=d,features=X,labels=y,classes=classes,templates=templates,feature_plan=state['feature_plan'])
+        prepared.update(dataset=d,features=X,labels=y,classes=classes,templates=templates,feature_plan=state['feature_plan'],feature_helper=refs)
         split=out/'agent_split.npz';assert file_hash(split)==freeze['split_sha256']
         with np.load(split) as values:
             np.savez_compressed(directory/'splits.npz',**{key:values[key] for key in ['fit','validation','control']})
@@ -54,7 +54,7 @@ def worker(out):
     d=prepared['dataset'];classes=prepared['classes'];target=d.task.targets[0]
     offsets=np.asarray(result['offsets']);assert len(offsets)==len(classes)
     model=study.Classical(prepared['templates'],classes,freeze['seed']).fit(prepared['features'],prepared['labels'])
-    test=study.references().engineer(d.test,prepared['feature_plan']);probabilities=model.predict(test)
+    test=prepared['feature_helper'].engineer(d.test,prepared['feature_plan']);probabilities=model.predict(test)
     assert probabilities.shape==(len(d.test),len(classes)) and np.isfinite(probabilities).all()
     np.testing.assert_allclose(probabilities.sum(axis=1),1.,atol=1e-6)
     model_path=out/'reference/full_refit.joblib';joblib.dump(model,model_path)
