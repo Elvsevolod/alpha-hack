@@ -317,7 +317,8 @@ class PipelineSpec(Contract):
         description="Explicit native CPU tree configurations. GBM n_estimators/num_iterations/num_boost_round are one round cap; conflicting values are rejected. GBM class_weight and CAT class_weights dictionaries are unsupported here; use direct/Optuna for external-label weights. Native CAT auto_class_weights remains supported.")
     custom_oof: bool = False
     neighbor_scale: Literal["standard", "robust", "none"] = "standard"
-    checkpoint_counts: list[int] = Field(default_factory=list, max_length=3)
+    checkpoint_counts: list[int] = Field(default_factory=list, max_length=3,
+        description="Fit-inner iteration selection for direct/Optuna LightGBM, XGBoost, CatBoost or histogram boosting only; unsupported for custom transformers and AutoML adapters.")
 
     def research_recipe(self):
         """Complete choices for a fresh fit, without reusing learned controller state."""

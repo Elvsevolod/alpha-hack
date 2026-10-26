@@ -157,6 +157,8 @@ def incompatibilities(spec, task, strategy=None, capabilities=None):
         reasons.append("shift_interventions_require_weight_compatible_direct_tabular_models_without_resampling")
     if spec.early_stopping_rounds and (spec.model not in {"lightgbm", "xgboost", "catboost", "hist_gradient_boosting"} or spec.engine not in {"direct", "optuna"}):
         reasons.append("early_stopping_requires_direct_or_optuna_boosting")
+    if spec.checkpoint_counts and (spec.model not in {"lightgbm", "xgboost", "catboost", "hist_gradient_boosting"} or spec.engine not in {"direct", "optuna"}):
+        reasons.append("checkpoint_selection_requires_direct_or_optuna_boosting")
     if spec.engine in {"flaml", "autogluon", "lightautoml"}:
         if spec.engine == "flaml" and spec.n_trials is not None and spec.n_trials < 2:
             reasons.append("flaml_replayable_search_requires_n_trials_at_least_two")
