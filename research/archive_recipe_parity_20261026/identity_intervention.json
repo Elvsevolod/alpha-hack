@@ -1,0 +1,22 @@
+{
+  "intervention": "v120 exact runtime with only feature_groups function replaced by exact v116 function",
+  "source_sha256": "e6ee4a10349bac1ca0f13eb0f4ae2536da6bef904a046e33dcb7d2f6fc364bdf",
+  "driver_sha256": "6834be891ca39c44cc0ef37e0c4c2cb1e1d8197ba72dcb41be7c6e488052a588",
+  "expected_falsification": "If only group-label ordering caused decision difference, complete labels and raw probabilities reproduce v116",
+  "full_fit_duplicate_relation_identical": true,
+  "changed_oof_heldout_rows_per_fold": [
+    24776,
+    24908,
+    24882
+  ],
+  "fit_rows": 56974,
+  "control_scored": false,
+  "validation_previously_viewed": true,
+  "api_calls": 0,
+  "not_production_patch": true,
+  "reason_not_revert": "v120 exact integer identity avoids float precision collisions; this is a diagnostic intervention",
+  "values_matches_v116_exactly": true,
+  "probabilities_matches_v116_exactly": true,
+  "score": 0.6493745054371524,
+  "worker_seconds_excludes_group_audit_and_startup": 63.2727649169974
+}

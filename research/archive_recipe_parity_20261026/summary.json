@@ -1,0 +1,195 @@
+{
+  "records": [
+    {
+      "version": "v101",
+      "recipe": "regression_log_fixed",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 7.757358375005424,
+      "peak_process_tree_rss_mib": 453.046875,
+      "child_cpu_seconds": 7.029591,
+      "score": 43.46946314296676,
+      "iterations": {
+        "site_eui": 1500
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v116",
+      "recipe": "regression_log_fixed",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 7.135838208996574,
+      "peak_process_tree_rss_mib": 511.703125,
+      "child_cpu_seconds": 6.677767000000001,
+      "score": 43.46946314296676,
+      "iterations": {
+        "site_eui": 1500
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v120",
+      "recipe": "regression_log_fixed",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 7.3360146670020185,
+      "peak_process_tree_rss_mib": 492.390625,
+      "child_cpu_seconds": 6.841115,
+      "score": 43.46946314296676,
+      "iterations": {
+        "site_eui": 1500
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v101",
+      "recipe": "regression_stopped",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 2.089887833004468,
+      "peak_process_tree_rss_mib": 517.875,
+      "child_cpu_seconds": 1.7928939999999984,
+      "score": 47.97868915495969,
+      "iterations": {
+        "site_eui": 27
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v116",
+      "recipe": "regression_stopped",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 1.73919991699222,
+      "peak_process_tree_rss_mib": 532.109375,
+      "child_cpu_seconds": 1.6416609999999976,
+      "score": 47.97868915495969,
+      "iterations": {
+        "site_eui": 27
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v120",
+      "recipe": "regression_stopped",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 1.7537117079918971,
+      "peak_process_tree_rss_mib": 515.8125,
+      "child_cpu_seconds": 1.646754,
+      "score": 47.97868915495969,
+      "iterations": {
+        "site_eui": 27
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v101",
+      "recipe": "classification_offsets",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 58.04257566599699,
+      "peak_process_tree_rss_mib": 544.90625,
+      "child_cpu_seconds": 57.619485000000005,
+      "score": 0.6493745054371524,
+      "iterations": {
+        "attack_cat": 300
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v116",
+      "recipe": "classification_offsets",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 58.48922333399241,
+      "peak_process_tree_rss_mib": 508.265625,
+      "child_cpu_seconds": 57.60942,
+      "score": 0.6493745054371524,
+      "iterations": {
+        "attack_cat": 300
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    },
+    {
+      "version": "v120",
+      "recipe": "classification_offsets",
+      "returncode": 0,
+      "stop": null,
+      "cold_wall_seconds": 59.232987291994505,
+      "peak_process_tree_rss_mib": 524.59375,
+      "child_cpu_seconds": 58.365776,
+      "score": 0.6429133913925417,
+      "iterations": {
+        "attack_cat": 300
+      },
+      "serialized_prediction_identity": true,
+      "independent_metric_recomputed": true
+    }
+  ],
+  "parity": [
+    {
+      "recipe": "regression_log_fixed",
+      "comparison": "v101 vs v116",
+      "values_exactly_equal": true,
+      "values_max_abs_delta": 0.0
+    },
+    {
+      "recipe": "regression_log_fixed",
+      "comparison": "v101 vs v120",
+      "values_exactly_equal": true,
+      "values_max_abs_delta": 0.0
+    },
+    {
+      "recipe": "regression_stopped",
+      "comparison": "v101 vs v116",
+      "values_exactly_equal": true,
+      "values_max_abs_delta": 0.0
+    },
+    {
+      "recipe": "regression_stopped",
+      "comparison": "v101 vs v120",
+      "values_exactly_equal": true,
+      "values_max_abs_delta": 0.0
+    },
+    {
+      "recipe": "classification_offsets",
+      "comparison": "v101 vs v116",
+      "values_exactly_equal": true,
+      "probabilities_exactly_equal": true,
+      "probabilities_max_abs_delta": 0.0
+    },
+    {
+      "recipe": "classification_offsets",
+      "comparison": "v101 vs v120",
+      "values_exactly_equal": false,
+      "probabilities_exactly_equal": true,
+      "probabilities_max_abs_delta": 0.0
+    }
+  ],
+  "classification_changed_labels_v101_v120": 290,
+  "api_calls": 0,
+  "control_scored": false,
+  "validation_previously_viewed": true,
+  "independent_transfer": false,
+  "sources_unchanged": true,
+  "driver_sha256": "664f5713dcac19ff3a739d329c1a4df51132be1dc2316f6aecea32446db080ea",
+  "first_attempt": {
+    "path": "outputs/archive_recipe_parity_20261026",
+    "status": "parent monitor permission failure; own worker terminated",
+    "cost_not_measured": true,
+    "model_outcome": "unknown; no worker result"
+  },
+  "total_successful_worker_wall_seconds": 203.5767970009765,
+  "total_successful_child_cpu_seconds": 199.224463,
+  "cost_scope": "fresh fit/development prediction/serialization only; no full-train refit, no Qwen agent"
+}

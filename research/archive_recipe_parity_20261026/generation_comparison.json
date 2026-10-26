@@ -1,0 +1,40 @@
+{
+  "v101": {
+    "generation": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "repetition_penalty": 1.0
+    },
+    "prompt_version": "legacy_inline"
+  },
+  "v116": {
+    "generation": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "repetition_penalty": 1.0
+    },
+    "prompt_version": 7,
+    "sections_sha256": "13e1beb0dc2fad2d53316fd05b21a02a6d82bba064900324298b68a922e70499"
+  },
+  "v120": {
+    "generation": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "repetition_penalty": 1.0
+    },
+    "prompt_version": 8,
+    "sections_sha256": "13e1beb0dc2fad2d53316fd05b21a02a6d82bba064900324298b68a922e70499"
+  }
+}
