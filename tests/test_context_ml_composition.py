@@ -68,7 +68,8 @@ def test_parameter_repair_reaches_weighted_catboost_worker_and_final_csv(tmp_pat
         assert 'accepted_parameter_names' in json.dumps(requests[1]['messages'])
         assert 'PRIVATE_WEIGHT_SENTINEL' not in json.dumps(requests[1]['messages'])
         assert c.journal.operation('wrong_name') is None
-        assert c.prompt_contract['version'] == 6
+        from automl_agent.prompting import PROMPT_VERSION
+        assert c.prompt_contract['version'] == PROMPT_VERSION
         assert report['state'] == 'completed' and report['refit_status'] == 'completed', report
         csv = pd.read_csv(c.publisher.output, dtype={'row':str})
         assert list(csv) == ['row', 'answer'] and len(csv) == 25

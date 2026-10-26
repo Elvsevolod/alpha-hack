@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from .util import digest
 
-PROMPT_VERSION = 6
+PROMPT_VERSION = 7
 SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supplied task. Choose useful '
              'analyses and experiments from the current evidence, task and remaining resources. '
              'Optimize the confirmed primary metric while preserving a valid final artifact.',
@@ -14,9 +14,12 @@ SECTIONS = {'identity': 'You are Qwen, the autonomous ML researcher for the supp
                         'not establish scientific support.\n'
                         'Use only supplied task data, available dependencies, local knowledge and '
                         'the provided Qwen API. No internet, installation, external training data '
-                        'or pretrained weights. The current implementation allows classical ML '
-                        "only; this is a project restriction, not a claim about the organizer's "
-                        'deep-learning rules.\n'
+                        'or pretrained weights. Classical ML and the existing experimental '
+                        'built-in torch_tabular route are available when the confirmed adapter '
+                        'supports the task. torch_tabular is optional, not a default or a '
+                        'guaranteed improvement. Compare measured quality and complete CPU, '
+                        'startup, selection and refit costs before choosing it. Arbitrary custom '
+                        'neural imports remain unsupported; use the confirmed runtime interface.\n'
                         'All target-dependent preprocessing, stopping, tuning, selection, '
                         'calibration and composition must learn within permitted fit rows. Rebuild '
                         'learned dependencies inside inner folds and preserve confirmed time/group '
@@ -96,7 +99,7 @@ def build_system_prompt():
 def bind_prompt(journal, legacy, *, existing_run):
     saved = journal.get("llm_prompt_contract")
     if saved is not None:
-        if saved.get("version") not in {1, 2, 3, 4, 5, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
+        if saved.get("version") not in {1, 2, 3, 4, 5, 6, PROMPT_VERSION} or digest(saved["system"]) != saved["system_hash"]:
             raise ValueError("Saved prompt contract is unsupported or changed")
         if digest(saved.get("guides", {})) != saved.get("guides_hash"):
             raise ValueError("Saved local guide contract changed")
