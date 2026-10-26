@@ -69,12 +69,12 @@ def test_singleton_class_rejected_before_native_predictor_construction(tabular,t
     assert not called
 
 
-def test_new_refit_class_is_rejected_before_native_fit_and_preserves_original(tabular,tmp_path,monkeypatch):
+def test_undeclared_refit_class_is_rejected_before_native_fit_and_preserves_original(tabular,tmp_path,monkeypatch):
     pytest.importorskip('autogluon.tabular')
     from autogluon.tabular.models.lgb.lgb_model import LGBModel
     X,y,task=tabular
     y['answer']=np.where(np.arange(len(y))%2,'A','B');y.iloc[140:,0]='rare'
-    task=task.model_copy(update={'kind':'classification','classes':{'answer':['A','B','rare']},
+    task=task.model_copy(update={'kind':'classification','classes':{'answer':['A','B']},
         'metric':MetricSpec(name='f1',average='macro'),'output':OutputSpec(columns=['answer'],prediction_type='labels')})
     calls=[];original=LGBModel._fit
     def observe(self,X,y,*args,**kwargs):
@@ -88,7 +88,7 @@ def test_new_refit_class_is_rejected_before_native_fit_and_preserves_original(ta
     model=SearchPipeline(spec,task);model.fit(X.iloc[:140],y.iloc[:140],context)
     predictor=model.models['answer'][1]
     names=predictor.model_names();before=model.predict(X.iloc[:8],context).values
-    with pytest.raises(ValueError,match='cannot encode a permitted refit class'):
+    with pytest.raises(ValueError,match='outside the confirmed class space'):
         model.refit(X,y,context)
     assert len(calls)==2 and all(item['missing_labels']==0 for item in calls)
     assert model.models['answer'][1] is predictor and predictor.model_names()==names

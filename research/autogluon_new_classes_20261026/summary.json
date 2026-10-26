@@ -1,0 +1,1847 @@
+{
+  "before_commit": "c3dd3009f496c9f8c3a37efb9ea1e1335ee70c64",
+  "before_search_sha256": "3c151090d2636b9e3366c9c92f40f797b4ce3788649ff82243246402e3479641",
+  "scope": "Native declared-class refit and guarded worker/Publisher correctness on synthetic data; not organizer quality or live autonomy",
+  "api_calls": 0,
+  "registry_version": 7,
+  "checks": [
+    {
+      "path": "outputs/autogluon_new_classes_20261026/after.xml",
+      "sha256": "c1aebc6d3d5e7a21a2f62a70f5d01e76a635dc45c9111cb13f05f26514d35a3e",
+      "counts": {
+        "tests": 3,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/after_v2.xml",
+      "sha256": "ede84d9c3be0d932427a85496d905a0e97e7dbd0eb1364e763ca72abc7e54b41",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/before.xml",
+      "sha256": "4be2c3c7ec1598aa8975400c53e51ce7b4a449e1687ac0334abceea003b0ffde",
+      "counts": {
+        "tests": 3,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/expanded.xml",
+      "sha256": "0a67b51a20dcb4c6c55a459b10fd5355762e8d91af826d0374d013dfc8f5c692",
+      "counts": {
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/final.xml",
+      "sha256": "fb1ca6887ff5c906eb62f31456b586ee6873f74d3fa4eab8e4e9829a201ed297",
+      "counts": {
+        "tests": 49,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/final_main.xml",
+      "sha256": "3a89400d87209785278b8bf47bf5f46fd5d034d2f79b839c1d2acfc6e1f631f5",
+      "counts": {
+        "tests": 46,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/worker.xml",
+      "sha256": "26e877f85f5d06d6cf29c648b94175759565da3cd237535d8944a375a633d4da",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/worker_final.xml",
+      "sha256": "5bef4ef98bdb21dd990d57d1fdd00c491adc67aff465fe6549215c9c04b6172c",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_new_classes_20261026/worker_final_v2.xml",
+      "sha256": "aa6cff42314e5e672c41cc7da039fe137c8d3983f2cceb40e61609c365dcc18f",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "native_fits": {
+    "after.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM]": [
+      {
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "after.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT]": [
+      {
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "after_v2.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "after_v2.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "after_v2.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "expanded.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-2]": [
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[GBM-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "num_boost_round": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-False-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 5
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[CAT-True-3]": [
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {
+          "iterations": 1
+        },
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-False-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-2]": [
+      {
+        "actual_rounds": 5,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 1
+        },
+        "rows": 100,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 2,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ],
+    "final_main.xml:test_declared_new_class_rebuilds_label_space_with_one_fixed_fit[XGB-True-3]": [
+      {
+        "actual_rounds": 5,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {
+          "n_estimators": 2
+        },
+        "rows": 98,
+        "validation": true
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 3,
+        "missing": 0,
+        "rounds": {},
+        "rows": 140,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      },
+      {
+        "actual_rounds": 2,
+        "classes": 4,
+        "missing": 0,
+        "rounds": {},
+        "rows": 180,
+        "validation": false
+      }
+    ]
+  },
+  "worker_measurements": {
+    "final.xml:test_class_expansion_survives_guarded_worker_and_csv[GBM]": {
+      "wall_seconds": 1.2552136250014883,
+      "peak_memory_mb": 188.109375,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "final.xml:test_class_expansion_survives_guarded_worker_and_csv[CAT]": {
+      "wall_seconds": 1.2101434159994824,
+      "peak_memory_mb": 192.15625,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "final.xml:test_class_expansion_survives_guarded_worker_and_csv[XGB]": {
+      "wall_seconds": 1.150311416000477,
+      "peak_memory_mb": 181.65625,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker.xml:test_class_expansion_survives_guarded_worker_and_csv[GBM]": {
+      "wall_seconds": 1.25329212500219,
+      "peak_memory_mb": 190.421875,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker.xml:test_class_expansion_survives_guarded_worker_and_csv[CAT]": {
+      "wall_seconds": 1.2494850420043804,
+      "peak_memory_mb": 195.9375,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker.xml:test_class_expansion_survives_guarded_worker_and_csv[XGB]": {
+      "wall_seconds": 1.2027360830034013,
+      "peak_memory_mb": 185.84375,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final.xml:test_class_expansion_survives_guarded_worker_and_csv[GBM]": {
+      "wall_seconds": 1.2045740829998977,
+      "peak_memory_mb": 191.203125,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final.xml:test_class_expansion_survives_guarded_worker_and_csv[CAT]": {
+      "wall_seconds": 1.2975011660018936,
+      "peak_memory_mb": 197.53125,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final.xml:test_class_expansion_survives_guarded_worker_and_csv[XGB]": {
+      "wall_seconds": 1.1503328339967993,
+      "peak_memory_mb": 187.515625,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final_v2.xml:test_class_expansion_survives_guarded_worker_and_csv[GBM]": {
+      "wall_seconds": 1.2544450000059442,
+      "peak_memory_mb": 197.546875,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final_v2.xml:test_class_expansion_survives_guarded_worker_and_csv[CAT]": {
+      "wall_seconds": 1.210243832996639,
+      "peak_memory_mb": 194.671875,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "worker_final_v2.xml:test_class_expansion_survives_guarded_worker_and_csv[XGB]": {
+      "wall_seconds": 1.1476820829993812,
+      "peak_memory_mb": 184.109375,
+      "fit_rows": 180,
+      "serialization_verified": true
+    }
+  },
+  "source_sha256": {
+    "automl_agent/autogluon_class_refit.py": "462c5454e10ec8c7c2f7c0b27225fa4527dc83e5c6d5e0d60537024531a005fb",
+    "automl_agent/search.py": "f8a76607df51db109e702d6e0165549b48c7279e6241b8801da61536277c0e3d",
+    "automl_agent/contracts.py": "30f9a7abeeac2a8b0275e574d7188f83ad7bca2170ee6cc5338a4933d0cb2b9e",
+    "automl_agent/compatibility.py": "dba2ccd4397bd920492893bc15fd75ca53000b3bbccef6f0a303fec2ff6369dd",
+    "tests/test_autogluon_new_class_refit.py": "eb0d2ffa7b42fc4e8bd1c1383db4e0d9f900ecde54b7aec83eab76d9964f112e",
+    "tests/test_autogluon_class_refit_worker.py": "595509a8a2454f82f78f214d6a3f6e9db2ee4234769f6eab948504bb695bd1d2",
+    "tests/test_autogluon_rare_class_retention.py": "f7638ab4a92ca705dbf15cb4c176643093b0b597f50d1b362e161d348ac32ab1"
+  },
+  "backend_source_sha256": {
+    "autogluon/core/models/abstract/abstract_model.py": "cb641f9fa585719e4ff8a744cdc28509b6d8fb783cfb8fb2a037e33332d2eb37",
+    "autogluon/core/data/label_cleaner.py": "ae05c5202b37a0d9646a09674a88708e1faf71268dda67094c300902706348f4",
+    "autogluon/tabular/models/lgb/lgb_model.py": "c820aba3a0fefafc90485401a30f639ec5216c0a798919125744dc2eb3e0a903",
+    "autogluon/tabular/models/catboost/catboost_model.py": "0efeb65c3b89fec16f53de71798d601ee57f17646860319a15aebee173709e75",
+    "autogluon/tabular/models/xgboost/xgboost_model.py": "fc71707c46c08340a594450493d1d52ec5d754172e0bfaac19def3edaac960fb"
+  },
+  "setup": {
+    "isolated_worker_environment": "outputs/ag_worker_env",
+    "trusted_dependency_overlay_registered_for_isolated_python": true,
+    "production_access_policy_changed": false,
+    "original_venv_changed": false,
+    "official_contest_environment": false
+  },
+  "intermediate_failures": {
+    "before.xml": "Original guard rejected declared class expansion for all three learners.",
+    "after.xml": "XGB fit without validation does not populate params_trained; fixed by measuring booster rounds directly.",
+    "final.xml": "Two existing HTTP fixtures launched direct workers in overlay venv without off-prefix library read roots; permission guard correctly rejected library reads. Rechecked main suite in original venv and worker suite in explicit overlay."
+  },
+  "limits": [
+    "Observed only small synthetic workloads; class-head cost forecast at scale remains unverified.",
+    "Explicit parameter combinations incompatible with the new class count remain errors.",
+    "No live Qwen decision or independent organizer control.",
+    "No certified migration of old alias-trained artifacts."
+  ],
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false
+}

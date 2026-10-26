@@ -527,6 +527,22 @@ class SearchPipeline:
         frozen = self.selected[target]
         loaded = self.models[target][1]
         selected = frozen["model"]
+        from .autogluon_class_refit import AutoGluonClassRefit
+        expanded = isinstance(loaded, AutoGluonClassRefit)
+        labels = None if expanded else loaded.transform_labels(y[target])
+        if expanded or self.task.classes and labels.isna().any():
+            self.selection_refit_serial = getattr(self, "selection_refit_serial", 0) + 1
+            path = Path(context["workdir"]) / f"autogluon_{target}_classes_{self.selection_refit_serial}"
+            source = loaded.native_model if expanded else loaded._trainer.load_model(selected)
+            generator = loaded.feature_generator if expanded else loaded._learner.feature_generator
+            rebuilt = AutoGluonClassRefit.build(source, generator, X[self.raw_feature_columns],
+                y[target], self.task, target, context, path)
+            frozen.update(path=str(path), refitted_model=rebuilt.native_model.name,
+                full_refit_rows=len(X), class_space=list(rebuilt.cleaner.ordered_class_labels),
+                frozen_iterations=dict(rebuilt.native_model.params_trained),
+                refit_policy="frozen_native_parameters_iterations_features_rebuilt_declared_labels")
+            self.models[target] = ("autogluon", rebuilt)
+            return
         if selected not in loaded.model_names():
             # v090 replaced the original predictor during refit. Its current
             # measured model still identifies the frozen parent to preserve.
@@ -582,7 +598,9 @@ class SearchPipeline:
                             raise ValueError("Frozen AutoGluon class order differs across members")
                         raw = sum(weight * frame.to_numpy() for weight, frame in frames) / sum(weights.values())
                     else:
-                        raw_frame = model.predict_proba(X, as_pandas=True, as_multiclass=True)
+                        from .autogluon_class_refit import AutoGluonClassRefit
+                        options = {"num_cpus": context["cpu"]} if isinstance(model, AutoGluonClassRefit) else {}
+                        raw_frame = model.predict_proba(X, as_pandas=True, as_multiclass=True, **options)
                         labels, raw = list(raw_frame), raw_frame.to_numpy()
                 arr = np.zeros((len(X), len(self.task.classes[target])))
                 for i, label in enumerate(labels):

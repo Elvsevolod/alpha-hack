@@ -20,7 +20,7 @@
 
 [AutoGluon: выбранные и фактические раунды](docs/research/2026-10-26-autogluon-iteration-alias.md): alias n_estimators перекрывал остановку 1 раунд и давал refit 30; исправлена native-нормализация, проверены три alias, regression/Macro F1 и bagging/stacking.
 
-[AutoGluon и редкие классы](docs/research/2026-10-26-autogluon-rare-classes.md): подтверждено скрытое удаление rare-класса и строк при Macro F1/full refit; настроено сохранение наблюдавшихся классов, проверены native selection/bagging/stacking. Новый класс только при frozen selection refit пока требует отдельного решения.
+[AutoGluon и редкие классы](docs/research/2026-10-26-autogluon-rare-classes.md): подтверждено скрытое удаление rare-класса и строк при Macro F1/full refit; настроено сохранение наблюдавшихся классов, проверены native selection/bagging/stacking. Продолжение для нового класса — [обучение фиксированного native-рецепта без нового поиска](docs/research/2026-10-26-autogluon-new-class-refit.md).
 
 ## Интеграция знаний в v043 — 23 октября 2026 года
 
