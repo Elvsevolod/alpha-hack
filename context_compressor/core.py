@@ -90,7 +90,7 @@ def _task_projection(task, task_hash):
 def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, policy_flags: dict,
               data_hash: str, protocol_hash: str, environment_hash: str, deadline_epoch: float,
               reserve_seconds: float, cpu: int, memory_mib: int, counters: dict[str, int],
-              work: dict | None = None, profile: dict | None = None):
+              work: dict | None = None, profile: dict | None = None, budget_state: dict | None = None):
     """Controller-only state publication. Never call with model-supplied facts.
 
     Full TaskSpec validation and policy enforcement remain the executor's job.
@@ -165,6 +165,10 @@ def configure(store: ContextStore, *, run_id: str, task: dict, policies: dict, p
     resources = {"flags": policy_flags, "policy": read_ref("policies", policy_hash, "policy"),
                  "cpu": cpu, "memory_mib": memory_mib, "deadline_epoch": deadline_epoch,
                  "reserve_seconds": reserve_seconds, "counters": dict(counters)}
+    if budget_state is not None:
+        if not isinstance(budget_state, dict) or size(budget_state) > 1024:
+            raise ContextError("Resource budget must be bounded controller JSON")
+        resources["budget"] = budget_state
     for key in ("validation_strategy", "selection", "feedback", "budget_mode", "training_seed", "model_response_limit_seconds"):
         if key in policies:
             value = policies[key]

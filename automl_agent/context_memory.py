@@ -434,11 +434,12 @@ class ContextMemory:
         flags = {**REQUIRED_FLAGS, "stagnation": c.budget.counter("stagnation_count"),
             "unproductive_reads": c.budget.counter("unproductive_reads"),
             "model_imputation_attempted": c.journal.get("model_imputation_attempted", False)}
+        from .decision_context import resource_budget
         configure(self.store, run_id=c.run_id, task=c.task.model_dump(mode="json"), policies=policies,
             policy_flags=flags, data_hash=c.dataset.source_hash, protocol_hash=c.plan.hash,
             environment_hash=digest(c.capabilities.versions), deadline_epoch=c.budget.deadline,
             reserve_seconds=reserve, cpu=c.executor.cpu, memory_mib=int(c.executor.memory_mb),
-            counters=counters, work=work, profile=profile)
+            counters=counters, work=work, profile=profile, budget_state=resource_budget(c))
         if c.research_focus:
             system += "\nDevelopment objective, subject to all fixed contracts and permissions: " + canonical(c.research_focus)
         transport = Transport(system=system, tool_schemas={k: {**public_tool_schema(v), "description": TOOL_DESCRIPTIONS[k]} for k, v in TOOL_SCHEMAS.items()},

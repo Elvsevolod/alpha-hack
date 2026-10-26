@@ -6,6 +6,26 @@ from .util import canonical, digest, utf8_short
 from .tool_results import payload
 
 
+def resource_budget(c):
+    """Paid-call facts at snapshot time, before the pending generation is charged."""
+    from .critic import EXPENSIVE_SECONDS
+    remaining = c.budget.snapshot()
+    calls = remaining["qwen_calls"]
+    candidates = remaining["candidates"]
+    return {"local_qwen_calls_limit": c.budget.limits.max_calls,
+        "qwen_calls_remaining_at_snapshot": None if calls is None else max(0, calls),
+        "qwen_calls_remaining_after_one_generation": None if calls is None else max(0, calls - 1),
+        "local_candidate_limit": c.budget.limits.max_candidates,
+        "candidates_remaining": None if candidates is None else max(0, candidates),
+        "local_qwen_seconds_limit": c.budget.limits.max_llm_seconds,
+        "qwen_seconds_used": remaining["llm_seconds_used"],
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_disabled": bool(getattr(c, "no_llm", False) or getattr(c.qwen, "disabled", False)),
+        "critic_measured_threshold_seconds": EXPENSIVE_SECONDS,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."}
+
+
 def bounded_read_route(c, store, source, component):
     """Use existing record pagination for v4; retain old byte routes for old runs."""
     route = store.put_source(source)

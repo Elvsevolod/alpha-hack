@@ -1,0 +1,116 @@
+{
+  "baseline_commit": "4c394191a81e095c7baeffa7d8e167d5d866fa37",
+  "observed_live_commit": "0b598ad",
+  "observed_live_result": "research/agent_autonomy_postfix_20261026/summary.json",
+  "observed_wire": [
+    {
+      "call_id": 1,
+      "calls_counter": 0,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    },
+    {
+      "call_id": 2,
+      "calls_counter": 1,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    },
+    {
+      "call_id": 3,
+      "calls_counter": 2,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    },
+    {
+      "call_id": 4,
+      "calls_counter": 3,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    },
+    {
+      "call_id": 5,
+      "calls_counter": 4,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    },
+    {
+      "call_id": 6,
+      "calls_counter": 5,
+      "candidates_counter": 0,
+      "budget_in_core": false,
+      "max_calls_in_messages": false,
+      "qwen_calls_in_messages": false
+    }
+  ],
+  "new_real_api_calls": 0,
+  "autonomous_improvement_verified": false,
+  "metric_gain_claimed": false,
+  "verification_status": "passed",
+  "checks": {
+    "before": {
+      "tests": 4,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 19.142,
+      "xml_sha256": "a9ec0e86436680e456f0ac3e63f893b7f2b33aa3b6fd7783dde7e943e6e56e12"
+    },
+    "related": {
+      "tests": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 206.519,
+      "xml_sha256": "09ec0d72072cd11d577a69a613f8db7a72bd3425378c012b6c34dede2f1f7c89"
+    },
+    "focused_final": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 27.91,
+      "xml_sha256": "5719391551d108a21a856cdc1b70034365d20566c3f45563271897eccdafa200"
+    }
+  },
+  "checks_overlap_not_summed": true,
+  "last_call_fixture_projection": {
+    "local_qwen_calls_limit": 6,
+    "qwen_calls_remaining_at_snapshot": 1,
+    "qwen_calls_remaining_after_one_generation": 0,
+    "local_candidate_limit": 2,
+    "candidates_remaining": 1,
+    "local_qwen_seconds_limit": 90,
+    "qwen_seconds_used": 31.5,
+    "critic_call_cost_if_required_and_uncached": 1,
+    "critic_disabled": false,
+    "critic_measured_threshold_seconds": 120,
+    "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+    "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+  },
+  "example_bytes": 624,
+  "source_sha256": {
+    "automl_agent/decision_context.py": "0764f89a9b89eac121fba46bb022e9bdaf942702fec3124b72326d6d62d05552",
+    "automl_agent/context_memory.py": "98562883380b2359d2b7b1924004a96c2c55c62078f439f768592615ab25993d",
+    "context_compressor/core.py": "598936613a1ce3c8dd855af3c3c71f8c5fb91a5a693601a3f86419cffca0147f",
+    "tests/test_context_resource_budget.py": "32f2af36550feba246f44fc3f7966f609e34e1c5635846bcd4eb11fc26a8ed39"
+  },
+  "limitations": [
+    "Budget facts are bound to the immutable decision snapshot; transport retries consume additional calls",
+    "No new live Qwen run, no organizer metric measurement, no official Linux 8 CPU/32 GB/3 h certification"
+  ],
+  "owning_baseline_sources_match_observed_live_sources": {
+    "automl_agent/decision_context.py": true,
+    "automl_agent/context_memory.py": true,
+    "context_compressor/core.py": true
+  }
+}
