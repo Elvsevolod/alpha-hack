@@ -72,7 +72,7 @@ def candidate_measured_cost(summary, seconds, rows, default_rows, pipeline):
 
 def estimate(controller, identifiers, rows=None, phase=None):
     from .contracts import PipelineSpec
-    from .cost_model import iteration_multiplier
+    from .cost_model import iteration_multiplier, class_work_factors
     c = controller
     rows = c.plan.fit if rows is None else rows
     row_hash = digest([c.dataset.row_keys[i] for i in rows])
@@ -115,6 +115,7 @@ def estimate(controller, identifiers, rows=None, phase=None):
         nodes.append({"experiment_id": identifier, "seconds": costs[identifier], "rows": len(rows),
             "row_hash": row_hash, "pipeline_hash": pipeline_hash, "ready": ready, "disk_bytes": size,
             "iteration_multiplier": iteration_multiplier(pipeline, len(rows), training_rows),
+            "class_work_factors": class_work_factors(result.training_summary, pipeline),
             "initial_uncertainty_multiplier": 1.25})
         if not ready:
             disk += int(size * max(1, len(rows) / training_rows))

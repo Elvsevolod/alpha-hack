@@ -152,6 +152,18 @@ def verify_autogluon_classes(predictor, task, labels):
         raise ValueError("AutoGluon changed the observed class vocabulary; this fit cannot be reported as preserving all permitted rows")
 
 
+def autogluon_class_work(task, y, models):
+    if not task.classes:
+        return {}
+    targets = {target: {"observed_classes": int(y[target].nunique()),
+        "declared_classes": len(task.classes[target])} for target in task.targets
+        if models[target][0] == "autogluon"}
+    if not targets:
+        return {}
+    return {"version": 1, "engine": "autogluon", "scope": "fit_observed_to_declared_class_space",
+        "targets": targets}
+
+
 class SearchPipeline:
     def __init__(self, spec, task):
         self.spec, self.task = spec, task
@@ -201,6 +213,8 @@ class SearchPipeline:
                 model.fit(X, y[[target]], context)
                 self.models[target] = ("constant", model)
                 self.selected[target] = {"model": "constant"}
+                self.training_keys = list(map(str, X.index))
+                self.budget_evidence["selected_fit_rows"] = len(X)
             else:
                 if allocation < .2:
                     raise ValueError("AutoML phase reserves exceed the allocated budget; increase this candidate's budget or use a cheaper configuration")
@@ -208,6 +222,8 @@ class SearchPipeline:
                     self._fit_flaml(target, X, y, fit, val, context, allocation)
                 else:
                     self._fit_autogluon(target, X, y, fit, val, context, allocation)
+        if self.spec.engine == "autogluon" and self.task.classes:
+            self.budget_evidence["class_work"] = autogluon_class_work(self.task, y, self.models)
         self.summary = TrainingSummary(rows=len(X), seconds=time.monotonic() - started,
             selected_parameters=self.selected, inner_scores={"scores": self.inner_scores, "split": self.inner_split},
             imputation={"implementation": "engine_native_inside_inner_fit", "scope": "fit_only"},
@@ -641,8 +657,11 @@ class SearchPipeline:
                 continue
             self.models[target] = (engine, model)
         self.training_keys = list(map(str, X.index))
-        return TrainingSummary(rows=len(X), seconds=time.monotonic() - started, selected_parameters=self.selected,
-            inner_scores={"scope": "frozen_refit_no_search"}, imputation={"scope": "allowed_rows_only"})
+        self.summary = TrainingSummary(rows=len(X), seconds=time.monotonic() - started, selected_parameters=self.selected,
+            inner_scores={"scope": "frozen_refit_no_search"}, imputation={"scope": "allowed_rows_only"},
+            budget={"class_work": autogluon_class_work(self.task, y, self.models)}
+                if self.spec.engine == "autogluon" and self.task.classes else {})
+        return self.summary
 
     def frozen_spec(self):
         return self.frozen if hasattr(self, "frozen") else self.spec

@@ -1,0 +1,117 @@
+{
+  "api_calls": 0,
+  "cases": [
+    {
+      "classes": 2,
+      "family": "XGB",
+      "repeat": 1
+    },
+    {
+      "classes": 2,
+      "family": "XGB",
+      "repeat": 0
+    },
+    {
+      "classes": 10,
+      "family": "GBM",
+      "repeat": 0
+    },
+    {
+      "classes": 3,
+      "family": "CAT",
+      "repeat": 1
+    },
+    {
+      "classes": 10,
+      "family": "GBM",
+      "repeat": 1
+    },
+    {
+      "classes": 2,
+      "family": "CAT",
+      "repeat": 1
+    },
+    {
+      "classes": 10,
+      "family": "XGB",
+      "repeat": 0
+    },
+    {
+      "classes": 2,
+      "family": "CAT",
+      "repeat": 0
+    },
+    {
+      "classes": 10,
+      "family": "CAT",
+      "repeat": 0
+    },
+    {
+      "classes": 3,
+      "family": "XGB",
+      "repeat": 1
+    },
+    {
+      "classes": 2,
+      "family": "GBM",
+      "repeat": 1
+    },
+    {
+      "classes": 10,
+      "family": "CAT",
+      "repeat": 1
+    },
+    {
+      "classes": 3,
+      "family": "GBM",
+      "repeat": 0
+    },
+    {
+      "classes": 3,
+      "family": "XGB",
+      "repeat": 0
+    },
+    {
+      "classes": 10,
+      "family": "XGB",
+      "repeat": 1
+    },
+    {
+      "classes": 3,
+      "family": "CAT",
+      "repeat": 0
+    },
+    {
+      "classes": 2,
+      "family": "GBM",
+      "repeat": 0
+    },
+    {
+      "classes": 3,
+      "family": "GBM",
+      "repeat": 1
+    }
+  ],
+  "commit": "54ac52f9b7823568218847e6fb1b6081a7427c59",
+  "cpu": 1,
+  "features": 12,
+  "quality_benchmark": false,
+  "rounds": 32,
+  "rows": 10000,
+  "scope": "fixed native work; fresh process per case; repetitions do not constitute independent task confirmation",
+  "seed": 42,
+  "source_sha256": {
+    "automl_agent/cost_model.py": "01bd4c1b3fbb0385bde2523826d71ad4e3f171d03d479f86cdfc0295ff8574c2",
+    "automl_agent/search.py": "f8a76607df51db109e702d6e0165549b48c7279e6241b8801da61536277c0e3d",
+    "tools/probe_native_class_cost.py": "c0564d7a5a08356402c2fac70a9adf4b14445c8b286da2a759bca6724f0ebd59"
+  },
+  "versions": {
+    "autogluon.core": "1.3.1",
+    "autogluon.tabular": "1.3.1",
+    "catboost": "1.2.8",
+    "lightgbm": "4.6.0",
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "xgboost": "2.1.4"
+  }
+}

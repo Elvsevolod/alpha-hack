@@ -64,6 +64,38 @@ def iteration_multiplier(pipeline, rows, observed_rows):
         max(1, refit_iterations(spec, count, observed_rows, 'refit')) for count in schedule if count] or [1.])
 
 
+def class_work_factors(summary, pipeline=None):
+    """Conservative native output work, not a measured time multiplier.
+
+    Binary CPU trees use one output; multiclass trees/leaf vectors use K.
+    Counts come only from fitted rows and the already-confirmed class space.
+    No validation/control labels are read by the forecast.
+    """
+    neutral = {"fit": 1., "model": 1., "basis": "no_class_work_metadata"}
+    engine = pipeline.get("engine") if isinstance(pipeline, dict) else getattr(pipeline, "engine", None)
+    budget = summary.get('budget') or {}
+    work = budget.get('class_work')
+    if not work or engine not in (None, 'autogluon'):
+        return neutral
+    if (work.get('version') != 1 or work.get('engine') != 'autogluon'
+            or work.get('scope') != 'fit_observed_to_declared_class_space' or not work.get('targets')):
+        raise ValueError('Unsupported class-work forecast metadata')
+    factors, weights = [], []
+    timings = budget.get('targets') or {}
+    for target, counts in work['targets'].items():
+        observed, declared = counts.get('observed_classes'), counts.get('declared_classes')
+        if type(observed) is not int or type(declared) is not int or not 1 <= observed <= declared:
+            raise ValueError('Invalid class counts in completion forecast')
+        units = lambda k: k if k > 2 else 1
+        factors.append(units(declared) / units(observed))
+        weights.append(float(timings.get(target, {}).get('selected_fit_actual_seconds', 0)))
+    if any(not math.isfinite(w) or w < 0 for w in weights):
+        raise ValueError('Invalid class-work fit timing')
+    maximum = max(factors)
+    fit = sum(f*w for f,w in zip(factors,weights))/sum(weights) if all(w > 0 for w in weights) else maximum
+    return {"fit": fit, "model": maximum, "basis": "native_output_work_conservative_not_calibrated_time"}
+
+
 def phase_forecast(summary, seconds, rows, default_rows, ensemble=False, pipeline=None):
     seconds = max(0., seconds - sum(summary.get(name, 0) for name in
         ('research_stability_seconds', 'research_oof_seconds', 'research_review_seconds', 'research_comparison_seconds')))
@@ -82,33 +114,35 @@ def phase_forecast(summary, seconds, rows, default_rows, ensemble=False, pipelin
             iteration_recipe = iteration_recipe.model_copy(update={'iteration_scale_rows':training_rows,
                 'iteration_schedule':{key:value for key,value in budget['iteration_schedule'].items() if value}})
     iterations = iteration_multiplier(iteration_recipe, rows, training_rows)
+    class_work = class_work_factors(summary, pipeline)
     multiplier = 1.25
-    selected = budget.get('selected_fit_actual_seconds') is not None or bool(budget.get('targets'))
+    selected = budget.get('selected_fit_actual_seconds') is not None or bool(budget.get('targets')) or bool(budget.get('class_work'))
     if not curve and not all(name in phases for name in ('fit_seconds','load_and_construct_seconds','save_load_seconds','predict_and_verify_seconds')):
         base = max(.1 if ensemble else .2, seconds)
         if selected:
             overhead = max(.2, seconds-summary.get('seconds',0)-summary.get('automatic_pilot_seconds',0))
-            base = max(.2, fit * iterations + repeatable + overhead)
+            base = max(.2, fit * iterations * class_work['fit'] + repeatable * class_work['model'] + overhead)
         return (base * max(1., rows/training_rows) + (initialization if selected else 0.)) * 1.25 + .2
     if curve:
-        fit = curve['fixed_fit_seconds'] + curve['seconds_per_row'] * rows
+        fit = curve['fixed_fit_seconds'] + curve['seconds_per_row'] * rows * class_work['fit']
         multiplier = curve['uncertainty_multiplier']
     else:
-        fit *= max(1., rows / training_rows)
+        fit *= max(1., rows / training_rows) * class_work['fit']
     fit *= iterations
-    fit += repeatable * max(1., rows / training_rows)
-    # Serialization and interpreter startup are fixed; prediction uses output rows,
-    # not fit rows. Full test size is recorded independently by the worker.
-    save_load = float(phases.get('save_load_seconds', 0))
+    fit += repeatable * max(1., rows / training_rows) * class_work['model']
+    # Startup and staging stay fixed. Model serialization/prediction may grow
+    # with native outputs, never merely with fit rows. Output rows are separate.
+    save_load = float(phases.get('save_load_seconds', 0)) * class_work['model']
     predict_total = float(phases.get('predict_and_verify_seconds', 0))
     predict = float(phases.get('prediction_seconds', predict_total))
     prediction_fixed = max(0., predict_total - predict)
     observed_predict = max(1, phases.get('prediction_rows', training_rows))
     future_predict = phases.get('forecast_prediction_rows', observed_predict)
     predict *= max(1., future_predict / observed_predict)
+    predict *= class_work['model']
     loading = float(phases.get('load_and_construct_seconds', 0)) + float(phases.get('controller_staging_seconds', 0))
     actual_fit = float(summary.get('seconds', phases.get('fit_seconds', 0)) if selected else phases.get('fit_seconds', summary.get('seconds', 0)))
-    startup = max(.2, seconds - actual_fit - save_load - float(phases.get('predict_and_verify_seconds', 0)) - loading - summary.get('automatic_pilot_seconds', 0))
+    startup = max(.2, seconds - actual_fit - float(phases.get('save_load_seconds', 0)) - float(phases.get('predict_and_verify_seconds', 0)) - loading - summary.get('automatic_pilot_seconds', 0))
     result = (max(.1 if ensemble else .2, fit) + save_load + predict + prediction_fixed + loading + startup + initialization) * multiplier + .2
     if not math.isfinite(result):
         raise ValueError('Nonfinite completion forecast')

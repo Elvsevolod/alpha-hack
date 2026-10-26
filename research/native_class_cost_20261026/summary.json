@@ -1,0 +1,154 @@
+{
+  "before_commit": "54ac52f",
+  "scope": "Frozen synthetic native output-work cost, not model quality or full agent lifecycle",
+  "api_calls": 0,
+  "checks": [
+    {
+      "path": "outputs/native_class_cost_20261026/cost_tests.xml",
+      "sha256": "a036aa792b4c85f8dcba04af093e03557b3aa8fd80f31c6ab4d2cb6d4cfca7bc",
+      "counts": {
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/dataflow_tests.xml",
+      "sha256": "399d69c977774e68e5a50a9938e42152676eb4d475639173fae1f5f525dd9d80",
+      "counts": {
+        "tests": 45,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/final.xml",
+      "sha256": "bfaafae40cdb2bc30cc4d9669ed52a2c4399feaa6fc9035d7e474990e964caf1",
+      "counts": {
+        "tests": 69,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/final_v2.xml",
+      "sha256": "e7722b3bac525175fc1c204ba7722000864dd9d60917ce67f86363dfa36e598e",
+      "counts": {
+        "tests": 70,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/final_v3.xml",
+      "sha256": "e611b8087f7a56f4fa699ad6afdeb8cd66e98fd09200464839abb45e687fbf79",
+      "counts": {
+        "tests": 71,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/graph_tests.xml",
+      "sha256": "7e57963d8543f158ebde76861ab51df9c655de2f39708db2edd7f6aaa4c09b6b",
+      "counts": {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/stale_summary_before.xml",
+      "sha256": "4cfbb433c04d15cfb670535f280ac9cf7594510086f58be150ebfe923108e7f2",
+      "counts": {
+        "tests": 12,
+        "failures": 12,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/native_class_cost_20261026/worker.xml",
+      "sha256": "4766545a2b624167e4305952adc108001fe7e865a0849d9f8e6e3d21033b9652",
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "worker_measurements": {
+    "test_class_expansion_survives_guarded_worker_and_csv[GBM]": {
+      "wall_seconds": 1.3270837500022026,
+      "peak_memory_mb": 193.40625,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "test_class_expansion_survives_guarded_worker_and_csv[CAT]": {
+      "wall_seconds": 1.2427661669935333,
+      "peak_memory_mb": 190.8125,
+      "fit_rows": 180,
+      "serialization_verified": true
+    },
+    "test_class_expansion_survives_guarded_worker_and_csv[XGB]": {
+      "wall_seconds": 1.1929919999965932,
+      "peak_memory_mb": 185.1875,
+      "fit_rows": 180,
+      "serialization_verified": true
+    }
+  },
+  "final_source_sha256": {
+    "automl_agent/search.py": "189aa3b427db05cd1fa5b5096086a2c58e9d2be5ad445dcf8044099c163aee53",
+    "automl_agent/cost_model.py": "b0863af5bba3f37c451d1ef4e708425abf85c6a6a6407176b80316d811a36f68",
+    "automl_agent/completion.py": "8d3383578028eef3a3119cbe48e499a932ebc1eb3d605ea1d78fc6bb8f33cd9f",
+    "tests/test_class_work_cost.py": "a250b3e7cf4cf85376dd9c4b08335345f720c60c95861e949671346860cf0a48",
+    "tests/test_autogluon_new_class_refit.py": "6d6f01718b14a0ae8f2d25c291033d4a66123ad3ca7e13883af3c79036a57c4d",
+    "tests/test_autogluon_class_refit_worker.py": "25a887592670461cb99c9f90e95df9279ffc620400b233bb28c7442c96b30b14",
+    "tools/probe_native_class_cost.py": "c0564d7a5a08356402c2fac70a9adf4b14445c8b286da2a759bca6724f0ebd59"
+  },
+  "evidence_sha256": {
+    "aggregates.json": "5caa7d542bf1dee6bb3d939efd9acd0d486ed106d186fce6e103e83fba3f577f",
+    "results.json": "2d6a2cb766e07ccc2c42d448ff8b679de7a02d31ead9c885d13bd7c94396302f",
+    "terminal.json": "df87966498d07e330f79819adf761022ef00a2d1945d00ccda077da8dae023fd",
+    "freeze.json": "32f49655b7914175d1a789c5693440a39a58007922559cee4abd480eb961d990"
+  },
+  "raw_result_sha256": {
+    "10_GBM_2_1/result.json": "651333f4905d3d8e3ab5b52b26817d4e2b441c648429472b8e350a65a249fa42",
+    "15_CAT_3_0/result.json": "e5039a8e6bc9a7993abb4316c05eabf9f60652a88b775365b642cfa73fc68538",
+    "11_CAT_10_1/result.json": "6a2dc84c9711d247717b9903eba9042e29067da2f79568543c7717d7bb0e0636",
+    "01_XGB_2_0/result.json": "b7aadeb22d9d6be6a7884a4d10a7c1d59f748375325395f51d59c3025a03e889",
+    "17_GBM_3_1/result.json": "89ca861fe3ff28217c338f98eb6cb3723456ffb0353984601363f630cda384af",
+    "00_XGB_2_1/result.json": "26807bc5311f75433dd0c58700749fd2db5eb30a25740e487968d11dc80cb4e4",
+    "06_XGB_10_0/result.json": "d62643a3d4fc7014bfe265d87eae5f8835b37a3f0717b9583065778a956eb2f5",
+    "04_GBM_10_1/result.json": "5a847d3493cc5b948abfec4bca6ede4df4824dd2158290bfa9e30413846e1163",
+    "14_XGB_10_1/result.json": "022016921f8c4fc41e73169abaa39ee7b66b9c6b4c460bf3160d916ab8580134",
+    "07_CAT_2_0/result.json": "31f7d05c03675bde9c04574c42553271bf2bba3dab691e637b88128895d08ab5",
+    "09_XGB_3_1/result.json": "e7bb55716fc289baa30add41462f4937173af463e3d5f88226467626c2667627",
+    "12_GBM_3_0/result.json": "1a1a40709fe16cd7b030e12f4f40dc4a4f501bc9852525d31181cc6c0a2b9dc5",
+    "03_CAT_3_1/result.json": "a1b0616ad2449897446ce33b792763c4eae7e01884ae0d9740933389345e1102",
+    "16_GBM_2_0/result.json": "185bbc962089fe53fa88cda959553e4305e293725db3eb31fd7afb8635c3a0ed",
+    "08_CAT_10_0/result.json": "5ef061cb9a5878cf90dcfef075f45406e340a973508882b1920ed50570e8cc8a",
+    "05_CAT_2_1/result.json": "70c88729d9714266990167680c473bac34c3ce20921b4c0d799e729665a3727d",
+    "02_GBM_10_0/result.json": "f6bbbe1866ad0770fc718d10e6f7474af14a752dd0100303d21eb5864d93a6a5",
+    "13_XGB_3_0/result.json": "4601771e6c7c2d8c5d60e31a90c77d49b04d7a65d5d3dda215a2956f96d90437"
+  },
+  "fixes": [
+    "Class-work metadata from provided fit to confirmed class space",
+    "Conservative class work in phase forecasts, fixed costs excluded",
+    "Completion graph exposes class factors",
+    "Stored summary now matches actual refit",
+    "Constant branch actual-row metadata"
+  ],
+  "policy_calibrated_as_time_model": false,
+  "memory_and_disk_class_expansion_certified": false,
+  "old_missing_metadata_migrated": false,
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false
+}

@@ -54,6 +54,8 @@ def test_class_expansion_survives_guarded_worker_and_csv(tmp_path,record_propert
         source.rename(tmp_path/'retired_source')
         with (attempt/'model.pkl').open('rb') as stream:restored=cloudpickle.load(stream)
         assert restored.predict(test,{**context,'split_id':'test'}).values==bundle.values
+        assert restored.summary.budget==result['training_summary']['budget']
+        assert restored.summary.budget['class_work']['targets']['answer']=={'observed_classes':3,'declared_classes':3}
         ids=[str(i).zfill(6) for i in range(8)]
         data=SimpleNamespace(task=task,test=test.assign(row=ids),test_keys=list(test.index),
             task_path=tmp_path/'task.md',source_hash=task.source_hash)

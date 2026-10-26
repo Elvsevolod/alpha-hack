@@ -46,10 +46,14 @@ def test_declared_new_class_rebuilds_label_space_with_one_fixed_fit(tmp_path,mon
     spec=PipelineSpec(engine='autogluon',model='library_search',learners=[family],autogluon_configurations={family:[params]})
     ctx={'strategy':'random','cpu':1,'memory_mb':2048,'budget_seconds':45,'workdir':str(tmp_path),
         'task':task.model_dump(mode='json'),'protocol_hash':'fixed','data_hash':'synthetic','split_id':'fit'}
-    model=SearchPipeline(spec,task);model.fit(X.iloc[:140],y.iloc[:140],ctx)
+    model=SearchPipeline(spec,task);initial=model.fit(X.iloc[:140],y.iloc[:140],ctx)
+    assert initial.budget['class_work']['targets']['answer']=={'observed_classes':initial_classes,'declared_classes':initial_classes+1}
     original=model.models['answer'][1];names=original.model_names();before=original.predict_proba(X.iloc[:8]).copy()
     selected_rounds=fits[-1]['actual_rounds']
-    model.refit(X,y,{**ctx,'execution_mode':'refit'})
+    refitted=model.refit(X,y,{**ctx,'execution_mode':'refit'})
+    assert model.summary.rows==refitted.rows
+    assert model.summary.budget==refitted.budget
+    assert refitted.budget['class_work']['targets']['answer']=={'observed_classes':initial_classes+1,'declared_classes':initial_classes+1}
     assert len(fits)==3 and fits[-1]['rows']==180 and fits[-1]['classes']==initial_classes+1
     assert fits[-1]['missing']==0 and not fits[-1]['validation']
     assert fits[-1]['actual_rounds']==selected_rounds

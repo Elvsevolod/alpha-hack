@@ -1,0 +1,83 @@
+[
+  {
+    "family": "GBM",
+    "classes": 2,
+    "median_fit_seconds": 0.09645325000019511,
+    "fit_ratio_to_binary": 1.0,
+    "work_units": 1.0,
+    "median_model_bytes": 61475.0,
+    "peak_rss_mib": 174.21875
+  },
+  {
+    "family": "GBM",
+    "classes": 3,
+    "median_fit_seconds": 0.11892283349880017,
+    "fit_ratio_to_binary": 1.2329582828837764,
+    "work_units": 3.0,
+    "median_model_bytes": 172491.0,
+    "peak_rss_mib": 174.8125
+  },
+  {
+    "family": "GBM",
+    "classes": 10,
+    "median_fit_seconds": 0.21420243749889778,
+    "fit_ratio_to_binary": 2.220790253293326,
+    "work_units": 10.0,
+    "median_model_bytes": 553532.0,
+    "peak_rss_mib": 180.03125
+  },
+  {
+    "family": "CAT",
+    "classes": 2,
+    "median_fit_seconds": 0.13448095849889796,
+    "fit_ratio_to_binary": 1.0,
+    "work_units": 1.0,
+    "median_model_bytes": 20389.0,
+    "peak_rss_mib": 181.75
+  },
+  {
+    "family": "CAT",
+    "classes": 3,
+    "median_fit_seconds": 0.2050024370000756,
+    "fit_ratio_to_binary": 1.5243975004963661,
+    "work_units": 3.0,
+    "median_model_bytes": 28724.0,
+    "peak_rss_mib": 185.53125
+  },
+  {
+    "family": "CAT",
+    "classes": 10,
+    "median_fit_seconds": 0.2969991044992639,
+    "fit_ratio_to_binary": 2.208484441324812,
+    "work_units": 10.0,
+    "median_model_bytes": 57478.0,
+    "peak_rss_mib": 198.015625
+  },
+  {
+    "family": "XGB",
+    "classes": 2,
+    "median_fit_seconds": 0.0818254789992352,
+    "fit_ratio_to_binary": 1.0,
+    "work_units": 1.0,
+    "median_model_bytes": 58130.0,
+    "peak_rss_mib": 173.40625
+  },
+  {
+    "family": "XGB",
+    "classes": 3,
+    "median_fit_seconds": 0.0898524995027401,
+    "fit_ratio_to_binary": 1.0980992791203816,
+    "work_units": 3.0,
+    "median_model_bytes": 161375.0,
+    "peak_rss_mib": 173.25
+  },
+  {
+    "family": "XGB",
+    "classes": 10,
+    "median_fit_seconds": 0.17949318750106613,
+    "fit_ratio_to_binary": 2.1936099818339443,
+    "work_units": 10.0,
+    "median_model_bytes": 513084.0,
+    "peak_rss_mib": 175.75
+  }
+]
