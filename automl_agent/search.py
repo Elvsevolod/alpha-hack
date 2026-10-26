@@ -138,6 +138,20 @@ def autogluon_portfolio(spec, task, learners):
     return result
 
 
+def autogluon_label_policy(spec, task, labels, bagging):
+    # AutoGluon's default threshold=10 can drop rare classes while retaining
+    # >97.5% of rows. Macro F1 and our full-row refit contract cannot accept it.
+    counts = labels.value_counts()
+    if task.classes and bagging and counts[counts > 0].min() < 2:
+        raise ValueError("AutoGluon bagging/stacking needs two inner-fit rows per observed class; use selection/direct. No classes were removed.")
+    return {"random_state": spec.seed, "label_count_threshold": 1}
+
+
+def verify_autogluon_classes(predictor, task, labels):
+    if task.classes and set(predictor.class_labels_internal_map) != set(labels):
+        raise ValueError("AutoGluon changed the observed class vocabulary; this fit cannot be reported as preserving all permitted rows")
+
+
 class SearchPipeline:
     def __init__(self, spec, task):
         self.spec, self.task = spec, task
@@ -322,8 +336,9 @@ class SearchPipeline:
             raise ValueError("AutoGluon random bagging is incompatible with temporal validation; use selection or split-aware OOF blending")
         if bagging and self.autogluon_group_column:
             kwargs["groups"] = self.autogluon_group_column
+        label_policy = autogluon_label_policy(self.spec, self.task, y.iloc[fit][target], bagging)
         predictor = TabularPredictor(label=target, path=str(path), problem_type=problem, eval_metric=self._ag_metric(),
-            verbosity=0, log_to_file=False, learner_kwargs={"random_state": self.spec.seed}, **kwargs)
+            verbosity=0, log_to_file=False, learner_kwargs=label_policy, **kwargs)
         seed_parameters = {"GBM": {"seed_value": self.spec.seed}, "CAT": {"random_seed": self.spec.seed}, "XGB": {"random_state": self.spec.seed}}
         portfolio = autogluon_portfolio(self.spec, self.task, learners)
         training, tuning = train.iloc[fit].copy(), train.iloc[val].copy()
@@ -344,6 +359,7 @@ class SearchPipeline:
                 dynamic_stacking=False, calibrate_decision_threshold=False,
                 ag_args_fit={"num_cpus": context["cpu"], "num_gpus": 0},
                 ag_args_ensemble={"fold_fitting_strategy": "sequential_local", "max_base_models": 0, "max_base_models_per_type": 0})
+        verify_autogluon_classes(predictor, self.task, y.iloc[fit][target])
         best = predictor.model_best
         if best is None:
             raise ValueError("AutoGluon completed no model")
@@ -480,8 +496,9 @@ class SearchPipeline:
         kwargs = {"groups": self.autogluon_group_column} if getattr(self, "autogluon_group_column", None) else {}
         if problem == "binary" and self.task.metric.positive_label is not None:
             kwargs["positive_class"] = self.task.metric.positive_label
+        label_policy = autogluon_label_policy(self.spec, self.task, y[target], True)
         predictor = TabularPredictor(label=target, path=str(path), problem_type=problem, eval_metric=self._ag_metric(),
-            verbosity=0, log_to_file=False, learner_kwargs={"random_state": self.spec.seed}, **kwargs)
+            verbosity=0, log_to_file=False, learner_kwargs=label_policy, **kwargs)
         predictor.fit(data, hyperparameters=configuration["hyperparameters"],
             num_bag_folds=self.spec.bag_folds, num_stack_levels=max(configuration["hyperparameters"])-1,
             fit_weighted_ensemble=False, dynamic_stacking=False, calibrate_decision_threshold=False,
@@ -489,6 +506,7 @@ class SearchPipeline:
             time_limit=max(1, context["budget_seconds"]), memory_limit=max(.1, context["memory_mb"]/1024*.7),
             ag_args_fit={"num_cpus": context["cpu"], "num_gpus": 0},
                 ag_args_ensemble={"fold_fitting_strategy": "sequential_local", "max_base_models": 0, "max_base_models_per_type": 0})
+        verify_autogluon_classes(predictor, self.task, y[target])
         parents = list(configuration["weights"])
         if not set(parents) <= set(predictor.model_names()):
             raise ValueError("Frozen AutoGluon profile graph did not complete")
@@ -522,6 +540,8 @@ class SearchPipeline:
             predictor.delete_models(models_to_delete=previous_full, allow_delete_cascade=True, dry_run=False)
         features = predictor.transform_features(X[self.raw_feature_columns])
         labels = predictor.transform_labels(y[target])
+        if labels.isna().any():
+            raise ValueError("Frozen AutoGluon selection cannot encode a permitted refit class; no rows were dropped or relabeled")
         # In pinned AutoGluon 1.3.1 these forwarded inputs replace the cached
         # inner split. Empty validation overrides are intentional: None reloads
         # the old holdout. refit_full then trains the template's fixed rounds on

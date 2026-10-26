@@ -1,0 +1,1585 @@
+{
+  "base_commit": "46c68328ec476a497f49f26a83966f0066b882fe",
+  "before_search_sha256": "fdef6748e52dd634855832c4e50f32eb2b6a90e9290b7fc3d10dcb6af580eae7",
+  "scope": "Synthetic class/row preservation in native AutoGluon; not organizer score or live autonomy",
+  "registry_version": 6,
+  "api_calls": 0,
+  "checks": [
+    {
+      "path": "outputs/autogluon_rare_classes_20261026/after.xml",
+      "sha256": "905a17f755d3c6cba614cb8a5577010bb086f0ec9ab704d61cc2a575a2339d02",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_rare_classes_20261026/before.xml",
+      "sha256": "941cb74600e49ba137ffa55770bf3a01a4949ef017a3d5d969be3728c58b503d",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_rare_classes_20261026/final.xml",
+      "sha256": "34fd5c718a0f0faa7b917f37f70fc86fb55e86c6b2d85451b44ce951ed703285",
+      "counts": {
+        "tests": 32,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_rare_classes_20261026/final_v2.xml",
+      "sha256": "f6a6bdf7858eb9cb592cd8a83729e5eae4b1d0dbf950693546c11ec765188333",
+      "counts": {
+        "tests": 32,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_rare_classes_20261026/profiles.xml",
+      "sha256": "cbd8b907293c1e8ac8ba72f026564004477382d6e4692fb5b615f0c895b2cb40",
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "fit_histories": {
+    "after.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "after.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "before.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350
+        },
+        "missing_labels": 0,
+        "rows": 697
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500
+        },
+        "missing_labels": 0,
+        "rows": 995
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-n_estimators]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_iterations]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_boost_round]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-n_estimators]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_iterations]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_boost_round]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "final_v2.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-n_estimators]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_iterations]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_boost_round]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-n_estimators]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_iterations]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final_v2.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_boost_round]:fit_history": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[selection]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 347,
+          "1": 350,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 700
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[bagging]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      }
+    ],
+    "profiles.xml:test_macro_f1_keeps_rare_class_and_every_permitted_refit_row[stacking]:complete_fit_history": [
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 174,
+          "1": 175,
+          "2": 1
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 173,
+          "1": 175,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 350
+      },
+      {
+        "encoded_class_counts": {
+          "0": 248,
+          "1": 250,
+          "2": 2
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 247,
+          "1": 250,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 500
+      },
+      {
+        "encoded_class_counts": {
+          "0": 495,
+          "1": 500,
+          "2": 5
+        },
+        "missing_labels": 0,
+        "rows": 1000
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 297,
+          "1": 300,
+          "2": 3
+        },
+        "missing_labels": 0,
+        "rows": 600
+      },
+      {
+        "encoded_class_counts": {
+          "0": 594,
+          "1": 600,
+          "2": 6
+        },
+        "missing_labels": 0,
+        "rows": 1200
+      }
+    ]
+  },
+  "source_sha256": {
+    "automl_agent/search.py": "3c151090d2636b9e3366c9c92f40f797b4ce3788649ff82243246402e3479641",
+    "automl_agent/contracts.py": "cd4bc5fe50b2ff21307307222f52f516e23ec3f5748a8750b0432e9891bf72f3",
+    "automl_agent/compatibility.py": "9bc6a6ec22189d5f5225041dc6deae0799b888f6f8726b2c0cf42a5d8c14fa92",
+    "tests/test_autogluon_rare_class_retention.py": "e1e1feb1b37b164f52de5765221c56dfcb7cb8dec2358878f6de11fcad1c9848"
+  },
+  "backend_source_sha256": {
+    "autogluon/tabular/learner/default_learner.py": "86374a6dc16d210c50dfe9352e218ea3ec39b0bc4821003214bb37f91df96b0d",
+    "autogluon/tabular/learner/abstract_learner.py": "d247f486ebe0d27a617be96b74ab4d4f374816bd788f324fb1f64344190aa378",
+    "autogluon/tabular/models/lgb/lgb_model.py": "c820aba3a0fefafc90485401a30f639ec5216c0a798919125744dc2eb3e0a903",
+    "autogluon/core/data/label_cleaner.py": "ae05c5202b37a0d9646a09674a88708e1faf71268dda67094c300902706348f4"
+  },
+  "new_class_refit_support_implemented": false,
+  "new_class_refit_fails_before_training": true,
+  "official_contest_environment": false,
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "fixture_failure": {
+    "final.xml": "New refit guard fixture omitted task from its prediction context; runtime unchanged when correcting it."
+  }
+}

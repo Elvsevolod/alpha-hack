@@ -5,7 +5,7 @@ import numpy as np
 
 from .util import digest
 
-COMPATIBILITY_VERSION = 5
+COMPATIBILITY_VERSION = 6
 FRAME = {"datetime", "math", "log1p", "aggregate", "history", "target_encode"}
 NUMERIC = {"standard_scale", "robust_scale", "yeo_johnson", "spline"}
 SELECT = {"drop_constant", "drop_correlated", "select_kbest"}

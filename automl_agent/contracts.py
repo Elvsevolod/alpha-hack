@@ -299,7 +299,8 @@ class PipelineSpec(Contract):
     refit_iteration_policy: Literal["fixed", "sqrt_rows"] = "fixed"
     learned_decision: dict[str, Any] = Field(default_factory=dict)
     supervised_transform: bool = True
-    autogluon_profile: Literal["selection", "bagging", "stacking"] = "selection"
+    autogluon_profile: Literal["selection", "bagging", "stacking"] = Field(default="selection",
+        description="Observed classes are preserved. Bagging/stacking require at least two inner-fit rows per observed class; use selection/direct for singletons. A frozen selection refit rejects previously unseen classes rather than dropping or relabeling rows.")
     bag_folds: int = Field(default=3, ge=2, le=5)
     ensemble_strategy: Literal["uniform", "weighted_oof", "stacked_oof"] = "uniform"
     ensemble_weights: list[float] | None = Field(default=None, min_length=2, max_length=5)
