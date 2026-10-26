@@ -1,0 +1,44 @@
+{
+  "source_commit": "e4a04d43b6c3919c657a7b98e9b0f2fd47d002dc",
+  "scope": "Offline scripted Qwen HTTP replay; real controller/workers/refit/publication; no live API or quality improvement claim",
+  "requirements": [
+    "Recover from rejected tool arguments",
+    "Deliver validation feedback to the next model request",
+    "Use provided record identities unchanged",
+    "Complete a real ML candidate and full refit CSV"
+  ],
+  "transports": [
+    "native",
+    "json"
+  ],
+  "api_calls": 0,
+  "observed_per_transport": {
+    "http_requests": 4,
+    "accepted_commands": 3,
+    "argument_rejections": 1,
+    "native_fallbacks": 0,
+    "invalid_operation_registered": false,
+    "research_candidate_completed": true,
+    "publication_scope": "full_train_refit"
+  },
+  "tests": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 34.259,
+    "xml": "outputs/source_recovery_20261026/final.xml",
+    "sha256": "b9b7365cd8c2f5c96d76f9f6794de7c12b4da3ec29ab505f753655bf7b591b69"
+  },
+  "source_sha256": {
+    "tests/test_source_recovery_loop.py": "e2fdf8720dae39da54d460c4b41d4332aeef39c08e2ad5737bad4f166b580523",
+    "tests/test_run_source_contract.py": "8a36ed344f15f1be856aab0a941e75a685edf502876590ea5d672134b4280006",
+    "automl_agent/contracts.py": "0f175e5ef773b0b973299f64caf3b8bbed43df1521af208f88d3d0c777c0ee6e",
+    "automl_agent/controller.py": "b180087f14b9b16a033a52b1cdca91f5d0cce400f5912b3c433d274976781270",
+    "automl_agent/context_memory.py": "5134cebda8160be0f2322eb2099f066b9d78774c07d77aa899e41467b884bd7d",
+    "automl_agent/qwen.py": "a46f673dd590ebf43ce57ceedd7dc70f49b0e5e8b7ab42a9084e2f1401ae9ef3"
+  },
+  "production_sources_changed_this_stage": false,
+  "autonomous_recovery_live_verified": false,
+  "overall_goal_complete": false
+}
