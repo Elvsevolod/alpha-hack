@@ -16,14 +16,16 @@ sys.path.insert(0,str(ROOT))
 
 
 def worker(out):
+    import gc
     import joblib
     import numpy as np
     import pandas as pd
-    from automl_agent.util import file_hash
+    from automl_agent.util import atomic_json,file_hash
     from tools import realmlp_equal_budget as study
     from tools.pytorch_agent_study import load_dataset
 
     freeze=json.loads((out/'freeze.json').read_text())
+    prepared={}
     def prepare(name,directory):
         assert name=='classification'
         d=load_dataset(name);assert d.source_hash==freeze['data_hashes'][name]
@@ -36,6 +38,7 @@ def worker(out):
         assert all(s['feature_plan']==state['feature_plan'] and s['columns']==state['columns'] for s in states)
         assert states[1]['normal_index']==classes.index('Normal')
         X=refs.engineer(d.train,state['feature_plan'])
+        prepared.update(dataset=d,features=X,labels=y,classes=classes,templates=templates,feature_plan=state['feature_plan'])
         split=out/'agent_split.npz';assert file_hash(split)==freeze['split_sha256']
         with np.load(split) as values:
             np.savez_compressed(directory/'splits.npz',**{key:values[key] for key in ['fit','validation','control']})
@@ -44,6 +47,26 @@ def worker(out):
     # research loader so it receives the agent split rather than the old split.
     study.prepare=prepare
     study.worker(out/'reference/request.json')
+    # The control-stage decision is now frozen. Its score is never used to
+    # select another recipe; complete the same procedure on all supplied train.
+    gc.collect();started=time.monotonic()
+    result=json.loads((out/'reference/result.json').read_text())
+    d=prepared['dataset'];classes=prepared['classes'];target=d.task.targets[0]
+    offsets=np.asarray(result['offsets']);assert len(offsets)==len(classes)
+    model=study.Classical(prepared['templates'],classes,freeze['seed']).fit(prepared['features'],prepared['labels'])
+    test=study.references().engineer(d.test,prepared['feature_plan']);probabilities=model.predict(test)
+    assert probabilities.shape==(len(d.test),len(classes)) and np.isfinite(probabilities).all()
+    np.testing.assert_allclose(probabilities.sum(axis=1),1.,atol=1e-6)
+    model_path=out/'reference/full_refit.joblib';joblib.dump(model,model_path)
+    np.testing.assert_allclose(joblib.load(model_path).predict(test),probabilities,rtol=0,atol=1e-12)
+    labels=np.asarray(classes)[(np.log(np.maximum(probabilities,1e-15))+offsets).argmax(axis=1)]
+    submission=d.test[d.task.id_columns].copy();submission[target]=labels
+    assert d.task.output.prediction_type=='labels' and list(submission)==d.task.output.columns
+    submission.to_csv(out/'reference/submission.csv',index=False)
+    np.save(out/'reference/full_test_probabilities.npy',probabilities)
+    atomic_json(out/'reference/full_refit.json',dict(rows=len(d.train),test_rows=len(d.test),base_fits=model.base_fits,
+        seconds=time.monotonic()-started,classes=classes,offsets=offsets.tolist(),control_score_used_for_selection=False,
+        csv_sha256=file_hash(out/'reference/submission.csv'),serialization_verified=True,api_calls=0))
 
 
 def run(out):
