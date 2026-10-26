@@ -730,19 +730,31 @@ class RunSearchArgs(RunListArgs):
 
 
 class RunSourceRef(Contract):
-    source_id: str
-    version: str
+    source_id: str = Field(min_length=1, max_length=96,
+        description="Exact source_id from a returned source/continuation. A record ID belongs in ids, not here; copy the returned read arguments unchanged.")
+    version: str = Field(min_length=1, max_length=128,
+        description="Exact nonempty source version from the returned source/continuation; never guess or send an empty string.")
     scope: Literal["contract", "policy", "fit", "validation_features", "test_features", "registered_feedback", "reference", "code", "environment", "controller"]
-    section: str = ""
+    section: str = Field(default="", max_length=128)
     offset: int = Field(default=0, ge=0)
     limit: int = Field(default=768, ge=4, le=768)
+
+    @field_validator('source_id', 'version', 'section')
+    @classmethod
+    def source_byte_bounds(cls, value, info):
+        maximum = 96 if info.field_name == 'source_id' else 128
+        if len(value.encode('utf-8')) > maximum:
+            raise ValueError(info.field_name + ' exceeds its UTF-8 byte limit')
+        return value
 
 
 class RunReadArgs(Contract):
     view: Literal["full", "pipeline"] = Field(default="full",
         description="For a parent/leader recipe use ids=[experiment_id], view=pipeline, include_code=false. Copy returned recipe_hash into preview/apply base_hash; diagnostic source_recipe_hash is different provenance.")
-    ids: list[str] = Field(default_factory=list, max_length=10)
-    source: RunSourceRef | None = None
+    ids: list[str] = Field(default_factory=list, max_length=10,
+        description="Exact record IDs from a returned read.arguments.ids route, including guides, options and reviews as well as experiments. Copy the route unchanged.")
+    source: RunSourceRef | None = Field(default=None,
+        description="Alternative to ids, only for an exact source descriptor returned by a byte continuation. Never turn a record ID into source_id or invent a version.")
     include_code: bool = False
     cursor: str | None = None
     max_chars: int = Field(default=6000, ge=2000, le=12000)

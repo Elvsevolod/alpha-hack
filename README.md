@@ -14,7 +14,7 @@
 
 [Ресурсная проверка HGB snapshot](research/hgb_snapshot_cost_20261026/README.md): 24 свежих процесса, полный измеренный ML-цикл и отдельный refit; проверено соответствие trial score замороженному рецепту на 50k regression и 20k ten-class synthetic workloads.
 
-[Совмещённый контекстный и ML runtime](docs/research/2026-10-26-context-runtime-integration.md): перенесён versioned prompt v6, восстановлен локальный LFS-корпус и исправлена потеря parameter repair на реальном пути приёма ответа модели. Живая автономность ещё не проверена.
+[Совмещённый контекстный и ML runtime](docs/research/2026-10-26-context-runtime-integration.md): перенесён versioned prompt v6, восстановлен локальный LFS-корпус и исправлена потеря parameter repair на реальном пути приёма ответа модели. Последующий [ограниченный реальный прогон](docs/research/2026-10-26-autonomy-probe.md) завершил CSV, но не дал самостоятельных экспериментов; найден и исправлен контракт source/version.
 
 ## Интеграция знаний в v043 — 23 октября 2026 года
 

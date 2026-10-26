@@ -1,0 +1,221 @@
+{
+  "source_commit": "7421ed7570b389f9f72c58ce7f58009584be1cec",
+  "native_development_probe": true,
+  "budget": {
+    "seconds": 600,
+    "cpu": 1,
+    "memory_mb": 3072,
+    "max_model_calls": 6,
+    "max_candidates": 2
+  },
+  "outcome": {
+    "status": "terminal",
+    "returncode": 0,
+    "wall_seconds": 533.6460758329995,
+    "sampled_peak_process_tree_rss_mib": 1338.953125,
+    "child_cpu_seconds": 191.359419,
+    "sources_unchanged": true,
+    "child_terminal": true,
+    "current": {
+      "state": "completed",
+      "llm_calls": 3,
+      "llm_seconds": 353.4620148749964,
+      "candidate_count": 0,
+      "control_status": "completed",
+      "refit_status": "completed",
+      "publication_scope": "full_train_refit",
+      "experiments": [
+        {
+          "id": "baseline",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.5741154952183929,
+          "scope": "baseline"
+        },
+        {
+          "id": "baseline_decision",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.598585728525193,
+          "scope": "baseline"
+        }
+      ],
+      "failure_present": false
+    }
+  },
+  "agent": {
+    "state": "completed",
+    "control_status": "completed",
+    "refit_status": "completed",
+    "control_scores": {
+      "baseline_decision": 0.5394158181070888
+    },
+    "control_winner": "baseline_decision",
+    "first_trained_csv_seconds": 57.64985203742981,
+    "token_usage": {
+      "completion_tokens": 4403,
+      "prompt_tokens": 51132,
+      "reasoning_tokens": 4022,
+      "total_tokens": 55535
+    },
+    "time_accounting": {
+      "model_including_queue_seconds": 353.4620148749964,
+      "oof_seconds": 0,
+      "oof_worker_seconds": 0,
+      "queue_missing_reason": "provider_queue_not_separately_observable; diagnostic_gateway_records_host_queue_intervals",
+      "queue_seconds": null,
+      "reading_seconds": 0.01263284683227539,
+      "recovery_seconds": 0.0,
+      "scope": "measured_categories_may_overlap; not a wall-clock partition",
+      "stability_seconds": 33.55899945800047,
+      "useful_training_seconds": 114.84026029099186,
+      "version": 2
+    },
+    "failure": null
+  },
+  "api": {
+    "before_checked_at": "2026-10-25T23:39:18.840892+00:00",
+    "after_checked_at": "2026-10-25T23:48:12.678668+00:00",
+    "delayed_checked_at": "2026-10-25T23:51:52.574187+00:00",
+    "maximum": 600.0,
+    "remaining_before": 147.85249246491412,
+    "remaining_after": 146.48600654911922,
+    "remaining_delayed": 146.48600654911922,
+    "account_counter_change": {
+      "counter": "total_spend",
+      "increase": 1.3664859157950104
+    },
+    "fingerprint_matched": true,
+    "third_request_outcome": "unknown_no_retry",
+    "third_request_final_cost_known": false,
+    "counter_change_is_not_exclusively_attributed": true
+  },
+  "scientific_scope": "Familiar organizer data. Internal control chose among preprogrammed baselines, not fresh independent confirmation. No agent-selected research model completed.",
+  "autonomous_research_success": false,
+  "publication_success": true,
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "schema_fix_live_verified": false,
+  "operations": [
+    {
+      "operation_id": "step_1_read_leader",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "outcome": "confirmed",
+      "arguments": {
+        "ids": [
+          "baseline_decision"
+        ],
+        "include_code": false,
+        "max_chars": 12000,
+        "view": "pipeline"
+      },
+      "error": null
+    },
+    {
+      "operation_id": "step_2_read_options",
+      "tool": "read_run_records",
+      "status": "failed",
+      "outcome": "confirmed",
+      "arguments": {
+        "source": {
+          "limit": 768,
+          "offset": 0,
+          "scope": "reference",
+          "section": "",
+          "source_id": "research_options:e2625ca1b58059aa",
+          "version": ""
+        },
+        "view": "full"
+      },
+      "error": "source version must be 1..128 UTF-8 bytes"
+    }
+  ],
+  "qwen_events": {
+    "qwen_decision": 2,
+    "qwen_failure": 1,
+    "qwen_http_identity": 3,
+    "qwen_provider_identity": 2,
+    "qwen_request": 3,
+    "qwen_response": 2
+  },
+  "checks": [
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_before.xml",
+      "sha256": "a0360fda09d5684b66891494ff7591c6683cfb29dd62ed4fb7ec6a08ecfb9af7",
+      "counts": {
+        "tests": 10,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_after.xml",
+      "sha256": "2a8b58e7a4f813da9f09458010e3acf9e28ee6f0529a599868e1f6bfa0eca52b",
+      "counts": {
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_final.xml",
+      "sha256": "b14cc79063f5d42d5fa4faa3e30d221fc4f79c5044b2ed7d38f73c97f3321941",
+      "counts": {
+        "tests": 12,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_final_v2.xml",
+      "sha256": "547381ff80f902642a89a14bd7a4de0ee935eff8076fb18ce9ded83f6b5e52eb",
+      "counts": {
+        "tests": 12,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_final_v3.xml",
+      "sha256": "57801704398a97445cd9658b9cac01c9710ca68e451e170f3735795f0666c8eb",
+      "counts": {
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/agent_autonomy_live_20261026/source_contract_final_v4.xml",
+      "sha256": "4d068c3f8272171ced29eed0fe8466a2a642b8a9c98170c589b4eaedf62937eb",
+      "counts": {
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "final_source_sha256": {
+    "automl_agent/contracts.py": "0f175e5ef773b0b973299f64caf3b8bbed43df1521af208f88d3d0c777c0ee6e",
+    "tests/test_run_source_contract.py": "8a36ed344f15f1be856aab0a941e75a685edf502876590ea5d672134b4280006",
+    "tools/run_bounded_agent_probe.py": "c55ce1c37d79687e37ad2aaa45cb8324256438ac9b76e9580ffca5ac4d88af2a"
+  },
+  "raw_artifact_sha256": {
+    "api_limits_before.json": "6cb5e16bd56c83fc0a5ecdcba0bd55f744cbab1dcab331256cc51c4b5fc308ad",
+    "api_limits_before_start.json": "63053fd6f8c85a5bd70589058b81f66023c62c25a79fe60033e37c2d4ab3aa0d",
+    "api_limits_after.json": "b9a276705bdef2cc4dde5b4b8a76c7f62d54ecddad24ca4f90a4ffb78c29ca42",
+    "api_limits_after_delayed.json": "caf5d9f0c1135904488d48f6038636a0e2846213036c072e3d91ed8c92062112",
+    "result.json": "d45af31fe60a078f9ad3e2eea54257430b365a324c4fabffe571edad0671e757",
+    "runtime.log": "f9370ee7236e3d05c2e7c5e472ecef2aa3808e87978a426cd3b2310cdaf5ab9b"
+  },
+  "fixture_failure_explanations": {
+    "source_contract_final.xml": "New fixture used fit instead of prepare, so request was not registered.",
+    "source_contract_final_v2.xml": "New fixture omitted finish_reason; existing unfinished-response protection correctly rejected it."
+  }
+}
