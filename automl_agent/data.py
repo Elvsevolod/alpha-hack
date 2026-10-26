@@ -931,7 +931,10 @@ class Dataset:
             if not source:
                 return {"status": "not_found", "scope": "schema", "source": "dictionary"}
             columns = args.columns
-            if columns and not set(columns) <= set(self.task.feature_columns + self.task.id_columns + self.task.targets):
+            documented = set(self.task.feature_columns + self.task.id_columns + self.task.targets
+                + self.task.service_columns + self.task.series_columns)
+            documented.update(c for c in (self.task.time_column, self.task.group_column) if c)
+            if columns and not set(columns) <= documented:
                 raise ValueError("Unknown dictionary column")
             lines = source["text"].splitlines()
             if columns:
