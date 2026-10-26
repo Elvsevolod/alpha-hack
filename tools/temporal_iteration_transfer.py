@@ -49,8 +49,13 @@ def worker(out, profile):
     parameters=freeze['profiles'][profile]['hyperparameters'];cap=parameters['n_estimators']
     spec=PipelineSpec(model='lightgbm',hyperparameters=parameters,seed=42)
 
+    def features(rows):
+        frame=d.features(rows.tolist())
+        frame.index=[d.row_keys[i] for i in rows]
+        return frame
+
     def train(rows, query, record=False):
-        X=d.features(rows.tolist());y=d.train.iloc[rows][[target]];V=d.features(query.tolist())
+        X=features(rows);y=d.train.iloc[rows][[target]].copy();y.index=X.index;V=features(query)
         processor=FeatureMatrix(spec,task,1,3072,'temporal')
         matrix=processor.fit_transform(X,y);valid=processor.transform(V)
         model=make_estimator(spec,False,dict(cpu=1));model.set_params(metric='None')
@@ -99,11 +104,11 @@ def worker(out, profile):
         p=model.predict(valid,num_iteration=iterations);predictions[name]=p
         scores[name]=float(np.sqrt(np.mean((actual-p)**2)))
     restored=cloudpickle.loads(cloudpickle.dumps((model,processor)))
-    replay=restored[0].predict(restored[1].transform(d.features(evaluate.tolist())),num_iteration=choices['latest_origin_early'])
+    replay=restored[0].predict(restored[1].transform(features(evaluate)),num_iteration=choices['latest_origin_early'])
     np.testing.assert_allclose(replay,predictions['latest_origin_early'],rtol=0,atol=0)
     reference_path=ROOT/freeze['profiles'][profile]['reference_predictions']
     assert file_hash(reference_path)==freeze['profiles'][profile]['reference_predictions_sha256']
-    reference=json.loads(reference_path.read_text());assert reference['row_keys']==d.features(evaluate.tolist()).index.tolist()
+    reference=json.loads(reference_path.read_text());assert reference['row_keys']==features(evaluate).index.tolist()
     np.testing.assert_allclose(predictions['latest_origin_early'],reference['values'][target],rtol=0,atol=1e-10)
     np.savez_compressed(directory/'validation_predictions.npz',**predictions)
     usage=resource.getrusage(resource.RUSAGE_SELF)
@@ -145,6 +150,7 @@ def run(out):
     results=[]
     for profile in profiles:
         begin=time.monotonic();peak=0
+        usage_before=resource.getrusage(resource.RUSAGE_CHILDREN)
         env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',MPLCONFIGDIR=str(out/'mpl'))
         with (out/(profile+'.log')).open('w') as log:
             process=subprocess.Popen([sys.executable,__file__,str(out),'--profile',profile],env=env,stdout=log,stderr=subprocess.STDOUT)
@@ -163,7 +169,9 @@ def run(out):
                     finally:
                         if process.poll() is None:process.kill()
                         process.wait()
-        result=dict(profile=profile,returncode=process.returncode,cold_wall_seconds=time.monotonic()-begin,sampled_tree_peak_mib=peak/1024**2)
+        usage_after=resource.getrusage(resource.RUSAGE_CHILDREN)
+        result=dict(profile=profile,returncode=process.returncode,cold_wall_seconds=time.monotonic()-begin,sampled_tree_peak_mib=peak/1024**2,
+            child_cpu_seconds=usage_after.ru_utime+usage_after.ru_stime-usage_before.ru_utime-usage_before.ru_stime)
         if process.returncode==0:result.update(json.loads((out/profile/'result.json').read_text()))
         results.append(result);atomic_json(out/'results.json',dict(records=results,control_scored=False,api_calls=0))
         print(json.dumps(result),flush=True)
