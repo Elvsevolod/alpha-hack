@@ -55,29 +55,36 @@ def worker(out, profile):
         matrix=processor.fit_transform(X,y);valid=processor.transform(V)
         model=make_estimator(spec,False,dict(cpu=1));model.set_params(metric='None')
         history={}
+        metric_dtype=[]
         if record:
             actual=d.train.iloc[query][target].to_numpy()
-            def metric(y,p):return 'primary',float(np.sqrt(np.mean((y-p)**2))),False
+            def metric(y,p):
+                if not metric_dtype:metric_dtype.append(str(y.dtype))
+                return 'primary',float(np.sqrt(np.mean((y-p)**2))),False
             model.fit(matrix,y[target].to_numpy(),eval_set=[(valid,actual)],eval_names=['fit_inner'],eval_metric=metric,
                 callbacks=[lgb.record_evaluation(history)])
         else:
             model.fit(matrix,y[target].to_numpy())
         assert model.n_estimators_==cap
-        return model,processor,valid,history.get('fit_inner',{}).get('primary')
+        recorded=dict(curve=history['fit_inner']['primary'],truth_dtype=metric_dtype[0]) if record else None
+        return model,processor,valid,recorded
 
     curves,origins=[],[]
     for end in [1,2]:
         rows=fit[np.flatnonzero(periods.isin(unique[:end]).to_numpy())]
         query=fit[np.flatnonzero(periods.eq(unique[end]).to_numpy())]
-        model,processor,valid,curve=train(rows,query,record=True)
+        model,processor,valid,recorded=train(rows,query,record=True)
+        curve=recorded['curve']
         assert len(curve)==cap and np.isfinite(curve).all()
         chosen=early_choice(curve,freeze['patience'])
         p=model.predict(valid,num_iteration=chosen)
-        score=float(np.sqrt(np.mean((d.train.iloc[query][target].to_numpy()-p)**2)))
+        actual=d.train.iloc[query][target].to_numpy()
+        score=float(np.sqrt(np.mean((actual.astype(recorded['truth_dtype'])-p)**2)))
         np.testing.assert_allclose(score,curve[chosen-1],rtol=0,atol=1e-10)
         curves.append(np.asarray(curve));origins.append(dict(fit_rows=len(rows),evaluation_rows=len(query),
             fit_periods=unique[:end],evaluation_period=unique[end],early_iterations=chosen,
-            fit_positions_hash=digest(rows.tolist())))
+            fit_positions_hash=digest(rows.tolist()),callback_truth_dtype=recorded['truth_dtype'],
+            callback_vs_original_rmse_delta=score-float(np.sqrt(np.mean((actual-p)**2)))))
         del model,processor,valid;gc.collect()
     pooled=np.sqrt(sum(row['evaluation_rows']*curve**2 for row,curve in zip(origins,curves))/sum(row['evaluation_rows'] for row in origins))
     choices=dict(latest_origin_early=origins[-1]['early_iterations'],
