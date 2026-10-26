@@ -22,6 +22,48 @@ def context_route(command):
     return command.tool == "analyze_experiments" and bool(set(command.arguments) & {"context_read", "context_search"})
 
 
+def iteration_feedback(c, spec, result):
+    """Reported selection/application, never inferred executed trees from a cap."""
+    from .training_schedule import ITERATION_PARAMETER
+    if spec.pipeline.model not in ITERATION_PARAMETER or result.get('status') != 'completed':
+        return None
+    training = result.get('training_summary') or {}
+    budget = training.get('budget') or {}
+    curves = training.get('learning_curve') or {}
+    applied = budget.get('iteration_schedule') or {}
+    rows = []
+    for index, target in enumerate(c.task.targets):
+        curve = curves.get(target) or {}
+        selected, count = curve.get('iterations'), applied.get(target)
+        row = {'target_index': index}
+        if type(selected) is int and selected > 0:
+            row['selected'] = selected
+            row['selection_scope'] = curve.get('scope') if curve.get('scope') in {
+                'fit_inner_holdout', 'fit_inner_final_output_selection'} else 'reported_training_summary'
+        if type(count) is int and count > 0:
+            row['applied_schedule'] = count
+        if len(row) > 1:
+            rows.append(row)
+    if not rows:
+        return None
+    value = {'targets': [], 'omitted_targets': len(rows),
+        'read': {'tool': 'read_run_records', 'arguments': {'ids': [spec.experiment_id], 'max_chars': 12000}}}
+    if spec.pipeline.engine == 'direct':
+        from .pipelines import effective_parameters
+        cap = effective_parameters(spec.pipeline).get(ITERATION_PARAMETER[spec.pipeline.model])
+        if type(cap) is int and cap > 0:
+            value['recipe_parameter'] = {'name': ITERATION_PARAMETER[spec.pipeline.model], 'value': cap}
+    for row in rows:
+        candidate = {**value, 'targets': [*value['targets'], row], 'omitted_targets': value['omitted_targets'] - 1}
+        if len(canonical(candidate).encode()) > 512:
+            break
+        value = candidate
+    if not value['omitted_targets']:
+        # The enclosing history card already supplies the complete source read.
+        value.pop('read')
+    return value
+
+
 def experiment_summary(c, spec, result, source, change):
     """Prioritize measured ML feedback; every optional addition is byte bounded."""
     summary = {'model': short(spec.pipeline.model, 64), 'representation': spec.pipeline.representation,
@@ -70,6 +112,14 @@ def experiment_summary(c, spec, result, source, change):
                     if add('class_feedback', {**class_item, 'weakest': class_item['weakest'][:count]}):
                         break
                 break
+    iterations = iteration_feedback(c, spec, result)
+    if iterations:
+        add('training_iterations', iterations)
+    parameters = spec.pipeline.hyperparameters
+    if len(canonical(parameters).encode()) <= 512:
+        add('parameters', parameters)
+    if 'parameters' not in summary:
+        add('parameters', {'complete_reference': source.reference})
     change_item = {'basis': change['basis'],
         'declared': short(change['declared_component'], 64),
         'fields': [short(path, 64) for path in change['effective_fields'][:6]],
@@ -93,11 +143,6 @@ def experiment_summary(c, spec, result, source, change):
     error = result.get('error')
     add('error', short(error, 384) if error else None)
     add('error_truncated', bool(error and summary.get('error') != error))
-    parameters = spec.pipeline.hyperparameters
-    if len(canonical(parameters).encode()) <= 512:
-        add('parameters', parameters)
-    if 'parameters' not in summary:
-        add('parameters', {'complete_reference': source.reference})
     return summary
 
 
