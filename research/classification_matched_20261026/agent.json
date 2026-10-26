@@ -1,0 +1,46 @@
+{
+  "source_commit": "758be61412d40b70c9b53237151e5fc082a6acb5",
+  "source_data_hash": "18c5103851848ce501d759a1e4cc4c9dfa1c2f86618b0be8f2774eea0d2809f5",
+  "prior_split_identical_including_order": true,
+  "recomputed_scores": [
+    {
+      "id": "baseline",
+      "validation": 0.5741154952183929,
+      "control": 0.5207745359974641
+    },
+    {
+      "id": "baseline_decision",
+      "validation": 0.598585728525193,
+      "control": 0.5394158181070888
+    },
+    {
+      "id": "exp_b6caffd02dee38f9",
+      "validation": 0.6334312634539063,
+      "control": 0.6213097529026204
+    }
+  ],
+  "cost": {
+    "wall_seconds": 801.6064900839992,
+    "child_cpu_seconds": 454.864707,
+    "sampled_peak_process_tree_rss_mib": 1590.828125
+  },
+  "model_calls": 7,
+  "model_channel_seconds": 371.8963915410204,
+  "candidate_count": 2,
+  "csv_sha256": "8d7bbccecb80e91db189ec44b4571f0229ab310651c678094b53c211f3963843",
+  "full_refit_rows": 87670,
+  "test_rows": 41166,
+  "audits": {
+    "saved_validation_metrics_match": true,
+    "probabilities_finite_normalized": true,
+    "csv_schema_order_labels_and_refit_bundle_match": true,
+    "sources_unchanged_at_terminal": true
+  },
+  "api": {
+    "remaining_before": 564.4267706809208,
+    "remaining_after": 558.5597974549771,
+    "counter_increase": 5.866973225943866
+  },
+  "argument_rejections": 1,
+  "independent_confirmation": false
+}

@@ -321,7 +321,14 @@ def pilot_population(X, y, task, strategy, max_rows, seed, spec):
         if spec.postprocess_fit_policy == "pooled_oof" or spec.log_inverse == "oof_smearing" or any(
                 op.name == "target_encode" for op in spec.transformations):
             from .research_evaluation import oof_plan
-            oof_plan(spec, task, frame, actual, strategy, seed)
+            parts, _ = oof_plan(spec, task, frame, actual, strategy, seed)
+            # An OOF fold may itself select a stopping schedule. Checking only
+            # the outer folds can admit a tiny pilot whose inner training split
+            # loses a rare class, although the full permitted population works.
+            for fit, _, fresh, _ in parts:
+                if (fresh.engine == "direct" and (fresh.early_stopping_rounds or fresh.checkpoint_counts)
+                        and not fresh.iteration_schedule and not fresh.frozen_iterations):
+                    inner_split(frame.iloc[fit], actual.iloc[fit], task, strategy, fresh.seed)
         else:
             inner_split(frame, actual, task, strategy, seed)
     expanded = False

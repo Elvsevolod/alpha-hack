@@ -1,0 +1,17 @@
+{
+  "actual_saved_request": "exp_c95f0aaabf39d717/performance_1",
+  "permitted_fit_rows": 56974,
+  "after_fix_support": {
+    "requested_rows": 400,
+    "actual_rows": 56974,
+    "expanded_for_structural_support": true,
+    "sample_limitation": "Inner split lacks training class coverage for attack_cat; exact_group boundaries preserved",
+    "failure_on_small_sample_is_recipe_failure": false,
+    "quality_gate_requires_complete_recipe": false
+  },
+  "before_fix_rows": 400,
+  "before_fix_nested_support": "training class coverage failure",
+  "full_population_support": "all 3 OOF training folds retain stopping split support",
+  "quality_gain_measured": false,
+  "api_calls": 0
+}
