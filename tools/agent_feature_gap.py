@@ -125,7 +125,7 @@ def run(out):
             NUMEXPR_NUM_THREADS='1', VECLIB_MAXIMUM_THREADS='1', MPLCONFIGDIR=str(out/'mpl'))
         begin=time.monotonic(); peak=0
         with (out/(arm+'.log')).open('w') as log:
-            process=subprocess.Popen([sys.executable,__file__,str(out),'--arm',arm],env=env,stdout=log,stderr=subprocess.STDOUT)
+            process=subprocess.Popen([sys.executable,__file__,str(out),'--arm',arm],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             try:
                 while process.poll() is None:
                     try:
@@ -134,13 +134,13 @@ def run(out):
                     except psutil.NoSuchProcess:
                         pass
                     if time.monotonic()-begin>90 or peak>3072*1024**2:
-                        terminate_tree(process.pid)
+                        terminate_tree(process)
                     time.sleep(.1)
                 process.wait()
             finally:
                 if process.poll() is None:
                     try:
-                        terminate_tree(process.pid)
+                        terminate_tree(process)
                     finally:
                         if process.poll() is None:
                             process.kill()

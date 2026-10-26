@@ -153,19 +153,19 @@ def run(out):
         usage_before=resource.getrusage(resource.RUSAGE_CHILDREN)
         env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',MPLCONFIGDIR=str(out/'mpl'))
         with (out/(profile+'.log')).open('w') as log:
-            process=subprocess.Popen([sys.executable,__file__,str(out),'--profile',profile],env=env,stdout=log,stderr=subprocess.STDOUT)
+            process=subprocess.Popen([sys.executable,__file__,str(out),'--profile',profile],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             try:
                 while process.poll() is None:
                     try:
                         parent=psutil.Process(process.pid)
                         peak=max(peak,sum(p.memory_info().rss for p in [parent,*parent.children(recursive=True)] if p.is_running()))
                     except psutil.NoSuchProcess:pass
-                    if time.monotonic()-begin>180 or peak>3072*1024**2:terminate_tree(process.pid)
+                    if time.monotonic()-begin>180 or peak>3072*1024**2:terminate_tree(process)
                     time.sleep(.1)
                 process.wait()
             finally:
                 if process.poll() is None:
-                    try:terminate_tree(process.pid)
+                    try:terminate_tree(process)
                     finally:
                         if process.poll() is None:process.kill()
                         process.wait()
