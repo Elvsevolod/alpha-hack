@@ -204,7 +204,7 @@ def research_options(c):
     templates.update({name: PipelineSpec(model='lightgbm', shift_strategy=name)
         for name in ('importance_weighting', 'pseudo_label')})
     templates['optuna'] = PipelineSpec(engine='optuna', model='lightgbm')
-    names = [*templates, 'weighted_oof', 'stacked_oof', 'history', 'related_tables']
+    names = [*templates, 'feature_subset', 'weighted_oof', 'stacked_oof', 'history', 'related_tables']
     rows = {name: {'branch': name, 'status': 'no_admitted_attempt', 'measured_candidates': 0,
                    'technical_failures': 0} for name in names}
 
@@ -217,11 +217,20 @@ def research_options(c):
         elif isinstance(engine, str) and engine in templates: result.append(engine)
         if pipeline.get('shift_strategy', 'none') != 'none': result.append(pipeline['shift_strategy'])
         if engine == 'ensemble': result.append(pipeline.get('ensemble_strategy', 'uniform'))
+        from .preprocessing import selected_features
+        try:
+            selected = selected_features(PipelineSpec.model_validate(pipeline), c.task)
+        except (ValueError, TypeError):
+            selected = c.task.feature_columns
+        if set(selected) < set(c.task.feature_columns):
+            result.append('feature_subset')
         transforms = pipeline.get('transformations')
         if isinstance(transforms, list) and any(isinstance(op, dict) and op.get('name') == 'history' for op in transforms): result.append('history')
         return [name for name in result if isinstance(name, str) and name in rows]
 
     for spec, result in c.records():
+        if spec.validation_hash != c.plan.hash:
+            continue
         for name in branches(spec.pipeline.model_dump(mode='json')):
             row = rows[name]
             if result and result.status == 'completed' and result.scope != 'pilot' and result.score is not None:
@@ -229,12 +238,14 @@ def research_options(c):
             elif result and result.status != 'completed': row['technical_failures'] += 1
     for seq, raw in c.journal.db.execute("SELECT seq,payload FROM events WHERE kind='qwen_decision' ORDER BY seq"):
         command = json.loads(raw)['command']
+        operation = c.journal.operation(command['operation_id'])
+        if operation and operation.protocol_hash not in {None, c.plan.hash}:
+            continue
         args = command.get('arguments') or {}
         candidates = args.get('candidates')
         pipelines = [item.get('pipeline', {}) for item in candidates if isinstance(item, dict)] if command['tool'] == 'run_experiments' and isinstance(candidates, list) else [args.get('pipeline', {})]
         named = [name for pipeline in pipelines for name in branches(pipeline)]
         if command['tool'] == 'build_ensemble' and isinstance(args.get('strategy'), str) and args['strategy'] in rows: named.append(args['strategy'])
-        operation = c.journal.operation(command['operation_id'])
         for name in set(named):
             row = rows[name];row['last_proposed_operation'] = command['operation_id']
             row['status'] = 'proposed_not_measured'
@@ -249,6 +260,12 @@ def research_options(c):
         if name == 'history': reasons.append('requires evidence for an entity key and a time role; exact-feature equality is not identity')
         if name == 'history' and not c.task.time_column: reasons.append('no confirmed time role')
         if name == 'related_tables' and not c.task.related_tables: reasons.append('no confirmed supplied related tables')
+        if name == 'feature_subset':
+            if len(c.task.feature_columns) < 2:
+                reasons.append('requires at least two confirmed predictors for a nonempty proper subset')
+            row['diagnostic'] = ('Consider a task-justified group ablation when transfer or residual evidence warrants it. '
+                'Use include_features/exclude_features on confirmed predictors; retain structural time/group roles. '
+                'Keep model and other choices fixed for attribution. This is optional and does not prescribe columns or establish usefulness.')
         if name in ('weighted_oof', 'stacked_oof'):
             available = sum(bool(result and result.status == 'completed' and result.scope != 'pilot'
                 and spec.validation_hash == c.plan.hash and spec.pipeline.engine not in ('custom', 'ensemble'))
@@ -266,7 +283,7 @@ def research_options(c):
         temporal_support = {'fit_periods':int(periods), 'strict_oof_transitions':max(0, (int(periods)-1)//horizon),
             'earliest_schedule':'declared fixed cap when no earlier inner split exists',
             'small_history_is_quality_evidence':False}
-    return {'scope': 'admitted commands and measured research records; no hidden-control feedback', 'branches': list(rows.values()),
+    return {'scope': 'current-protocol measured research records and admitted proposals; confirmed old-protocol operations excluded; no hidden-control feedback', 'branches': list(rows.values()),
         'validation_protocol':{'mode':c.plan.evaluation_mode, 'control_revision_allowed':False,
             'initial_decision':next((row for row in c.plan.observations if row.get('type') == 'initial_protocol_decision'), None),
             'temporal_support':temporal_support},
