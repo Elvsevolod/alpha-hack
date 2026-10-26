@@ -109,11 +109,13 @@ def run(args):
     assert corpus_sha == lock['files']['knowledge.sqlite'], 'Local corpus is not materialized or does not match its lock'
     command = [sys.executable, '-u', str(ROOT / 'solution.py'), str(task / 'task.md'),
         '--time-limit', str(args.seconds), '--cpu', '1', '--memory-mb', '3072',
-        '--max-calls', '6', '--max-candidates', '2', '--run-id', 'bounded_autonomy', '--seed', '42']
+        '--max-calls', str(args.max_calls), '--max-candidates', str(args.max_candidates),
+        '--run-id', 'bounded_autonomy', '--seed', '42']
     freeze = dict(source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
         source_sha256=frozen_sources, driver_sha256=sha(Path(__file__)), input_sha256=input_hashes,
         corpus_sha256=corpus_sha, corpus_version=lock['corpus'], requirements_sha256=sha(ROOT / 'requirements.txt'),
-        seconds=args.seconds, cpu=1, memory_mb=3072, max_model_calls=6, max_candidates=2, seed=42,
+        seconds=args.seconds, cpu=1, memory_mb=3072, max_model_calls=args.max_calls,
+        max_candidates=args.max_candidates, seed=42,
         task_spec_supplied=False, transport='auto', model_or_hyperparameters_prescribed=False,
         generation_overrides_supplied=False, independent_quality_claimed=False,
         limitation='Previously viewed organizer data; native partial development environment; controller internal control can select finalists, not an independent model-quality confirmation.')
@@ -188,4 +190,9 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--env-file', type=Path, required=True)
     parser.add_argument('--seconds', type=int, default=600)
-    run(parser.parse_args())
+    parser.add_argument('--max-calls', type=int, default=6)
+    parser.add_argument('--max-candidates', type=int, default=2)
+    args = parser.parse_args()
+    if min(args.seconds, args.max_calls, args.max_candidates) <= 0:
+        parser.error('Time, call and candidate caps must be positive')
+    run(args)
