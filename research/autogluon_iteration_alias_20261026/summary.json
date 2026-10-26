@@ -1,0 +1,513 @@
+{
+  "source_commit_before": "1e6f564",
+  "original_search_sha256": "6490d4165213b7253a370a0627c4a0efa11acc467056f2a4a68c4a7266c59308",
+  "scope": "Native synthetic iteration identity; not organizer quality, autonomy or full resource benchmark",
+  "api_calls": 0,
+  "registry_version": 5,
+  "checks": [
+    {
+      "path": "outputs/autogluon_iteration_alias_20261026/after.xml",
+      "sha256": "d8da55ff6b510101feb31c3b289c628cd7c676066fbe699878c7abda94a29941",
+      "counts": {
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_iteration_alias_20261026/before.xml",
+      "sha256": "e1c8a504cdb041df594a3140f13a8d3c6fd917c6f722bc8da6d2bab5926137b6",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_iteration_alias_20261026/final.xml",
+      "sha256": "bf81587101bcaccd76e3eae8bdcb034d95a308319cc176115f26aa15f556164a",
+      "counts": {
+        "tests": 19,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "fit_histories": {
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-n_estimators]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_iterations]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_boost_round]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-n_estimators]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_iterations]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "after.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_boost_round]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-n_estimators]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_iterations]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[regression-num_boost_round]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-n_estimators]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_iterations]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ],
+    "final.xml:test_explicit_round_cap_does_not_override_selected_rounds_in_refit[classification-num_boost_round]": [
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 30,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 60,
+        "validation": true
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 100,
+        "validation": false
+      },
+      {
+        "actual_rounds": 1,
+        "input_parameters": {
+          "learning_rate": 0.5,
+          "min_child_samples": 1,
+          "num_boost_round": 1,
+          "seed_value": 42
+        },
+        "recorded_rounds": 1,
+        "rows": 120,
+        "validation": false
+      }
+    ]
+  },
+  "source_sha256": {
+    "automl_agent/search.py": "fdef6748e52dd634855832c4e50f32eb2b6a90e9290b7fc3d10dcb6af580eae7",
+    "automl_agent/contracts.py": "64605a4c030673a7f53b7f4561d30aba719edec36c68dbd7c92e6c59567e1432",
+    "automl_agent/compatibility.py": "671a1fedbd24a7b8cade93b2738619f3acc967014ae1d686820a9afe20d1a294",
+    "tests/test_autogluon_iteration_alias.py": "c9ab320938f60ac0015619cb6d286d9b8d9da979b692b3478e5f545ccd722a1e"
+  },
+  "backend_source_sha256": "c820aba3a0fefafc90485401a30f639ec5216c0a798919125744dc2eb3e0a903",
+  "before_observed_rounds": [
+    1,
+    30,
+    30
+  ],
+  "migration_of_previously_fitted_models_verified": false,
+  "official_contest_environment": false,
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false
+}

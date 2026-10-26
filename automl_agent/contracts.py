@@ -313,7 +313,7 @@ class PipelineSpec(Contract):
     hpo_sampler: Literal["auto", "random", "tpe"] = "auto"
     continue_study: bool = True
     autogluon_configurations: dict[str, list[dict[str, Any]]] = Field(default_factory=dict,
-        description="Explicit native CPU tree configurations. GBM class_weight and CAT class_weights dictionaries are unsupported here; use direct/Optuna for external-label weights. Native CAT auto_class_weights remains supported.")
+        description="Explicit native CPU tree configurations. GBM n_estimators/num_iterations/num_boost_round are one round cap; conflicting values are rejected. GBM class_weight and CAT class_weights dictionaries are unsupported here; use direct/Optuna for external-label weights. Native CAT auto_class_weights remains supported.")
     custom_oof: bool = False
     neighbor_scale: Literal["standard", "robust", "none"] = "standard"
     checkpoint_counts: list[int] = Field(default_factory=list, max_length=3)

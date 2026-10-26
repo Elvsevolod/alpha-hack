@@ -116,13 +116,23 @@ def autogluon_portfolio(spec, task, learners):
                 raise ValueError("AutoGluon GBM does not implement class_weight through its native LightGBM adapter; use direct/Optuna lightgbm for class_weight")
             if learner == "CAT" and isinstance(parameters.get("class_weights"), dict):
                 raise ValueError("AutoGluon CAT class_weights dictionaries require an external-to-internal label adapter; use direct/Optuna catboost or native auto_class_weights")
-            direct = PipelineSpec(model=families[learner], hyperparameters=parameters)
+            validation_parameters = dict(parameters)
+            if learner == "GBM" and "num_boost_round" in validation_parameters:
+                rounds = validation_parameters.pop("num_boost_round")
+                if any(validation_parameters.get(name, rounds) != rounds for name in ("n_estimators", "num_iterations")):
+                    raise ValueError("Conflicting AutoGluon GBM iteration aliases")
+                validation_parameters["num_iterations"] = rounds
+            direct = PipelineSpec(model=families[learner], hyperparameters=validation_parameters)
             if set(parameters) & {"ag_args", "ag_args_fit", "ag_args_ensemble"}:
                 raise ValueError("AutoGluon internal/resource configuration is controller-owned")
             from .pipelines import CONTROLLED_PARAMETERS
             if set(parameters) & CONTROLLED_PARAMETERS.get(direct.model, set()):
                 raise ValueError("AutoGluon configuration cannot override managed resources")
             normalized = validate_parameters(direct, task)
+            if learner == "GBM" and "n_estimators" in normalized:
+                # LGBModel merges its selected num_boost_round on refit. Native
+                # LightGBM iteration aliases would override that selected value.
+                normalized["num_boost_round"] = normalized.pop("n_estimators")
             suffix = "explicit" if explicit else "portfolio"
             result[learner].append({**normalized, **seeds[learner], "ag_args": {"name_suffix": f"_{suffix}_{index}"}})
     return result
