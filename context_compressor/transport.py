@@ -37,7 +37,7 @@ TRUST_INSTRUCTION = (
 )
 
 
-def _object(text):
+def _json_value(text):
     if not isinstance(text, str):
         raise ContextError("Response must contain JSON text")
     def pairs(items):
@@ -55,8 +55,20 @@ def _object(text):
         value = json.loads(text, object_pairs_hook=pairs, parse_constant=constant)
     except (ValueError, TypeError) as error:
         raise ContextError("Response is not one complete JSON object") from error
+    return value
+
+
+def _object(text):
+    value = _json_value(text)
     if not isinstance(value, dict):
         raise ContextError("Response must contain one object")
+    return value
+
+
+def _array(text):
+    value = _json_value(text)
+    if not isinstance(value, list):
+        raise ContextError("Response must contain one array")
     return value
 
 
@@ -239,6 +251,10 @@ class Transport:
                 if (properties.get("source", {}).get("anyOf") == [{"$ref": "#/$defs/RunSourceRef"}, {"type": "null"}]
                         and isinstance(arguments.get("source"), str)):
                     arguments["source"] = _object(arguments["source"])
+                if (function.get("name") == "run_experiments"
+                        and properties.get("candidates", {}).get("type") == "array"
+                        and isinstance(arguments.get("candidates"), str)):
+                    arguments["candidates"] = _array(arguments["candidates"])
             operation_id = arguments.pop("operation_id", None)
             note = arguments.pop("research_note", None)
             return Command.parse({"operation_id": operation_id, "tool": function.get("name"),
