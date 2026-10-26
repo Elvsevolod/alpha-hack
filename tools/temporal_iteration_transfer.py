@@ -58,12 +58,12 @@ def worker(out, profile):
         if record:
             actual=d.train.iloc[query][target].to_numpy()
             def metric(y,p):return 'primary',float(np.sqrt(np.mean((y-p)**2))),False
-            model.fit(matrix,y[target].to_numpy(),eval_set=[(valid,actual)],eval_metric=metric,
+            model.fit(matrix,y[target].to_numpy(),eval_set=[(valid,actual)],eval_names=['fit_inner'],eval_metric=metric,
                 callbacks=[lgb.record_evaluation(history)])
         else:
             model.fit(matrix,y[target].to_numpy())
         assert model.n_estimators_==cap
-        return model,processor,valid,history.get('validation_0',{}).get('primary')
+        return model,processor,valid,history.get('fit_inner',{}).get('primary')
 
     curves,origins=[],[]
     for end in [1,2]:
@@ -160,6 +160,8 @@ def run(out):
         if process.returncode==0:result.update(json.loads((out/profile/'result.json').read_text()))
         results.append(result);atomic_json(out/'results.json',dict(records=results,control_scored=False,api_calls=0))
         print(json.dumps(result),flush=True)
+    if any(row['returncode']!=0 for row in results):
+        raise SystemExit(1)
 
 
 if __name__=='__main__':
