@@ -1,0 +1,236 @@
+{
+  "source_commit": "0b598adda30dcafb11c120ae95c573705c8665d0",
+  "budget": {
+    "seconds": 600,
+    "cpu": 1,
+    "memory_mb": 3072,
+    "max_model_calls": 6,
+    "max_candidates": 2,
+    "seed": 42
+  },
+  "outcome": {
+    "status": "terminal",
+    "returncode": 0,
+    "wall_seconds": 357.3430849580036,
+    "sampled_peak_process_tree_rss_mib": 1379.25,
+    "child_cpu_seconds": 214.31190200000003,
+    "sources_unchanged": true,
+    "child_terminal": true,
+    "current": {
+      "state": "completed",
+      "llm_calls": 6,
+      "llm_seconds": 154.13314083399746,
+      "candidate_count": 0,
+      "control_status": "completed",
+      "refit_status": "completed",
+      "publication_scope": "full_train_refit",
+      "experiments": [
+        {
+          "id": "baseline",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.5741154952183929,
+          "scope": "baseline"
+        },
+        {
+          "id": "baseline_decision",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.598585728525193,
+          "scope": "baseline"
+        }
+      ],
+      "failure_present": false
+    }
+  },
+  "operations": [
+    {
+      "operation_id": "read_leader_pipeline",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "read_research_options",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_3_read_leader",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_5_preview",
+      "tool": "preview_recipe",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_6",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    }
+  ],
+  "event_counts": {
+    "qwen_request": 6,
+    "qwen_response": 6,
+    "qwen_decision": 5,
+    "qwen_failure": 1,
+    "qwen_response_truncated": 1,
+    "command_arguments_rejected": 0,
+    "native_fallback": 0
+  },
+  "agent": {
+    "control_scores": {
+      "baseline": 0.5207745359974641,
+      "baseline_decision": 0.5394158181070888
+    },
+    "control_winner": "baseline_decision",
+    "first_trained_csv_seconds": 57.821311950683594,
+    "token_usage": {
+      "completion_tokens": 16261,
+      "prompt_tokens": 169559,
+      "reasoning_tokens": 15406,
+      "total_tokens": 185820
+    },
+    "qwen_unknown_outcome": null
+  },
+  "api": {
+    "remaining_before": 600.0,
+    "remaining_after": 595.0771097650334,
+    "maximum": 600.0,
+    "comparison": {
+      "counter": "total_spend",
+      "increase": 4.922890234965962
+    },
+    "checked_before": "2026-10-26T02:11:33.824823+00:00",
+    "checked_after": "2026-10-26T02:17:31.343843+00:00",
+    "fingerprint_matched": true,
+    "counter_change_not_exclusively_attributed": true
+  },
+  "csv_validation": {
+    "rows": 41166,
+    "train_rows": 87670,
+    "columns": [
+      "id",
+      "attack_cat"
+    ],
+    "id_order_matches_test_and_sample": true,
+    "ids_unique": true,
+    "labels_legal": true,
+    "columns_match_sample": true,
+    "csv_sha256": "33acfc5dc769712011574d6d8ba10882da681b34d72b52364a08b0af9e5f6386",
+    "publication_sha_matches": true,
+    "inputs_unchanged": true,
+    "publication_scope": "full_train_refit"
+  },
+  "full_refit_rows": 87670,
+  "preview_handoff": {
+    "request_evidence": [
+      {
+        "call_id": 1,
+        "request_sha256": "cbbd9d4a2311581c1dd6cdd04c4b22203409990873146a326d2401a1c92eaf8c",
+        "base_recipe_hash_present": false,
+        "preview_recipe_hash_present": false
+      },
+      {
+        "call_id": 2,
+        "request_sha256": "3c47c309f99331f92abdb504e242c23f04de963819dd1336e53d26b886bd445f",
+        "base_recipe_hash_present": true,
+        "preview_recipe_hash_present": false
+      },
+      {
+        "call_id": 3,
+        "request_sha256": "66660920fb500f56ae7d9ab9461fc76a7aa59b08bc3d3f3e9170ca9f002440cd",
+        "base_recipe_hash_present": false,
+        "preview_recipe_hash_present": false
+      },
+      {
+        "call_id": 4,
+        "request_sha256": "8a2c3a9b4a6a9fe5c8c1ade4475ad5c9200ccc75d402a950eca2467639e9a0a3",
+        "base_recipe_hash_present": true,
+        "preview_recipe_hash_present": false
+      },
+      {
+        "call_id": 5,
+        "request_sha256": "00e2de09ec10c467c009d48474b3f2453f50a79def61914dc7a68a1c105faad6",
+        "base_recipe_hash_present": true,
+        "preview_recipe_hash_present": false
+      },
+      {
+        "call_id": 6,
+        "request_sha256": "89a6a6073ca929f5fc66488b7765f0edc90b3812024cb3a513b24e0e89134d7e",
+        "base_recipe_hash_present": false,
+        "preview_recipe_hash_present": true
+      }
+    ],
+    "returned_keys": [
+      "base_id",
+      "diff",
+      "learned_state",
+      "pipeline",
+      "recipe_hash",
+      "status"
+    ],
+    "base_hash_lost_after_intervening_read": true,
+    "exact_apply_recipe_returned": false,
+    "causal_claim_for_all_rereads": false
+  },
+  "source_schema_live_read_succeeded": true,
+  "autonomous_research_success": false,
+  "new_quality_gain_claimed": false,
+  "overall_goal_complete": false,
+  "limitations": [
+    "Previously viewed organizer data; control is not a fresh blind holdout",
+    "Native development, not the official Linux 8 CPU/32 GB/3 h environment",
+    "Six-call development cap consumed without research candidates; this does not prove general inability with a larger budget",
+    "Output repair not yet verified with real Qwen"
+  ],
+  "artifact_sha256": {
+    "freeze.json": "d722eb7ce50b9171cf592f4d50264dd994648d8b71ac6924b71d50345a2ca9f1",
+    "result.json": "cdefe921a753bbf66500fbcf4682ae23e6b3fe106b36f1ff5c6066fc13d4f6dd",
+    "api_limits_before_start.json": "1058c429d25428eb7f00bb535b3ad9ce1aa7d1b02d156a45d547089d9a20158f",
+    "api_limits_after.json": "63adf02a7c4f8cdc31275622672be29e737dd1fc97ff1c9da22ca475a9b4d0c8",
+    "csv_validation.json": "3f7f9506028cac71b5f92b1e065c992ac0abf84703f424c3a1b8aa936a85808d"
+  },
+  "input_sha256": {
+    "task.md": "7c4a2a2e96684a42a59735a5088a72b77097f1e8cc27c619bd5569442ebe297e",
+    "train.csv": "cda6241b9298322fab1ee530f6dca73c5da8777f746b6c76db780e411c9c0779",
+    "test.csv": "ce1bd44e4ab852af086f3a9773275e0c3b158346264deecdbae169e5106558c0",
+    "sample_submission.csv": "1d48ebbc5487800102fc361274c00a1291890dbd1fba67bae0502afa8be7f3a4",
+    "data_dictionary.csv": "89272480d0dc02b5a10e9817439ed52dcbfd3c62891bdee2f76577f16ca829e5"
+  },
+  "post_run_repair": {
+    "fix": "Preview includes exact apply_recipe with original base_hash; tool description distinguishes result hash",
+    "source_sha256": {
+      "automl_agent/contracts.py": "6fd48749701c077693d913edfb57539f21dcaefb410e3369dc5cbe43130c0d9f",
+      "automl_agent/recipe_patch.py": "e938d1badb977a0d1b75a76c9a9a777011db805365b870608085f262ba57ba19",
+      "tests/test_recipe_preview_handoff.py": "22c1d3e441a5f11cc5e4632390324c9d6a420ad8b3bf47cf20b84e67f68b0ecf"
+    },
+    "checks": {
+      "before": {
+        "tests": 4,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 20.615,
+        "xml_sha256": "dbcac0a780f19a5fd8d1f5abcd26751fe4c499e99627cb3eaf690614770f5ea3"
+      },
+      "after": {
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 67.952,
+        "xml_sha256": "2b3805a2d77866f32e44a76127082d3105aa367e4234b4ca76d89cf3e549d394"
+      }
+    },
+    "scripted_replay_only": true,
+    "live_repair_verified": false,
+    "autonomous_quality_gain_claimed": false
+  }
+}

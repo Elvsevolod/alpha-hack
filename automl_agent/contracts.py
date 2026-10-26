@@ -787,7 +787,7 @@ TOOL_SCHEMAS = {
 }
 
 TOOL_DESCRIPTIONS = {
-    "preview_recipe": "Copy recipe_hash from the complete base recipe read into base_hash (never diagnostic source_recipe_hash). Apply typed set/remove changes; return the normalized recipe, hash and diff without training. To execute, copy the same application into TrainArgs.apply_recipe.",
+    "preview_recipe": "Copy recipe_hash from the complete base recipe read into base_hash (never diagnostic source_recipe_hash). Apply typed set/remove changes; return the normalized recipe, hash and diff without training. To execute, copy the returned apply_recipe unchanged into the training call. The returned recipe_hash identifies the changed recipe and must not replace apply_recipe.base_hash.",
     "get_dataset_report": "Compute one permitted data report; target analysis and arbitrary slices use fit only. For transfer/domain, columns must be empty and predicate/group_by absent; all confirmed features are used. Domain never receives task labels.",
     "get_diagnostic_report": "Numeric evidence and optional PNG. For residuals/confusion_matrix supply experiment_id of a completed direct/Optuna model, scope=fit, columns=[], include_target=false. A bounded fit-inner copy includes training/rendering cost. Distributions use up to three columns without experiment_id.",
     "revise_validation": "State-changing action: may re-evaluate candidates and apply a new active validation protocol in this call, without further confirmation. Metric, roles and closed control cannot change.",

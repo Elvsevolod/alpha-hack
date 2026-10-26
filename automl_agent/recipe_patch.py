@@ -130,4 +130,8 @@ def resolve(c, application):
         raise ValueError("Ensemble inheritance requires build_ensemble with explicit verified member IDs")
     result, preview = patch(base, application.base_hash, application.changes)
     require_compatible(result, c.task, c.plan.strategy, c.capabilities)
-    return result, {"status": "success", "base_id": application.base_id, **preview}
+    # A later Qwen request may no longer contain the earlier base read or the
+    # preview command. Keep the executable application with its result: the
+    # normalized recipe_hash below is deliberately not the base_hash.
+    return result, {"status": "success", "base_id": application.base_id,
+        "apply_recipe": application.model_dump(mode="json"), **preview}
