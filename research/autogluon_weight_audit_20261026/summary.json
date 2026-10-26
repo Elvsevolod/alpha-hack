@@ -1,0 +1,131 @@
+{
+  "base_commit": "3b37cd924487ca28d8fbf5cbcaae04c9fb67fe83",
+  "before_search_source_sha256": "c974ae1d2b6583eb027c9e8a2da3cfb64d6a28c3cc03cb09d5013b8a1c93a6ca",
+  "scope": "Synthetic native AutoGluon 1.3.1 backend probe and offline scripted controller replay, not organizer quality or live autonomy",
+  "api_calls": 0,
+  "compatibility_registry_version": 4,
+  "checks": [
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/after.xml",
+      "sha256": "3ea43db0fd1e20912f9b6d9a7cc1bdaa0715d3deb35f73a0eaf3989959fc04db",
+      "counts": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/autogluon_regression.xml",
+      "sha256": "ca4efe3e28e83fff3569b77cb213aff5ba9629490995635da4d869febadb6a9f",
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/before.xml",
+      "sha256": "bb558e5265a83d5e0c2fd39e479a6fcc30b91bec3d3195f53fcbea544c4288c7",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 1,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/before_v2.xml",
+      "sha256": "42fa6a7ec882bc5d19461477c6f833be4ff877cd42a3279808acff425b2842a7",
+      "counts": {
+        "tests": 4,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/final.xml",
+      "sha256": "1b512427ba93a0c2b1ad390912cb1a8a396111477d674db3398dd51decc938d2",
+      "counts": {
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/recovery.xml",
+      "sha256": "cead3b0e5c44156663d1e0567c8189d561969d6203075ad97964f1fd2a938ff7",
+      "counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/recovery_final.xml",
+      "sha256": "1ae0afd610f9857684ab50c59610f14184fdb524bf01198d746fe4962c4095b3",
+      "counts": {
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/recovery_v2.xml",
+      "sha256": "1174b096489bafb7a845e70f9ce52337c1bae49dc23d39df032e36d3cd607f35",
+      "counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/autogluon_weight_audit_20261026/selection_regression.xml",
+      "sha256": "bab229dc5d5ace5ca14392327c8de879382e65a4ba94b13c853ad7560e305a4e",
+      "counts": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "final_source_sha256": {
+    "automl_agent/search.py": "6490d4165213b7253a370a0627c4a0efa11acc467056f2a4a68c4a7266c59308",
+    "automl_agent/contracts.py": "22a11030d0fffebb5ea5e32a00cd626232fe60af5e058a7436b5f6936c8cc528",
+    "automl_agent/compatibility.py": "d8c5d8bc95334b76d0886b78d85450025ed40c8bb2cf4342f646e171e36ebc88",
+    "tests/test_autogluon_weight_boundary.py": "0f69a5c53ba557d24a083657f5b5c44d67748c9ab7e42fa18217db4c74838f00",
+    "tests/test_autogluon_weight_recovery.py": "2aaf4a902bc114399113be9510a51795dafc571a5847ad23ef519c71a4010797"
+  },
+  "backend_source_sha256": {
+    "autogluon/tabular/models/lgb/lgb_model.py": "c820aba3a0fefafc90485401a30f639ec5216c0a798919125744dc2eb3e0a903",
+    "autogluon/tabular/models/catboost/catboost_model.py": "0efeb65c3b89fec16f53de71798d601ee57f17646860319a15aebee173709e75",
+    "autogluon/tabular/learner/default_learner.py": "86374a6dc16d210c50dfe9352e218ea3ec39b0bc4821003214bb37f91df96b0d",
+    "autogluon/core/data/label_cleaner.py": "ae05c5202b37a0d9646a09674a88708e1faf71268dda67094c300902706348f4"
+  },
+  "observations_sha256": "dbd5ea4962930238bb6442a4bfbd7e75edb1703b03770d7c5b0f991e18c33cbb",
+  "executed_probe_sha256": "391ee05f3eca637cdd86dff2596ccf9b8553ea15b9d7d82aeb521830397dd88b",
+  "archived_probe_sha256": "391ee05f3eca637cdd86dff2596ccf9b8553ea15b9d7d82aeb521830397dd88b",
+  "isolated_setup": {
+    "target": "outputs/autogluon_weight_audit_20261026/packages",
+    "setuptools": "75.8.2",
+    "requirements_or_main_venv_changed": false,
+    "official_contest_image": false
+  },
+  "fix": "Reject unsupported GBM class_weight and external-label CAT class_weights dictionaries before dispatch; advertise supported direct/Optuna route; no automatic recipe substitution.",
+  "weighted_autogluon_implemented": false,
+  "new_model_quality_gain_claimed": false,
+  "live_qwen_recovery_verified": false,
+  "overall_goal_complete": false,
+  "fixture_failures": {
+    "before.xml": "Collection fixture imported nonexistent issues instead of incompatibilities.",
+    "recovery.xml": "Fixture paired train_model with autogluon instead of using run_automl.",
+    "recovery_v2.xml": "Fixture used operation_id as a finish experiment_id; executor correctly rejected it."
+  }
+}

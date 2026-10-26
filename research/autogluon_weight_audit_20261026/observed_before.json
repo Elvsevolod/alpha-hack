@@ -1,0 +1,46 @@
+{
+  "source_commit": "3b37cd9",
+  "label_map": {
+    "10": 0,
+    "2": 1
+  },
+  "class_counts": {
+    "10": 133,
+    "2": 47
+  },
+  "results": {
+    "gbm_default": {
+      "status": "completed",
+      "prediction_sha256": "8254a901d6165b22d4455f30867884aa93f37b87e45c2552c47c5f53fd2b06f4",
+      "seconds": 0.1327181670058053
+    },
+    "gbm_balanced": {
+      "status": "completed",
+      "prediction_sha256": "8254a901d6165b22d4455f30867884aa93f37b87e45c2552c47c5f53fd2b06f4",
+      "seconds": 0.019383999999263324,
+      "max_abs_difference_from_default": 0.0
+    },
+    "gbm_dict": {
+      "status": "error",
+      "error_type": "TypeError",
+      "error": "Unknown type of parameter:class_weight, got:dict",
+      "seconds": 0.016131042000779416
+    },
+    "cat_dict": {
+      "status": "error",
+      "error_type": "CatBoostError",
+      "error": "Unknown class label: \"0\"",
+      "seconds": 0.06571612499828916
+    }
+  },
+  "api_calls": 0,
+  "versions": {
+    "autogluon.tabular": "1.3.1",
+    "autogluon.core": "1.3.1",
+    "pandas": "2.2.3",
+    "numpy": "1.26.4",
+    "scikit-learn": "1.5.2",
+    "lightgbm": "4.6.0",
+    "catboost": "1.2.8"
+  }
+}

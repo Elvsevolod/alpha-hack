@@ -107,6 +107,15 @@ def autogluon_portfolio(spec, task, learners):
             continue
         result[learner] = []
         for index, parameters in enumerate(entries):
+            # These are native AutoGluon learners, not our sklearn wrappers.
+            # LGBModel calls lightgbm.train: class_weight is a sklearn-only
+            # option (a preset is ignored, a dict fails conversion). CAT sees
+            # encoded labels, so external-label dictionaries are not portable.
+            # Do not silently replace either request with different weights.
+            if learner == "GBM" and "class_weight" in parameters:
+                raise ValueError("AutoGluon GBM does not implement class_weight through its native LightGBM adapter; use direct/Optuna lightgbm for class_weight")
+            if learner == "CAT" and isinstance(parameters.get("class_weights"), dict):
+                raise ValueError("AutoGluon CAT class_weights dictionaries require an external-to-internal label adapter; use direct/Optuna catboost or native auto_class_weights")
             direct = PipelineSpec(model=families[learner], hyperparameters=parameters)
             if set(parameters) & {"ag_args", "ag_args_fit", "ag_args_ensemble"}:
                 raise ValueError("AutoGluon internal/resource configuration is controller-owned")
