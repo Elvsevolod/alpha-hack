@@ -1,0 +1,93 @@
+{
+  "before_commit": "e6241f5",
+  "before_source_sha256": "8d3383578028eef3a3119cbe48e499a932ebc1eb3d605ea1d78fc6bb8f33cd9f",
+  "scope": "Remaining completion work versus verified prepared node; technical controller/CSV, not quality or autonomous selection",
+  "api_calls": 0,
+  "checks": [
+    {
+      "path": "outputs/cached_ensemble_cost_20261026/after.xml",
+      "sha256": "f5cdae17416719e4f902bbd7ee120ea8e6e5b160870d9c95bbdd16095210fb91",
+      "counts": {
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/cached_ensemble_cost_20261026/after_v2.xml",
+      "sha256": "76773f1c11ee22be1d6902d0f29cecf319452831660ccf1d50987bf9bd0a7489",
+      "counts": {
+        "tests": 25,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/cached_ensemble_cost_20261026/before.xml",
+      "sha256": "9c9c08aa94d043ed90be1e564aa87a1841d9f36964a772d551758aa4794f4449",
+      "counts": {
+        "tests": 6,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/cached_ensemble_cost_20261026/controller.xml",
+      "sha256": "cad4b43bb4cdc811963d8799168811f04632063799dbf494a5eb5eb532b6a59a",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "path": "outputs/cached_ensemble_cost_20261026/final.xml",
+      "sha256": "61e6ba368653a1d64db15b6d06b13de4675a154decede8c851d14797dab4d519",
+      "counts": {
+        "tests": 61,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "controller_traces": {
+    "controller.xml:test_real_controller_reuses_blend_then_refits_original_members": {
+      "cached_node_seconds": {
+        "exp_2d146058626f7af8": 0
+      },
+      "worker_phases": [
+        "refit",
+        "refit"
+      ],
+      "scope": "full_train_refit",
+      "rows": 25
+    },
+    "final.xml:test_real_controller_reuses_blend_then_refits_original_members": {
+      "cached_node_seconds": {
+        "exp_2d146058626f7af8": 0
+      },
+      "worker_phases": [
+        "refit",
+        "refit"
+      ],
+      "scope": "full_train_refit",
+      "rows": 25
+    }
+  },
+  "source_sha256": {
+    "automl_agent/completion.py": "f5f3ec5c2426b3915c9ebcbad79a52ae7c044c63d125cf8c9e418f61072fb2f0",
+    "automl_agent/controller.py": "b180087f14b9b16a033a52b1cdca91f5d0cce400f5912b3c433d274976781270",
+    "automl_agent/cleanup.py": "e51e19e1de5a842e21d15eae796edfeddd0d7061b7cfa5fea16ea8405743eab8",
+    "tests/test_cached_ensemble_cost.py": "722e24f51d7b106810be19d6e138c25f484f39f63dcefe9c230d514d146e95ff"
+  },
+  "cleanup_source_changed": false,
+  "cache_readiness_checks_relaxed": false,
+  "hash_verification_io_cost_calibrated": false,
+  "quality_gain_claimed": false,
+  "overall_goal_complete": false
+}
