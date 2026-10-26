@@ -1,0 +1,99 @@
+{
+  "baseline_commit": "d9f50c0fd7cbfc4efca790717d1eaa4fc47892f4",
+  "offline": true,
+  "organizer_api_calls": 0,
+  "before": {
+    "method_source": "HEAD Controller.revise_validation and protocol_revision.continue_revision loaded in isolated Python process",
+    "failed": 3,
+    "reason": "new-fit composition training called zero times, expected once"
+  },
+  "cases": [
+    {
+      "strategy": "weighted_oof",
+      "decision": "argmax",
+      "status": "completed",
+      "fit_rows": 136,
+      "validation_rows": 34,
+      "old_fit_new_validation_overlap": 31,
+      "old_meta_label_new_validation_overlap": 6,
+      "control_unchanged": true,
+      "new_weights_present": true,
+      "new_meta_present": false,
+      "new_decision_present": false,
+      "oof_seconds": 1.724133014678955,
+      "candidate_budget_seconds": 14.718957414052966
+    },
+    {
+      "strategy": "stacked_oof",
+      "decision": "argmax",
+      "status": "completed",
+      "fit_rows": 136,
+      "validation_rows": 34,
+      "old_fit_new_validation_overlap": 31,
+      "old_meta_label_new_validation_overlap": 6,
+      "control_unchanged": true,
+      "new_weights_present": false,
+      "new_meta_present": true,
+      "new_decision_present": false,
+      "oof_seconds": 1.7181768417358398,
+      "candidate_budget_seconds": 14.611071489040114
+    },
+    {
+      "strategy": "uniform",
+      "decision": "regularized",
+      "status": "completed",
+      "fit_rows": 120,
+      "validation_rows": 50,
+      "old_fit_new_validation_overlap": 48,
+      "old_meta_label_new_validation_overlap": 6,
+      "control_unchanged": true,
+      "new_weights_present": false,
+      "new_meta_present": false,
+      "new_decision_present": true,
+      "oof_seconds": 1.7249021530151367,
+      "candidate_budget_seconds": 14.662466607822807
+    }
+  ],
+  "verification_status": "passed",
+  "quality_gain_claimed": false,
+  "autonomous_qwen_selection_verified": false,
+  "limits": "synthetic technical fixtures; stability windows disabled in new boundary tests; no official full Linux run",
+  "checks": {
+    "related_suite": {
+      "passed": 60,
+      "seconds": 312.12,
+      "warnings": 13,
+      "files": [
+        "tests/test_revision_learned_composition.py",
+        "tests/test_v010_recovery_budget.py",
+        "tests/test_audit_workflow.py",
+        "tests/test_cached_ensemble_cost.py",
+        "tests/test_final_boundaries.py",
+        "tests/test_plan_nested_learning.py"
+      ]
+    },
+    "current_source": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 82.09,
+      "xml": "outputs/protocol_composition_refit_20261026/current_checks.xml",
+      "xml_sha256": "bf47703c0587d8d6777dfa2c724fa4705b1e0e88d88bc0608f39aa5e533f31c0"
+    },
+    "overlapping_counts_are_not_summed": true
+  },
+  "source_sha256": {
+    "automl_agent/controller.py": "6bdb2deb6629b51c658cb078dae586402d1dfe7c873ce1f577d90957361845c9",
+    "automl_agent/protocol_revision.py": "bdd1d6125eb72a64749f1682e6eba3c4e454d04c959875c9bc061600fe60c0c2",
+    "tests/test_revision_learned_composition.py": "6ab737a74f34b7a272be4f3479b94e986bdab082e6c56c42caf481fd2585d774"
+  },
+  "recovery_assertions": {
+    "known_first_oof_reused_new_worker_count": 1,
+    "unknown_oof_new_worker_count": 0,
+    "ready_and_after_compose_new_worker_count": 0,
+    "deadline_and_candidate_count_preserved": true,
+    "unknown_outcome_preserves_prior_protocol_and_csv": true,
+    "unknown_outcome_visible_in_public_feedback": true,
+    "manifest_checksum_verified": true
+  }
+}

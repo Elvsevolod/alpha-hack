@@ -695,7 +695,7 @@ class Controller:
         history[value["identity"]] = value["trials"][-200:]
         self.journal.put("hpo_histories", dict(list(history.items())[-32:]))
 
-    def execute_experiment(self, spec, automatic_pilot=True):
+    def execute_experiment(self, spec, automatic_pilot=True, execution_deadline=None):
         started = time.monotonic()
         pilot = None
         pilot_total_seconds = 0.
@@ -706,7 +706,7 @@ class Controller:
         end = min(self.budget.deadline - self.budget.final_reserve(proposed if proposed is not None else self.finalist_costs()), time.time() + spec.budget_seconds)
         try:
             if spec.pipeline.engine == "ensemble":
-                return self.compose_ensemble(spec)
+                return self.compose_ensemble(spec, execution_deadline=execution_deadline)
             if end - time.time() <= .2:
                 return self.failed_result(spec, {"status": "timeout", "error": "Complete finalization reserve exhausted before candidate execution"})
             if automatic_pilot and spec.pipeline.shift_strategy == "pseudo_label":
@@ -2251,7 +2251,9 @@ class Controller:
         for identifier in active:
             visit(identifier)
         candidates = [active[identifier] for identifier in ordered]
-        required = sum(max(r.seconds, 1) for s, r in candidates if s.pipeline.engine != "ensemble") * 2
+        # Learned composition includes fresh member OOF fits on the new fit
+        # population; its measured cost cannot be omitted from the transaction.
+        required = sum(max(5, r.seconds * 2) for _, r in candidates)
         available_candidates = self.budget.snapshot()["candidates"]
         if (available_candidates is not None and available_candidates < len(candidates)) or self.budget.remaining < required + self.budget.final_reserve(self.finalist_costs()):
             raise ValueError("Insufficient budget to re-evaluate every comparable candidate on a new protocol")
@@ -2279,18 +2281,41 @@ class Controller:
         revised.feedback_policy.report_ids = (["missingness", "seen_unseen"]
             + (["classes"] if self.task.classes else ["regression_errors"] if self.task.kind != "ranking" else [])
             + (["entity_coverage"] if self.task.group_column else []) + [p["report_id"] for p in partitions])
-        protocols = self.journal.get("protocols")
-        protocols[revised.hash] = revised.model_dump(mode="json")
-        self.journal.put("protocols", protocols)
         replacements = {s.experiment_id: f"{s.experiment_id}_v{revised.version}" for s, _ in candidates}
         items = []
         for previous, cost in candidates:
             current = previous.model_copy(deep=True, update={"experiment_id": replacements[previous.experiment_id],
                 "parent_id": previous.experiment_id, "validation_hash": revised.hash,
                 "budget_seconds": max(5, cost.seconds * 2)})
+            composition_refit = None
             if current.pipeline.engine == "ensemble":
                 current.pipeline.members = [replacements[member] for member in previous.pipeline.members]
-            items.append({"old_id": previous.experiment_id, "spec": current.model_dump(mode="json"), "status": "pending"})
+                if current.pipeline.ensemble_strategy != "uniform" or current.pipeline.learned_decision:
+                    # Preserve declared intent separately from fitted state.
+                    # Old fit labels may belong to revised validation.
+                    composition_refit = {"final_decision": "regularized" if current.pipeline.learned_decision else "argmax"}
+                    current.pipeline = current.pipeline.model_copy(update={
+                        "ensemble_weights": None, "ensemble_meta": {}, "learned_decision": {}})
+                    # New fold sizes/strategy can cost more than old OOF.
+                    # Forecast from completed member measurements under the
+                    # proposed split before starting the transaction.
+                    from .learned_blend import oof_forecast
+                    self.plan = revised
+                    try:
+                        forecast = oof_forecast(self, previous.pipeline.members)
+                    finally:
+                        self.plan = old
+                    composition_refit["forecast"] = forecast
+                    non_oof = max(1., cost.seconds - cost.training_summary.get("research_oof_seconds", 0.))
+                    current.budget_seconds = max(current.budget_seconds, forecast["seconds"] * 1.25 + non_oof * 2)
+            items.append({"old_id": previous.experiment_id, "spec": current.model_dump(mode="json"),
+                "status": "pending", "composition_refit": composition_refit})
+        required = sum(item["spec"]["budget_seconds"] for item in items)
+        if self.budget.remaining < required + self.budget.final_reserve(self.finalist_costs()):
+            raise ValueError("Insufficient budget for complete protocol candidates and fresh composition OOF")
+        protocols = self.journal.get("protocols")
+        protocols[revised.hash] = revised.model_dump(mode="json")
+        self.journal.put("protocols", protocols)
         operation = {"operation_id": operation_id or f"protocol_v{revised.version}", "status": "pending",
             "old": old.model_dump(mode="json"), "proposed": revised.model_dump(mode="json"),
             "deadline": self.budget.deadline, "baseline_id": self.journal.get("baseline_id"),
@@ -2408,7 +2433,7 @@ class Controller:
         for member in spec.pipeline.members:
             self.verify_dependency_artifacts(member, visited)
 
-    def compose_ensemble(self, spec):
+    def compose_ensemble(self, spec, execution_deadline=None):
         members = [self.lookup(identifier) for identifier in spec.pipeline.members]
         for member, result in members:
             if not result or result.status != "completed" or result.scope == "pilot" or member.validation_hash != self.plan.hash:
@@ -2430,10 +2455,16 @@ class Controller:
         from .completion import candidate_costs
         stability_started = time.monotonic()
         result.training_summary['temporal_stability'] = self.temporal_stability(spec,
-            min(self.budget.deadline-self.budget.final_reserve(candidate_costs(self, spec.pipeline)),time.time()+spec.budget_seconds))
+            min(self.budget.deadline-self.budget.final_reserve(candidate_costs(self, spec.pipeline)),
+                execution_deadline if execution_deadline is not None else time.time()+spec.budget_seconds))
         result.training_summary['research_stability_seconds'] = time.monotonic() - stability_started
         result.seconds = time.monotonic() - started
         result.finish_seconds = dependency_cost * 3
+        # Recovery evaluates this manifest again: retain the completed stability
+        # work and its time before exposing the result/dependency checksum.
+        raw.update(training_summary=result.training_summary, seconds=result.seconds)
+        atomic_json(directory / "worker_result.json", raw)
+        result.artifacts["worker_manifest_sha256"] = file_hash(directory / "worker_result.json")
         return result
 
     def blend_members(self, members, destination, parts, rows_by_part=None, pipeline=None):
