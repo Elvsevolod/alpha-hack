@@ -1,0 +1,500 @@
+{
+  "source_commit": "d0bcb7f1a7f8373be3c5b6fd0accaf2fca65f06a",
+  "protocol": "docs/research/2026-10-26-autonomy-budget-protocol.md",
+  "budget": {
+    "seconds": 900,
+    "cpu": 1,
+    "memory_mb": 3072,
+    "max_model_calls": 12,
+    "max_candidates": 2,
+    "seed": 42
+  },
+  "outcome": {
+    "status": "terminal",
+    "returncode": 0,
+    "wall_seconds": 746.1301354579991,
+    "sampled_peak_process_tree_rss_mib": 1347.4375,
+    "child_cpu_seconds": 529.600748,
+    "sources_unchanged": true,
+    "child_terminal": true,
+    "current": {
+      "state": "completed",
+      "llm_calls": 6,
+      "llm_seconds": 249.0236776249949,
+      "candidate_count": 2,
+      "control_status": "completed",
+      "refit_status": "completed",
+      "publication_scope": "full_train_refit",
+      "experiments": [
+        {
+          "id": "baseline",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.5741154952183929,
+          "scope": "baseline"
+        },
+        {
+          "id": "baseline_decision",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.598585728525193,
+          "scope": "baseline"
+        },
+        {
+          "id": "exp_6f9eea05ae77eb23",
+          "model": "lightgbm",
+          "status": "completed",
+          "score": 0.650244412486422,
+          "scope": "full"
+        },
+        {
+          "id": "exp_4af705d21d5d50b2",
+          "model": "lightgbm",
+          "status": "timeout",
+          "score": null,
+          "scope": "full"
+        }
+      ],
+      "failure_present": false
+    }
+  },
+  "agent": {
+    "control_scores": {
+      "baseline": 0.5207745359974641,
+      "baseline_decision": 0.5394158181070888,
+      "exp_6f9eea05ae77eb23": 0.6200993889482452
+    },
+    "control_winner": "exp_6f9eea05ae77eb23",
+    "first_trained_csv_seconds": 57.54855298995972,
+    "token_usage": {
+      "completion_tokens": 22763,
+      "prompt_tokens": 184287,
+      "reasoning_tokens": 18492,
+      "total_tokens": 207050
+    },
+    "qwen_unknown_outcome": null
+  },
+  "experiments": [
+    {
+      "id": "baseline",
+      "parent": null,
+      "search_action": "draft",
+      "parameters": {
+        "learning_rate": 0.05,
+        "n_estimators": 300,
+        "num_leaves": 31
+      },
+      "prediction_policy": "default",
+      "postprocess_fit_policy": "none",
+      "decision_method": "legacy",
+      "status": "completed",
+      "score": 0.5741154952183929,
+      "seconds": 42.40493858300033,
+      "peak_memory_mb": 625.75,
+      "budget_seconds": 108.0,
+      "error": null,
+      "scope": "baseline",
+      "research_stability_seconds": 22.15656979200139,
+      "research_comparison_seconds": null
+    },
+    {
+      "id": "baseline_decision",
+      "parent": "baseline",
+      "search_action": "improve",
+      "parameters": {
+        "learning_rate": 0.05,
+        "n_estimators": 300,
+        "num_leaves": 31
+      },
+      "prediction_policy": "class_offsets",
+      "postprocess_fit_policy": "pooled_oof",
+      "decision_method": "regularized",
+      "status": "completed",
+      "score": 0.598585728525193,
+      "seconds": 108.31270820801001,
+      "peak_memory_mb": 676.21875,
+      "budget_seconds": 108.0,
+      "error": null,
+      "scope": "baseline",
+      "research_stability_seconds": 47.27347441699385,
+      "research_comparison_seconds": 0.11464608300593682
+    },
+    {
+      "id": "exp_6f9eea05ae77eb23",
+      "parent": "baseline_decision",
+      "search_action": "improve",
+      "parameters": {
+        "class_weight": "balanced",
+        "learning_rate": 0.05,
+        "n_estimators": 300,
+        "num_leaves": 31
+      },
+      "prediction_policy": "class_offsets",
+      "postprocess_fit_policy": "pooled_oof",
+      "decision_method": "regularized",
+      "status": "completed",
+      "score": 0.650244412486422,
+      "seconds": 122.75813874999585,
+      "peak_memory_mb": 668.890625,
+      "budget_seconds": 120.0,
+      "error": null,
+      "scope": "full",
+      "research_stability_seconds": 70.58671999999933,
+      "research_comparison_seconds": 2.466875625003013
+    },
+    {
+      "id": "exp_4af705d21d5d50b2",
+      "parent": "baseline_decision",
+      "search_action": "improve",
+      "parameters": {
+        "learning_rate": 0.05,
+        "n_estimators": 800,
+        "num_leaves": 63
+      },
+      "prediction_policy": "class_offsets",
+      "postprocess_fit_policy": "pooled_oof",
+      "decision_method": "regularized",
+      "status": "timeout",
+      "score": null,
+      "seconds": 113.87574116700125,
+      "peak_memory_mb": 953.515625,
+      "budget_seconds": 113.74198619161353,
+      "error": "External resource monitor stopped the candidate",
+      "scope": "full",
+      "research_stability_seconds": null,
+      "research_comparison_seconds": null
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "step_1_read_guides",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_2_read_leader_pipeline",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_3a_read_leader",
+      "tool": "read_run_records",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "step_6_weight_capacity",
+      "tool": "run_experiments",
+      "status": "succeeded",
+      "experiment_id": null
+    },
+    {
+      "operation_id": "batch_f582fabaec752b13a2396488",
+      "tool": "train_model",
+      "status": "succeeded",
+      "experiment_id": "exp_6f9eea05ae77eb23"
+    },
+    {
+      "operation_id": "batch_3dd8fe1e72fcda02ebbe15c4",
+      "tool": "train_model",
+      "status": "succeeded",
+      "experiment_id": "exp_4af705d21d5d50b2"
+    }
+  ],
+  "event_counts": {
+    "qwen_request": 6,
+    "qwen_response": 6,
+    "qwen_decision": 4,
+    "qwen_failure": 2,
+    "command_arguments_rejected": 2,
+    "qwen_response_truncated": 0,
+    "native_fallback": 0
+  },
+  "research_budget_wire": [
+    {
+      "call_id": 1,
+      "calls_counter": 0,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 11,
+        "qwen_calls_remaining_at_snapshot": 12,
+        "qwen_seconds_used": 0,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "f0d82c15a0dea1e63de48c3dfde984ad98b1b687c4d1c0c113420a1f949dcf7f"
+    },
+    {
+      "call_id": 2,
+      "calls_counter": 1,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 10,
+        "qwen_calls_remaining_at_snapshot": 11,
+        "qwen_seconds_used": 12.425505790997704,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "6856c4b49826d9387be8f003e49920b8279da630c8772de9c604ee9465ddf73c"
+    },
+    {
+      "call_id": 3,
+      "calls_counter": 2,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 9,
+        "qwen_calls_remaining_at_snapshot": 10,
+        "qwen_seconds_used": 37.8163434159942,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "aeea4b62b62b38077e95a55883fc01a6b35f4831c99b75619926a86e822ed3fa"
+    },
+    {
+      "call_id": 4,
+      "calls_counter": 3,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 8,
+        "qwen_calls_remaining_at_snapshot": 9,
+        "qwen_seconds_used": 51.874161166000704,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "c3e1435bf8b21722fd74d867c048f0ba3b26a7a9f1e9aea70cb4c486465b5dc5"
+    },
+    {
+      "call_id": 5,
+      "calls_counter": 4,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 7,
+        "qwen_calls_remaining_at_snapshot": 8,
+        "qwen_seconds_used": 108.49251466600253,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "1a783f9f2fd5649c57ff691f9954613d388caa5c19e221419c477339e9ca3137"
+    },
+    {
+      "call_id": 6,
+      "calls_counter": 5,
+      "budget": {
+        "candidates_remaining": 2,
+        "critic_call_cost_if_required_and_uncached": 1,
+        "critic_condition": "Custom or measured expensive proposals; cheap native fits and cached reviews may need no additional call.",
+        "critic_disabled": false,
+        "critic_measured_threshold_seconds": 120,
+        "local_candidate_limit": 2,
+        "local_qwen_calls_limit": 12,
+        "local_qwen_seconds_limit": null,
+        "qwen_calls_remaining_after_one_generation": 6,
+        "qwen_calls_remaining_at_snapshot": 7,
+        "qwen_seconds_used": 189.7720814159984,
+        "scope": "Immutable decision snapshot before its first generation; transport retries consume additional calls. Null means no local cap; provider limits are not inferred."
+      },
+      "request_sha256": "4316581e53aa70e8f20744a2bdce220dc5252aa6773885219c2121ad5f71d4e9"
+    }
+  ],
+  "csv_validation": {
+    "rows": 41166,
+    "train_rows": 87670,
+    "full_refit_rows": 87670,
+    "columns": [
+      "id",
+      "attack_cat"
+    ],
+    "id_order_matches_test_and_sample": true,
+    "ids_unique": true,
+    "labels_legal": true,
+    "columns_match_sample": true,
+    "csv_sha256": "601ff4192d8c5a2aab77ad452c9bb3df1baafd3cdd0776e7d775b9ede7e8073e",
+    "publication_sha_matches": true,
+    "inputs_unchanged": true,
+    "publication_scope": "full_train_refit",
+    "full_refit_class_weight": "balanced"
+  },
+  "prediction_audit": {
+    "recomputed": [
+      {
+        "id": "baseline",
+        "scope": "validation",
+        "rows": 16299,
+        "macro_f1": 0.5741154952183929,
+        "matches_report": true,
+        "predictions_sha256": "865f19822322d80094884b14c5806237b17f7468a1a2959816a7d320198a190f"
+      },
+      {
+        "id": "baseline",
+        "scope": "control",
+        "rows": 14397,
+        "macro_f1": 0.5207745359974641,
+        "matches_report": true,
+        "predictions_sha256": "f389a371a9fb8bea15b248a87ceb270cf5507cd30e15ae57c6424e37405a4246"
+      },
+      {
+        "id": "baseline_decision",
+        "scope": "validation",
+        "rows": 16299,
+        "macro_f1": 0.598585728525193,
+        "matches_report": true,
+        "predictions_sha256": "3619b2e079f23a104a8c85b122ad5fee669d1ab8c87eab89c40967fa3fe5c9d7"
+      },
+      {
+        "id": "baseline_decision",
+        "scope": "control",
+        "rows": 14397,
+        "macro_f1": 0.5394158181070888,
+        "matches_report": true,
+        "predictions_sha256": "ecb7baa1f6daa4f2b477e2da80601fdc8e3e47414b0e548b254cb891942d4231"
+      },
+      {
+        "id": "exp_6f9eea05ae77eb23",
+        "scope": "validation",
+        "rows": 16299,
+        "macro_f1": 0.650244412486422,
+        "matches_report": true,
+        "predictions_sha256": "2eb2cc94c5fd5d161fd6dee918d11b29a5efec8be11a2d17b1149d97a38c382b"
+      },
+      {
+        "id": "exp_6f9eea05ae77eb23",
+        "scope": "control",
+        "rows": 14397,
+        "macro_f1": 0.6200993889482452,
+        "matches_report": true,
+        "predictions_sha256": "e01fbaa02c4c05acd998606e1d22f6de97bbd5dd5262dc7290177dcb24135128"
+      }
+    ],
+    "serialized_full_refit_class_weight": "balanced",
+    "full_refit_rows": 87670,
+    "frozen_model": "lightgbm",
+    "frozen_parameters": {
+      "class_weight": "balanced",
+      "learning_rate": 0.05,
+      "n_estimators": 300,
+      "num_leaves": 31
+    },
+    "frozen_prediction_policy": "class_offsets",
+    "raw_argmax_diagnostic_only_not_used_for_selection": [
+      {
+        "id": "baseline_decision",
+        "scope": "validation",
+        "raw_argmax_macro_f1": 0.5741154952183929
+      },
+      {
+        "id": "baseline_decision",
+        "scope": "control",
+        "raw_argmax_macro_f1": 0.5207745359974641
+      },
+      {
+        "id": "exp_6f9eea05ae77eb23",
+        "scope": "validation",
+        "raw_argmax_macro_f1": 0.6218214395188444
+      },
+      {
+        "id": "exp_6f9eea05ae77eb23",
+        "scope": "control",
+        "raw_argmax_macro_f1": 0.5972849994473388
+      }
+    ]
+  },
+  "full_refit_seconds": 18.47684450000088,
+  "api": {
+    "remaining_before": 595.0771097650334,
+    "remaining_after": 588.8470138599606,
+    "maximum": 600.0,
+    "comparison": {
+      "counter": "total_spend",
+      "increase": 6.230095905073085
+    },
+    "checked_before": "2026-10-26T02:48:13.900014+00:00",
+    "checked_after": "2026-10-26T03:00:39.897110+00:00",
+    "fingerprint_matched": true,
+    "counter_change_not_exclusively_attributed": true
+  },
+  "control_scope": {
+    "previously_viewed": true,
+    "internal_control_selects_finalist": true,
+    "fresh_independent_quality_confirmation": false,
+    "sizes": {
+      "fit": 56974,
+      "validation": 16299,
+      "control": 14397
+    },
+    "same_as_author_recipe_control": false,
+    "control_indices_sha256": "e21542917cb549059e83fd8a064efb5e606d623e103f8f112e678389ca9d4843"
+  },
+  "autonomous_candidate_completed": true,
+  "controller_fallback_used_for_candidate": false,
+  "preview_receipt_exercised_live": false,
+  "resource_budget_exercised_live": true,
+  "overall_goal_complete": false,
+  "independent_gain_claimed": false,
+  "within_run_validation_gain": 0.05165868396122897,
+  "within_run_control_gain": 0.0806835708411564,
+  "input_sha256": {
+    "task.md": "7c4a2a2e96684a42a59735a5088a72b77097f1e8cc27c619bd5569442ebe297e",
+    "train.csv": "cda6241b9298322fab1ee530f6dca73c5da8777f746b6c76db780e411c9c0779",
+    "test.csv": "ce1bd44e4ab852af086f3a9773275e0c3b158346264deecdbae169e5106558c0",
+    "sample_submission.csv": "1d48ebbc5487800102fc361274c00a1291890dbd1fba67bae0502afa8be7f3a4",
+    "data_dictionary.csv": "89272480d0dc02b5a10e9817439ed52dcbfd3c62891bdee2f76577f16ca829e5"
+  },
+  "artifact_sha256": {
+    "freeze.json": "87d9a087e3800dd740355ccd46218dafd0b43672ab2732f3c59f1f37023bd191",
+    "result.json": "4e40898efd4814a2a977f8b12882baa51469bc8c1b1fc46bb7c602b89c6587fa",
+    "api_limits_before_start.json": "78fbdaed6d5aebfdd11cde29d01701d31808ae0f1494cd6f6c61ce3795fe28f2",
+    "api_limits_after.json": "048b23465e9438b15541f7017cc167488effeefba6afa8119cd9b1b3e523dfcf",
+    "csv_validation.json": "648cc2a6e593317ecbfe51861bb6506b68b2125f9adf1e817db08776f6d6e34c",
+    "prediction_audit.json": "6011d316763170ad653bd6dcf1c526e1b8c0fdf0d2529908573b439cdf7fd7ab"
+  },
+  "model_command_to_executed_recipe_audit": [
+    {
+      "id": "exp_6f9eea05ae77eb23",
+      "parent": "baseline_decision",
+      "source": "qwen_decision.run_experiments.pipeline",
+      "recipe_hash": "324eb7f39bcfa1c2e178deb8babbd2ebb4fe7a84e198cfc98e00d5b3b18048bc",
+      "exact_model_recipe_after_declared_inheritance_matches_executed_spec": true
+    },
+    {
+      "id": "exp_4af705d21d5d50b2",
+      "parent": "baseline_decision",
+      "source": "qwen_decision.run_experiments.pipeline",
+      "recipe_hash": "51fa4be3478539e478ad620f652bc1dcba7c8e81252425369d3a8e482d57409b",
+      "exact_model_recipe_after_declared_inheritance_matches_executed_spec": true
+    }
+  ],
+  "apply_recipe_exercised_live": false,
+  "preregistered_protocol_sha256": "124fd9e0091283eac15cde2983aaea61f533065dedb2d0000c7248498c828f81"
+}
